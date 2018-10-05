@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2_10_right_float_window</title>
+<style>
+*{margin: 0;padding: 0;}
+body{height: 2000px;}
+#div{width: 100px;height: 100px;background: red;position: absolute;right: 0;bottom: 0;}
+</style>
+<script>
+/*
+window.onscroll = function () {  //The onscroll event occurs when an element's scrollbar is being scrolled.
+    //1,给浏览器的滚动添加事件，onscollTop事件
+    var oDiv = document.getElementById('div');
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 取整体的高度
+    //The scrollTop property sets or returns the number of pixels an element's content is scrolled vertically.
+    //The documentElement property returns the documentElement of the document, as an Element object.
+    //可视区域的高度减掉物体高度再加上向上滚动的高度
+    //  oDiv.style.top = document.documentElement.clientHeight-oDiv.offsetHeight+scrollTop+'px';
+
+    // 如果想其在屏幕中间，则
+    //oDiv.style.top = (document.documentElement.clientHeight-oDiv.offsetHeight)/2+scrollTop+'px';
+    // 否则就是在屏幕的右下角
+    // 注意，这个时候的红色区域是在中间不断地抖动，是因为 /2 会产生0.5，那么最后就会不停地跳动
+    //    starMove((document.documentElement.clientHeight-oDiv.offsetHeight)/2 +scrollTop)
+    //	所以需要添加一个 parseInt，
+    starMove(parseInt((document.documentElement.clientHeight - oDiv.offsetHeight) / 2 + scrollTop))
+};
+
+var timer = null;
+
+function starMove(iTarget) {
+
+    var oDiv = document.getElementById('div');
+    clearInterval(timer);
+    timer = setInterval(function () {
+
+        var speed = (iTarget - oDiv.offsetTop) / 4;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if (oDiv.offsetTop == iTarget) {
+
+            clearInterval(timer)
+        }
+        else {
+            oDiv.style.top = oDiv.offsetTop + speed + 'px';
+        }
+    }, 30)
+}*/
+
+</script>
+</head>
+<body>
+    <div class="div" id="div"></div>
+
+<script>
+ window.onscroll = function () 
+ {  
+     //The onscroll event occurs when an element's scrollbar is being scrolled.
+        //1,给浏览器的滚动添加事件，onscollTop事件
+        var oDiv = document.getElementById('div');
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 取整体的高度
+        //The scrollTop property sets or returns the number of pixels an element's content is scrolled vertically.
+        //The documentElement property returns the documentElement of the document, as an Element object.
+        //可视区域的高度减掉物体高度再加上向上滚动的高度
+        //  oDiv.style.top = document.documentElement.clientHeight-oDiv.offsetHeight+scrollTop+'px';
+
+        // 如果想其在屏幕中间，则
+        //oDiv.style.top = (document.documentElement.clientHeight-oDiv.offsetHeight)/2+scrollTop+'px';
+        // 否则就是在屏幕的右下角
+        // 注意，这个时候的红色区域是在中间不断地抖动，是因为 /2 会产生0.5，那么最后就会不停地跳动
+        //    starMove((document.documentElement.clientHeight-oDiv.offsetHeight)/2 +scrollTop)
+        //	所以需要添加一个 parseInt，
+        starMove(parseInt((document.documentElement.clientHeight - oDiv.offsetHeight) / 2 + scrollTop))
+};
+
+var timer = null;
+
+function starMove(iTarget) {
+
+    var oDiv = document.getElementById('div');
+    clearInterval(timer);
+    timer = setInterval(function () {
+
+        var speed = (iTarget - oDiv.offsetTop) / 4;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if (oDiv.offsetTop == iTarget) {
+
+            clearInterval(timer)
+        }
+        else {
+            oDiv.style.top = oDiv.offsetTop + speed + 'px';
+        }
+    }, 30)
+}       
+
+</script>
+<pre>
+
+
+
+window.<font color="red"><b>onscroll</b></font> = function ()
+{
+    //The onscroll event occurs when an element's scrollbar is being scrolled.
+    //1,给浏览器的滚动添加事件，onscollTop事件
+    <b>
+    var oDiv = document.getElementById('div');
+    var scrollTop = document.<font color="red">documentElement</font>.scrollTop || <font color="red">document.body.scrollTop</font>h; // 取整体的高度
+    </b>
+    //The scrollTop property sets or returns the number of pixels an element's content is scrolled vertically.
+    //The documentElement property returns the documentElement of the document, as an Element object.
+    //可视区域的高度减掉物体高度再加上向上滚动的高度
+    // oDiv.style.top = document.documentElement.clientHeight-oDiv.offsetHeight+scrollTop+'px';
+
+    // 如果想其在屏幕中间，则
+    //oDiv.style.top = (document.documentElement.clientHeight-oDiv.offsetHeight)/2+scrollTop+'px';
+    // 否则就是在屏幕的右下角
+    // 注意，这个时候的红色区域是在中间不断地抖动，是因为 /2 会产生0.5，那么最后就会不停地跳动
+    // starMove((document.documentElement.clientHeight-oDiv.offsetHeight)/2 +scrollTop)
+    // 所以需要添加一个 parseInt，
+   <b>
+    starMove(parseInt((document.documentElement.clientHeight - oDiv.offsetHeight) / 2 + scrollTop))
+    </b>
+};
+
+var timer = null;
+
+function starMove(iTarget) {
+
+var oDiv = document.getElementById('div');
+clearInterval(timer);
+timer = setInterval(function () {
+
+var speed = (iTarget - oDiv.offsetTop) / 4;
+speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+if (oDiv.offsetTop == iTarget) {
+
+clearInterval(timer)
+}
+else {
+oDiv.style.top = oDiv.offsetTop + speed + 'px';
+}
+}, 30)
+}
+</pre>
+
+
+</body>
+</html>

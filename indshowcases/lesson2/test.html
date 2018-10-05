@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+<style>
+    li{list-style-type: none;}
+    body,ul,li{margin:0;padding:0;}
+
+    #box{width:460px;border:5px solid #000;overflow:hidden;background:#fff;border-radius:5px;margin:10px auto;padding:0 0 3px 3px;}
+
+    #box li,#box li img{float:left;width:150px;height:150px;}
+    
+    
+    #box li{margin:3px 3px 0 0;}
+    #box li.first{position:relative;}
+    #box li.first,#box li.first img{width:300px;height:300px;}
+
+
+</style>
+
+
+</head>
+<body>
+    <ul id="box">
+        <li class="first"><img src="img/big_1.jpg">
+            <div></div>
+        </li>
+        <ul id="ver">
+            <li><a href="javascript:;"><img src="img/small_1.jpg"></a></li>
+            <li><a href="javascript:;"><img src="img/small_2.jpg"></a></li>
+            <li><a href="javascript:;"><img src="img/small_3.jpg"></a></li>
+        </ul>
+        <li id="left"><a href="javascript:;"><img src="img/small_4.jpg"></a></li>
+        <li id="mid"><a href="javascript:;"><img src="img/small_5.jpg"></a></li>
+    </ul>
+
+    <script>
+        var oImg = document.getElementById("box").getElementsByTagName("img");
+        var oDiv = document.getElementsByTagName("div")[0];
+        for (var i = 1; i < oImg.length; i++) {
+            oImg[i].index = i;
+            oImg[i].onmouseover = function () {
+                // console.log(oImg[this.index].src);
+                //console.log(oImg[this.index].opacity);
+                oImg[this.index].style.opacity = 1;
+                var img = new Image();
+                img.src = oImg[0].src = this.src.replace(/small/, "big");
+                console.log(oImg[0].src)
+                oDiv.style.display = "block"; // to show the loading gif
+                img.complete ? oDiv.style.display = "none" : (oImg[0].onload = function () { oDiv.style.display = "none" })
+            }
+        }
+    </script>
+</body>
+</html>

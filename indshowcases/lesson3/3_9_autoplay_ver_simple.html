@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3_9_autoplay_ver_simple</title>
+<style>
+*{margin: 0;padding: 0;}
+li{list-style: none;}
+
+.play{width:600px;height:550px;left: 30px;top: 30px;position:relative;border: 2px solid black;}
+.big_pic{width: 600px;height: 400px;position: relative;background: moccasin;overflow:    }
+
+.big_pic li{width: 600px;height: 400px;position:absolute;overflow:hidden;background:bisque;z-index: 0;}
+/*here the overflow:hidden is very important for big_pic display,otherwise, it wil have problem for covering the last pic*/
+
+.big_pic li img{width: 600px;height: 400px;position: absolute;background: black}
+
+.mark_left{ width: 300px; height: 400px;
+background: orange; position: absolute; left: 0px; top: 0px;
+z-index: 3000; filter: alpha(opacity:0); opacity: 0;
+} 
+.mark_right{ width: 300px; height: 400px; background: cornflowerblue;
+position: absolute; left: 300px; top: 0px;
+z-index: 3000; filter: alpha(opacity:0); opacity: 0;
+} 
+
+.prev{ width: 60px; height: 60px; 
+background: url(img/left.png); position: absolute; 
+z-index: 3001; top: 170px; left: 10px; cursor: pointer;/*
+	/*here background has no no-repeat, compare it with .next background 这里3001比上两个3000高，所以鼠标移入的时候才能够对这小框起作用*/	/*cursor: pointer;没有这个的话，那么在这个区域里面鼠标就不是手的形状*/
+filter: alpha(opacity:0); opacity: 0; } /*这里透明度为0，所以一开始不可见*/
+.next{ width: 60px; height: 60px; 
+background: url(img/right.png) no-repeat; 
+position: absolute; z-index: 3001; top: 170px; right: 10px;
+cursor: pointer; filter: alpha(opacity:0); opacity: 0;
+} 
+
+.small_pic{ width: 594px; height: 144px; 
+position: relative;top: 0;left: 0;
+border: 3px solid paleturquoise;overflow: hidden;
+} 
+.small_pic ul{ width: 594px; height: 144px; 
+position: absolute; left: 0px;top: 0px;
+} 
+.small_pic li img{ width: 194px; height: 140px; } 
+.small_pic ul li{ border:2px solid paleturquoise;
+width: 194px; height: 140px; float: left;
+cursor: pointer; filter: alpha(opacity:60); opacity: 0.6;
+}	
+
+</style>
+</head>
+<body>
+    <div id="playImages" class="play">
+    
+        <ul class="big_pic">
+            <div class="prev"></div>
+            <div class="next"></div>
+            <a class="mark_left" href="javascript:;"></a>
+            <!--left,right用来控制鼠标在的区域要显示箭头，将其opacity变成0.6就可以看出来效果了
+      here if we dont put href="javascript:;"insdie the html a code, then we need to put the cursor:pointer inside the CSS code, in order to have the hand shape mouse on the left side pic-->
+            <a class="mark_right" href="javascript:;"></a>
+            <li style="z-index: 1"><img src="img/1.png"></li>
+            <li><img src="img/2.png"></li>
+            <li><img src="img/3.png"></li>
+            <li><img src="img/4.png"></li>
+            <li><img src="img/5.png"></li>
+            <li><img src="img/6.png"></li>
+        </ul>
+    
+        <div class="small_pic">
+            <ul>
+                <li><img src="img/1.png"></li>
+                <li><img src="img/2.png"></li>
+                <li><img src="img/3.png"></li>
+                <li><img src="img/4.png"></li>
+                <li><img src="img/5.png"></li>
+                <li><img src="img/6.png"></li>
+            </ul>
+        </div>
+    
+    </div> <br>
+<script>
+    var oDiv = document.getElementById('playImages');
+
+    var oBtnPrev = getClass(oDiv, 'prev')[0];   //和下面的getByClass的函数相结合，因为这个函数的返回结果都是数组，但是因为class=‘prev’只有一个，所以这个数组里面只有一个元素，所以这里[0]
+    var oBtnNext = getClass(oDiv, 'next')[0];
+    var oMarkLeft = getClass(oDiv, 'mark_left')[0];
+    var oMarkRight = getClass(oDiv, 'mark_right')[0];
+
+    var oDivSmall = getClass(oDiv, 'small_pic')[0];
+    var oUlSmall = oDivSmall.getElementsByTagName('ul')[0];
+    var aLiSmall = oDivSmall.getElementsByTagName('li');
+
+    var oUlBig = getClass(oDiv, 'big_pic')[0];
+    var aLiBig = oUlBig.getElementsByTagName('li'); 
+
+    oUlSmall.style.width = aLiSmall[0].offsetWidth * aLiSmall.length + 'px'; 
+
+// Move Function 
+    function getStyle(obj, name) {
+        if (obj.currentStyle) {
+            return obj.currentStyle[name];
+        }
+        else {
+            return getComputedStyle(obj, false)[name];
+        }
+    };
+
+    function move(obj, iTarget, name) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var cur = 0;
+            if (name == 'opacity') {
+                cur = Math.round(parseFloat(getStyle(obj, name)) * 100);
+            }
+            else {
+                cur = parseInt(getStyle(obj, name));
+            }
+
+            var speed = (iTarget - cur) / 30;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+            if (cur == iTarget) {
+                clearInterval(obj.timer);
+            }
+            else {
+                if (name == 'opacity') {
+                    obj.style.opacity = (cur + speed) / 100;
+                    obj.style.filter = 'alpha(opacity:' + cur + speed + ')';
+                }
+                else {
+                    obj.style[name] = cur + speed + "px";
+                }
+            }
+        }, 30);
+    }; 
+// getClass
+    function getClass(oParent, name) {
+            var aResult = [];  //定义一个数组
+            var aEle = oParent.getElementsByTagName('*'); //* 就是把所有元素都选出来
+
+            for (var i = 0; i < aEle.length; i++) {
+                if (aEle[i].className == name) {
+                    aResult.push(aEle[i]); //添加到这个数组中
+                }
+            }
+            return aResult;
+        }
+
+//左右按钮//////////   2    //////////////
+    oBtnPrev.onmouseover = oMarkLeft.onmouseover = function ()//这样保证鼠标在小框里面的时候小框仍然会显示出来，不然只有oMarkLeft.onmouseover=function()的话，鼠标移入到小框里，小框就会消失，因为这块区域不属于oMarkLeft了
+    {
+        move(oBtnPrev, 100, 'opacity');
+    };
+    oBtnPrev.onmouseout = oMarkLeft.onmouseout = function () {
+        move(oBtnPrev, 0, 'opacity');
+    };
+    oBtnNext.onmouseover = oMarkRight.onmouseover = function () {
+        move(oBtnNext, 100, 'opacity');
+    };
+    oBtnNext.onmouseout = oMarkRight.onmouseout = function () {
+        move(oBtnNext, 0, 'opacity')}; 
+
+    var now = 0;
+    var nowZIndex = 2;
+    for (var i = 0; i < aLiSmall.length; i++) {
+        aLiSmall[i].index = i; //参考选项卡， 添加一个index 参数
+        aLiSmall[i].onclick = function () // 把大图的层级z-index提到前面来
+        {
+            if (this.index == now) {
+                return;
+            }
+            else {
+                now = this.index;
+                tab();
+            }
+        };
+        //opacity when click to the small 
+        aLiSmall[i].onmouseover = function () {
+            move(this, 100, 'opacity');
+        };
+        aLiSmall[i].onmouseout = function () {
+            if (this.index != now) {
+                move(this, 60, 'opacity');
+            }
+        };
+    }
+
+    oBtnPrev.onclick = function () {
+        now--;
+        if (now == -1) {
+            now = aLiSmall.length - 1;
+        }
+        tab();
+    };
+
+    oBtnNext.onclick = function () {
+        now++;
+        if (now == aLiBig.length) {
+            now = 0;
+        }
+        tab();
+    };
+
+    function tab() {
+        aLiBig[now].style.height = 0;
+        aLiBig[now].style.zIndex = nowZIndex++;
+
+        move(aLiBig[now], 400, 'height');
+
+        for (var i = 0; i < aLiSmall.length; i++) {
+            move(aLiSmall[i], 60, 'opacity');
+        }
+
+        move(aLiSmall[now], 100, 'opacity');
+
+        if (now == 0) {
+            move(oUlSmall, 0, 'left');
+        }
+        else if (now == aLiSmall.length - 1) {
+            move(oUlSmall, -(now - 2) * aLiSmall[0].offsetWidth, 'left');
+        }
+        else {
+            move(oUlSmall, -(now - 1) * aLiSmall[0].offsetWidth, 'left');
+        }
+    };
+
+    var timer = setInterval(oBtnNext.onclick, 3000);;
+
+    oDiv.onmouseover = function () {
+        clearInterval(timer);
+    };
+    oDiv.onmouseout = function () {
+        timer = setInterval(oBtnNext.onclick, 3000);
+    };
+ 
+
+
+//大图切换/////////    3    /////////////	
+/*   
+	var now=0; 
+	var nowZIndex=2; //这里选择2是因为下面的ul的定义里面z-index=1
+		
+	for (var i=0;i<aLiSmall.length;i++)
+	{
+		aLiSmall[i].index=i;	//3.1// 参考选项卡， 添加一个index 参数
+		aLiSmall[i].onclick=function()   //3.2// 需要知道点的是第几张小图，用来变化第几张大图
+		{
+			if (this.index == now) return; 
+			     //3.6// 所以在前面添加这两行代码，连续点击同一张小图时，大图不变化
+			now = this.index;
+            --- 
+			    //3.3// 让index的大图的z-index的数值在2上自己相加，那么层级一直在增加，那么每次点击的小图对应的大图都会有最高的层级，显示在最前面
+			aLiBig[this.index].style.ZIndex=nowZIndex++; 
+
+			    //3.8// 当鼠标移到第二张小图，上一张小图的透明度需要变回100不透明
+			for (var i=0; i < aLiSmall.length ; i++)
+			{
+				startMove(aLiSmall[i],'opacity',60); //先把所有的都变成半透明60
+			}
+			startMove(this,'opacity',100); //然后把当前的变成100
+
+			    //3.4// 做出向下拉的效果
+			aLiBig[this.index].style.height = 0; // 一开始是0的高度
+			startMove(aLiBig[this.index],'height',400); //调用startMove变成400的高度，
+            ---
+			    //3.5// 注意到这步的bug， 这时如果仅仅连续点击同一张小图，那么会出现反复刷新的情况，大图上的显示为目前这张图反复盖住前面一张图，所以需要作出，连续点击同一张小图时，大图不变化
+		}
+
+				//3.7// 点击小图时，小图的透明度变化
+		aLiSmall[i].onmouseover= function()
+		{
+			startMove(this,'opacity',100);
+		}
+		aLiSmall[i].onmouseout= function()
+		{
+
+				//3.9//  如果是当前的小图，那么这个小图的透明度就不变化,所以添加下面的这个if在原来// 3.7 // 的mouseout里
+			if (this.index!=now)
+			{
+				startMove(this,'opacity',60); // 回到初始值
+			}
+		}
+
+	}
+		
+	*/
+/*
+/// 点击出现上一张/下一张图片 大图  ///    4 //////
+	oBtnPrev.onclick=function()
+	{
+		now--;
+		if (now==-1)                   // 4.5 //减过头了
+		{
+			now=aLiSmall.length - 1;
+		}
+
+		tab(); // 4.6  //添加 tab
+	};
+	
+	oBtnNext.onclick=function()
+	{
+		now++;
+		if(now == aLiSmall.length) // 4.1 //表明已经是最后一张照片
+		{
+			now=0;	// 4.2 //再重头开始
+		}
+
+		tab(); // 4.4 使用 4.3 里面封装的函数  记得在也需要对// 3 //里面的code的修改
+
+	};
+
+				// 4.3 // 注意， 这里需要对 上面大的// 3  // 里面的Code进行封装， 这里再写一遍 //3.3 3.8 3.4 //
+
+					aLiSmall[i].onclick=function()   
+					{
+						if (this.index == now) 
+						{
+							return;
+						}
+						else
+						{ 
+							now = this.index;
+	        				tab();
+	        			}
+					}
+				
+					function tab()    
+					{
+						aLiBig[now].style.ZIndex=nowZIndex++; 
+					
+						for (var i=0; i < aLiSmall.length ; i++)
+						{
+							startMove(aLiSmall.[i],'opacity',60);  
+						}
+						startMove(aLiSmall[now],'opacity',100);  
+						 
+						aLiBig[now].style.height = 0;  
+						startMove(aLiBig[now],'height',400);
+					}
+
+////小图的滚动 ///    5   ///// 
+	播放第一张大图[0]，小图的ul左移0，第二张[1]，左移0，第三张[2]，左移一个li.width,第四张[3]，左移2*li.width,所以第n张，左移(n-1)*li.width
+	
+	目前所有的图片除了三张以外都是隐藏的，所以为了编辑方便，可以先设定 overflow 不是 hidden，之后再改回来
+
+	这里需要添加在 tab（）
+
+	function tab()    
+	{
+		aLiBig[now].style.ZIndex=nowZIndex++; 
+
+		for (var i=0; i < aLiSmall.length ; i++)
+		{
+			startMove(aLiSmall.[i],'opacity',60);  
+		}
+		startMove(aLiSmall[now],'opacity',100);  
+		 
+		aLiBig[now].style.height = 0;  
+		startMove(aLiBig[now],'height',400);
+		
+		// 5.4 // 
+		if (now == 0)  // 说明是第一张图
+		{
+			startMove(oUlSmall, 'left', 0);
+		}
+		else if (now == oUlSmall.length -1)  // 说明是最后一张图
+		{
+			startMove(oUlSmall,'left', -(now-2).aLiSmall[0].offsetWidth)
+		}
+		else 
+		{
+			startMove(oUlSmall, 'left', -(now-1)*aLiSmall[0].offsetWidth);   // 5.1 // 让小图片ul移动
+		}	
+			// 5.2 // 但是会出现一个问题，图片显示只有三张，原因是宽度不够，这在之前的无缝滚动里有一样的问题，
+			所以前面需要添加：  oUlSmall.style.width=aLiSmall[0].offsetWidth*aLiSmall.length+'px'; 
+			这行代码可以在变量定义的末尾看到
+
+			// 5.3 // 但是会发现这时候所有的图片都会显示出来，并且点击第一张小图的时候，第一张小图的位置在中间，而不再最右边，这样这张小图的左边就是空的，同样最后一张图片的右边也是空的
+	}					
+//// 自动播放 ///  6
+	自动播放其实就是自动执行 oBtnNext.onclick=function()
+
+	所以 添加下列代码
+
+	var timer = setInterval(oBtnNext.onclick, 2000);  
+
+	oDiv.onmouseover = function () // 鼠标移到整体上，先关闭定时器
+	{
+		clearInterval(timer);
+	};
+	oDiv.onmouseout = function()  // 鼠标移出整体div，重新开始定时器
+	{
+		timer = setInterval(oBtnNext.onclick, 2000); 
+	};
+*/
+
+</script>
+<pre>
+    
+1. when calling function startMove(), remember to keep the right order一一对应(obj,iTarget,name) 
+2. ul{ margin: 0px; padding: 0px; }  /*让后面的li设定能够在.big_pic的区域内*/
+   li{ list-style: none; }  /*消除所有的li前面的点*/
+3.  .big_pic li{ width: 600px; height: 400px; <font color='red'>overflow:hidden;</font> position: absolute; background: black; z-index: 0;)
+     /*here the overflow:hidden is very important for big_pic display,otherwise, it wil have problem for covering the last pic*/
+4. .prev{ width: 60px; height: 60px;<font color='red'> background: url(../../images/left.png);</font> position: absolute; z-index: 3001; top: 170px; left: 10px; cursor: pointer;filter: alpha(opacity:0); opacity: 0; }
+	/*here background has no no-repeat, compare it with .next background 这里3001比上两个3000高，所以鼠标移入的时候才能够对这小框起作用*/	
+	/*cursor: pointer;没有这个的话，那么在这个区域里面鼠标就不是手的形状*/
+    /*这里透明度为0，所以一开始不可见*/
+5.   var oBtnPrev=getClass(oDiv,'prev')[0];   //和下面的getByClass的函数相结合，因为这个函数的返回结果都是数组，但是因为class=‘prev’只有一个，所以这个数组里面只有一个元素，所以这里[0]
+
+6. if we dont put href="javascript:;"insdie the html a code, then we need to put the cursor:pointer inside the CSS code, in order to have the hand shape mouse on the left side pic
+
+</pre>
+</body>
+</html>

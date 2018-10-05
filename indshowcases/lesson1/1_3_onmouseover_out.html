@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1_3_onmouseover_out</title>
+<style>
+    #div1 {width: 100px;height: 100px; background: blue}
+    
+</style>
+
+
+</head>
+
+<body>
+    <input type="button" id="btn1" value="change Color">
+    <input type="button" id="btn2" value="change size">
+    <pre>
+    <div id="div1"></div>
+var oDiv1 = document.getElementById('div1');
+var oBtn1 = document.getElementById('btn1');
+var oBtn2 = document.getElementById('btn2');
+
+oBtn1.onmouseover = function()
+{
+changeAttr(oDiv1,'background','green');
+}
+oBtn1.onmouseout = function()
+{
+changeAttr(oDiv1,'background','blue');
+}
+oBtn2.onmouseover = function()
+{
+changeAttr(oDiv1,'width','300px');
+changeAttr(oDiv1,'height','300px');
+}
+oBtn2.onmouseout = function ()
+{
+changeAttr(oDiv1, 'width', '100px');
+changeAttr(oDiv1, 'height', '100px');
+}
+
+function changeAttr(obj,attr,val)
+{
+return obj.style<font color='red'><b>[attr]</b></font> = val;
+}
+JS 里面但凡用 . 的地方，都可以用[ ]代替. 但是在直接使用的时候要加上'',比如oDiv.style--> oDiv['style']， 而上面的attr是直接引用，所以不需要
+</pre>
+    <script>
+        var oDiv1 = document.getElementById('div1');
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+
+        oBtn1.onmouseover = function () {
+            changeAttr(oDiv1, 'background', 'green');
+        }
+        oBtn1.onmouseout = function () {
+            changeAttr(oDiv1, 'background', 'blue');
+        }
+        oBtn2.onmouseover = function () {
+            changeAttr(oDiv1, 'width', '300px');
+            changeAttr(oDiv1, 'height', '300px');
+        }
+        oBtn2.onmouseout = function () {
+            changeAttr(oDiv1, 'width', '100px');
+            changeAttr(oDiv1, 'height', '100px');
+        }
+
+        function changeAttr(obj, attr, val) {
+            return obj.style[attr] = val;
+        }
+
+
+    </script>
+</body>
+</html>

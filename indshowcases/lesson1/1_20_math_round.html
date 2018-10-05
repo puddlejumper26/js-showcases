@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1_20_Math.round</title>
+    <style>
+    div{width: 200px;height: 200px;margin: 20px;float: left;
+		background-color: red;border:1px solid black;
+		font-size: 14px;filter: alpha(opacity:30);opacity: 0.3;
+	}
+</style>
+<script>
+    window.onload = function () {
+        var oDiv1 = document.getElementById('div1');
+        oDiv1.onmouseover = function () { startMove(this, 'opacity', 100); };
+        oDiv1.onmouseout = function () { startMove(this, 'opacity', 30); };
+    };
+
+    function getStyle(obj, name) {
+        if (obj.currentStyle) {
+            return obj.currentStyle[name];
+        }
+        else {
+            return getComputedStyle(obj, false)[name];
+        }
+    }
+
+    function startMove(obj, attr, iTarget) {
+        clearInterval(obj.timer);
+
+        obj.timer = setInterval(function () {
+            var cur = 0;
+            if (attr == 'opacity') {
+                cur = parseFloat(getStyle(obj, attr)) * 100;
+            }
+            else {
+                cur = parseInt(getStyle(obj, attr)); //这个时候传入的都是其他的样式如width等
+            }
+            var speed = (iTarget - cur) / 6;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+            if (cur == iTarget) {
+                clearInterval(obj.timer);
+            }
+            else {
+                if (attr == 'opacity') {
+                    obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+                    obj.style.opacity = (cur + speed) / 100;
+                    document.getElementById('txt1').value = obj.style.opacity;
+                }
+                else {
+                    obj.style[attr] = cur + speed + 'px';
+                }
+            }
+        }, 30);
+    }
+</script>
+</head>
+<body>
+    <div id="div1"> </div>
+    <input type="text" id="txt1">
+    <p>如果是用IE7的话，显示的数字就会是 类似 0.290000000000000014 ,因为计算机存储数字如10/3的结果，都是以无限接近的数字代替的，所以计算出来的时候可能就会如上面结果 </p>
+    
+    <pre>所以下面Code 中的cur = parseFloat(getStyle(obj,attr))*100;
+    
+    需改成 cur = <font color='red'><b>Math.round</b></font>(parseFloat(getStyle(obj,attr))*100) ; 
+    四舍五入
+    就能解决问题
+    </pre>
+
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3_test</title>
+<style>
+* { padding: 0; margin: 0; }
+li { list-style: none; }
+body { background:#000; color:aliceblue;font-size: 50px;}
+img { border: none; }
+
+.date{width: 520px; height: 520px;margin: 20px auto 0;position: relative;}
+.date h2{text-align: center;padding:80px 0 30px;}
+.year { text-align: left; padding-top: 30px; }
+.time { text-align: center; padding: 30px 0; }
+.pos2 { margin-left: 20px; }
+.num { width: 25px; }
+.num2 { width: 38px; }
+
+</style>
+
+</head>
+<body>
+    <div id="clock" class="date">
+         
+        <div class="year" id="divyear">
+            YEAR :
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" /><br>
+            MONTH :
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" /><br>
+            DAY :
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" />
+            
+        </div>
+        <div class="time" id="divtime">
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" />
+            :
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" />
+            :
+            <img class="num" src="img/clock/0.png" alt="0" />
+            <img class="num" src="img/clock/0.png" alt="0" />
+        </div>
+        <div class="day" id="divday">    
+            Today is : 
+            <input value="" style="font-size:50px; width:265px;overflow: hidden;color: aliceblue;background: black; border: none;text-align:center"/>
+        </div>
+        <img/>
+    </div>
+
+<script>
+// to get the year month and day
+    var oDivYear = document.getElementById('divyear');
+    var aImgYear = oDivYear.getElementsByTagName('img');
+    function year()
+    {
+        var oDate = new Date();
+        var iYear=oDate.getYear();
+        var iMonth=oDate.getMonth();
+        var iDay=oDate.getDate();
+        var str = toDou(iYear + 1900) + toDou(iMonth + 1) + toDou(iDay);
+        
+        for(var i=0; i<aImgYear.length;i++)
+        {
+            aImgYear[i].src='img/clock/'+str.charAt(i)+'.png';
+        }
+    }
+    setInterval(year,10000);
+    year();
+    
+    function toDou(n)
+    {
+        if(n<10){return '0'+n;}else{return ''+n;}
+    }
+
+// to get the time
+    var oDivTime=document.getElementById('divtime');
+    var aImgTime=oDivTime.getElementsByTagName('img');
+
+    function tick()
+    {
+        var oDate = new Date();
+        var str = toDou(oDate.getHours())+toDou(oDate.getMinutes())+toDou(oDate.getSeconds());
+
+        for(var i=0; i<aImgTime.length;i++)
+        {
+            aImgTime[i].src='img/clock/'+str.charAt(i)+'.png';
+        }
+    }
+    setInterval(tick,1000);
+    tick();
+   
+// to get the week
+    var oDivDay = document.getElementById('divday');
+    var aInputDay = oDivDay.getElementsByTagName('input')[0];
+    var aDay=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+    function week()
+    {
+        var oDate = new Date();
+         
+        var iWeek=oDate.getDay();
+        aInputDay.value= aDay[iWeek];
+       // console.log(iWeek);
+    }
+    setInterval(week,10000);
+    week();
+
+</script>
+</body>
+</html>

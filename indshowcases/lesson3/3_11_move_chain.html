@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3_11_move_chain</title>
+    <style>
+    #div1{width: 100px;height: 100px;background: red;}
+	#div2{width: 100px;height: 100px;background: red;filter:alpha(opacity:30); opacity: 0.3}
+    </style>
+</head>
+<body>
+    <div id="div1"></div><br>
+    <div id="div2"></div>
+
+    <script>
+        var oDiv1 = document.getElementById('div1');
+            oDiv1.onmouseover = function () {
+                startMove(oDiv1, 'width', 300,
+                    function () {
+                        alert('abc');
+                    });
+            }
+
+
+            var oDiv2 = document.getElementById('div2');
+            //下面这一步的onmouseover嵌套了两个 fnEnd函数，这样就会形成链式，先第一步宽度变宽，然后高度变，最后颜色变。
+            oDiv2.onmouseover = function () {
+                startMove(oDiv2, 'width', 300,
+                    function () {
+                        startMove(oDiv2, 'height', 300,
+                            function () {
+                                startMove(oDiv2, 'opacity', 100);
+                            });
+                    });
+            };
+            oDiv2.onmouseout = function () {
+                startMove(oDiv2, 'opacity', 30,
+                    function () {
+                        startMove(oDiv2, 'height', 100,
+                            function () {
+                                startMove(oDiv2, 'width', 100);
+                            });
+                    });
+            };
+
+            function getStyle(obj, name) {
+                    if (obj.currentStyle) {
+                        return obj.currentStyle[name];
+                    }
+                    else {
+                        return getComputedStyle(obj, false)[name];
+                    }
+                }
+
+                function startMove(obj, name, iTarget, fnEnd) {
+                    //关定时器
+
+                    clearInterval(obj.timer);
+
+                    //打开定时器
+                    obj.timer = setInterval(function () {
+                        //设定变量,和 Itarget 决定了步长 speed
+                        var cur = 0;
+
+                        // 如果属性是opacity 怎么取数字
+                        if (name == 'opacity') {
+                            cur = Math.round(parseFloat(getStyle(obj, name)) * 100);
+                        }
+                        else {
+                            cur = parseInt(getStyle(obj, name)); //这个时候传入的都是其他的样式如width等
+                        }
+
+                        // 设定变化的速度，渐变，所以还要取整
+                        var speed = (iTarget - cur) / 6;
+                        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+                        // 是否到达
+                        if (cur == iTarget) {
+                            clearInterval(obj.timer);
+
+                            if (fnEnd) fnEnd();
+                            //注意在clearInterval后面需要添加 if(fnEnd)fnEnd();即，如果这个结束函数传进来了，就调用
+
+                        }
+                        else {
+                            if (name == 'opacity') {
+                                obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+                                obj.style.opacity = (cur + speed) / 100;
+                                //document.getElementById('txt1').value = obj.style.opacity;
+                            }
+                            else {
+                                obj.style[name] = cur + speed + 'px';
+                            }
+                        }
+                    }, 30);
+                }
+    </script>
+<pre>
+                    <b>move function -- edition 2 ---chain--
+目前的运动框架不能让好几个值同时动，比如让一个div的宽和高同时增加，那么
+{
+startMove(oDiv,'height',300);
+startMove(oDiv,'width',300);
+}
+这样是行不通的，因为第一个startMove刚开，其中的定时器打开，这时候第二个startMove一开，首先先把那个定时器给关掉了，所以只会执行第二个startMove的函数</b>
+
+function getStyle(obj,name)
+{
+    if(obj.currentStyle)
+    {
+        return obj.currentStyle[name];
+    }
+    else
+    {
+        return getComputedStyle(obj,false)[name];
+    }
+}
+
+<b>function startMove(obj,name,iTarget,fnEnd)</b>
+{
+    //关定时器
+    clearInterval(obj.timer);
+
+    //打开定时器
+    obj.timer = setInterval(function()
+    {
+        //设定变量,和 Itarget 决定了步长 speed
+        var cur= 0;
+
+        // 如果属性是opacity 怎么取数字
+        if (name == 'opacity')
+        {
+            cur = Math.round(parseFloat(getStyle(obj,name))*100);
+        }
+        else
+        {
+            cur= parseInt(getStyle(obj,name)); //这个时候传入的都是其他的样式如width等
+        }
+
+        // 设定变化的速度，渐变，所以还要取整
+        var speed = (iTarget-cur)/6;
+        speed = speed>0 ? Math.ceil(speed) :Math.floor(speed);
+
+        // 是否到达
+        if (cur == iTarget)
+        {
+            clearInterval(obj.timer);
+
+            if(fnEnd)fnEnd();
+            //注意在clearInterval后面需要添加 if(fnEnd)fnEnd();即，如果这个结束函数传进来了，就调用
+        }
+        else
+        {
+            if(name == 'opacity')
+            {
+                obj.style.filter='alpha(opacity:'+(cur+speed)+')';
+                obj.style.opacity=(cur+speed)/100;
+                //document.getElementById('txt1').value = obj.style.opacity;
+            }
+            else
+            {
+                obj.style[name] = cur+speed+'px';
+            }
+        }
+    }, 30);
+}
+
+</pre>
+</body>
+</html>

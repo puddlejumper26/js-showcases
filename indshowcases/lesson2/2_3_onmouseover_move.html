@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2_3_onmouseover_move</title>
+<style>
+    li{list-style: none;}
+    body{background:rgb(31, 30, 30);}
+    img{border-radius:30px;}
+    #box{width:805px;overflow: hidden; border:5px solid rgb(240, 234, 234);zoom:1;background:#fff;border-radius:30px;margin:20px auto;padding:0 0 3px 3px;}
+    #box li{margin:5px 5px 0 5px;}
+    .first {position:relative;}
+    span{opacity: 0.5;}
+    #box li.first,#box li.first img{width:300px;height:300px;margin-right: 15px;border-radius:30px;box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.5);}
+
+     #box li,#box li img{position: relative;width: 150px;height: 150px;float: left}
+
+    div{position:absolute;top:75px;left:75px;display:none;width:156px;height:156px;opacity:0.5;filter:alpha(opacity=50);background:#fff url(img/loading.gif) 50% 50% no-repeat;}
+    
+    
+</style>
+</head>
+
+<body>
+    <ul id="box">
+        <li class="first"><img src="img/big_1.jpg"><div></div></li>
+        <span>
+        <li><a href="javascript:;"><img src="img/small_1.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_2.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_4.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_5.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_3.jpg"></a></li>  
+        <li><a href="javascript:;"><img src="img/small_4.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_1.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_2.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_3.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_5.jpg"></a></li>
+        <li><a href="javascript:;"><img src="img/small_1.jpg"></a></li>
+        </span>
+    </ul>
+
+<script>
+    var oImg = document.getElementById("box").getElementsByTagName("img");
+    var oDiv = document.getElementsByTagName("div")[0];
+    for (var i = 1; i < oImg.length; i++) 
+    {   
+        oImg[i].index=i;
+        oImg[i].onmouseover = function () 
+        {
+           // console.log(oImg[this.index].src);
+            //console.log(oImg[this.index].opacity);
+            //oImg[this.index].style.opacity=0.5;
+            var img = new Image();
+            img.src = oImg[0].src = this.src.replace(/small/, "big");
+            console.log(oImg[0].src) 
+            oDiv.style.display = "block"; // to show the loading gif
+            img.complete ? oDiv.style.display = "none" : (oImg[0].onload = function () { oDiv.style.display = "none" })
+        }
+        // oImg[i].onmouseout = function ()
+        // {
+        //     oImg[this.index].style.opacity = 1;
+        // }
+    }
+</script>
+<pre style="color:#fff">
+    html
+    ----------
+    &lt;ul id="box"&gt;
+        &lt;li class="first"&gt;&lt;imgsrc="img/big_1.jpg"&gt;&lt;div&gt;&lt;/div&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_1.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_2.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_3.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_4.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_5.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_1.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_2.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_3.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_4.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="javascript:;"&gt;&lt;img src="img/small_5.jpg"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    css
+    ----------
+    li{list-style: none;}
+    body{background:rgb(31, 30, 30);}
+    img{border-radius:30px;}
+    #box{width:805px;<font color="red"><b>overflow: hidden;</b></font> border:5px solid rgb(240, 234,
+    234);zoom:1;background:#fff;border-radius:30px;margin:20px auto;padding:0 0 3px 3px;}
+     这样可以
+    <font color="red"><b>#box li{margin:5px 5px 0 5px;}</b></font>
+    .first {position:relative;}
+    #box li.first,#box li.first img{width:300px;height:300px;margin-right: 15px;border-radius:30px;box-shadow: 0 1px 2px
+    1px rgba(0, 0, 0, 0.5);}
+    
+    <font color="red"><b>>#box li,#box li img{position: relative;width: 150px;height: 150px;float: left}</b></font>
+    
+    div{position:absolute;top:75px;left:75px;display:none;width:156px;height:156px;opacity:0.5;filter:alpha(opacity=50);background:#fff
+    url(img/loading.gif) 50% 50% no-repeat;}
+
+    js
+    ----------
+    var oImg = document.getElementById("box").getElementsByTagName("img");
+    var oDiv = document.getElementsByTagName("div")[0];
+    
+    for (var i = 1; i < oImg.length; i++) 
+    { 
+        oImg[i].index=i; 
+        oImg[i].onmouseover=function () 
+        { 
+            //console.log(oImg[this.index].src); 
+            //console.log(oImg[this.index].opacity); 
+            //oImg[this.index].style.opacity=1; 
+            
+            var img=new Image(); 
+            <font color="red"><b>
+            img.src=oImg[0].src=this.src.replace(/small/, "big" );</b></font> 
+            //console.log(oImg[0].src); 
+            
+            // to show the loading gif
+            <font color="red"><b>
+            oDiv.style.display="block"; 
+            img.complete ? oDiv.style.display="none" : (oImg[0].onload=function () {oDiv.style.display="none" }) 
+            </b></font>
+        } 
+    }
+</pre>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+<style>
+body{margin: auto;}
+.span{background: red;border: 1px solid black;position:relative;margin: 10px; display: none}
+
+
+</style>
+
+</head>
+
+<body>
+
+<!--
+<div id="div1">
+    <a href="javascript:;" >行业资讯</a>
+</div>
+<div id="div2">
+    <span class="span">
+        <a href="javascript:;">业界动态</a>
+        <a href="javascript:;">收购融资</a>
+        <a href="javascript:;">门户动态</a>
+        <a href="javascript:;">搜索引擎</a>
+        <a href="javascript:;">网络游戏</a>
+        <a href="javascript:;">电子商务</a>
+        <a href="javascript:;">广告传媒</a>
+        <a href="javascript:;">厂商开发</a>
+    </span>
+</div><br><br>
+<div id="div3">
+    <a href="javascript:;">站长在线</a>
+</div>
+<div id="div4">
+    <span class="span">
+        <a href="javascript:;">站长报道</a>|
+        <a href="javascript:;">好站推荐</a>|
+        <a href="javascript:;">站长聚会</a>|
+        <a href="javascript:;">站长访谈</a>|
+        <a href="javascript:;">站长茶馆</a>|
+        <a href="javascript:;">网站排行</a>
+
+    </span>
+</div>
+<script>
+   var oDiv1 = document.getElementById('div1');
+    var aA = oDiv1.getElementsByTagName('a');
+    var oDiv2 = document.getElementById('div2');
+    var aSpan = oDiv2.getElementsByTagName('span');
+    var oDiv3 = document.getElementById('div3');
+    var aA = oDiv1.getElementsByTagName('a');
+    var oDiv4 = document.getElementById('div4');
+    var aSpan = oDiv2.getElementsByTagName('span');
+    var timer = null;
+    var timer2=null;
+
+    
+    oDiv1.onmouseover=oDiv2.onmouseover = function()
+    {
+        oDiv2.style.display = 'none';
+        oDiv4.style.display='none';
+        clearTimeout(timer);
+        oDiv2.style.display='block';
+    }
+
+    oDiv1.onmouseout=oDiv2.onmouseout=function()
+    {
+        timer=setTimeout(function(){oDiv2.style.display='none'},1500)
+    }
+
+    oDiv3.onmouseover = oDiv4.onmouseover = function () {
+            oDiv2.style.display = 'none';
+           oDiv4.style.display = 'none';
+            clearTimeout(timer2);
+            oDiv4.style.display = 'block';
+        }
+
+    oDiv3.onmouseout = oDiv4.onmouseout = function () {
+        timer2 = setTimeout(function () { oDiv4.style.display = 'none' }, 1500)
+    }
+
+</script>
+-->
+
+<div id="div1">
+    <a href="javascript:;">行业资讯</a>
+    <a href="javascript:;">站长在线</a>
+</div>
+
+<div id="div2">
+    <span class="span">
+        <a href="javascript:;">业界动态</a>
+        <a href="javascript:;">收购融资</a>
+        <a href="javascript:;">门户动态</a>
+        <a href="javascript:;">搜索引擎</a>
+        <a href="javascript:;">网络游戏</a>
+        <a href="javascript:;">电子商务</a>
+        <a href="javascript:;">广告传媒</a>
+        <a href="javascript:;">厂商开发</a>
+    </span>
+
+    <span class="span">
+        <p>站长报道</p>|
+        <p>好站推荐</p>|
+        <p>站长聚会</p>|
+        <p>站长访谈</p>|
+        <p>站长茶馆</p>|
+        <p>网站排行</p>
+    </span>
+</div>
+
+<script>
+    var oDiv1 = document.getElementById('div1');
+    var aA = oDiv1.getElementsByTagName('a');
+    var oDiv2 = document.getElementById('div2');
+    var aSpan=oDiv2.getElementsByTagName('span');
+    var timer=[];
+    var canshu=0;
+
+   
+    for(var i=0;i<aA.length;i++)
+    {
+        aA[i].index = i;
+        
+        aA[i].onmouseover =  function()
+        {
+            
+              for(var j=0;j<aA.length;j++)
+              {aSpan[j].style.display='none';}
+             clearTimeout(timer[this.index]);
+            // console.log(timer[this.index]);
+            
+            aSpan[this.index].style.display='block';
+            aSpan[this.index].onmouseover = function (event) {
+            (event || window.event).cancelBubble = true;
+            clearTimeout(timer[this.index])
+            }
+
+        }
+        aSpan[i].onmouseover =function()
+        {
+            aSpan[this.index].style.display = 'block';
+        }
+
+       aA[i].onmouseout = aSpan[i].onmouseout = function()
+        {
+             m =this.index;
+             console.log("m="+m);
+             timer[this.index]=setTimeout
+             (  
+                function()
+                {
+                    aSpan[m].style.display='none';
+                    console.log("this.m="+m);
+                },500)
+        }
+    
+
+    }
+
+</script>
+
+</body>
+</html>

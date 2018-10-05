@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2_1_calendar</title>
+
+<style>
+   
+    #table .active{background-color: yellowgreen;color: rgb(250, 214, 8)}
+    .text {background:#666;width:318px;margin:auto;border:1px solid rgba(0, 0, 0, 0.1);}
+    #table {width:300px;height:400px;display: grid;grid-template-columns: auto auto auto;background: #666;padding: 10px;color: lightyellow;margin: 0px;}
+    #table li{list-style-type: none;background: rgb(145, 138, 138); border:1px solid rgba(0, 0, 0, 0.8);border-radius: 20px;margin:2px;font-size:5px;}
+    #table li h2{font-size: 20px;}
+   
+</style>
+</head>
+<body>
+<center><div id="tab" class="calendar">
+    <ul id="table">
+        <li class="active"><h2>1</h2><p>JAN</p></li>
+        <li><h2>2</h2><p>FER</p></li>
+        <li><h2>3</h2><p>MAR</p></li>
+        <li><h2>4</h2><p>APR</p></li>
+        <li><h2>5</h2><p>MAY</p></li>
+        <li><h2>6</h2><p>JUN</p></li>
+        <li><h2>7</h2><p>JUL</p></li>
+        <li><h2>8</h2><p>AUG</p></li>
+        <li><h2>9</h2><p>SEP</p></li>
+        <li><h2>10</h2><p>OCT</p></li>
+        <li><h2>11</h2><p>NOV</p></li>
+        <li><h2>12</h2><p>DEC</p></li>
+    </ul>
+    <div class="text">
+        <h2>Month 1 Activities</h2>
+        <p>New Year is for holidays</p>
+    </div>
+</div>
+</center>
+
+<pre>
+    html
+    -----------
+    <font color="red"><b>&lt;center&gt;</b></font>&lt;div id="tab" class="calendar"&gt;
+    &lt;ul id="table"&gt;
+        &lt;li class="active"&gt;&lt;h2&gt;1&lt;/h2&gt;&lt;p&gt;JAN&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;2&lt;/h2&gt;&lt;p&gt;FER&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;3&lt;/h2&gt;&lt;p&gt;MAR&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;4&lt;/h2&gt;&lt;p&gt;APR&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;5&lt;/h2&gt;&lt;p&gt;MAY&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;6&lt;/h2&gt;&lt;p&gt;JUN&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;7&lt;/h2&gt;&lt;p&gt;JUL&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;8&lt;/h2&gt;&lt;p&gt;AUG&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;9&lt;/h2&gt;&lt;p&gt;SEP&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;10&lt;/h2&gt;&lt;p&gt;OCT&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;11&lt;/h2&gt;&lt;p&gt;NOV&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;h2&gt;12&lt;/h2&gt;&lt;p&gt;DEC&lt;/p&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div class="text"&gt;
+        &lt;h2&gt;Month 1 Activities&lt;/h2&gt;
+        &lt;p&gt;New Year is for holidays&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    <font color="red"><b>&lt;/center&gt;</b></font>
+    
+    css
+    -------------
+    #table .active{background-color: yellowgreen;color: rgb(250, 214, 8)}
+    .text {background:#666;width:318px;margin:auto;border:1px solid rgba(0, 0, 0, 0.1);}
+    #table {color: lightyellow;background: #666;width:300px;height:400px;<font color="red"><b>display: grid;grid-template-columns: auto auto auto;padding:10px;margin: 0px;</b></font> }
+    #table li{list-style-type: none;background: rgb(145, 138, 138); border:1px solid rgba(0, 0, 0, 0.8);border-radius:20px;margin:2px;font-size:5px;}
+    #table li h2{font-size: 20px;}
+
+    js
+    -----------
+    var arr=
+        [
+        'New Year is for holidays',
+        'Feb is for holidays',
+        'Mar is for holidays',
+        'Apr is for holidays',
+        'May is for holidays',
+        'Jun is for holidays',
+        'Jul is for holidays',
+        'Aug is for holidays',
+        'Sep is for holidays',
+        'Oct is for holidays',
+        'Nov is for holidays',
+        'Dec is for holidays'
+        ];
+    
+    var oDiv = document.getElementById('tab');
+    var aLi = oDiv.getElementsByTagName('li');
+    var oTxt= oDiv.getElementsByTagName('div')[0];
+    
+    for (var i=0;i&lt;aLi.length;i++) 
+    { 
+        aLi[i].index=i; 
+        aLi[i].onmouseover=function () 
+        { 
+            for(var i=0; i&lt;aLi.length; i++) 
+            {
+                aLi[i].className='' ; 
+            } 
+            this.className='active' ; 
+            <font color="red"><b>oTxt.innerHTML='&lt;h2&gt;Month&amp;nbsp;'+(this.index+1)+'&amp;nbsp;Activities&lt;/h2&gt; &lt;p&gt;'+arr[this.index]+'&lt;/p&gt;';</b></font>
+        }
+    }
+</pre>
+
+<script>
+    var arr= 
+    [
+        'New Year is for holidays',
+        'Feb is for holidays',
+        'Mar is for holidays',
+        'Apr is for holidays',
+        'May is for holidays',
+        'Jun is for holidays',
+        'Jul is for holidays',
+        'Aug is for holidays',
+        'Sep is for holidays',
+        'Oct is for holidays',
+        'Nov is for holidays',
+        'Dec is for holidays',
+    ];
+
+    var oDiv = document.getElementById('tab');
+    var aLi = oDiv.getElementsByTagName('li');
+    var oTxt= oDiv.getElementsByTagName('div')[0];
+
+    for (var i=0;i<aLi.length;i++)
+    {
+        aLi[i].index = i;
+        aLi[i].onmouseover = function ()
+        {
+            for(var i=0; i<aLi.length; i++)
+            {
+                aLi[i].className ='';
+            }
+            this.className='active';
+            oTxt.innerHTML='<h2>Month&nbsp;'+(this.index+1)+'&nbsp;Activities</h2><p>'+arr[this.index]+'</p>';
+        }
+    }
+</script>
+</body>
+</html>

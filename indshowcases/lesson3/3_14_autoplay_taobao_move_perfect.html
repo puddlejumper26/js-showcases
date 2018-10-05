@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3_14_autoplay_taobao_move_perfect</title>
+<style>
+* { padding: 0; margin: 0; }
+li { list-style: none; }
+img { border: none; }
+
+.play { width: 470px; height: 150px;overflow:hidden;position: relative; margin: 150px auto 0; }
+.play .text {width:100%; position:absolute; left:0; bottom:0; height:60px;}
+
+ol { position: absolute; right: 5px; bottom: 5px; z-index: 99999; }
+ol li { float: left; margin-right: 3px; display: inline; cursor: pointer; background: #fcf2cf; border: 1px solid #f47500; padding: 2px 6px; color: #d94b01; font-family: arial; font-size: 12px; }
+.active { padding: 3px 8px; font-weight: bold; color: #ffffff; background: #ffb442; position: relative; bottom: 2px; }
+
+ul { position: absolute; top: 0; left: 0; z-index: 1; }
+ul li { width: 470px; height: 150px; float: left; }
+ul img { float: left; width: 470px; height: 150px; }
+</style>
+</head>
+<body>
+<div class="play" id="play">
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+    <ul>
+        <li><img src="img/autoplay4/1.jpg"</li>
+        <li><img src="img/autoplay4/2.jpg" </li>
+        <li><img src="img/autoplay4/3.jpg" </li>
+        <li><img src="img/autoplay4/4.jpg" </li>
+        <li><img src="img/autoplay4/5.jpg" </li>
+    </ul>
+</div>
+
+<script>
+    var oDiv = document.getElementById('play');
+    var aBtn = oDiv.getElementsByTagName('ol')[0].getElementsByTagName('li');
+    var oUl = oDiv.getElementsByTagName('ul')[0];
+
+    var now = 0;
+
+    for (var i = 0; i < aBtn.length; i++) {
+            aBtn[i].index = i;
+            aBtn[i].onclick = function () {
+                now = this.index;
+
+                tab();
+            };
+        }
+
+    function tab() {
+            for (var i = 0; i < aBtn.length; i++) {
+                aBtn[i].className = '';
+            }
+            aBtn[now].className = 'active';
+            startMove(oUl, { top: -150 * now });
+        }
+    
+    function next() {
+            now++;
+            if (now == aBtn.length) {
+                now = 0;
+            }
+
+            tab();
+        }
+    var timer = setInterval(next, 2000);
+
+        oDiv.onmouseover = function () {
+            clearInterval(timer);
+        };
+
+        oDiv.onmouseout = function () {
+            timer = setInterval(next, 2000);
+        };  
+         
+// move perfect
+    function getStyle(obj, name) {
+        if (obj.currentStyle) {
+            return obj.currentStyle[name];
+        }
+        else {
+            return getComputedStyle(obj, false)[name];
+        }
+    }
+
+    //startMove(oDiv, {width: 400, height: 400})
+
+    function startMove(obj, json, fnEnd) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var bStop = true;		//假设：所有值都已经到了
+
+            for (var attr in json) {
+                var cur = 0;
+
+                if (attr == 'opacity') {
+                    cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+                }
+                else {
+                    cur = parseInt(getStyle(obj, attr));
+                }
+
+                var speed = (json[attr] - cur) / 6;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+                if (cur != json[attr])
+                    bStop = false;
+
+                if (attr == 'opacity') {
+                    obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+                    obj.style.opacity = (cur + speed) / 100;
+                }
+                else {
+                    obj.style[attr] = cur + speed + 'px';
+                }
+            }
+
+            if (bStop) {
+                clearInterval(obj.timer);
+
+                if (fnEnd) fnEnd();
+            }
+        }, 30);
+    }
+</script>
+</body>
+</html>

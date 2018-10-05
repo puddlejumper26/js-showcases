@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3_10_autoplay_ver_move_anyvalue</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .play {
+            width: 400px;
+            height: 430px;
+            margin: 50px auto 0;
+            background: #999;
+            font: 12px Arial;
+        }
+
+        .big_pic {
+            width: 400px;
+            height: 320px;
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            background: #222;
+            position: relative;
+        }
+
+        .big_pic li {
+            width: 400px;
+            height: 320px;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: url(img/autoplay3/loading.gif) no-repeat center center;
+        }
+
+        .big_pic li img {
+            width: 400px;
+            height: 320px;
+            position: absolute;
+            background: black
+        }
+
+        .mark_left {
+            width: 200px;
+            height: 400px;
+            background: orange;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 3000;
+            filter: alpha(opacity:0);
+            opacity: 0;
+        }
+
+        .mark_right {
+            width: 200px;
+            height: 400px;
+            background: cornflowerblue;
+            position: absolute;
+            left: 200px;
+            top: 0px;
+            z-index: 3000;
+            filter: alpha(opacity:0);
+            opacity: 0;
+        }
+
+        .prev {
+            width: 60px;
+            height: 60px;
+            background: url(img/autoplay3/btn.gif);
+            position: absolute;
+            z-index: 3001;
+            top: 130px;
+            left: 10px;
+            cursor: pointer;
+            filter: alpha(opacity:0);
+            opacity: 0;
+        }
+
+        .next {
+            width: 60px;
+            height: 60px;
+            background: url(img/autoplay3/btn.gif) no-repeat 0 -60px;
+            position: absolute;
+            z-index: 3001;
+            top: 130px;
+            right: 10px;
+            cursor: pointer;
+            filter: alpha(opacity:0);
+            opacity: 0;
+        }
+
+        .small_pic {
+            width: 390px;
+            height: 94px;
+            position: relative;
+            top: 7px;
+            left: 10px;
+            overflow: hidden;
+        }
+
+        .small_pic ul {
+            height: 94px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+
+        .small_pic ul li {
+            width: 120px;
+            height: 94px;
+            float: left;
+            cursor: pointer;
+            filter: alpha(opacity:60);
+            opacity: 0.6;
+            padding-right: 10px;
+        }
+
+        .small_pic li img {
+            width: 120px;
+            height: 94px;
+        }
+
+        .big_pic .text {
+            position: absolute;
+            left: 10px;
+            top: 302px;
+            z-index: 3000;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="playimages" class="play">
+        <ul class="big_pic">
+            <div class="prev" id="prev"></div>
+            <div class="next"></div>
+
+            <div class="text">Loading……</div>
+
+            <a class="mark_left" href="javascript:;"></a>
+            <a class="mark_right" href="javascript:;"></a>
+            <div class="bg"></div>
+
+            <li style="z-index: 1"><img src="img/autoplay3/1.jpg"></li>
+            <li><img src="img/autoplay3/2.jpg"></li>
+            <li><img src="img/autoplay3/3.jpg"></li>
+            <li><img src="img/autoplay3/4.jpg"></li>
+            <li><img src="img/autoplay3/5.jpg"></li>
+            <li><img src="img/autoplay3/6.jpg"></li>
+        </ul>
+
+        <div class="small_pic">
+            <ul style="widows: 390px;">
+                <li style="filter: 100; opacity: 1;"><img src="img/autoplay3/1.jpg"></li>
+                <li><img src="img/autoplay3/2.jpg"></li>
+                <li><img src="img/autoplay3/3.jpg"></li>
+                <li><img src="img/autoplay3/4.jpg"></li>
+                <li><img src="img/autoplay3/5.jpg"></li>
+                <li><img src="img/autoplay3/6.jpg"></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // getByClass
+        function getByClass(oParent, sClass) {
+            var aEle = oParent.getElementsByTagName('*');
+            var aResult = [];
+
+            for (var i = 0; i < aEle.length; i++) {
+                if (aEle[i].className === sClass) {
+                    aResult.push(aEle[i]);
+                }
+            }
+
+            return aResult;
+        }
+
+        var oDiv = document.getElementById('playimages');
+        // var oBtnPrev = oDiv.getElementById('prev');
+        var oBtnPrev = getByClass(oDiv, 'prev')[0];
+        var oBtnNext = getByClass(oDiv, 'next')[0];
+        var oMarkLeft = getByClass(oDiv, 'mark_left')[0];
+        var oMarkRight = getByClass(oDiv, 'mark_right')[0];
+
+        var oDivSmall = getByClass(oDiv, 'small_pic')[0];
+        var oUlSmall = oDivSmall.getElementsByTagName('ul')[0];
+        var aLiSmall = oDivSmall.getElementsByTagName('li');
+
+        var oUlBig = getByClass(oDiv, 'big_pic')[0];
+        var aLiBig = oUlBig.getElementsByTagName('li');
+
+        var nowZIndex = 2;//这里选择2是因为下面的ul的定义里面z-index=1
+        var now = 0;
+
+        oUlSmall.style.width = aLiSmall.length * aLiSmall[0].offsetWidth + 'px';
+
+
+        // left right button
+        oBtnPrev.onmouseover = oMarkLeft.onmouseover = function ()
+        //这样保证鼠标在小框里面的时候小框仍然会显示出来，不然只有oMarkLeft.onmouseover=function()的话，鼠标移入到小框里，小框就会消失，因为这块区域不属于oMarkLeft了
+        {
+            startMove(oBtnPrev, 'opacity', 100);
+        };
+        oBtnPrev.onmouseout = oMarkLeft.onmouseout = function () {
+            startMove(oBtnPrev, 'opacity', 0);
+        };
+        oBtnNext.onmouseover = oMarkRight.onmouseover = function () {
+            startMove(oBtnNext, 'opacity', 100);
+        };
+        oBtnNext.onmouseout = oMarkRight.onmouseout = function () {
+            startMove(oBtnNext, 'opacity', 0);
+        };
+        //大图切换
+        // --- 首先 是 小图的切换
+        for (var i = 0; i < aLiSmall.length; i++) {
+            aLiSmall[i].index = i;
+            aLiSmall[i].onclick = function ()
+            // 需要知道点的是第几张小图，用来变化第几张大图,连续点击同一张小图时，大图不变化
+            {
+                if (this.index === now) return;
+                now = this.index;//相当于把点击的小图的编号传递给了now，并且用在tab（）中。
+                tab();
+            };
+            // 小图的效果变化
+            aLiSmall[i].onmouseover = function () {
+                startMove(this, 'opacity', 100);
+            }
+            aLiSmall[i].onmouseout = function () {
+                if (this.index != now) //如果是当前的小图，那么这个小图的透明度就不变化
+                {
+                    startMove(this, 'opacity', 60);
+                }
+            }
+        }
+        function tab() {
+            aLiBig[now].style.zIndex = nowZIndex++;
+            //让index的大图的z-index的数值在2上自己相加，那么层级一直在增加，那么每次点击的小图对应的大图都会有最高的层级，显示在最前面
+            for (var i = 0; i < aLiSmall.length; i++) {
+                startMove(aLiSmall[i], 'opacity', 60);
+            }//所有的小图都变成60的透明度
+
+            startMove(aLiSmall[now], 'opacity', 100);
+            //当前的小图透明度 100
+            aLiBig[now].style.height = 0;
+            startMove(aLiBig[now], 'height', 320);
+
+            if (now === 0) // 说明是第一张图
+            {
+                startMove(oUlSmall, 'left', 0);
+            }
+            else if (now === aLiSmall.length - 1) // 说明是最后一张图
+            {
+                startMove(oUlSmall, 'left', -(now - 2) * aLiSmall[0].offsetWidth);
+            }
+            else // 让小图片ul的正常移动，既不是第一张也不是最后一张
+            {
+                startMove(oUlSmall, 'left', -(now - 1) * aLiSmall[0].offsetWidth);
+            }
+        }
+        oBtnPrev.onclick = function () {
+            now--;
+            if (now === -1)//移到第一张图片的时候
+            { now = aLiSmall.length - 1; }
+            tab();
+        }
+        oBtnNext.onclick = function () {
+            now++;
+            if (now === aLiSmall.length) { now = 0 }
+            tab();
+        }
+
+        // 自动播放
+
+        var timer = setInterval(oBtnNext.onclick, 2000);
+        oDiv.onmouseover = function () {
+            clearInterval(timer);
+        };
+        oDiv.onmouseout = function () {
+            timer = setInterval(oBtnNext.onclick, 2000);
+        }
+
+
+        // move function 
+        function getStyle(obj, name) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[name];
+            }
+            else {
+                return getComputedStyle(obj, false)[name];
+            }
+        }
+
+        function startMove(obj, attr, iTarget) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                var cur = 0;
+
+                if (attr === 'opacity') {
+                    cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+                }
+                else {
+                    cur = parseInt(getStyle(obj, attr));
+                }
+
+                var speed = (iTarget - cur) / 6;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+                if (cur === iTarget) {
+                    clearInterval(obj.timer);
+                }
+                else {
+                    if (attr === 'opacity') {
+                        obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+                        obj.style.opacity = (cur + speed) / 100;
+                    }
+                    else {
+                        obj.style[attr] = cur + speed + 'px';
+                    }
+                }
+            }, 30);
+        }
+
+    </script>
+
+    <pre>
+Note now the startMove function ---  Edition 1---any value
+
+function getStyle(obj, name) 
+{
+    if (obj.currentStyle) 
+    {
+        return obj.currentStyle[name];
+    }
+    else 
+    {
+        return getComputedStyle(obj, false)[name];
+    }
+}
+
+function startMove(obj, attr, iTarget) 
+{
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function () 
+    {
+        var cur = 0;
+
+        if (attr === 'opacity') 
+        {
+            cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+        }
+        else 
+        {
+            cur = parseInt(getStyle(obj, attr));
+        }
+
+        var speed = (iTarget - cur) / 6;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if (cur === iTarget) 
+        {
+            clearInterval(obj.timer);
+        }
+        else 
+        {
+            if (attr === 'opacity') 
+            {
+                obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+                obj.style.opacity = (cur + speed) / 100;
+            }
+            else 
+            {
+                obj.style[attr] = cur + speed + 'px';
+            }
+        }
+    }, 30);
+}
+</pre>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2_9_without-offset</title>
+<style>
+div{width: 200px;height: 200px;margin: 20px;float: left;
+		background-color: red;border:1px solid black;
+		font-size: 14px;
+	}
+</style>
+</head>
+<body>
+    <div id="div1">变高-Higher</div>
+    <div id="div2">变宽-Wider</div>
+    <div id="div3">字体大小的变化-FontSize</div>
+    <div id="div4">border width</div>
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <p>注意，这里的CSS中有border，但是仍然能够顺利运行</p>
+
+<script>
+    var oDiv1=document.getElementById('div1');
+    var oDiv2=document.getElementById('div2');
+    var oDiv3=document.getElementById('div3');
+    var oDiv4=document.getElementById('div4');
+
+    function getStyle(obj,name)
+    {
+        if(obj.currentStyle)
+        {
+            return obj.currentStyle[name];
+        }
+        else
+        {
+            return getComputedStyle(obj,false)[name];
+        }
+    }
+
+    function startMove(obj,attr,iTarget)
+    {
+        clearInterval(obj.timer);
+        obj.timer=setInterval(function()
+        {
+            var cur=parseInt(getStyle(obj,attr));
+            var speed=(iTarget-cur)/6;
+            speed=speed>0 ? Math.ceil(speed) : Math.floor(speed);
+
+            if(cur === iTarget)
+            {
+                clearInterval(obj.timer);
+            }
+            else{
+                obj.style[attr]=cur+speed+'px';
+            }
+        },30)
+    }
+
+    oDiv1.onmouseover=function(){startMove(this,'height',400);};
+    oDiv1.onmouseout=function(){startMove(this,'height',200);};
+    oDiv2.onmouseover=function(){startMove(this,'width',400);};
+    oDiv2.onmouseout=function(){startMove(this,'width',200);};
+    oDiv3.onmouseover=function(){startMove(this,'fontSize',50);};
+    oDiv3.onmouseout=function(){startMove(this,'fontSize',14);};
+    oDiv4.onmouseover=function(){startMove(this,'borderWidth',50);};
+    oDiv4.onmouseout=function(){startMove(this,'borderWidth',1);};
+
+</script>
+<pre>
+    var oDiv1=document.getElementById('div1');
+    var oDiv2=document.getElementById('div2');
+    var oDiv3=document.getElementById('div3');
+    var oDiv4=document.getElementById('div4');
+    
+    function getStyle(obj,name)
+    {
+        if(obj.currentStyle)
+        {
+            return obj.currentStyle[name];
+        }
+        else
+        {
+            return getComputedStyle(obj,false)[name];
+        }
+    }
+    
+    function startMove(obj,attr,iTarget)
+    {
+        clearInterval(obj.timer);
+        obj.timer=setInterval(function()
+        {
+            var cur=parseInt(getStyle(obj,attr));
+            var speed=(iTarget-cur)/6;
+            speed=speed>0 ? Math.ceil(speed) : Math.floor(speed);
+            
+            if(cur === iTarget)
+            {
+                clearInterval(obj.timer);
+            }
+            else
+            {
+                obj.style[attr]=cur+speed+'px';
+            }
+        },30)
+    }
+    
+    oDiv1.onmouseover=function(){startMove(this,'height',400);};
+    oDiv1.onmouseout=function(){startMove(this,'height',200);};
+    oDiv2.onmouseover=function(){startMove(this,'width',400);};
+    oDiv2.onmouseout=function(){startMove(this,'width',200);};
+    oDiv3.onmouseover=function(){startMove(this,'fontSize',50);};
+    oDiv3.onmouseout=function(){startMove(this,'fontSize',14);};
+    oDiv4.onmouseover=function(){startMove(this,'borderWidth',50);};
+    oDiv4.onmouseout=function(){startMove(this,'borderWidth',1);};
+</pre>
+</body>
+</html>

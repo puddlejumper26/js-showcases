@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2_5_compare_number</title>
+<style>
+    div{text-align: center}
+    input{width: 100px;}
+    #output{width:200px;height: 100px;position:relative; top:10px;border: darkslategrey 2px dashed;text-align: center}
+</style>
+
+</head>
+<body>
+    <div>
+    <center>
+        <input type="text">
+        <b> vs </b>
+        <input type="text">
+        <input type="button" value="Bigger Number: ">
+    </center>
+    <input type="text" id="output">
+    </div>        
+
+<script>
+    var aInput=document.getElementsByTagName('input');
+    var i=0;
+
+    for (i=0; i<aInput.length;i++)
+    {
+        aInput[i].onkeyup = function()
+        {
+            this.value=this.value.replace(/[^\d]/,'');
+        }
+        aInput[2].onclick=function()
+        {
+            (aInput[0].value == "" || aInput[1].value == "") ?
+                aInput[3].value = "Please input number" :( 
+            aInput[3].value = Math.max(aInput[0].value, aInput[1].value))
+            // aInput[0].value>aInput[1].value?aInput[3].value = aInput[0].value : aInput[3].value = aInput[1].value )
+        }
+    }
+</script>
+    
+<pre>
+    var aInput=document.getElementsByTagName('input');
+    var i=0;
+    
+    for (i=0; i&lt:aInput.length;i++) 
+    { 
+        aInput[i].onkeyup=function() 
+        { 
+            <font color="red"><b>this.value=this.value.replace(/[^\d]/,'');</b></font> 
+        }
+        aInput[2].onclick=function() 
+        { 
+            (aInput[0].value=="" || aInput[1].value=="" ) ? aInput[3].value="Please input number"
+        :( aInput[3].value=<font color="red"><b>Math.max(aInput[0].value, aInput[1].value))</b></font> 
+        
+        // aInput[0].value>aInput[1].value?aInput[3].value = aInput[0].value : aInput[3].value = aInput[1].value )
+        }
+    }
+</pre>
+</body>
+</html>

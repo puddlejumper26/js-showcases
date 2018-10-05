@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1_6_buttonshow</title>
+<style>
+    body,div,ul,li,h2{margin:0;padding:0;}
+    li{list-style: none;}
+    #outer{width:200px;border:1px solid #aaa;margin:10px auto;}
+    h2{cursor:pointer;color:#57646E;font-size:14px;font-weight:400;border:1px solid;height:30px;line-height:30px;padding-left:10px;background:#ced3d7 180px 15px no-repeat;border-color:#fff #e9edf2;}   
+    li{height:35px;line-height:25px; }
+    a{display:block;color:#6b7980;background:#e9edf2;text-decoration:none;padding:5px 10px;}
+    a:hover{background:#fff;text-decoration:underline;}
+
+</style>
+</head>
+<body>
+<div id="outer">
+<h2>Play List</h2>
+    <ul>
+        <li><a href="javascript:">First Choice</a></li>
+        <li><a href="javascript:">Second Choice</a></li>
+        <li><a href="javascript:">Third Choice</a></li>
+        <li><a href="javascript:">Fourth Choice</a></li>
+        <li><a href="javascript:">Fifth Choice</a></li>
+        <li><a href="javascript:">Sixth Choice</a></li>
+    </ul>
+</div> 
+<pre>
+    html
+    ----------
+    &lt;div id="outer"&gt;
+    &lt;h2&gt;Play List&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;ahref="javascript:"&gt;First Choice&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;ahref="javascript:"&gt;Second Choice&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;ahref="javascript:"&gt;Third Choice&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;ahref="javascript:"&gt;Fourth Choice&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;ahref="javascript:"&gt;Fifth Choice&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;ahref="javascript:"&gt;Sixth Choice&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+
+    css
+    ----------
+    body,div,ul,li,h2{margin:0;padding:0;}
+    li{list-style: none;}
+    #outer{width:200px;border:1px solid #aaa;margin:10px auto;}
+    h2{cursor:pointer;color:#57646E;font-size:14px;font-weight:400;border:1px
+    solid;height:30px;line-height:30px;padding-left:10px;background:#ced3d7 180px 15px no-repeat;border-color:#fff
+    #e9edf2;}
+    li{height:35px;line-height:25px; }
+    a{display:block;color:#6b7980;background:#e9edf2;text-decoration:none;padding:5px 10px;}
+    a:hover{background:#fff;text-decoration:underline;}
+
+    js
+    ----------
+    var oH2 = document.getElementsByTagName("h2")[0];
+    var oUl = document.getElementsByTagName("ul")[0];
+        // 1 //
+    oH2.onclick = function () 
+    {
+        var style = oUl.style;
+        style.display = style.display == "none" ? "block" : "none";
+        oH2.className = style.display == "none" ? "open" : ""
+    }
+        // 2 //
+    /*oH2.onclick = function()
+    {
+        if(oUl.style.display ==='block'){oUl.style.display = 'none'}else{oUl.style.display='block'}
+    }*/
+
+</pre>
+<script>
+    var oH2 = document.getElementsByTagName("h2")[0];
+    var oUl = document.getElementsByTagName("ul")[0];
+    oH2.onclick = function () {
+        var style = oUl.style;
+        style.display = style.display == "none" ? "block" : "none";
+        oH2.className = style.display == "none" ? "open" : ""
+    }
+    /*oH2.onclick = function(){
+        if(oUl.style.display ==='block'){oUl.style.display = 'none'}else{oUl.style.display='block'}
+    }*/
+
+</script>
+
+</body>
+</html>

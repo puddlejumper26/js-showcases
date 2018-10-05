@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>1_16_arr_splice</title>
+<script>
+var arr=[1,2,3,4,5,6];
+
+//删除：splice(起点, 长度)
+//arr.splice(2, 3);
+
+//插入：splice(起点, 长度, 元素...);
+//arr.splice(2, 0, 'a', 'b', 'c');
+
+arr.splice(2, 2, 'a', 'b');
+
+alert(arr);
+</script>
+</head>
+
+<body>
+    <pre>
+        var arr=[1,2,3,4,5,6];
+        
+        //删除：splice(起点, 长度)
+        //arr.splice(2, 3);
+        
+        //插入：splice(起点, 长度, 元素...);
+        //arr.splice(2, 0, 'a', 'b', 'c');
+        
+        arr.splice(2, 2, 'a', 'b');
+        
+        alert(arr);
+    </pre>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1_2_webpage_change_color.html</title>
+    <style>
+        a:link,a:visited{text-decoration:none;}
+        a:hover{text-decoration:underline;}
+              
+        #nav li{float:left; margin-left: 15px;list-style: none;text-align: center;cursor:pointer;}
+    </style>
+    <script>
+        window.onload=function()
+        {
+            var oBtn = document.getElementsByTagName('input');
+            var oBd = document.getElementById('db');
+            var oVal=['green','blue','yellow','white'];
+
+            for(var i=0; i<oBtn.length;i++)
+            {
+                oBtn[i].index = i;
+                oBtn[i].onclick = function()
+                {
+                    oBd.style.background=oVal[this.index];
+                }
+            }
+        }
+    </script>
+</head>
+<body id="db">
+<div>
+    <input type="button" value="green"/>
+    <input type="button" value="blue"/>
+    <input type="button" value="yellow"/>
+    <input type="button" value='white'/>
+    <ul id="nav">
+        <li><a href="javascript:;">news</a></li>
+        <li><a href="javascript:;">Entertainment</a></li>
+        <li><a href="javascript:;">Sport</a></li>
+        <li><a href="javascript:;">Movie</a></li>
+        <li><a href="javascript:;">Music</a></li>
+        <li class="last"><a href="javascript:;">Travel</a></li>
+    </ul>
+
+</div>
+
+<pre>
+
+
+    <font color="red"><b>
+        a:link,a:visited{text-decoration:none;}
+        a:hover{text-decoration:underline;}
+    </b></font>
+
+<h2>Method 1</h2>        
+for loop and arry for the colors
+--------------------------------
+window.onload=function()
+{
+    var oBtn = document.getElementsByTagName('input');
+    var oBd = document.getElementById('db');
+    <font color="red"><b>var oVal=['green','blue','yellow'];</b></font>
+
+    for(var i=0; i&lt;oBtn.length;i++) 
+    { 
+        oBtn[i].index=i; 
+        oBtn[i].onclick=function() 
+        { oBd.style.background=oVal[this.index];} 
+    } 
+}
+
+<h2>Method 2</h2>
+Creat two CSS files with different body{background: } settings. IF we need to change more than one color combinations, such as title,background,text,etc.This method is better.
+
+&lt;link <font color="red"><b>id="l1"</b></font> rel="stylesheet" type="text/css" <font color="red"><b>href="css1.css"</b></font>&gt;
+&lt;script&gt;
+function skin1()
+{
+    var oL=document.getElementById('l1');
+    <font color="red"><b>oL.href='css1.css';</b></font>
+}
+&lt;/script&gt;
+</pre>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1_1_div_attribution</title>
+<style>
+    #div1 {margin: auto;text-align:center;}
+    #div2 {width: 300px;height: 300px;background-color: black; margin:10px auto;display: block;}
+</style>
+<script>
+window.onload=function (){
+    var oBtn = document.getElementsByTagName('input');
+    var oDiv = document.getElementById('div2');
+    var oAtt = ["width","height","background-color","display","display"];
+    var oVal =["500px","400px","red","none","block"];
+
+    for (var i=0; i <oAtt.length; i++)
+    {
+        oBtn[i].index = i;
+        oBtn[i].onclick = function(){
+            //this.index == oBtn.length;
+            oDiv.style.cssText='';
+            changeStyle(oDiv,oAtt[this.index],oVal[this.index]);
+        }
+    }
+
+}
+
+function changeStyle (obj,att,val){
+    obj.style[att]=val;
+}
+
+</script>
+</head>
+<body>
+<div id="div1">
+    <input type="button" value="Wider"/>
+    <input type="button" value="Higher"/>
+    <input type="button" value="Change Color"/>
+    <input type="button" value="Hide"/>
+    <input type="button" value="Reset"/>
+    <div id="div2"></div>
+</div>
+
+<pre>
+window.onload=function (){
+    var oBtn = document.getElementsByTagName('input');
+    var oDiv = document.getElementById('div2');
+    var oAtt = ["width","height","background-color","display","display"];
+    var oVal =["500px","400px","red","none","block"];
+    
+    for (var i=0; i &lt; oAtt.length; i++) { 
+        oBtn[i].index=i; 
+        oBtn[i].onclick=function(){                   
+           <font color='red'> 
+            <b>oDiv.style.cssText='';</b> </font>
+            changeStyle(oDiv,oAtt[this.index],oVal[this.index]); } 
+    } 
+} 
+
+function changeStyle (obj,att,val)
+{ 
+    obj.style[att]=val;
+}
+</pre>
+
+
+</body>
+</html>

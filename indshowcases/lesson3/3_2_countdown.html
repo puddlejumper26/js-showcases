@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3_2_countdown</title>
+<style>
+    #countdown{width: 300px;text-align: center;background:;margin:30px auto;border:2px dashed blue;padding: 10px;}
+    input{width: 100px;height: 50px;cursor: pointer; margin: 10px;}
+    span{color:#000;width:80px;background:#fbfbfb;border:2px solid #b4b4b4;margin:10px;padding:0 10px;}
+    input.cancel{background-position:0 -50px;}
+
+</style>
+</head>
+<body>
+    <div id="countdown">
+        <span> 10 </span>Minutes
+        <span> 10 </span>Seconds <br>
+        <input type="button" value="Start">
+    </div>  
+    
+ <script>
+    var oCountDown = document.getElementById("countdown");
+    var aInput = oCountDown.getElementsByTagName("input")[0];
+    var timer = null;
+
+    aInput.onclick = function () 
+    {
+        //console.log(this.className);
+        if(this.className==='')
+        {
+            timer=setInterval(updateTime,1000);
+            this.className='cancel';
+        }
+        else
+        {
+            clearInterval(timer);
+            this.className='';
+        }
+         
+        // this.className == "" ? (timer = setInterval(updateTime, 1000), updateTime()) : (clearInterval(timer));
+
+        // to ensure the button works both for start and stop and also have cancel className
+        // if (this.className==='')
+        // {this.className='cancel'}else{this.className=''}
+        
+        //this.className = this.className === '' ? this.className="cancel" : '';
+    };
+
+    function updateTime() 
+    {
+        var aSpan = oCountDown.getElementsByTagName("span");
+        //oRemain is the total seconds
+        var oRemain =aSpan[0].innerHTML * 60 + parseInt(aSpan[1].innerHTML);
+        console.log(typeof(oRemain));
+        // close the timer,so it stops at 00 Minutes 00 seconds
+        if (oRemain <= 0) {
+            clearInterval(timer);
+            return
+        }else{oRemain--;}
+        
+        aSpan[0].innerHTML = format(parseInt(oRemain/60));
+        
+        oRemain %= 60;
+        
+        aSpan[1].innerHTML = format(parseInt(oRemain));
+    }
+
+    function format(a) 
+    {   //The toString() method converts a number to a string.
+            return a.toString();
+    }
+</script>
+<pre>
+    html 
+    ----------
+    &lt;div id="countdown"&gt;
+    &lt;span&gt; 10 &lt;/span&gt;Minutes
+    &lt;span&gt; 10 &lt;/span&gt;Seconds &lt;br&gt;
+    &lt;inputtype="button"value="Start"&gt;
+    &lt;/div&gt;
+
+    css
+    ----------
+    #countdown{width: 300px;text-align: center;background:;margin:30px auto;border:2px dashed blue;padding: 10px;}
+    input{width: 100px;height: 50px;cursor: pointer; margin: 10px;}
+    span{color:#000;width:80px;background:#fbfbfb;border:2px solid #b4b4b4;margin:10px;padding:0 10px;}
+    input.cancel{background-position:0 -50px;}
+
+    js
+    ----------
+    var oCountDown = document.getElementById("countdown");
+    var aInput = oCountDown.getElementsByTagName("input")[0];
+    var timer = null;
+    
+    aInput.onclick = function ()
+    {
+    //console.log(this.className);
+    if(this.className==='')
+    {
+    timer=setInterval(updateTime,1000);
+    }
+    else{clearInterval(timer);}
+    
+    // this.className == "" ? (timer = setInterval(updateTime, 1000), updateTime()) : (clearInterval(timer));
+    
+    // to ensure the button works both for start and stop and also have cancel className
+    if (this.className==='')
+    {this.className='cancel'}else{this.className=''}
+    
+    //this.className = this.className === '' ? this.className="cancel" : '';
+    };
+    
+    function updateTime()
+    {
+        var aSpan = oCountDown.getElementsByTagName("span");
+        //oRemain is the total seconds
+        var oRemain = aSpan[0].innerHTML * 60 + <font color="red"><b>parseInt(aSpan[1].innerHTML);</b></font>
+        // The parseInt function converts its first argument to a string, parses it, and returns an integer or NaN.
+        
+        // close the timer,so it stops at 00 Minutes 00 seconds
+        if (oRemain <= 0) 
+        { 
+            clearInterval(timer); return 
+        }
+        else
+        {
+            oRemain--;
+        } 
+        
+        aSpan[0].innerHTML=format(parseInt(oRemain/60));
+        oRemain %=60; 
+        aSpan[1].innerHTML=format(parseInt(oRemain)); } 
+        
+        function format(a) 
+        { 
+            //The toString() method converts a number to a string. 
+            <font color="red"><b>return a.toString(); </b></font>
+        }
+
+</pre>
+
+</body>
+</html>

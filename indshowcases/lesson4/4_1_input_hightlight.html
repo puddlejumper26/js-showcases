@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_1_input_hightlight</title>
+<style>
+   
+</style>
+</head>
+<body>
+    <h2>用户登录</h2>
+    <p><label>用户名：</label><input class="f-text" type="text"  /></p>
+    <p><label>密码：</label><input class="f-text" type="password" /></p>
+    <p><label></label><input class="f-btn" type="button" value="登 录" /></p>
+
+    <script>
+    var aInput = document.getElementsByTagName("input");
+        var i = 0;
+        for (i = 0; i < aInput.length - 1; i++) {
+            aInput[i].onfocus = function () {
+                this.style.background = "lightpink";
+            };
+            aInput[i].onblur = function () {
+                this.style.background='';
+            }
+        }
+</script>
+
+<pre>
+var aInput = document.getElementsByTagName("input");
+var i = 0;
+for (i = 0; i < aInput.length - 1; i++) 
+{ 
+    aInput[i].<font color="red"><b>onfocus</b></font>=function () 
+    { 
+        this.style.background="lightpink" ; 
+    };
+    aInput[i].<font color="red"><b>onblur</b></font>=function () 
+    { 
+        this.style.background='' ; 
+    } 
+}
+
+The onfocus event occurs when an element gets focus.
+The onblur event occurs when an object loses focus.
+
+</pre>
+
+    
+</body>
+</html>

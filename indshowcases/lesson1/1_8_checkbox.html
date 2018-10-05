@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1_8_checkbox</title>
+</head>
+<body>
+ 
+    <input id="btn1" type="button" value="All checked">
+    <input id="btn2" type="button" value="All not checked">
+    <input id="btn3" type="button" value="Cross checked">
+     
+  <div id="div">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+    <input type="checkbox">
+  </div>
+  <pre><b>
+      Different types of input: 
+
+    - text-<input type="text"> 
+
+    - button -<input type="button" value="button"> 
+
+    - checkbox -<input type="checkbox"> 
+
+    - color -<input type="color"> 
+
+    - date -<input type="date"> 
+
+    - datetime -<input type="datetime"> 
+
+    - email -<input type = "email"> 
+
+    - file -<input type="file"> 
+
+    - image -<input type="image">  
+
+    - month -<input type = "month"> 
+
+    - number -<input type = "number">  
+
+    - radio -<input type ="radio"> 
+
+    - search -<input type = "search"> 
+
+    - range -<input type="range">
+
+    - submit -<input type = "submit">
+
+    - tel -<input type = "tel"> 
+    
+    - time -<input type = "time">
+
+    - url -<input type="url"> 
+
+  </b></pre>
+<script>
+    var oBtn1 = document.getElementById('btn1');
+    var oBtn2 = document.getElementById('btn2');
+    var oBtn3 = document.getElementById('btn3');
+    var oDiv = document.getElementById('div');
+    var aCh = oDiv.getElementsByTagName('input');
+
+    function sta(par)
+    {
+        
+        for (var i = 0; i < aCh.length; i++) {
+            aCh[i].checked = par;
+        }
+    }
+    
+    oBtn1.onclick = function()
+    {
+        sta("true");
+    }
+    oBtn2.onclick=function()
+    {
+        for (var i = 0; i < aCh.length; i++) 
+        {
+            aCh[i].checked = false;
+        }
+    }
+    oBtn3.onclick = function()
+    {
+        for (var i = 0; i < aCh.length; i++) 
+        {
+            if(aCh[i].checked === true)
+            {aCh[i].checked = false;}
+            else{ aCh[i].checked=true;}
+        }
+    }
+</script>
+</body>
+</html>
