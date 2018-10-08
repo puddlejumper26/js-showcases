@@ -1,4 +1,4 @@
-# js-showcases
+# JS-showcases
   based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
 # Part I Basic _ Show Cases
 
@@ -79,3 +79,6 @@
             <li><a href="basic_showcases/lesson6/6_6_dom_table_search.html" target="_blank">6_6_dom_table_search</a></li>
             <li><a href="basic_showcases/lesson6/6_7_dom_table_order.html" target="_blank">6_7_dom_table_order</a></li>
         </ul>
+
+# Part II Project
+
