@@ -1,4 +1,4 @@
-# JS-showcases
+# JS-showcases  - 
   based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
 # Part I Basic _ Show Cases
 
