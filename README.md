@@ -38,7 +38,6 @@
             <li><a href="basic_showcases/lesson2/2_8_sidebar.html" target="blank">2_8_sidebar</a></li>
             <li><a href="basic_showcases/lesson2/2_9_without-offset.html" target="blank">2_9_without-offset</a></li>
             <li><a href="basic_showcases/lesson2/2_10_right_float_window.html">2_10_right_float_window</a></li>
-
         </ul>
     <h2>Lesson 3</h2>
         <ul>
