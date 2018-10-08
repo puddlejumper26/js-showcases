@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6_2_dom_creat_li_before</title>
+</head>
+<body>
+<input id="text12_2" type="text">
+<input id="btn12_2" type="button" value="Creat li">
+<ul id="ul12_2"></ul>
+<script>
+        var oBtn12_2=document.getElementById('btn12_2');
+		var oUl12_2=document.getElementById('ul12_2');
+		var oTxt12_2=document.getElementById('text12_2');
+		
+		oBtn12_2.onclick=function()
+		{
+			var oLi12_2=document. createElement('li') 
+			var aLi12_2=oUl12_2.getElementsByTagName('li');
+            oLi12_2.innerHTML=oTxt12_2.value;  
+			       //oUl12_1. appendChild (oLi12_1);	
+            oTxt12_2.value='';       
+            if (aLi12_2.length > 0)
+            {        
+            	oUl12_2.insertBefore(oLi12_2,aLi12_2[0]); // 直接使用会在IE中报错，所以用一个if
+            }
+            else
+            {
+            	oUl12_2.appendChild(oLi12_2);
+            }
+		}
+</script>
+<pre>
+var oBtn12_2=document.getElementById('btn12_2');
+var oUl12_2=document.getElementById('ul12_2');
+var oTxt12_2=document.getElementById('text12_2');
+
+oBtn12_2.onclick=function()
+{
+    var oLi12_2=document. createElement('li') 
+    var aLi12_2=oUl12_2.getElementsByTagName('li');
+    oLi12_2.innerHTML=oTxt12_2.value;  
+            //oUl12_1. appendChild (oLi12_1);	
+    oTxt12_2.value='';       
+    if (aLi12_2.length > 0)
+    {        
+        oUl12_2.insertBefore(oLi12_2,aLi12_2[0]); // 直接使用会在IE中报错，所以用一个if
+    }
+    else
+    {
+        oUl12_2.appendChild(oLi12_2);
+    }
+}
+</pre> 
+</body>
+</html>

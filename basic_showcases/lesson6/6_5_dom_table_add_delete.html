@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6_5_dom_add_delete</title>
+</head>
+<body>
+姓名：<input id="name" type="text"><br>
+年龄：<input id="age" type="text">
+<input type="button" id="btn" value="Add">
+<br><br>
+<table id="tab" border="1" width="500">
+    <thead>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Age</td>
+        <td>操作</td>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>John</td>
+            <td>19</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Alic</td>
+            <td>20</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Mark</td>
+            <td>21</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+   
+<script>
+	var oTab = document.getElementById('tab');
+        var oBtn = document.getElementById('btn');
+        var oName = document.getElementById('name');
+        var oAge = document.getElementById('age');
+        var id = oTab.tBodies[0].rows.length+1;
+		
+        oBtn.onclick=function()
+        {
+        	//首先要添加一个 tr
+            var oTr = document.createElement('tr');
+            // 接下来创建三个td 
+            var oTd_1=document.createElement('td');
+            	//oTd13_3_1.innerHTML=oTab13_3.tBodies[0].rows.length+1;//直接行数+1,但是如果删除之后再添加，行数就会乱套
+				oTd_1.innerHTML=id++; // 所以通过天剑一个变量来控制，这样添加的id就会自动增加，虽然删除之后，这个id就不再出现，但符合情况
+            	oTr.appendChild(oTd_1);
+                        
+            var oTd_2=document.createElement('td');
+				oTd_2.innerHTML=oName.value;
+            	oTr.appendChild(oTd_2);
+	
+            var oTd_3=document.createElement('td');
+            	oTd_3.innerHTML=oAge.value;
+            	oTr.appendChild(oTd_3);
+			// 最后一个td 里面用来放删除按钮
+     		var oTd_4=document.createElement('td');
+            	oTd_4.innerHTML='<a href="javascript:;">Delete</a>';
+            	oTr.appendChild(oTd_4);   
+				
+				oTd_4.getElementsByTagName('a')[0].onclick=function()
+				{
+					oTab.tBodies[0].removeChild(this.parentNode.parentNode);	//this 是 <a>, 父级是td， td的父级是tr
+				};
+				
+			        
+            oTab.tBodies[0].appendChild(oTr);
+            
+        }
+</script>
+<pre>
+    	var oTab = document.getElementById('tab');
+        var oBtn = document.getElementById('btn');
+        var oName = document.getElementById('name');
+        var oAge = document.getElementById('age');
+        var id = oTab.tBodies[0].rows.length+1;
+		
+        oBtn.onclick=function()
+        {
+        	//首先要添加一个 tr
+            var oTr = document.createElement('tr');
+            // 接下来创建三个td 
+            var oTd_1=document.createElement('td');
+            	//oTd13_3_1.innerHTML=oTab13_3.tBodies[0].rows.length+1;//直接行数+1,但是如果删除之后再添加，行数就会乱套
+				oTd_1.innerHTML=id++; // 所以通过天剑一个变量来控制，这样添加的id就会自动增加，虽然删除之后，这个id就不再出现，但符合情况
+            	oTr.appendChild(oTd_1);
+                        
+            var oTd_2=document.createElement('td');
+				oTd_2.innerHTML=oName.value;
+            	oTr.appendChild(oTd_2);
+	
+            var oTd_3=document.createElement('td');
+            	oTd_3.innerHTML=oAge.value;
+            	oTr.appendChild(oTd_3);
+			// 最后一个td 里面用来放删除按钮
+     		var oTd_4=document.createElement('td');
+            	oTd_4.innerHTML='<a href="javascript:;">Delete</a>';
+            	oTr.appendChild(oTd_4);   
+				
+				oTd_4.getElementsByTagName('a')[0].onclick=function()
+				{
+					oTab.tBodies[0].removeChild(this.parentNode.parentNode);	//this 是 <a>, 父级是td， td的父级是tr
+				};
+				
+			        
+            oTab.tBodies[0].appendChild(oTr);
+            
+        }
+
+</pre>
+</body>
+</html>

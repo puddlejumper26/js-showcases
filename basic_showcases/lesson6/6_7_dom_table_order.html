@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6_6_dom_table_order</title>
+</head>
+<body>
+    <input type="button" id="btn13_7" value="Order">
+    <br><br>
+    <table id="tab13_7" border="1" width="500">
+        <thead>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Age</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>John</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Harc</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Don</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Snow</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Alic</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Mark</td>
+                <td>21</td>
+            </tr>
+        </tbody>
+    </table>
+<script>
+    var oTab13_7_2 = document.getElementById('tab13_7');
+    var oBtn13_7_2 = document.getElementById('btn13_7');
+
+    oBtn13_7_2.onclick = function () {
+        var arr = [];
+        for (var i = 0; i < oTab13_7_2.tBodies[0].rows.length; i++) {
+            arr[i] = oTab13_7_2.tBodies[0].rows[i];
+        }
+        //console.log(arr[0]);
+        //console.log(oTab13_7_2.tBodies[0].rows.length);
+        //这里 tr1 tr2 就是指 arr中的不同的值，所以不用在意用什么字母
+        arr.sort(function (tr1, tr2) {
+            var n1 = parseInt(tr1.cells[0].innerHTML);
+            var n2 = parseInt(tr2.cells[0].innerHTML);
+            return n1 - n2;
+        });
+        for (var i = 0; i < arr.length; i++) {
+            oTab13_7_2.tBodies[0].appendChild(arr[i]);
+        }
+    };
+
+</script>
+<pre>
+    var oTab13_7_2 = document.getElementById('tab13_7');
+    var oBtn13_7_2 = document.getElementById('btn13_7');
+
+    oBtn13_7_2.onclick = function () 
+    {
+        var arr = [];
+        for (var i = 0; i < oTab13_7_2.tBodies[0].rows.length; i++) 
+        {
+            arr[i] = oTab13_7_2.tBodies[0].rows[i];
+        }
+
+        <font color="red"><b>arr.sort(function (tr1, tr2)</b></font> 
+        {
+            var n1 = parseInt(tr1.cells[0].innerHTML);
+            var n2 = parseInt(tr2.cells[0].innerHTML);
+            return n1 - n2;
+        });
+        //When the sort() function compares two values, it sends the values to the compare function, and sorts the values
+        according to the returned (negative, zero, positive) value.
+
+        for (var i = 0; i < arr.length; i++) 
+        {
+            oTab13_7_2.tBodies[0].appendChild(arr[i]);
+        }
+    };
+</pre>
+</body>
+</html>

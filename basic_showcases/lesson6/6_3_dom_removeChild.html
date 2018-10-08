@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6_3_dom_removeChild</title>
+</head>
+<body>
+<ul id="ul12_3">
+    <li>12345<a href="javascript:;">Delete</a></li>
+    <li>234er<a href="javascript:;">Delete</a></li>
+    <li>agwf2<a href="javascript:;">Delete</a></li>
+</ul>
+<script>
+    var oUl12_3 = document.getElementById('ul12_3');
+    var aA12_3 = oUl12_3.getElementsByTagName('a');
+
+    for (var i = 0; i < aA12_3.length; i++) {
+        aA12_3[i].onclick = function () {
+            oUl12_3.removeChild(this.parentNode);
+        }
+    }  
+</script>
+<pre>
+var oUl12_3=document.getElementById('ul12_3');
+var aA12_3=oUl12_3.getElementsByTagName('a');
+
+for (var i=0; i < aA12_3.length ; i++)
+{
+    aA12_3[i].onclick=function()
+    {
+        oUl12_3.removeChild(this.parentNode);
+    }
+}  
+</pre>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>6_6_dom_table_search</title>
+</head>
+<body>
+<input id="name13_4" type="text">
+<input type="button" id="btn13_4" value="Search">
+
+<table id="tab13_4" border="1" width="500">
+    <thead>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Age</td>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>John</td>
+            <td>19</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Alic</td>
+            <td>20</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Mark</td>
+            <td>21</td>
+        </tr>
+    </tbody>
+</table>
+<script>
+    	
+        var oTab13_4 = document.getElementById('tab13_4');
+        var oBtn13_4 = document.getElementById('btn13_4');
+        var oTxt13_4 = document.getElementById('name13_4');
+
+    /*    oBtn13_4.onclick = function () 
+        {
+            for (var i = 0; i < oTab13_4.tBodies[0].rows.length; i++) {
+                var str13_4_1 = oTab13_4.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                var str13_4_2 = oTxt13_4.value.toLowerCase();
+                var arr13_4 = str13_4_2.split('');
+
+                oTab13_4.tBodies[0].rows[i].style.display = 'none';
+
+                for (var j = 0; j < arr13_4.length; j++) {
+                    if (str13_4_1.search(arr13_4[j]) != -1) {
+                        oTab13_4.tBodies[0].rows[i].style.display = 'block';
+                    }
+                }
+
+            }
+        }*/
+                oBtn13_4.onclick=function()
+                {
+                    for(var i=0;i< oTab13_4.tBodies[0].rows.length;i++)
+                    {
+                        var str13_4_1 = oTab13_4.tBodies[0].rows[i].cells[1].innerHTML;
+                        var str13_4_2 = oTxt13_4.value;
+                        if (str13_4_1.toLowerCase() ==str13_4_2.toLowerCase() ) //全转成小写的形式
+                        {
+                            oTab13_4.tBodies[0].rows[i].style.background='yellow';
+                        }
+                        else
+                        {
+                            oTab13_4.tBodies[0].rows[i].style.background=''; //选择其他的名字的时候，不符合条件的都回归原色            	
+                        }
+                    }
+                } 
+   
+/*
+    oBtn13_4.onclick = function () {
+        for (var i = 0; i < oTab13_4.tBodies[0].rows.length; i++) 
+        {
+            var str13_4_1 = oTab13_4.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+            var str13_4_2 = oTxt13_4.value.toLowerCase();
+            var arr13_4 = str13_4_2.split('');
+
+            oTab13_4.tBodies[0].rows[i].style.background = '';
+
+            for (var j = 0; j < arr13_4.length; j++) {
+                if (str13_4_1.search(arr13_4[j]) != -1) {
+                    oTab13_4.tBodies[0].rows[i].style.background = 'yellow';
+                }
+            }
+
+        }
+    } 
+*/
+</script> 
+<pre>
+      var oTab13_4=document.getElementById('tab13_4');
+    var oBtn13_4=document.getElementById('btn13_4');
+    var oTxt13_4=document.getElementById('name13_4');
+    
+    oBtn13_4.onclick=function()
+    {
+    	for(var i=0;i< oTab13_4.tBodies[0].rows.length;i++)
+        {
+        	
+            var str13_4_1 = oTab13_4.tBodies[0].rows[i].cells[1].innerHTML;
+            var str13_4_2 = oTxt13_4.value;
+        	
+            if (str13_4_1.toLowerCase() ==str13_4_2.toLowerCase() ) //全转成小写的形式,就可以忽略大小写
+            {
+            	oTab13_4.tBodies[0].rows[i].style.background='yellow';
+            }
+            else
+            {
+				
+                oTab13_4.tBodies[0].rows[i].style.background=''; //选择其他的名字的时候，不符合条件的都回归原色            	
+            }
+        }
+    }
+
+<b>模糊搜索 search('')</b>
+search('') 找到并返回字符串出现的位置，如果没有找到，返回-1
+
+		
+        var oTab13_4=document.getElementById('tab13_4');
+        var oBtn13_4=document.getElementById('btn13_4');
+        var oTxt13_4=document.getElementById('name13_4');
+        
+        oBtn13_4.onclick=function()
+        {
+            for(var i=0;i< oTab13_4.tBodies[0].rows.length;i++)
+            {
+                var str13_4_1 = oTab13_4.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                var str13_4_2 = oTxt13_4.value.toLowerCase();
+                
+                if ( <b>str13_4_1.search(str13_4_2) != -1 </b>) 
+                {
+                    oTab13_4.tBodies[0].rows[i].style.background='yellow';
+                }
+                else
+                {
+                    oTab13_4.tBodies[0].rows[i].style.background=''; //选择其他的名字的时候，不符合条件的都回归原色            	
+                }
+            }
+        }
+
+<b>多关键字搜索 split </b>
+把字符串切开
+e.g. var str='abc 123 ert';
+	 var = str.split('')
+     						-->从空格处把字符串切开
+
+
+		
+        var oTab13_4=document.getElementById('tab13_4');
+        var oBtn13_4=document.getElementById('btn13_4');
+        var oTxt13_4=document.getElementById('name13_4');
+        
+        oBtn13_4.onclick=function()
+        {
+            for(var i=0;i< oTab13_4.tBodies[0].rows.length;i++)
+            {
+                var str13_4_1 = oTab13_4.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                var str13_4_2 = oTxt13_4.value.toLowerCase();
+                var arr13_4 = str13_4_2.split('');
+                
+                oTab13_4.tBodies[0].rows[i].style.background='';
+                
+                for (var j=0;j< arr13_4.length ; j++)
+                {
+                	if(str13_4_1.search(arr13_4[j])!= -1)
+                    { 
+                    	oTab13_4.tBodies[0].rows[i].style.background='yellow';
+                    }	
+                }                                                            
+                            
+            }
+        }
+
+<b>显示方式--高亮，筛选</b>
+前面的显示方式都是高亮
+
+筛选是指除了搜索内容以外，其他的都隐藏掉
+
+		var oTab13_4=document.getElementById('tab13_4');
+        var oBtn13_4=document.getElementById('btn13_4');
+        var oTxt13_4=document.getElementById('name13_4');
+        
+        oBtn13_4.onclick=function()
+        {
+            for(var i=0;i< oTab13_4.tBodies[0].rows.length;i++)
+            {
+                var str13_4_1 = oTab13_4.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                var str13_4_2 = oTxt13_4.value.toLowerCase();
+                var arr13_4 = str13_4_2.split('');
+                
+                oTab13_4.tBodies[0].rows[i].style.<font color="red"><b>display='none';</b></font>
+                
+                for (var j=0;j< arr13_4.length ; j++)
+                {
+                	if(str13_4_1.search(arr13_4[j])!= -1)
+                    { 
+                    	oTab13_4.tBodies[0].rows[i].style.<font color="red"><b>display='block';</b></font>
+                    }	
+                }                                                            
+                            
+            }
+        }
+</pre>
+
+</body>
+</html>

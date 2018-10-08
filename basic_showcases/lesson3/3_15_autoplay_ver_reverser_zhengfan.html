@@ -90,14 +90,14 @@ function autoPlay()
      tab();
 }
 
-var timer=setInterval(autoPlay,5000);
+var timer=setInterval(autoPlay,2000);
 oBox.onmouseover=function()
 {
     clearInterval(timer);
 }
 oBox.onmouseout=function()
 {
-    timer=setInterval(autoPlay,5000);
+    timer=setInterval(autoPlay,2000);
 }
 
 
@@ -199,7 +199,7 @@ oBox.onmouseout=function()
                     cur = parseInt(getStyle(obj, attr));
                 }
 
-                var speed = (json[attr] - cur) / 80;
+                var speed = (json[attr] - cur) / 10;
                 speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
 
                 if (cur != json[attr])
