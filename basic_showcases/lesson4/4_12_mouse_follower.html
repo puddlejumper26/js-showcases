@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_12_mouse_follower</title>
+<style>
+div{width: 20px;height: 20px;background-color: red;position: absolute;}
+</style>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+
+<script>
+    function getPos(ev) 
+    {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+
+        return { x: ev.clientX + scrollLeft, y: ev.clientY + scrollTop };
+    }
+
+    document.onmousemove = function (ev) 
+    {
+        var aDiv = document.getElementsByTagName('div');
+        var oEvent = ev || event;
+
+        var pos = getPos(oEvent);
+        //console.log(aDiv.length);
+        for (var i = aDiv.length - 1; i > 0; i--)  //后面的div跟着前面的div
+        {
+            aDiv[i].style.left = aDiv[i - 1].offsetLeft + 'px';
+            console.log('n--'+aDiv[i].style.left);
+            aDiv[i].style.top = aDiv[i - 1].offsetTop + 'px';
+
+        }
+        aDiv[0].style.left = pos.x + 'px';//第一个div跟着鼠标，
+        console.log('m--'+aDiv[i].style.left);
+        aDiv[0].style.top = pos.y + 'px';
+
+    };
+
+</script>
+
+<pre>
+    var aDiv=document.getElementsByTagName('div')[0];
+    
+    
+    console.log(aDiv.offsetLeft); --> number  like 100
+    console.log(aDiv.style.left);  --> string  with 'px'
+
+</pre>
+</body>
+</html>

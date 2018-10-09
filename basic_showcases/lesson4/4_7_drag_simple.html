@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_7_drag_simple</title>
+<style>
+    #div1 {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        position: absolute;
+    }
+</style>
+<script>
+    window.onload = function () {
+
+        // press the mouse
+        var oDiv = document.getElementById('div1');
+
+        var disX = 0;
+        var disY = 0;
+
+        oDiv.onmousedown = function (ev) {
+            var oEvent = ev || event;
+
+            disX = oEvent.clientX - oDiv.offsetLeft;
+            disY = oEvent.clientY - oDiv.offsetTop;
+
+            // move the mouse
+            // 2 //
+            document.onmousemove = function (ev)
+
+            //oDiv.onmousemove = function (ev) 
+
+            // 1 //
+            //这个函数必须放在 onmousedown里面，不然会不受控制
+            // 因为这个函数加在 div 上面，所以如果鼠标移出div，那么就会产生问题,所以要把oDiv.onmousemove 改成documet.onmousemove
+            {
+                var oEvent = ev || event;
+
+                var l = oEvent.clientX - disX;
+                var t = oEvent.clientY - disY;
+
+                // 6 // div 无法从左右上下边拖出
+                if (l < 0) {
+                    l = 0;
+                }
+                else if (l > document.documentElement.clientWidth - oDiv.offsetWidth)
+                // 可视区的宽度减去div 的宽度
+                {
+                    l = document.documentElement.clientWidth - oDiv.offsetWidth;
+                }
+
+                if (t < 0) {
+                    t = 0;
+                }
+                else if (t > document.documentElement.clientHeight - oDiv.offsetHeight) {
+                    t = document.documentElement.clientHeight - oDiv.offsetHeight;
+                }
+
+                oDiv.style.left = l + 'px';
+                oDiv.style.top = t + 'px';
+
+            }
+
+            // leave the mouse
+
+            // 4 //
+            document.onmouseup = function ()
+
+            // 3 // 和上面一样的原因 抬起的时候如果不在div内，那么会导致div仍旧移动，比如当鼠标点击着移到文本框头，这时的鼠标已经不在div内了， 这时放在鼠标，再移回屏幕，那么会发现div仍旧会移动
+            //	 		oDiv.onmouseup = function() 
+            {
+                document.onmousemove = null;
+                // 			oDiv.onmousemove = null; //鼠标抬起之后，之前的拖拽效果就没有了
+                document.onmouseup = null;
+                // 			oDiv.onmouseup = null;
+            }
+
+            return false;  // 5 // 这个是防止火狐出现bug，因为这个程序放到ff里，ff或自动生成第二个div，颜色半透明，所以这里要阻止ff产生自己的div， 即 阻止默认行为
+        }
+
+    }
+
+
+</script>
+
+</head>
+
+<body>
+
+    <div id="div1"></div>
+
+    <pre>
+
+		window.onload = function ()
+{
+
+// press the mouse
+	var oDiv = document.getElementById ('div1');
+
+	var disX = 0;
+	var disY = 0;
+
+	oDiv.onmousedown = function (ev)
+	{
+		var oEvent = ev || event;
+
+		disX = oEvent.clientX - oDiv.offsetLeft;
+		disY = oEvent.clientY - oDiv.offsetTop;
+
+// move the mouse
+			// 2 //
+			document.onmousemove = function (ev)
+
+			//oDiv.onmousemove = function (ev) 
+			
+			// 1 //
+			//这个函数必须放在 onmousedown里面，不然会不受控制
+		 	// 因为这个函数加在 div 上面，所以如果鼠标移出div，那么就会产生问题,所以要把oDiv.onmousemove 改成documet.onmousemove
+		 	{
+		 		var oEvent = ev || event;
+
+		 		var l = oEvent.clientX - disX;
+		 		var t = oEvent.clientY - disY;	
+
+ 				// 6 // div 无法从左右上下边拖出
+		 		if (l< 0)      
+		 		{
+		 			l = 0;
+		 		}
+		 		else if (l > document.documentElement.clientWidth - oDiv.offsetWidth)
+		 			// 可视区的宽度减去div 的宽度
+		 		{
+		 			l=document.documentElement.clientWidth - oDiv.offsetWidth;
+		 		} 
+
+		 		if (t< 0)
+		 		{
+		 			t=0;
+		 		}
+		 		else if (t > document.documentElement.clientHeight - oDiv.offsetHeight)
+		 		{
+		 			t = document.documentElement.clientHeight - oDiv.offsetHeight;
+		 		}
+
+
+
+		 		oDiv.style.left = l +'px';
+		 		oDiv.style.top = t +'px';
+
+
+
+		 	}
+
+// leave the mouse
+	 		
+			// 4 //
+			document.onmouseup = function ()
+
+			// 3 // 和上面一样的原因 抬起的时候如果不在div内，那么会导致div仍旧移动，比如当鼠标点击着移到文本框头，这时的鼠标已经不在div内了， 这时放在鼠标，再移回屏幕，那么会发现div仍旧会移动
+//	 		oDiv.onmouseup = function() 
+	 		{
+	 			document.onmousemove = null;
+	// 			oDiv.onmousemove = null; //鼠标抬起之后，之前的拖拽效果就没有了
+				document.onmouseup = null; 
+	// 			oDiv.onmouseup = null;
+	 		}
+
+	 		return false;  // 5 // 这个是防止火狐出现bug，因为这个程序放到ff里，ff或自动生成第二个div，颜色半透明，所以这里要阻止ff产生自己的div， 即 阻止默认行为
+	}
+
+}
+
+
+
+	</pre>
+
+</body>
+
+</html>

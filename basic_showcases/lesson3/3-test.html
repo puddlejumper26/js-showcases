@@ -6,20 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>3-test</title>
 <style>
-
+div {width: 100px;height: 100px;background: red;margin: 200px auto}
 
 
 </style>
 </head>
 <body>
-    <div id="div">1,2,janaury</div>
-    <div>3 4 asdfw</div>
+    <div id="div">
 
 <script>
-  var aDiv=document.getElementsByTagName('div');
+  var aDiv=document.getElementsByTagName('div')[0];
 
-  var m = getArray(aDiv[0].innerHTML);
-  console.log(m);
+  
+  console.log(aDiv.offsetLeft);
+  console.log(aDiv.style.left);
+  console.log(aDiv.offsetWidth);
+  console.log(aDiv.offsetHeight);
+  console.log(aDiv.offsetTop);
+  console.log(aDiv.style.height);
 
 </script>
 </body>

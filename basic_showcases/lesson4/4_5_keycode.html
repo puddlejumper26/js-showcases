@@ -19,7 +19,8 @@ span{color:#999;}
         document.onkeydown = function (event) {
             var event = event || window.event;
             oP.innerHTML = event.keyCode;
-            return false
+            console.log(event.keyCode);
+            //return false
         }
     }
 </script>
@@ -39,6 +40,9 @@ span{color:#999;}
     	}
     }
     &lt;/script&gt;
+    var oEvent=ev||event;这一句这么写是要兼容各个浏览器，在FireFox浏览器中，事件绑定的函数要获取到事件本身，需要从函数中传入，
+    而IE等浏览器则可以直接使用event或者window.event得到事件本身。这一句的用途：需要获取和事件相关的信息时使用。如：
+    1.获取键盘按下或弹起的按键 2.获取鼠标的位置坐标 3.获取出发改事件的元素 4.获取事件名称 5.获取事件当前的传播阶段 6.获取事件生成的日期时间
     </pre>
     <p>这里将显示您按下键的 keyCode</p>
 

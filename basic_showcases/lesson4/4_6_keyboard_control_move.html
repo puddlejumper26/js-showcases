@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_6_keyboard_control_move</title>
+<style>
+#box{position:absolute;top:300px;left:500px;width:100px;height:100px;background:red;}
+pre{color:green;padding:10px 15px;background:#f0f0f0;border:1px dotted #333;font:12px/1.5 Courier New;margin:12px;}
+
+</style>
+</head>
+<body>
+<div id="box"></div>
+<pre>
+Red Block is the operation area：
+
+Up：↑ Down：↓ Left：← Right：→
+
+Ctrl + 1 : Background to Green
+Ctrl + 2 : Background to Yellow
+Ctrl + 3 : Background to Blue
+Ctrl + 4 : Background to Red
+Ctrl + ↑ : Zoom in
+Ctrl + ↓ : Zoom out
+</pre>
+
+<script>
+        var oBox = document.getElementById("box");
+        var bLeft = bTop = bRight = bBottom = bCtrlKey = false;
+
+        setInterval(function () {
+            if (bLeft) {
+                oBox.style.left = oBox.offsetLeft - 10 + "px"
+            }
+            else if (bRight) {
+                oBox.style.left = oBox.offsetLeft + 10 + "px"
+            }
+
+            if (bTop) {
+                oBox.style.top = oBox.offsetTop - 10 + "px"
+            }
+            else if (bBottom) {
+                oBox.style.top = oBox.offsetTop + 10 + "px"
+            }
+            //防止溢出
+            limit();
+        }, 30); //这样就每过30毫秒，都会运行一遍。
+
+        //防止溢出
+        function limit() 
+        {
+            var doc = [document.documentElement.clientWidth, document.documentElement.clientHeight]
+            //document.documentElement.clientWidth 就是整体屏幕的宽度
+            //console.log(document.documentElement.clientWidth);
+            //防止左侧溢出
+            if(oBox.offsetLeft<=0)oBox.style.left=0;
+            //oBox.offsetLeft <= 0 && (oBox.style.left = 0);
+            //console.log('offsetleft：'+oBox.offsetLeft,'left:'+ oBox.style.left);
+            //防止顶部溢出
+            if(oBox.offsetTop<=0)oBox.style.top = 0;
+            //oBox.offsetTop <= 0 && (oBox.style.top = 0);
+            //防止右侧溢出
+            doc[0] - oBox.offsetLeft - oBox.offsetWidth <= 0 && (oBox.style.left = doc[0] - oBox.offsetWidth + "px");
+            //防止底部溢出
+            doc[1] - oBox.offsetTop - oBox.offsetHeight <= 0 && (oBox.style.top = doc[1] - oBox.offsetHeight + "px")
+            //防止变的过小
+            if(oBox.offsetWidth<=50)
+            {   
+                var oldWidth = oBox.offsetWidth;
+                var oldHeight = oBox.offsetHeight;
+                oBox.style.width = 50 + 'px';
+                oBox.style.height = 50 + 'px';
+                //防止漂移， 后面的作用一样
+                oBox.style.left = oBox.offsetLeft - (oBox.offsetWidth - oldWidth) / 2 + "px";
+                oBox.style.top = oBox.offsetTop - (oBox.offsetHeight - oldHeight) / 2 + "px";
+            }
+            //防止变得过大   
+            if(oBox.offsetWidth>=300)
+            {
+                var oldWidth = oBox.offsetWidth;
+                var oldHeight = oBox.offsetHeight;
+                
+                oBox.style.width = 300 + 'px'; oBox.style.height = 300 + 'px';
+                //防止漂移， 后面的作用一样
+                oBox.style.left = oBox.offsetLeft - (oBox.offsetWidth - oldWidth) / 2 + "px";
+                oBox.style.top = oBox.offsetTop - (oBox.offsetHeight - oldHeight) / 2 + "px";
+            }
+        }
+
+        document.onkeydown = function (event) {
+            /*var oEvent=ev||event;这一句这么写是要兼容各个浏览器，在FireFox浏览器中，事件绑定的函数要获取到事件本身，需要从函数中传入，而IE等浏览器则可以直接使用event或者window.event得到事件本身。这一句的用途：需要获取和事件相关的信息时使用。如：1.获取键盘按下或弹起的按键 2.获取鼠标的位置坐标 3.获取出发改事件的元素 4.获取事件名称 5.获取事件当前的传播阶段 6.获取事件生成的日期时间
+            */
+            
+            var event = event || window.event;
+            bCtrlKey = event.ctrlKey; //return true when press CTRL
+            //console.log(event.ctrlKey);
+            switch (event.keyCode) {
+                case 37:
+                    bLeft = true;
+                    break;
+                case 38: //up key
+                    if (bCtrlKey) {
+                        var oldWidth = oBox.offsetWidth;
+                        var oldHeight = oBox.offsetHeight;
+                        
+                        oBox.style.width = oBox.offsetWidth * 1.5 + "px";
+                        oBox.style.height = oBox.offsetHeight * 1.5 + "px";
+                               
+                        oBox.style.left = oBox.offsetLeft - (oBox.offsetWidth - oldWidth) / 2 + "px";
+                        oBox.style.top = oBox.offsetTop - (oBox.offsetHeight - oldHeight) / 2 + "px";
+
+                        break;
+                    }
+                    bTop = true;
+                    break;
+                case 39:
+                    bRight = true;
+                    break;
+                case 40: // down key
+                    if (bCtrlKey) {
+                        var oldWidth = oBox.offsetWidth;
+                        var oldHeight = oBox.offsetHeight;
+                        
+                            oBox.style.width = oBox.offsetWidth * 0.5 + "px";
+                            oBox.style.height = oBox.offsetHeight * 0.5 + "px";
+                            //console.log(oBox.style.width, oBox.style.height);
+                        
+                        // 下面的保证放大缩小时位置没有变化
+                        oBox.style.left = oBox.offsetLeft - (oBox.offsetWidth - oldWidth) / 2 + "px";
+                        oBox.style.top = oBox.offsetTop - (oBox.offsetHeight - oldHeight) / 2 + "px";
+
+                        break;
+                    }
+                    bBottom = true;
+                    break;
+                case 49:
+                    bCtrlKey && (oBox.style.background = "green");
+                    break;
+                case 50:
+                    bCtrlKey && (oBox.style.background = "yellow");
+                    break;
+                case 51:
+                    bCtrlKey && (oBox.style.background = "blue");
+                    break;
+                case 52:
+                    bCtrlKey && (oBox.style.background = 'red');
+                    break;
+            }
+
+            return false
+        };
+
+        document.onkeyup = function (event) {
+            switch ((event || window.event).keyCode) {
+                case 37:
+                    bLeft = false;
+                    break;
+                case 38:
+                    bTop = false;
+                    break;
+                case 39:
+                    bRight = false;
+                    break;
+                case 40:
+                    bBottom = false;
+                    break;
+            }
+        };
+
+        
+
+</script>
+</body>
+</html>

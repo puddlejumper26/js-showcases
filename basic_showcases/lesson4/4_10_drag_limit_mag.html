@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_10_drag_limit_mag</title>
+<style>
+#div1 {width: 100px;height: 100px;background-color: red;position: absolute;}
+#div2 {width: 600px;height: 600px;background: #CCC;position: relative;}
+
+</style>
+
+</head>
+<body>
+<div id="div2">
+    <div id="div1"></div>
+</div>
+<script>
+// press the mouse
+    var oDiv=document.getElementById('div1');
+    var oDiv2 = document.getElementById('div2');
+
+    var disX=0; var disY=0;
+
+    oDiv.onmousedown=function(ev)
+    {
+        var oEvent= ev || event;
+        disX = oEvent.clientX-oDiv.offsetLeft;
+        disY = oEvent.clientY - oDiv.offsetTop;
+
+        // move the mouse
+        document.onmousemove = function (ev)
+        {
+            var oEvent = ev || event;
+            var l = oEvent.clientX - disX;
+            var t = oEvent.clientY - disY;
+            var maxL = oDiv2.offsetWidth- oDiv.offsetWidth;
+            var maxT = oDiv2.offsetHeight - oDiv.offsetHeight;
+
+            l = l <= 100 ? 0 : l;
+            l = l >maxL-100 ? maxL : l;
+            t = t <= 100 ? 0 : t;
+            t = t > maxT-100 ? maxT : t;
+        
+            oDiv.style.left = l + 'px';
+            oDiv.style.top = t + 'px';
+        }
+
+        // leave the mouse
+        document.onmouseup = function()
+        {
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
+
+        return false;
+
+    }
+</script>
+ 
+</body>
+</html>
