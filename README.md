@@ -1,5 +1,8 @@
 # JS-showcases  - Not Completed
   based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
+# Part II Project
+<h2>Tmall_website</h2>
+
 # Part I Basic _ Show Cases
 
 <h2>Lesson 1</h2>
@@ -64,6 +67,14 @@
             <li><a href="basic_showcases/lesson4/4_2_star_rating.html" target="_blank">4_2_star_rating</a></li>
             <li><a href="basic_showcases/lesson4/4_3_stop_right_menu.html">4_3_stop_right_menu</a></li>
             <li><a href="basic_showcases/lesson4/4_4_add_right_menu.html" target="_blank">4_4_add_right_menu</a></li>
+            <li><a href="basic_showcases/lesson4/4_5_keycode.html" target="_blank">4_5_keycode</a></li>
+            <li><a href="basic_showcases/lesson4/4_6_keyboard_control_move.html"target="_blank">4_6_keyboard_control_move</a></li>
+            <li><a href="basic_showcases/lesson4/4_7_drag_simple.html" target="_blank">4_7_drag_simple</a></li>
+            <li><a href="basic_showcases/lesson4/4_8_drag_limt.html" target="_blank">4_8_drag_limt</a></li>
+            <li><a href="basic_showcases/lesson4/4_9_drag_parameter.html" target="_blank">4_9_drag_parameter</a></li>
+            <li><a href="basic_showcases/lesson4/4_10_drag_limit_mag.html" target="_blank">4_10_drag_limit_mag</a></li>
+            <li><a href="basic_showcases/lesson4/4_11_drag_dashbox.html" target="_blank">4_11_drag_dashbox</a></li>
+            <li><a href="basic_showcases/lesson4/4_12_mouse_follower.html">4_12_mouse_follower</a></li>
         </ul>
         <h2>Lesson 5</h2>
         <ul>
@@ -80,5 +91,5 @@
             <li><a href="basic_showcases/lesson6/6_7_dom_table_order.html" target="_blank">6_7_dom_table_order</a></li>
         </ul>
 
-# Part II Project
+
 
