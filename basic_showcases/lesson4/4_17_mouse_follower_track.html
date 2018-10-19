@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_17_mouse_follower_track</title>
+<style>
+body{background: black;color: white}
+div{position:absolute;width:160px;height:127px;background:url(img/starwar.png) no-repeat;top:100px;left:50px;}
+
+#cor1{background:black;position: absolute;top: 50px;left: 350px;width: 30px;border: none; color: green; }
+#cor2{background: black;position: absolute;top: 50px;left: 385px;width: 30px;border: none;color: green;}
+</style>
+
+</head>
+<body>
+
+<input type="button" value="Move based on the mouse click" /><br>
+<input type="button" value="move based on the mouse track" />
+<p>Press the button to initialize！</p>
+<div></div>
+<input type="text" id="cor1"><input type="text" id="cor2">
+
+<script>
+var oDiv = document.getElementsByTagName('div')[0];
+var aInput = document.getElementsByTagName('input');
+var oP = document.getElementsByTagName('p')[0];
+
+aInput[0].onclick = function(event)
+{
+    (event || window.event).cancelBubble = true;
+    clearEvent();
+    this.value += '(actived)';
+    oP.innerHTML = 'Click on the page, X-Wing will move to...'; 
+    document.onclick=function(event)
+    {
+        var event = event || window.event;
+        startMove(oDiv,{x:event.clientX,y:event.clientY});
+        aInput[2].value=event.clientX;
+        aInput[3].value=event.clientY;
+        return false;
+    }
+}
+aInput[1].onclick = function(event)
+{
+    (event || window.event).cancelBubble = true;
+    clearEvent();
+    this.value += '(actived)';
+    oP.innerHTML = 'Press the mouse, X-Wing will flow the track!';
+    var aPos = [{ x: oDiv.offsetLeft, y: oDiv.offsetTop }];
+    document.onmousedown=function(event)
+    {
+        var event = event || window.event;
+        aPos.push({ x: event.clientX, y: event.clientY });
+        document.onmousemove=function(event)
+        {
+            var event = event || window.event;
+            aPos.push({ x: event.clientX, y: event.clientY });
+            return false;
+        }
+        return false;
+    }
+    document.onmouseup=function()
+    {
+        document.onmousemove=null;
+        var timer = setInterval(function()
+        {
+            if(aPos.length===0)
+            {
+                clearInterval(timer);return;
+            }
+            oDiv.style.left=aPos[0].x+'px';
+            oDiv.style.top=aPos[0].y+'px';
+            aPos.shift();
+        },30);
+    };
+}
+
+function clearEvent()
+{
+    document.onclick=null;
+    document.onmousedown=null;
+    document.onmouseup=null;
+    document.onmousemove=null;
+    aInput[2].value='';
+    aInput[3].value = '';
+    
+    for(i=0;i<aInput.length;i++)
+    {
+        aInput[i].value = aInput[i].value.replace('(actived)','');
+        aInput[i].onmousedown=aInput[i].onmouseup=function(event)
+        {
+            (event||window.event).cancelBubble=true;
+        }
+    }
+}
+
+function startMove(obj, oTarget, fnEnd) {
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function () {
+        doMove(obj, oTarget, fnEnd)
+    }, 30)
+}
+function doMove(obj, oTarget, fnEnd) {
+    var iX = (oTarget.x - obj.offsetLeft) / 5;
+    var iY = (oTarget.y - obj.offsetTop) / 5;
+    iX = iX > 0 ? Math.ceil(iX) : Math.floor(iX);
+    iY = iY > 0 ? Math.ceil(iY) : Math.floor(iY);
+    if (oTarget.x == obj.offsetLeft && oTarget.y == obj.offsetTop) {
+        clearInterval(obj.timer);
+        fnEnd && fnEnd();
+    }
+    else {
+        obj.style.left = obj.offsetLeft + iX + "px";
+        obj.style.top = obj.offsetTop + iY + "px";
+    }
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,9 +1,9 @@
 # JS-showcases  - Not Completed
   based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
-# Part II Project
+# Part I Projects
 <h2>Tmall_website</h2>
 
-# Part I Basic _ Show Cases
+# Part II Basic _ Show Cases
 
 <h2>Lesson 1</h2>
         <ul>

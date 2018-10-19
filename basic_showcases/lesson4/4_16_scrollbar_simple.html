@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_16_scrollbar_simple</title>
+</head>
+<body>
+    <style type="text/css">
+*{margin:0;padding:0;}
+
+#div3{width: 610px;height: 124px;border: 1px dashed black;position:relative;margin: 100px auto; top: 50px;overflow: hidden}
+#div3 ul{position:absolute;list-style: none;float: left; height: 124px;left: 0px;width: 1250px;}
+#div3 ul li{float: left;}
+
+#parent{width: 600px;height: 20px;background: #ccc;position: relative;margin:auto;}
+#div1{width: 20px;height: 20px;background: red;position: absolute;left: 0;top: 0;}
+
+</style>
+<script type="text/javascript">
+    window.onload = function () {
+        var oDiv = document.getElementById('div1');
+        var oDiv2 = document.getElementById('div2');
+        var oDiv3 = document.getElementById('div3');
+        var oParent = document.getElementById('parent');
+        var oUl=document.getElementsByTagName('ul')[0];
+
+        var disX = 0;
+        var disY = 0;
+
+        oDiv.onmousedown = function (ev) {
+            var oEvent = ev || event;
+            disX = oEvent.clientX - oDiv.offsetLeft;
+
+            document.onmousemove = function (ev) {
+                var oEvent = ev || event;
+                var l = oEvent.clientX - disX;
+
+                if (l < 0) { l = 0; }
+                else if (l > oParent.offsetWidth - oDiv.offsetWidth) { l = oParent.offsetWidth - oDiv.offsetWidth; }
+
+                oDiv.style.left = l + 'px';
+
+                var scale = l / (oParent.offsetWidth - oDiv.offsetWidth);
+
+                oUl.style.left = - scale * (oUl.offsetWidth - oDiv3.offsetWidth) + 'px';
+                //console.log(oDiv3.offsetWidth)
+            }
+
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+
+            }
+            return false;
+        }
+    }
+</script>
+</head>
+<body>
+<div id="div2" >
+    <div class="list" id="div3">
+        <ul>
+            <li><img src="img/1.jpg" /><p>iPhone 4</p></li>
+            <li><img src="img/2.jpg" /><p>iPad 2</p></li>
+            <li><img src="img/3.jpg" /><p>iPod touch</p></li>
+            <li><img src="img/4.jpg" /><p>iPod classic</p></li>
+            <li><img src="img/5.jpg" /><p>iPod shuffle</p></li>
+            <li><img src="img/6.jpg" /><p>iPod nano</p></li>
+            <li><img src="img/7.jpg" /><p>MacBook Air</p></li>
+            <li><img src="img/8.jpg" /><p>MacBook Pro</p></li>
+            <li><img src="img/9.jpg" /><p>Mac mini</p></li>
+            <li><img src="img/10.jpg" /><p>Mac Pro</p></li>
+        </ul>
+    </div>
+    <!--/list-->
+</div>     
+        
+        <div class="barM" id="parent">
+            <div class="bar" id="div1">
+               
+            </div>
+        </div>
+         
+<pre>
+    #div3{width: 610px;height: 124px;border: 1px dashed black;position:relative;margin: 100px auto; top: 50px;overflow: hidden}
+    注意最外面一层用来设定框，虚线，overflow hidden
+    #div3 ul{position:absolute;list-style: none;float: left; height: 124px;left: 0px;width: 1250px;}
+    里面一层，用来设定所有的图片，因此这里的宽度是所有图片加上中间间隔的总体宽度，并且absolute，float：left
+    #div3 ul li{float: left;}
+
+
+    oUl.style.left = - scale * (oUl.offsetWidth - oDiv3.offsetWidth) + 'px';
+</pre>     
+    
+</body>
+</html>

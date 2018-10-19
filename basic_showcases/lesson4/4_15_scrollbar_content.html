@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_15_scrollbar_content</title>
+<style>
+#parent{width: 600px;height: 20px;background: #ccc;position: relative;margin:auto;}
+#div1{width: 20px;height: 20px;background: red;position: absolute;left: 0;top: 0;}
+#div2 {width: 400px;height: 300px;background: green;border:1px solid black;position: relative;overflow: hidden;position: absolute;left: 100px;top: 50px;}
+#div3{width:400px;position: absolute;left: 0;top: 0;}
+
+</style>
+<script>
+window.onload=function()
+{
+    var oDiv=document.getElementById('div1');
+    var oDiv2 = document.getElementById('div2');
+    var oDiv3 = document.getElementById('div3');
+    var oParent = document.getElementById('parent');
+
+    var disX = 0;
+    var disY = 0;
+
+    oDiv.onmousedown = function (ev) 
+    {
+        var oEvent = ev || event;
+        disX = oEvent.clientX - oDiv.offsetLeft;
+    
+        document.onmousemove=function(ev)
+        {
+            var oEvent=ev || event;
+            var l = oEvent.clientX- disX;
+
+            if(l<0) {l=0;}
+            else if(l>oParent.offsetWidth-oDiv.offsetWidth)
+            {l= oParent.offsetWidth - oDiv.offsetWidth;}
+
+            oDiv.style.left=l+'px';
+
+            var scale = l/(oParent.offsetWidth-oDiv.offsetWidth);
+
+            oDiv3.style.top = - scale*(oDiv3.offsetHeight-oDiv2.offsetHeight)+'px';
+        }
+
+        document.onmouseup = function()
+        {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        
+        }
+        return false;  
+    }
+}
+</script>
+</head>
+<body>
+    <div id="parent">
+        <div id="div1"> </div>
+    </div>
+    <div id="div2">
+        <div id="div3">IE方式
+            attachEvent(事件名称, 函数)，绑定事件处理函数
+            detachEvent(事件名称, 函数)，解除绑定
+            DOM方式
+            addEventListener(事件名称,函数, 捕获)
+            removeEventListener(事件名称, 函数, 捕获)
+            何时使用事件绑定
+            绑定事件和this
+            绑定匿名函数，会无法删除
+            ==============================================
+            e.g. if we put two in the same position, then it will only show the later one
+            window.onload = function () { alter('a');};
+            window.onload = function () { alter('b');};
+    
+            --> it will only alter b
+            &lt;input type="button" id="btn1" value="button"&gt;
+    
+            window.onload = function ()
+            {
+            var oBtn = document.getElementById ('btn1');
+    
+            /* the below two function could not work same time
+            oBtn.onclick = function ()
+            { alert('a'); };
+            oBtn.onclick = function ()
+            { alert('b'); }; */
+    
+            // so we use // IE 7 //
+    
+            /*
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('a');} );
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('b');} );
+    
+            // FF Chrome IE 9//
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('a');}, false);
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('b');}, false);
+            */
+    
+            if ( oBtn.attachEvent)
+            {
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('a');} );
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('b');} );
+            }
+            else
+            {
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('a');}, false);
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('b');}, false);
+            }
+            }
+    
+            ======================================
+    
+            function myAddEvent (obj, ev, fn)
+            {
+            if(obj.attachEvent)
+            {
+            obj.attachEvent('on'+ev,fn);
+            }
+            else
+            {
+            obj.addEventListener(ev,fn,false);
+            }
+            }
+            =======================================
+    
+            attachEvent(事件名称, 函数)，绑定事件处理函数
+            detachEvent(事件名称, 函数)，解除绑定
+            DOM方式
+            addEventListener(事件名称,函数, 捕获)
+            removeEventListener(事件名称, 函数, 捕获)
+            何时使用事件绑定
+            绑定事件和this
+            绑定匿名函数，会无法删除
+            ==============================================
+            e.g. if we put two in the same position, then it will only show the later one
+            window.onload = function () { alter('a');};
+            window.onload = function () { alter('b');};
+    
+            --> it will only alter b
+            &lt;input type="button" id="btn1" value="button"&gt;
+    
+            window.onload = function ()
+            {
+            var oBtn = document.getElementById ('btn1');
+    
+            /* the below two function could not work same time
+            oBtn.onclick = function ()
+            { alert('a'); };
+            oBtn.onclick = function ()
+            { alert('b'); }; */
+    
+            // so we use // IE 7 //
+    
+            /*
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('a');} );
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('b');} );
+    
+            // FF Chrome IE 9//
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('a');}, false);
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('b');}, false);
+            */
+    
+            if ( oBtn.attachEvent)
+            {
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('a');} );
+            oBtn.attachEvent(<font color="red">'onclick'</font>,function () {alert ('b');} );
+            }
+            else
+            {
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('a');}, false);
+            oBtn.addEventListerner(<font color="red">'click'</font>,function() {alert ('b');}, false);
+            }
+            }
+    
+            ======================================
+    
+            function myAddEvent (obj, ev, fn)
+            {
+            if(obj.attachEvent)
+            {
+            obj.attachEvent('on'+ev,fn);
+            }
+            else
+            {
+            obj.addEventListener(ev,fn,false);
+            }
+            }
+            =======================================
+    
+            END
+    
+        </div>
+    </div>
+
+</body>
+</html>

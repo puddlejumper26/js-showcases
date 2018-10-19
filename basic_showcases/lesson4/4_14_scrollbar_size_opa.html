@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_14_scrollbar_size_opa</title>
+<style>
+	#parent{width: 600px;height: 20px;background: #ccc;position: relative;margin:auto;}
+	#div1{width: 20px;height: 20px;background: red;position: absolute;left: 0;top: 0;}
+	#div2 {width: 0px;height: 0px;background: green;}
+    #div3 {width:100px;height: 100px;background: red;opacity:0 ;position: absolute;left: 450px;top: 100px;}
+</style>
+
+</head>
+<body>
+    <div id="parent">
+        <div id="div1"> </div>
+    
+    </div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+<script>
+    var oDiv = document.getElementById('div1');
+    var oDiv2 = document.getElementById('div2');
+    var oDiv3 = document.getElementById('div3');
+    var oParent = document.getElementById('parent');
+
+    var disX = 0;
+    var disY = 0;
+
+    oDiv.onmousedown = function (ev) {
+        var oEvent = ev || event;
+
+        disX = oEvent.clientX - oDiv.offsetLeft;
+
+        document.onmousemove = function (ev) {
+            var oEvent = ev || event;
+            var l = oEvent.clientX - disX;
+            //不能超出oParent两边的边界    
+            if (l < 0) {
+                l = 0;
+            }
+            else if (l > oParent.offsetWidth - oDiv.offsetWidth) {
+                l = oParent.offsetWidth - oDiv.offsetWidth + 'px';
+            }
+
+            oDiv.style.left = l + 'px';
+
+
+            var scale = l / (oParent.offsetWidth - oDiv.offsetWidth);
+           // document.title = scale;
+
+            oDiv2.style.width = 400 * scale + 'px';
+            oDiv2.style.height = 400 * scale + 'px';
+            oDiv3.style.opacity = (100 * scale)/100 = scale;
+            oDiv3.style.filter = 'alpha(opacity' + scale * 100 + ')';
+
+        }
+
+        document.onmouseup = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+
+            document.body.removeChild(oBox);
+        }
+
+        return false;
+    }
+
+</script>
+</body>
+</html>

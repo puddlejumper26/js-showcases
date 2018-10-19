@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>5_test</title>
+<style>
+* {margin:0; padding:0;}
+a{text-align: right}
+a:hover {text-decoration: underline;cursor: pointer}
+
+#ul1 {width:400px; height:400px; border:1px solid black; margin:10px auto; overflow:hidden;}
+#ul1 li {border-bottom:2px #999 dashed; padding:4px; list-style:none; overflow:hidden; filter:alpha(opacity:0); opacity:0;}
+</style>
+</head>
+
+<body>
+    <textarea id="txt1" rows="4" cols="40"></textarea>
+    <input id="btn1" type="button" value="Send" />
+    <ul id="ul1">
+    </ul>
+
+    <script>
+
+        var oBtn = document.getElementById('btn1');
+        var oUl = document.getElementById('ul1');
+        var oTxt = document.getElementById('txt1');
+/// add list
+        oBtn.onclick = function ()  // 1 //
+        {
+            var oLi = document.createElement('li');
+
+            oLi.innerHTML = oTxt.value+"<br>"+"<a> Delete </a>";
+            oTxt.value = '';
+
+            if (oUl.children.length > 0)  //  whether there is already element in the list
+            {
+                oUl.insertBefore(oLi, oUl.children[0]); //insertBefore so the elements always insert before the last element
+            }
+            else {
+                oUl.appendChild(oLi); //to add one element into an empty list
+            }
+            // 2  // 首先展开，然后透明度变化
+            // 2.1 // 首先是高度
+            var iHeight = oLi.offsetHeight;
+            oLi.style.height = '0';  // 这里是设定到0，注意这时候上面的ul和li的overflow
+            //2.2 透明度	上面设定里面设好 opacity
+            startMove(oLi, { height: iHeight }, function ()//添加效果，每条信息添加上去的时候，都有一个加入的效果
+            {
+                startMove(oLi, { opacity: 100 }); //添加透明度变化的效果，加不加效果都不错
+            });
+        };
+
+/// delete list  
+//window.onload=function()
+//{  
+        var aLi = oUl.getElementsByTagName('li');
+        var aDel = oUl.getElementsByTagName('a');
+        var oUl = document.getElementById('ul1');
+        if (oUl.children.length > 0)
+        {
+            for (var i = 0 ; i< aDel.length;i++)
+            {
+                console.log(aDel.length);
+                //console.log(aLi.length);
+                aDel[i].onclick = function()
+                {
+                    oUl.removeChild(this.parentNode);
+                };
+            };
+        }
+//}       
+
+
+// move function--perfect
+
+        function getStyle(obj, name) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[name];
+            }
+            else {
+                return getComputedStyle(obj, false)[name];
+            }
+        }
+
+        //startMove(oDiv, {width: 400, height: 400})
+        function startMove(obj, json, fnEnd) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                var bStop = true;		//假设：所有值都已经到了
+
+                for (var attr in json) {
+                    var cur = 0;
+
+                    if (attr == 'opacity') {
+                        cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+                    }
+                    else {
+                        cur = parseInt(getStyle(obj, attr));
+                    }
+
+                    var speed = (json[attr] - cur) / 6;
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+                    if (cur != json[attr])
+                        bStop = false;
+
+                    if (attr == 'opacity') {
+                        obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+                        obj.style.opacity = (cur + speed) / 100;
+                    }
+                    else {
+                        obj.style[attr] = cur + speed + 'px';
+                    }
+                }
+
+                if (bStop) {
+                    clearInterval(obj.timer);
+
+                    if (fnEnd) fnEnd();
+                }
+            }, 30);
+        }
+
+    </script>
+        
+</body>
+</html>

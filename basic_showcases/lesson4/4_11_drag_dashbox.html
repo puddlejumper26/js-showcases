@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>4_11_drag_dashbox</title>
 <style>
-	#div1 {width: 100px;height: 100px;background-color: red;position: absolute;}
-	.box {border:1px dashed black; position: absolute;}
+	#div1 {width: 100px;height: 100px;background-color: red;position: absolute;cursor:move;}
+	.box {border:1px dashed black; position: absolute;width: 100px;height: 100px;opacity: 0.3;background: red}
 </style>
 
 </head>
@@ -28,8 +28,8 @@
         var oBox = document.createElement('div')
 
         oBox.className = 'box';
-        oBox.style.width = oDiv.offsetWidth + 'px';
-        oBox.style.height = oDiv.offsetHeight + 'px';
+        // oBox.style.width = oDiv.offsetWidth + 'px';
+        // oBox.style.height = oDiv.offsetHeight + 'px';
 
         // 6 // 
         oBox.style.left = oDiv.offsetLeft + 'px';

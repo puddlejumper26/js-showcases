@@ -4,27 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>3-test</title>
+    <title>3_test</title>
 <style>
-div {width: 100px;height: 100px;background: red;margin: 200px auto}
-
-
-</style>
+   
+</style> 
+<script type="text/javascript">
+var oA=document.getElementById('hr_three');
+    oA.onclick=function(){
+  window.event ? window.event.cancelBubble = true : e.stopPropagation();
+}
+</script>  
 </head>
 <body>
-    <div id="div">
-
-<script>
-  var aDiv=document.getElementsByTagName('div')[0];
-
-  
-  console.log(aDiv.offsetLeft);
-  console.log(aDiv.style.left);
-  console.log(aDiv.offsetWidth);
-  console.log(aDiv.offsetHeight);
-  console.log(aDiv.offsetTop);
-  console.log(aDiv.style.height);
-
-</script>
+<ul>
+<form id="form1" runat="server">
+    <div id="divOne" onclick="alert('我是最外层');">
+        <div id="divTwo" onclick="alert('我是中间层！')">
+            <a id="hr_three" href="http://www.baidu.com" mce_href="http://www.baidu.com" target="blank" onclick="alert('我是最里层！')">点击我</a>
+        </div>
+    </div>
+</ul>
 </body>
 </html>

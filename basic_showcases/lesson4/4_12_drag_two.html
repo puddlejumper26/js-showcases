@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4_12_drag_two</title>
+<style>
+body,div{margin:0;padding:0;}
+body{background:#3e3e3e;}
+div{position:absolute;width:100px;height:100px;cursor:move;border:1px solid #888;}
+#drag1{top:100px;left:100px;z-index: 1;background: black}
+#drag2{top:100px;left:300px;z-index: 1;background: blue}
+.temp{width:100px;height:100px;background: red;opacity: 0.3;}
+
+</style>
+</head>
+<body>
+    <div id="drag1"></div>
+    <div id="drag2"></div>
+<script>
+    var oDrag1 = document.getElementById("drag1");
+    var oDrag2 = document.getElementById("drag2");
+    drag(oDrag1);
+    drag(oDrag2);
+
+    function drag(oDrag)
+    {
+        var disX=disY=0;
+        oDrag.onmousedown = function (event)
+        {   //首先清除非点击的div 的zindex 为1
+            if(oDrag1)oDrag2.style.zIndex='1';
+            if(oDrag2)oDrag1.style.zIndex='1';
+
+            var event = event || window.event;
+            disX = event.clientX - this.offsetLeft;
+            disY = event.clientY - this.offsetTop;
+            // 点击的div 的zindex为2，那么就在最上层
+            oDrag.style.zIndex = '2';
+            //console.log(this.style.zIndex);
+            
+            var oBox=document.createElement('div');
+            oBox.className='temp';
+            
+            oBox.style.left = this.offsetLeft + 'px';
+            oBox.style.top = this.offsetTop + 'px';
+
+            document.body.appendChild(oBox);
+
+            document.onmousemove = function(event)
+            {
+                var event=event || window.event;
+                var l=event.clientX - disX;
+                var t=event.clientY - disY;
+
+                oBox.style.left = l+'px';
+                oBox.style.top=t+'px';
+            }
+            document.onmouseup = function () 
+            {
+                document.onmousemove = null;
+                document.onmouseup = null;
+                
+                oDrag.style.left = oBox.offsetLeft + 'px';
+                oDrag.style.top = oBox.offsetTop+'px';
+
+                document.body.removeChild(oBox);
+            }
+            return false;
+        }
+    }
+</script>
+</body>
+</html>
