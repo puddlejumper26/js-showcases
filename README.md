@@ -1,7 +1,30 @@
 # JS-showcases  - Not Completed
   based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
+
 # Part I Projects
 <h2>Tmall_website</h2>
+    <li><a href="projects/tmall_website/css" target="_blank">CSS Bootstrap</a></li>
+    <li><a href="projects/tmall_website/js/bootstrap" target="_blank">JS Bootstrap</a></li>
+    <li><a href="projects/tmall_website/js/jquery" target="_blank">JS jQuery</a></li>
+    <h3>Front-End</h3>
+        <h4>01_public_page</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front_end/01_public_page/top_nav.html" target="_blank">01_public_page/top_nav</a></li>
+                <li><a href="projects/tmall_website/front_end/01_public_page/searching.html" target="_blank">01_public_page/searching</a></li>
+                <li><a href="projects/tmall_website/front_end/01_public_page/simple_searching.html" target="_blank">01_public_page/simple_searching</a></li>
+                <li><a href="projects/tmall_website/front_end/01_public_page/footer.html" target="_blank">01_public_page/footer</a></li>
+                <li><a href="projects/tmall_website/front_end/01_public_page/footer2.html" target="_blank">01_public_page/footer2</a></li>
+            </ul>
+        <h4>02_first_page</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front_end/02_first_page/category.html" target="_blank">02_first_page/category</a></li>
+                <li><a href="projects/tmall_website/front_end/02_first_page/nav_rotate.html" target="_blank">02_first_page/nav_rotate</a></li>
+                <li><a href="projects/tmall_website/front_end/02_first_page/products.html" target="_blank">02_first_page/products</a></li>
+            </ul>
+        <h4>03_category</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front_end/03_category/order_price.html" target="_blank">03_category/order_price</a></li>
+                <li><a href="projects/tmall_website/front_end/03_category/products.html" target="_blank">03_category/products</a></li>
 
 # Part II Basic _ Show Cases
 
@@ -28,6 +51,7 @@
             <li><a href="basic_showcases/lesson1/1_19_arr_push_add.html" target="blank">1_19_arr_push_add</a></li>
             <li><a href="basic_showcases/lesson1/1_20_math_round.html" target="_blank">1_20_math_round</a></li>
             <li><a href="basic_showcases/lesson1/1_21_json.html" target="_blank">1_21_json</a></li>
+            <li><a href="basic_showcases/lesson1/1_22_css_vertical_align_23_not completed.html" target="_blank">1_22_css_vertical_align_23_not completed</a></li>
         </ul>
     <h2>Lesson 2</h2>
         <ul>
@@ -75,10 +99,18 @@
             <li><a href="basic_showcases/lesson4/4_10_drag_limit_mag.html" target="_blank">4_10_drag_limit_mag</a></li>
             <li><a href="basic_showcases/lesson4/4_11_drag_dashbox.html" target="_blank">4_11_drag_dashbox</a></li>
             <li><a href="basic_showcases/lesson4/4_12_mouse_follower.html">4_12_mouse_follower</a></li>
+            <li><a href="basic_showcases/lesson4/4_13_drag_resize.html" target="_blank">4_13_drag_resize</a></li>
+            <li><a href="basic_showcases/lesson4/4_14_scrollbar_size_opa.html" target="_blank">4_14_scrollbar_size_opa</a></li>
+            <li><a href="basic_showcases/lesson4/4_15_scrollbar_content.html" target="_blank">4_15_scrollbar_content</a></li>
+            <li><a href="basic_showcases/lesson4/4_16_scrollbar_simple.html" target="_blank">4_16_scrollbar_simple</a></li>
+            <li><a href="basic_showcases/lesson4/4_17_mouse_follower_track.html" target="_blank">4_17_mouse_follower_track</a></li>
+            <li><a href="basic_showcases/lesson4/4_18_mouse_follower.html" target="_blank">4_18_mouse_follower</a></li>
         </ul>
         <h2>Lesson 5</h2>
         <ul>
             <li><a href="basic_showcases/lesson5/5_1_weibo_simple.html" target="_blank">5_1_weibo_simple</a></li>
+            <li><a href="basic_showcases/lesson5/5_2_weibo_complex_NC.html" target="_blank">5_2_weibo_complex_NC</a></li>
+            <li><a href="basic_showcases/lesson5/5_3_mouseover_bigpic.html" target="_blank">5_3_mouseover_bigpic</a></li>
         </ul>
         <h2>Lesson 6</h2>
         <ul>
