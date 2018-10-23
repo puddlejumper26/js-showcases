@@ -26,8 +26,8 @@
                 <li><a href="projects/tmall_website/front_end/03_category/order_price.html" target="_blank">03_category/order_price</a></li>
                 <li><a href="projects/tmall_website/front_end/03_category/products.html" target="_blank">03_category/products</a></li>
             </ul>
-# Part II Basic _ Show Cases
 
+# Part II Basic _ Show Cases
 <h2>Lesson 1</h2>
         <ul>
             <li><a href="basic_showcases/lesson1/1_1_div_attribution.html" target="blank">1_1_div_attribution</a></li>
