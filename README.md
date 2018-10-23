@@ -25,7 +25,7 @@
             <ul>
                 <li><a href="projects/tmall_website/front_end/03_category/order_price.html" target="_blank">03_category/order_price</a></li>
                 <li><a href="projects/tmall_website/front_end/03_category/products.html" target="_blank">03_category/products</a></li>
-
+            </ul>
 # Part II Basic _ Show Cases
 
 <h2>Lesson 1</h2>
