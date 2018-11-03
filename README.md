@@ -25,7 +25,25 @@
             <ul>
                 <li><a href="projects/tmall_website/front_end/03_category/order_price.html" target="_blank">03_category/order_price</a></li>
                 <li><a href="projects/tmall_website/front_end/03_category/products.html" target="_blank">03_category/products</a></li>
+                <li><a href="projects/tmall_website/front_end/03_category/03_js_order_price_products.html" target="_blank">03_js_order_price_products_combined</a></li>
             </ul>
+        <h4>04_product</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front_end/04_product/product_img.html" target="_blank">04_product/product_img</a></li>
+                <li><a href="projects/tmall_website/front_end/04_product/basic_info.html" target="_blank">04_product/basic_info</a></li>
+                <li><a href="projects/tmall_website/front_end/04_product/product_detail.html" target="_blank">04_product/product_detail</a></li>
+                <li><a href="projects/tmall_website/front_end/04_product/comments.html" target="_blank">04_product/comments</a></li>
+                <li><a href="projects/tmall_website/front_end/04_product/04_js_basicinfo.html" target="_blank">04_product/04_js_basicinfo_combined</a></li>
+                <li><a href="projects/tmall_website/front_end/04_product/04_js_prodetail_comments.html" target="_blank">04_product/04_js_prodetail_comments_combined</a></li>
+                <li><a href="projects/tmall_website/front_end/04_product/04_js_proimg.html" target="_blank">04_product/04_js_proimg_combined</a></li>
+            </ul>   
+        <h4>05_shopping_cart</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front_end/05_shopping_cart/pay_button.html" target="_blank">05_shopping_cart/pay_button</a></li>
+                <li><a href="projects/tmall_website/front_end/05_shopping_cart/order_list.html" target="_blank">05_shopping_cart/order_list</a></li>
+                <li><a href="projects/tmall_website/front_end/05_shopping_cart/05_js_orderlist_pay.html" target="_blank">05_shopping_cart/05_js_orderlist_pay_combined</a></li>
+            </ul>
+        <h4>06_my_order</h4>
 
 # Part II Basic _ Show Cases
 <h2>Lesson 1</h2>

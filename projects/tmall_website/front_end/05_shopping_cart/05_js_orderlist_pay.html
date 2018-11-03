@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>05_js_orderlist_pay</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+</head>
+<style>
+                    /*********************************************************************************
+                    Tmall  里 最复杂的 JS 交互
+
+                    购物车的js交互是相当复杂的,有如下事件需要监听
+                        1. 点击全选
+                        2. 点击某一个商品
+                        3. 点击减少数量
+                        4. 点击增加数量
+                        5. 在数量输入框中修改数量
+
+                    监听之后，需要做一些列响应动作
+                        1. 结算按钮的状态调整
+                            无任何商品选中是一种状态，有任意商品选中是一种状态
+                        2. 全部选中按钮的状态同步
+                            所有商品选中是一种状态，商品没有全选是一种状态
+                        3. 计算一共有多少件商品被选中，以及价格小计和价格合计的显示
+                        4. 被选中行背景高亮显示
+                    ***************************************************************************/
+
+/*购物车div*/
+div.cartDiv{max-width: 1013px;margin: 10px auto;color: black}
+/*商品table*/
+table.cartProductTable{width: 100%;font-size: 12px;}
+/*商品所在的每一行 不是表格的第一行，这里注意*/
+tr.cartProductItemTR{border: 1px solid #cccccc}
+/*商品所在的每一列*/
+tr.cartProductItemTR td{padding: 20px 20px}
+
+/*表头信息的每一列*/
+table.cartProductTable th{font-weight: normal;color: #3C3C3C;padding: 20px 20px}
+/*商品图片*/
+img.cartProductImg{padding: 1px; border: 1px solid #EEEEEE;width: 80px;height: 80px}
+/*图片所在列*/
+table.cartProductTable th.selectAndImage{width: 140px}
+/*最后一列*/
+table.cartProductTable th.operation{width:70px;}
+
+/*产品连接所在div*/
+div.cartProductLinkOutDiv{position: relative;/*相对定位，之所以要使用相对定位，是这个div里有用来放3个图标的另一个div:cartProductLinkInnerDiv,而cartProductLinkInnerDiv需要使用据对定位*/height: 80px}
+/*产品连接*/
+a.cartProductLink{color:#3C3C3C}
+/*产品连接悬停状态*/
+a.cartProductLink:hover{color: #C40000;text-decoration: underline;}
+/*产品连接下面的三个图标所在div*/
+div.cartProductLinkInnerDiv{position: absolute;bottom: 0;height: 20px}
+/*原始价格*/
+span.cartProductItemOringalPrice{text-decoration: line-through;color: #9C9C9C;display: block;font-weight: bold;font-size: 14px}
+/*促销价格*/
+span.cartProductItemPromotionPrice{font-family: Arial;font-size: 14px;font-weight: bold;color:#C40000}
+/*调整数量div*/
+div.cartProductChangeNumberDiv{border: solid 1px #E5E5E5;width: 80px;}
+/*增加和减少*/
+div.cartProductChangeNumberDiv a{width: 14px;display: inline-block;text-align: center;color: black;text-decoration: none}
+/*数量输入框*/
+div.cartProductChangeNumberDiv input{border: solid 1px #AAAAAA;width: 42px;display: inline-block;}
+/*小计金额*/
+span.cartProductItemSmallSumPrice{font-family: Arial;font-size: 14px;font-weight: bold;color: #C40000}
+/*最前方的是否选中图片*/
+img.cartProductItemIfSelected, img.selectAllItem{cursor: pointer;}
+
+/*上面的结算按钮*/
+div.cartTitle button{background-color: #AAAAAA;border: 1px solid #AAAAAA;color: white;width: 53px;height: 25px;border-radius: 2px;}
+/*上面的价格信息*/
+span.cartTitlePrice{color: #C40000;font-size: 14px;font-weight: bold;margin-left: 5px;margin-right: 3px;}
+/*购物车的页脚*/
+div.cartFoot{background-color: #E5E5E5;line-height: 50px;margin: 20px 0;color: black;padding-left: 20px}
+/*下面的结算按钮*/
+div.cartFoot button{background-color: #AAAAAA;border: 0px solid #AAAAAA;/*去掉边框*/color: white;width: 120px;height: 50px;font-size: 20px;text-align: center}
+/*选择框是一个图片，当鼠标放上去呈现点击状*/
+img.cartProductItemIfSelected, img.selectAllItem{cursor: pointer;}
+/*商品合计数量*/
+span.cartSumNumber{color:#C40000;font-weight: bold;font-size: 16px}
+/*下面的价格*/
+span.cartSumPrice{color:#C40000;font-weight: bold;font-size: 20px}
+</style>
+
+<script>
+/*虽然业务比较复杂，但是有些功能是重复使用的，比如点击全选和点击某一种商品，都会去调整总价格和总数的显示。 把这些功能抽象出来，放在公共函数里，就可以大大的减少代码的冗余，降低维护的难度。*/
+                        
+                        /*公共函数：*/
+
+/*公共函数 1    以千进制格式化金额，比如金额是123456,就会显示成123,456*/
+    function formatMoney(num) {
+        num = num.toString().replace(/\$|\,/g, '');
+        if (isNaN(num))
+            num = "0";
+        sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num * 100 + 0.50000000001);
+        cents = num % 100;
+        num = Math.floor(num / 100).toString();
+        if (cents < 10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+            num = num.substring(0, num.length - (4 * i + 3)) + ',' +
+                num.substring(num.length - (4 * i + 3));
+        return (((sign) ? '' : '-') + num + '.' + cents);
+    }
+
+/*公共函数 2  同步结算按钮      判断是否有商品被选中，只要有任意商品被选中了，就把结算按钮的颜色变为天猫红，并且是可点击状态，否则就是灰色，并且无法点击。 */
+    function syncCreateOrderButton()
+    {
+        var selectAny = false; 
+        $(".cartProductItemIfSelected").each(function(){
+            if("selectit"==$(this).attr("selectit")){
+                selectAny = true;
+            }
+        });
+        /*<img src="../../img/site/cartNotSelected.png" class="cartProductItemIfSelected" oiid="936" selectit="false"> 这里面有一个自定义属性 selectit，默认是没有选中false。选中的情况是seltectit==selectit，注意这里不是true。 selectAny是用来控制整个的list的这一行，以及最后的结算按钮， 意思是主要有一个被选中了，把结算按钮的颜色变为天猫红，并且是可点击状态，否则就是灰色，并且无法点击*/
+
+        if(selectAny){
+            $("button.createOrderButton").css("background-color","#C40000");
+            $("button.createOrderButton").removeAttr("disabled");
+        }
+
+        /*下面就是没有任何被选中，seletAny=false*/
+        else{
+            $("button.createOrderButton").css("background-color","#AAAAAA");
+            $("button.createOrderButton").attr("disabled","disabled");   
+        }
+    }
+
+/*公共函数3   同步"全选"状态。     状态栏上下游两个全选的框。 选中和未选中是采用了两个不同的图片实现的，遍历所有的商品，看是否全部都选中了，只要有任意一个没有选中，那么就不是全选状态。 然后通过切换图片显示是否全选状态的效果。 */
+    function syncSelect() 
+    {
+        var selectAll = true; /* 默认全部选中 */
+        $(".cartProductItemIfSelected").each(function () {
+            if ("false" == $(this).attr("selectit")) {
+                selectAll = false; 
+            }
+        });
+        if (selectAll)
+            $("img.selectAllItem").attr("src", "../../img/site/cartSelected.png");
+        else
+            $("img.selectAllItem").attr("src", "../../img/site/cartNotSelected.png");
+    }
+
+/*公共函数4  计算总数量，总金额     显示被选中的商品总数，以及总价格。
+通过遍历每种商品是否被选中，累加被选中商品的总数和总价格，然后修改在上方的总价格，以及下方的总价格，总数*/
+    function calcCartSumPriceAndNumber()
+    {
+        var sum = 0;
+        var totalNumber = 0;
+        /*找到图片，看是否被选中*/
+        $("img.cartProductItemIfSelected[selectit='selectit']").each(function(){
+            /*通过自定义的 oiid， 在 html中，oiid同时给分配给了图片，单价cartProductItemSmallSumPrice和数量的输入框orderItemNumberSetting，所以这里能够结合起来*/
+            var oiid = $(this).attr("oiid");
+            var price =$(".cartProductItemSmallSumPrice[oiid="+oiid+"]").text(); /*.text() 是把span里面的值取出来 ，直接取出来是字符串  <span pid="365" oiid="936" class="cartProductItemSmallSumPrice">￥5,306.00</span>*/
+            price = price.replace(/,/g, ""); /*把字符串里的所有，去掉*/
+            price = price.replace(/￥/g, "");/*把字符串里的所有￥去掉*/
+            sum += new Number(price); /*new Number(str) 得到一个对象类型数字*/  
+            var num =$(".orderItemNumberSetting[oiid="+oiid+"]").val();
+            totalNumber += new Number(num); 
+        });
+        $("span.cartSumPrice").html("￥"+formatMoney(sum));
+        $("span.cartTitlePrice").html("￥"+formatMoney(sum));
+        $("span.cartSumNumber").html(totalNumber);
+    }
+
+/*公共函数 5  计算小计金额   根据商品数量，商品价格，同步小计价格-就是每一栏数量后面的价格，接着调用calcCartSumPriceAndNumber()函数同步商品总数和总价格*/
+    function syncPrice(pid,num,price)
+    {
+        $(".orderItemNumberSetting[pid="+pid+"]").val(num);
+        
+        var cartProductItemSmallSumPrice = formatMoney(num*price); 
+        
+        $(".cartProductItemSmallSumPrice[pid="+pid+"]").html("￥"+cartProductItemSmallSumPrice);
+        
+        calcCartSumPriceAndNumber();
+    }
+
+                        /* 事件响应*/
+
+/*接下来是对各种不停的事件进行监听，并作出响应，有如下4中事件需要监听
+                        1. 选中一种商品
+                        2. 商品全选
+                        3. 增加和减少数量
+                        4. 直接修改数量*/
+
+/* 1. 选中一种商品*/
+
+   $("img.cartProductItemIfSelected").click(function () 
+   {
+        var selectit = $(this).attr("selectit");
+
+        /*如果已经选中了，那么就切换为未选中图片，修改selectit属性为false,并且把所在的tr背景色换为白色
+        如果是未选中，那么就切换为已选中图片，修改selectit属性为selected,并且把所在的tr背景色换为#FFF8E1
+        然后调用*/
+        if ("selectit" == selectit) 
+        {
+            $(this).attr("src", "../../img/site/cartNotSelected.png");
+            $(this).attr("selectit", "false")
+            $(this).parents("tr.cartProductItemTR").css("background-color", "#fff");
+        }
+        else 
+        {
+            $(this).attr("src", "../../img/site/cartSelected.png");
+            $(this).attr("selectit", "selectit")
+            $(this).parents("tr.cartProductItemTR").css("background-color", "#FFF8E1");
+        }
+        /*对结算按钮，是否全选按钮，总数量、总价格信息显示进行同步*/
+        syncSelect();
+        syncCreateOrderButton();
+        calcCartSumPriceAndNumber();
+    }); 
+
+
+</script>
+
+
+<body>
+    
+<div class="cartDiv">
+    <!--通过 bootstrap来直接右置-->
+    <div class="cartTitle pull-right">
+        <span>已选商品 (不含运费)</span>
+        <span class="cartTitlePrice">￥0.00</span>
+        <button class="createOrderButton" style="background-color: rgb(170, 170, 170);" disabled="disabled">结 算</button>
+    </div>
+
+    <!--在pay-button的前后部分中间插入order list 的代码-->
+    <div class="cartProductList">
+        <table class="cartProductTable">
+    
+            <thead>
+                <tr>
+                    <th class="selectAndImage">
+                        <img src="../../img/site/cartNotSelected.png" class="selectAllItem" selectit="false">
+                        全选
+                    </th>
+                    <th>商品信息</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th width="120px">金额</th>
+                    <th class="operation">操作</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <!--第一排商品及其信息，编号 936-->
+                <tr class="cartProductItemTR" oiid="936">
+    
+                    <td>
+                        <!--这里复选框还是使用图片-->
+                        <img src="../../img/site/cartNotSelected.png" class="cartProductItemIfSelected" oiid="936" selectit="false">
+                        <a href="#nowhere" style="display:none"><img src="../../img/site/cartSelected.png"></a>
+                        <img width="40px" src="../../img/productSingle_middle/3770.jpg" class="cartProductImg">
+                    </td>
+    
+                    <td>
+                        <div class="cartProductLinkOutDiv">
+                            <a class="cartProductLink" href="#nowhere">美国iRobot扫地机器人吸尘器全自动家用智能扫地机650 天猫电器城</a>
+                            <div class="cartProductLinkInnerDiv">
+                                <img title="支持信用卡支付" src="../../img/site/creditcard.png">
+                                <img title="消费者保障服务,承诺7天退货" src="../../img/site/7day.png">
+                                <img title="消费者保障服务,承诺如实描述" src="../../img/site/promise.png">
+                            </div>
+                        </div>
+                    </td>
+    
+                    <td>
+                        <span class="cartProductItemOringalPrice">￥7580.0</span>
+                        <span class="cartProductItemPromotionPrice">￥5306.0</span>
+                    </td>
+    
+                    <td>
+                        <!--pid oiid在交互环节会说明-->
+                        <div class="cartProductChangeNumberDiv">
+                            <span pid="365" class="hidden orderItemStock ">75</span>
+                            <span pid="365" class="hidden orderItemPromotePrice ">5306.0</span>
+                            <a href="#nowhere" class="numberMinus" pid="365">-</a>
+                            <input value="4" autocomplete="off" class="orderItemNumberSetting" oiid="936" pid="365">
+                            <a href="#nowhere" class="numberPlus" pid="365" stock="75">+</a>
+                        </div>
+                    </td>
+    
+                    <td>
+                        <span pid="365" oiid="936" class="cartProductItemSmallSumPrice">￥5,306.00</span>
+                    </td>
+    
+                    <td>
+                        <a href="#nowhere" oiid="936" class="deleteOrderItem">删除</a>
+                    </td>
+                </tr>
+    
+    
+                <tr class="cartProductItemTR" oiid="935">
+                    <td>
+                        <img src="../../img/site/cartNotSelected.png" class="cartProductItemIfSelected" oiid="935" selectit="false">
+                        <a href="#nowhere" style="display:none"><img src="../../img/site/cartSelected.png"></a>
+                        <img width="40px" src="../../img/productSingle_middle/8891.jpg" class="cartProductImg">
+                    </td>
+                    <td>
+                        <div class="cartProductLinkOutDiv">
+                            <a class="cartProductLink" href="#nowhere">阔腿裤三件套装女夏装2016新款大码雪纺时尚休闲气质棉麻九分裤潮</a>
+                            <div class="cartProductLinkInnerDiv">
+                                <img title="支持信用卡支付" src="../../img/site/creditcard.png">
+                                <img title="消费者保障服务,承诺7天退货" src="../../img/site/7day.png">
+                                <img title="消费者保障服务,承诺如实描述" src="../../img/site/promise.png">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="cartProductItemOringalPrice">￥235.0</span>
+                        <span class="cartProductItemPromotionPrice">￥152.75</span>
+                    </td>
+                    <td>
+                        <div class="cartProductChangeNumberDiv">
+                            <span pid="809" class="hidden orderItemStock ">17</span>
+                            <span pid="809" class="hidden orderItemPromotePrice ">152.75</span>
+                            <a href="#nowhere" class="numberMinus" pid="809">-</a>
+                            <input value="1" autocomplete="off" class="orderItemNumberSetting" oiid="935" pid="809">
+                            <a href="#nowhere" class="numberPlus" pid="809" stock="17">+</a>
+                        </div>
+                    </td>
+                    <td>
+                        <span pid="809" oiid="935" class="cartProductItemSmallSumPrice">
+                            ￥152.75
+                        </span>
+                    </td>
+                    <td>
+                        <a href="#nowhere" oiid="935" class="deleteOrderItem">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="cartFoot">
+        <img src="../../img/site/cartNotSelected.png" class="selectAllItem" selectit="false">
+        <!--这个selectit自定义属性，是用于表示当前图像是否被选中状态的。
+            因为从视觉效果上讲，为了和天猫官网做的一样，需要一个红色的大勾勾表示，我还没掌握这门技术。。。 所以就使用图片来表示。-->
+        <span>全选</span>
+        <!--         <a href="#">删除</a> -->
+        <!--通过 bootstrap来直接右置-->
+        <div class="pull-right">
+            <span>已选商品 <span class="cartSumNumber">0</span> 件</span>
+            <span>合计 (不含运费): </span>
+            <span class="cartSumPrice">￥0.00</span>
+            <button class="createOrderButton" style="background-color: rgb(170, 170, 170);" disabled="disabled">结 算</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

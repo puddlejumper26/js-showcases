@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04_combined_basic_info_product_img</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+</head>
+ 
+<script>
+
+    /***************************************
+        可以向上调整数量，但是不能超过最大库存
+        可以向下调整数量，但是不能小于1
+        输入任何非数字，都会恢复为原来数字
+        输入的数字超过库存，恢复为最大库存   
+    ****************************************/
+
+    $(function () {
+        /*定义最大库存(这个值是从服务端取出来的，因为本章节围绕前端讲解，所以如何从服务端取到这个值就不展开了)*/
+        var stock = 66;
+
+        /*监听keyup键盘弹起事件，不能监听keypress和keydown，因为只有keyup才能获取到最后输入的值，其他不能。 这几种事件的区别，详见Jquery 键盘事件
+        
+        也可以用change 这样用删除键就能删除掉文本框里默认的1
+
+        获取输入框的值         如果是非数字，那么就设置为1。
+        注： parseInt会把文本中的非数字前的数字解析出来，所以如果文本框的内容是22B,那么解析出来是22.
+        如果是负数，那么设置为1。
+        如果大于库存，设置为最大库存。*/
+        $(".productNumberSetting").keyup(function () {
+            var num = $(".productNumberSetting").val();
+            num = parseInt(num);
+            if (isNaN(num))
+                num = 1;
+            if (num <= 0)
+                num = 1;
+            if (num > stock)
+                num = stock;
+            $(".productNumberSetting").val(num);/*这一步让把最后的num值传入*/
+        });
+
+
+        /*点击增加按钮的时候，获取当前的值，并在当前值的基础上+1，如果超过了库存就取库存最大值*/    
+        $(".increaseNumber").click(function () {
+            var num = $(".productNumberSetting").val();
+            num++;
+            if (num > stock)
+                num = stock;
+            $(".productNumberSetting").val(num);
+        });
+
+        /*点击减少按钮的时候，获取当前的值，并在当前值的基础上-1，如果<=0，则取1.*/
+        $(".decreaseNumber").click(function () {
+            var num = $(".productNumberSetting").val();
+            num--;
+            if (num <= 0)
+                num = 1;
+            $(".productNumberSetting").val(num);
+        });
+
+    });
+
+</script>
+<style>
+    body{
+    font-size: 12px;
+    font-family: Arial;
+}
+div.imgAndInfo{
+    margin: 40px 20px;
+}
+div.imgInimgAndInfo{
+    width: 100px;
+    float: left;
+}
+div.infoInimgAndInfo{
+    padding: 0px 20px;
+    overflow: hidden;
+}
+div.infoInimgAndInfo div.productTitle{
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0px 10px;
+}
+div.infoInimgAndInfo div.productSubTitle{
+    color: #DD2727;
+    font-size: 12px;
+    margin: 0px 10px;
+}
+div.infoInimgAndInfo div.juhuasuan{
+    background-color: #2DA77A;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 10px;
+}
+div.infoInimgAndInfo span.juhuasuanBig{
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 黑体;
+}
+div.infoInimgAndInfo span.juhuasuanTime{
+    color: #FFC057;
+    font-weight: bold;
+}
+div.infoInimgAndInfo div.productPriceDiv{
+    background-image:url(../../img/site/priceBackground.png);
+    height: 102px;
+    padding: 10px;
+    color: #666666;
+}
+div.infoInimgAndInfo div.gouwujuanDiv{
+    margin-top: 5px;
+}
+div.infoInimgAndInfo div.originalDiv{
+    margin-top: 5px;
+}
+div.infoInimgAndInfo span.originalPriceDesc{
+    color: #999999;
+    display: inline-block;
+    width: 68px;
+}
+div.infoInimgAndInfo span.originalPrice{
+    font-family: Arial;
+    font-size: 12px;
+    color: #333333;
+    text-decoration: line-through;
+}
+div.infoInimgAndInfo span.promotionPriceYuan{
+    font-family: Arial;
+    font-size: 18px;
+    color: #C40000;
+}
+div.infoInimgAndInfo span.promotionPrice{
+    color: #c40000;
+    font-family: Arial;
+    font-size: 30px;
+    font-weight: bold;
+}
+div.infoInimgAndInfo span.promotionPriceDesc{
+    color: #999999;
+    display: inline-block;
+    width: 68px;
+    position: relative;
+    left: 0px;
+    top: -10px;
+}
+div.infoInimgAndInfo div.productSaleAndReviewNumber{
+    margin: 20px 0px;
+    border-top-style: dotted;
+    border-top-color: #C9C9C9;
+    border-top-width: 1px;
+    border-bottom-style: dotted;
+    border-bottom-color: #C9C9C9;
+    border-bottom-width: 1px;
+    padding: 10px;
+}
+div.infoInimgAndInfo div.productSaleAndReviewNumber div{
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+    color: #999999;
+    font-size: 12px;
+}
+div.infoInimgAndInfo div.productSaleAndReviewNumber div:first-child{
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #E5DFDA;
+}
+div.infoInimgAndInfo div.productNumber{
+    color: #999999;
+}
+div.infoInimgAndInfo span.productNumberSettingSpan{
+    border: 1px solid #999;
+    display: inline-block;
+    width: 43px;
+    height: 32px;
+    padding-top:7px;
+}
+div.infoInimgAndInfo input.productNumberSetting{
+    border: 0px;
+    height: 80%;
+    width: 80%;
+}
+div.productNumber span.updown img{
+    display:inline-block;
+    vertical-align:top;
+}
+div.productNumber span.updown{
+    border: 1px solid #999;
+    display: block;
+    width: 20px;
+    height: 14px;
+    text-align: center;
+    padding-top:4px;
+}
+div.productNumber span.updownMiddle{
+    height: 4px;
+    display: block;
+}
+div.productNumber span.arrow{
+    display: inline-block;
+    width: 22px;
+    height: 32px;
+    vertical-align:top;
+}
+div.serviceCommitment{
+    margin: 20px 0px;
+}
+div.infoInimgAndInfo span.serviceCommitmentDesc{
+    color: #999999;
+}
+div.infoInimgAndInfo span.serviceCommitmentLink a{
+    color: #666666;
+}
+div.buyDiv{
+    margin: 20px auto;
+    text-align: center;
+}
+div.buyDiv button{
+    display: inline-block;
+    margin: 0px 10px;
+    width: 180px;
+    height: 40px;
+}
+button.buyButton{
+    border: 1px solid #C40000;
+    background-color: #FFEDED;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    color: #C40000;
+    font-family: arial;
+}
+button.addCartButton{
+    border: 1px solid #C40000;
+    background-color: #C40000;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    color: white;
+    font-family: arial;
+}
+button.addCartButton span.glyphicon{
+    font-size: 12px;
+    margin-right: 8px;
+}
+a:hover{
+    text-decoration:none;
+}
+.redColor{
+    color: #C40000;
+}
+.boldWord{
+    font-weight: bold;
+}
+</style>
+<div class="imgAndInfo">
+    <div class="imgInimgAndInfo">
+        <img width="100px" src="../../img/productSingle/8892.jpg">
+    </div>
+    <div class="infoInimgAndInfo">
+        <div class="productTitle">
+            名媛2016新款女装夏两件套裤韩版雪纺七分裤阔腿裤休闲时尚套装女
+        </div>
+        <div class="productSubTitle">
+            高端定制 高档棉麻 现货即发 加购物车 领优惠卷
+        </div>
+        <div class="productPrice">
+            <div class="juhuasuan">
+                <span class="juhuasuanBig">聚划算</span>
+                <span>此商品即将参加聚划算，<span class="juhuasuanTime">1天19小时</span>后开始，</span>
+            </div>
+            <div class="productPriceDiv">
+                <div class="gouwujuanDiv"><img height="16px" src="../../img/site/gouwujuan.png">
+                    <span> 全天猫实物商品通用</span>
+                </div>
+                <div class="originalDiv">
+                    <span class="originalPriceDesc">价格</span>
+                    <span class="originalPriceYuan">¥</span>
+                    <span class="originalPrice">
+                        399.00
+                    </span>
+                </div>
+                <div class="promotionDiv">
+                    <span class="promotionPriceDesc">促销价 </span>
+                    <span class="promotionPriceYuan">¥</span>
+                    <span class="promotionPrice">
+                        379.05
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="productSaleAndReviewNumber">
+            <div>销量 <span class="redColor boldWord"> 50</span></div>
+            <div>累计评价 <span class="redColor boldWord"> 19</span></div>
+        </div>
+        <div class="productNumber">
+            <span>数量</span>
+            <span>
+                <span class="productNumberSettingSpan">
+                    <input type="text" value="1" class="productNumberSetting">
+                </span>
+                <span class="arrow">
+                    <a class="increaseNumber" href="#nowhere">
+                        <span class="updown">
+                            <img src="../../img/site/increase.png">
+                        </span>
+                    </a>
+                    <span class="updownMiddle"> </span>
+                    <a class="decreaseNumber" href="#nowhere">
+                        <span class="updown">
+                            <img src="../../img/site/decrease.png">
+                        </span>
+                    </a>
+                </span>
+                件</span>
+            <span>库存66件</span>
+        </div>
+        <div class="serviceCommitment">
+            <span class="serviceCommitmentDesc">服务承诺</span>
+            <span class="serviceCommitmentLink">
+                <a href="#nowhere">正品保证</a>
+                <a href="#nowhere">极速退款</a>
+                <a href="#nowhere">赠运费险</a>
+                <a href="#nowhere">七天无理由退换</a>
+            </span>
+        </div>
+        <div class="buyDiv">
+            <a href="#nowhere" class="buyLink"><button class="buyButton">立即购买</button></a>
+            <a class="addCartLink" href="#nowhere"><button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button></a>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</div>

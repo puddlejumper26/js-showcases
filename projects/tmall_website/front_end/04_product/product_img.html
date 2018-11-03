@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>product_img</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<style>
+
+        /******************************************
+        最好能有鼠标放上去图片变大，移出自动播放的功能
+
+        *********************************************/
+
+        /*因为bootstrap.min.css的样式里，会为所有的元素加上一个：
+box-sizing: border-box; 当使用border-box时，页面将采用怪异模式解析计算，怪异模式也称为IE模式.所以width是包括了border、padding、内容宽.所以可以div宽度400px，图片宽度400px并且有padding20px*/
+
+
+/*图片和基本信息所在的div*/
+div.imgAndInfo{margin:40px 20px;}
+/*图片所在的div*/
+div.imgInimgAndInfo{width:400px;float: left} /*这里float left因为大小图片把整个宽度都占满了，所以显示出来就是一个大的在上面，其他小的在下面*/
+/*大图片*/
+div.imgInimgAndInfo img.bigImg{width:400px;height:400px;padding:20px;border:1px solid #f2f2f2;}
+/*小图片所在的div*/
+div.imgInimgAndInfo div.smallImageDiv{width: 80%;margin: 20px auto;}
+/*小图片*/
+div.imgInimgAndInfo img.smallImage{width:60px;height:60px;border: 2px solid white}
+/*小图片鼠标悬浮效果*/
+div.imgInimgAndInfo img.smallImage:hover{border: 2px solid black}
+
+</style>
+</head>
+<body>
+
+<div class="imgAndInfo">
+    <div class="imgInimgAndInfo">
+        <img width="100px" class="bigImg" src="../../img/productSingle/8892.jpg">
+        <div class="smallImageDiv">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8892.jpg"> 
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8891.jpg">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8902.jpg">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8903.jpg">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8904.jpg">
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</div>  
+
+</body>
+</html>

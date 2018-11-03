@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Basic_info</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<style>
+/*整个body*/
+body{font-size:12px;font-family: Arial, Helvetica, sans-serif}
+/*包括图片和基本信息的div*/
+div.imgAndInfo{margin:40px 20px}
+/*图片div，这里为了强调右边的基本信息，左侧只放了一个图片。*/
+div.imgInimgAndInfo{width: 100px;float: left}
+/*基本信息div*/
+div.infoInimgAndInfo{padding:0 20px;overflow: hidden} /*隐藏溢出部分。 结合图片div的float:left,就可以做到基本信息div和图片div水平摆放，并且基本信息div自动占用剩下所有的宽度*/
+/*产品标题*/
+div.infoInimgAndInfo div.productTitle{color: black;font-size: 16px;font-weight: bold;margin: 0 10px;}
+/*产品小标题*/
+div.infoInimgAndInfo div.productSubTitle{color:#DD2727;font-size:12px;margin: 0 10px;}
+/*聚划算div*/
+div.infoInimgAndInfo div.juhuasuan{background-color: #2DA77A;color: white;text-align: center;line-height: 40px;margin-top: 10px;}
+/*聚划算几个大字*/
+div.infoInimgAndInfo span.juhuasuanBig{font-size: 18px;font-weight: bold;font-family: 黑体;}
+/*聚划算日期*/
+div.infoInimgAndInfo span.juhuasuanTime{color:#FFC057;font-weight: bold}
+/*产品价格信息*/
+div.infoInimgAndInfo div.productPriceDiv{background-image: url(../../img/site/priceBackground.png);height: 102px;padding:10px;color:#666666}
+/*购物卷div*/
+div.infoInimgAndInfo div.gouwujuanDiv{margin-top:5px;}
+/*原始价格所在div*/
+div.infoInimgAndInfo div.originalDiv{margin-top:5px;}
+/*原始价格文字*/
+div.infoInimgAndInfo span.originalPriceDesc{color:#999999;display: inline-block;/*显示为内联，既可以设置大小，又能够不换行*/ }
+/*原始价格-价格数字*/
+div.infoInimgAndInfo span.originalPrice{text-decoration: line-through}
+/*促销价格 人民币标示*/
+div.infoInimgAndInfo span.promotionPriceYuan{font-size: 18px;color:#C40000}
+/*促销价格-价格数字*/
+div.infoInimgAndInfo span.promotionPrice{color:#C40000;font-size: 30px;font-weight: bold;}
+/*促销价格文字*/
+div.infoInimgAndInfo span.promotionPriceDesc{color:#999999;display: inline-block;/*显示为内联，既可以设置大小，又能够不换行*/ width: 68px;position: relative;left: 0;/*水平不动*/top: -10px;}
+/*销量和累计评价共同的div**/
+div.infoInimgAndInfo div.productSaleAndReviewNumber{margin: 20px 0;border-top-style: dotted;border-top-color: #C9C9C9;border-top-width: 1px;border-bottom-style: dotted;border-bottom-color: #c9c9c9;border-bottom-width: 1px;padding: 10px;}
+/*销量和累计评价分别的div*/
+div.infoInimgAndInfo div.productSaleAndReviewNumber div{display: inline-block;/*显示为内联，既可以设置大小，又能够不换行*/ width:49%;text-align: center;color: #999999;}
+/*销量所处的div 添加中间的竖线 :first-child就是第一个目录下的第一个元素，这里是div，也可以是其他的如span*/
+div.infoInimgAndInfo div.productSaleAndReviewNumber div:first-child{border-right-width: 1px;border-right-style: solid;border-right-color:#E5DFDA}
+/*产品数量和库存所在div*/
+div.infoInimgAndInfo div.productNumber{color:#999999;}
+/*输入数字的input所在的span*/
+div.infoInimgAndInfo span.productNumberSettingSpan{border: 1px solid #999;display: inline-block;width: 43px;height: 32px;padding-top: 7px/*上内边距 7px，把input顶下去*/}
+/*输入数字的input*/
+div.infoInimgAndInfo input.productNumberSetting{border:0;height: 80%;width: 80%}
+/*上下箭头所使用的图片*/
+div.productNumber span.updown img{display: inline-block;vertical-align: top;/*确保垂直向上对齐，因为在不同的浏览器下，img元素可能表现出不贴在上面的现象。 贴在上面之后，再借助其所在span的内边距的padding-top就可以很方便的调整其位置*/}
+
+/*上下箭头所在的两个span*/
+div.productNumber span.updown{border:1px solid #999;display: block;/*以块状显示，自动换行*/width: 20px;height: 14px;text-align: center;padding-top: 4px}
+/*上下箭头中间的span*/
+div.productNumber span.updownMiddle{height: 4px;display:block}
+/*上下箭头图标所在的span的父span*/
+div.productNumber span.arrow{display: inline-block;width: 22px;height: 32px;vertical-align: top}
+/*服务承诺信息所在div*/
+div.serviceCommitment{margin: 20px 0px;}
+/*服务承诺四个字所在span*/
+div.infoInimgAndInfo span.serviceCommitmentDesc{color: #999999;}
+/*服务承诺右侧四个连接所在span*/
+div.infoInimgAndInfo span.serviceCommitmentLink a{color: #666666;}
+/*立即购买和加入购物车所在div*/
+div.buyDiv{margin: 20px auto;text-align: center}
+/*立即购买和加入购物车按钮*/
+div.buyDiv button{display: inline-block;margin: 0 10px;width: 180px;height: 40px}
+/*立即购买按钮*/
+button.buyButton{border: 1px solid #C40000;background-color: #FFEDED;text-align: center;line-height: 40px;font-size: 16px;color: #C40000;font-family: Arial, Helvetica, sans-serif}
+/*加入购物车按钮*/
+button.addCartButton{border: 1px solid #C40000;background-color: #C40000;text-align: center;line-height: 40px;font-size: 16px;color:white;font-family: Arial}
+/*加入购物车前的图标*/
+button.addCartButton span.glyphicon{font-size: 12px;margin-right: 8px}
+/*超链鼠标悬停*/
+a:hover{text-decoration:none;}
+/*销量和累计评价后的数字*/
+.redColor{color: #C40000}
+/*销量和累计评价后的数字*/
+.boldWord{font-weight: bold}
+
+</style>
+</head>
+<body>
+<!--整个最外层div-->
+<div class="imgAndInfo">
+    <!--左侧信息-->
+    <div class="imgInimgAndInfo">
+        <img width="100px" class="bigImg" src="../../img/productSingle/8892.jpg">
+        <div class="smallImageDiv">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8892.jpg">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8891.jpg">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8902.jpg">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8903.jpg">
+            <img width="56px" class="smallImage" src="../../img/productSingle_small/8904.jpg">
+        </div>
+    </div>
+    <!--右侧信息-->
+    <div class="infoInimgAndInfo">
+        <!--产品标题-->
+        <div class="productTitle">
+            名媛2016新款女装夏两件套裤韩版雪纺七分裤阔腿裤休闲时尚套装女
+        </div>
+        <!--产品小标题-->
+        <div class="productSubTitle">
+            高端定制 高档棉麻 现货即发 加购物车 领优惠卷
+        </div>
+        <!--产品价格-->
+            <div class="productPrice">
+                <!--聚划算-->
+                <div class="juhuasuan">
+                    <span class="juhuasuanBig">聚划算</span>
+                    <span>此商品即将参加聚划算，<span class="juhuasuanTime">1天19小时</span>后开始，</span>
+                </div>
+                <div class="productPriceDiv">
+                    <div class="gouwujuanDiv"><img height="16px" src="http://how2j.cn/tmall/img/site/gouwujuan.png">
+                        <span> 全天猫实物商品通用</span>
+                    </div>
+                    <div class="originalDiv"><!--原来价格-->
+                        <span class="originalPriceDesc">价格</span>
+                        <span class="originalPriceYuan">¥</span>
+                        <span class="originalPrice">
+                            399.00
+                        </span>
+                    </div>
+                    <div class="promotionDiv"><!--促销价-->
+                        <span class="promotionPriceDesc">促销价 </span>
+                        <span class="promotionPriceYuan">¥</span>
+                        <span class="promotionPrice">
+                            379.05
+                        </span>
+                    </div>
+                </div>
+            </div>
+        <!--销量 累计评价-->
+        <div class="productSaleAndReviewNumber">
+            <div>销量 <span class="redColor boldWord"> 50</span></div>
+            <div>累计评价 <span class="redColor boldWord"> 19</span></div>
+        </div>
+        <!--购买数量-->
+        <div class="productNumber">
+            <span>数量</span>
+            <span>
+                <span class="productNumberSettingSpan">
+                    <input type="text" value="1" class="productNumberSetting">
+                </span>
+                <span class="arrow">
+                    <a class="increaseNumber" href="#nowhere">
+                        <span class="updown">
+                            <img src="../../img/site/increase.png">
+                        </span>
+                    </a>
+                    <span class="updownMiddle"> </span>
+                    <a class="decreaseNumber" href="#nowhere">
+                        <span class="updown">
+                            <img src="../../img/site/decrease.png">
+                        </span>
+                    </a>
+                </span>
+            件</span>
+            <span>库存66件</span>
+        </div>
+        <!--服务承若-->
+        <div class="serviceCommitment">
+            <span class="serviceCommitmentDesc">服务承诺</span>
+            <span class="serviceCommitmentLink">
+                <a href="#nowhere">正品保证</a>
+                <a href="#nowhere">极速退款</a>
+                <a href="#nowhere">赠运费险</a>
+                <a href="#nowhere">七天无理由退换</a>
+            </span>
+        </div>
+        <!--购买按钮-->
+        <div class="buyDiv">
+            <a href="#nowhere" class="buyLink"><button class="buyButton">立即购买</button></a>
+            <a class="addCartLink" href="#nowhere"><button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button></a>
+        </div>
+    </div>   
+</div>
+</body>
+</html>

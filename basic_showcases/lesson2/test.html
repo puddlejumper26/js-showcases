@@ -15,11 +15,9 @@
     #div2 {width: 100px;height: 100px;background: red}
 </style>
 <script>
-window.onload=function(){
-    var oDiv = document.getElementById("div");
-     
-    console.log(window.getComputedStyle(oDiv, null)["paddingLeft"]);
-}
+    console.log("1:"+foo); // undefined
+     foo = 1;
+    console.log("2:"+foo); // 1
 </script>
 </head>
 

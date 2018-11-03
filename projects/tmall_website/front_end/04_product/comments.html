@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>comments</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<style>
+/*整个body*/
+body{font-size:12px;font-family: Arial, Helvetica, sans-serif }
+/*评价div*/
+div.productReviewDiv{width: 790px; margin:40px auto}
+/*标题div*/
+div.productReviewTopPart{border: 1px solid #DFDFDF;}
+/*商品详情超链*/
+a.productReviewTopPartSelectedLink{padding: 0px 20px;color:#333333}
+/*累计评价超链*/
+a.selected{border-left: 1px solid #cfbfb1;border-right: 1px solid #cfbfb1;color: #b10000;display: inline-block;font-weight: bold;line-height: 46px;width: 90px;text-align: center;position: relative;}/*相对定位，为的是下一步使用:before新增加的元素做绝对定位。 因为绝对定位是基于定位了的父元素*/
+/*使用:before为超链上方加一个天猫色的横条*/
+a.selected:before{content: "";display: block;border-width: 1px;border-style: solid;border-color: #b00000;width: 90px;height: 0;position: absolute;top: -1px;margin-left: -1px}
+/*使用:after 为超链上方加一个天猫色的美人尖*/
+a.selected:after{position:absolute;content:"";display: block;border-color: #b00000 transparent transparent;/*美人尖的原理是只有上边框，其他边框是透明色，#b00000 transparent transparent; 这种写法既表示只有上边框有颜色，其他都是透明色*/border-style: solid;border-width:5px;width: 0;height: 0;top: -1px;left: 50%;margin-left:-5px;}
+/*评价内容div*/
+div.productReviewContentPart{padding-top: 50px;}
+/*评价条目*/
+div.productReviewItem{border-bottom: 1px solid #E3E3E3;margin:10px 0}
+/*评价描述*/
+div.productReviewItem div.productReviewItemDesc{width: 80%;display: inline-block;color: #333333;margin: 5px 20px;float:left;}/*float这样可以把名字放到评价的右边*/
+/*评价日期*/
+div.productReviewItemDate{margin: 15px 0px 0px 0px;color: #CCCCCC;}
+/*用户信息*/
+div.productReviewItem div.productReviewItemUserInfo{color: #404040;margin: 5px 20px;padding: 20px 0;}
+/*用户匿名括弧*/
+span.userInfoGrayPart{color: #999999;}
+/*超链鼠标悬停*/
+a:hover{color:#C40000;text-decoration: none}
+</style>
+
+</head>
+
+
+<body>
+<div class="productPageDiv">
+    <div class="productReviewDiv" style="display: block;">
+        
+        <div class="productReviewTopPart">
+            <a class="productReviewTopPartSelectedLink" href="#nowhere">商品详情</a>
+            <a class="selected" href="#nowhere">累计评价 <span class="productReviewTopReviewLinkNumber">19</span> </a>
+        </div>
+        
+        <!--下面就是并列的评价的内容，包装在这个div里面-->
+        <div class="productReviewContentPart">
+            
+            <!--评价 1-->
+            <div class="productReviewItem">
+                
+                <div class="productReviewItemDesc">
+                    <!--评价内容-->
+                    <div class="productReviewItemContent">
+                        不错的购物，包装很精细，布料也不错舒服，因为之前一直购买品牌装，很好的一次网购，生完宝宝刚刚一个多月我一百五十斤穿2XL不错
+                    </div>
+                    <!--日期-->
+                    <div class="productReviewItemDate">2016-08-10</div>
+                </div>
+                <!--姓名-->
+                <div class="productReviewItemUserInfo">
+                    哀****莉<span class="userInfoGrayPart">（匿名）</span>
+                </div>
+                
+                <div style="clear:both"></div>
+            </div>
+            
+            <!--评价 2-->
+            <div class="productReviewItem">
+                <div class="productReviewItemDesc">
+                    <div class="productReviewItemContent">
+                        面料很好，大小也刚刚好，本来买之前还担心，犹豫，等货到了，比我心中想象的好很多，大家放心购买，很满意的购物，以后还会来??
+                    </div>
+                    <div class="productReviewItemDate">2016-08-23</div>
+                </div>
+                <div class="productReviewItemUserInfo">
+                    贤*闲<span class="userInfoGrayPart">（匿名）</span>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+            
+            <!--评价 3-->
+            <div class="productReviewItem">
+                <div class="productReviewItemDesc">
+                    <div class="productReviewItemContent">
+                        <span>商品：</span>宝贝料子和手感都不错，是值这价，卖家很贴心的送了内衣带，5分好评是必须的。喜欢的可以 下手了
+                    </div>
+                    <div class="productReviewItemDate">2016-08-16</div>
+                </div>
+                <div class="productReviewItemUserInfo">
+                    孤*****爱<span class="userInfoGrayPart">（匿名）</span>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+    
+
+
+</body>
+</html>
