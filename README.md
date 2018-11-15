@@ -1,3 +1,6 @@
+<h2>Please check my work directly on Codepen: https://codepen.io/puddlejumper26/</h2>
+
+
 # JS-showcases  - Not Completed
   based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
 
