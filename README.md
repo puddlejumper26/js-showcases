@@ -1,4 +1,4 @@
-<h2>Please check my work directly on Codepen: https://codepen.io/puddlejumper26/</h2>
+<h1>Please also check my work directly on <a href="https://codepen.io/puddlejumper26/" target="_blank">Codepen</a> </h1>
 
 
 # JS-showcases  - Not Completed
