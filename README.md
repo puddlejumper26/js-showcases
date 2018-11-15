@@ -1,7 +1,7 @@
 <h1>Please also check my work directly on <a href="https://codepen.io/puddlejumper26/" target="_blank">Codepen</a> </h1>
 <br><br>
 
-# JS-showcases  - Not Completed
+<center># JS-showcases  - Not Completed</center>
   based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
 
 # Part I Projects
