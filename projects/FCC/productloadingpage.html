@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>productloadingpage</title>
+<style>
+*{margin: 0;padding:0;box-sizing: border-box;list-style-type:none;text-decoration:none;}
+body { }
+div.container .btn {padding: 0 20px;height: 30px;font-size: 1em;font-weight: 700;text-transform: uppercase;border: 3px black solid;border-radius: 10px;background: yellow;cursor: pointer;}
+
+header{position:fixed;display: flex;justify-content: space-around;align-items: center;background:lightgray;boder:1px solid black;width:100%; z-index:99;}
+header div{display: flex;align-items: center;}
+header img{width: 150px; height:100px;}
+nav ul{ width: 50vw; display: flex;flex-direction: row;justify-content: space-around;}
+nav ul li{list-style-type:none;}
+
+div.container{position:absolute;width:100%;margin-top:100px;}
+div.container section{width: 100%;}
+
+div.container section#definition{background: lightseagreen;display: flex;}
+div.container section#definition div{margin: 10px;}
+
+div.container section#requirement{background:rgb(72, 204, 105)}
+
+div.container section#price{display: flex;justify-content: space-around; background: mediumaquamarine}
+.price-unit{height:150px;width:350px;border: 3px solid black;border-radius:10px;background: mediumturquoise; margin: 10px;text-align: center;display: flex;flex-direction: column;justify-content: space-around;}
+.font{font-size: 1.2em;}
+
+div.container section#contact{text-align: center;background: rgb(230, 128, 213)}
+.email{height: 50px;width: 100px;}
+
+div.container section#footer{background: magenta}
+div.container section#footer ul{display: flex; float: right;}
+div.container section#footer ul li{margin: 10px;}
+
+@media
+{
+  
+}
+
+</style>
+
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</head>
+<body>
+
+   
+
+<header id="header">
+  <img id="header-img" src="https://logoobject.com/wp-content/uploads/edd/2017/09/Plane-Logo-Png.png">
+  <h2>Private Pilot License</h2>
+  <nav id="nav-bar">
+    <ul>
+      <li><a class="nav-link" href="#definition">Definition</a></li>
+      <li><a class="nav-link" href="#requirement">Requirements</a></li>
+      <li><a class="nav-link" href="#price">Price</a></li>
+      <li><a class="nav-link" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+  
+<div class="container">
+    <section id="definition">
+    <div><img style="width:300px;" src="https://alliancetrainingblog.files.wordpress.com/2017/03/17-3-2017.jpg?w=700"></div>
+    
+    <div>
+    <h2>What is Private Pilot License (PPL)</h2>
+    <p>A private pilot licence (PPL) or, in the United States, a private pilot certificate, is a type of pilot licence that allows the holder to act as pilot in command of an aircraft privately (not for remuneration).  The minimum age for a private pilot certificate is 16 for balloons and gliders, and 17 for powered flight (airplanes, helicopters, and gyroplanes). Pilots can begin training at any age and can solo balloons and gliders from age 14, and powered aircraft from age 16.</p>
+    </div>
+    </section>
+
+    <center><section id="requirement">
+    <h2>What are the requirements</h2>
+    <iframe id="video" height="315" width="500" src="https://www.youtube-nocookie.com/embed/U8nNb6xT990?rel=0&amp;controls=0&amp;showinfo=0"allowfullscreen></iframe>
+    </section></center>
+
+    <section id="price" class="price">
+    <div class="price-unit">
+        <div class="font">With Pacakge</div>
+        <div>40,000 Euro</div>
+        <button class="btn">Select</button>
+    </div>
+    <div class="price-unit">
+        <div class="font">Without Pacakge</div>
+        <div>30,000 Euro</div>
+        <button class="btn">Select</button>
+    </div>
+    <div>
+    <div class="price-unit">
+        <div class="font">One Time Trip</div>
+        <div>999 Euro</div>
+        <button class="btn">Select</button>
+    </div>
+    </div>
+    </section>
+    
+    <section id="contact">
+    <h1>If you are interested, please subscribe our newsletter</h1><br>
+    <form id="form" action="https://www.freecodecamp.com/email-submit">
+        <input name="email" id="email" type="email" placeholder="Enter your email address" required></input><br><br>
+        <input id="submit" type="submit" value="Get Started" class="btn"></input>
+    </form>
+    </section>
+
+    <section id="footer">
+        <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Annoucment</a></li>
+        </ul>
+    </section>
+</div>
+
+   
+</body>
+</html>

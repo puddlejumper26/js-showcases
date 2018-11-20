@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>productlist</title>
+    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+</head>
+<style>
+/*订单页面div*/
+div.boughtDiv{max-width: 1013px;margin:10px auto;}
+/*订单项目所在表格*/
+table.orderListItemTable{border:2px solid #ECECEC;width:100%;margin:20px 0; font-size:12px;}
+/*表格悬停状态*/
+table.orderListItemTable:hover{border: 2px solid #aaa !important;}
+/*单元格*/
+table.orderListItemTable td{padding:8px 10px;}
+/*标题行*/
+tr.orderListItemFirstTR{background-color:#F1F1F1;}
+/*旺旺图标*/
+div.orderItemWangWangGif{display: inline-block;width:67px;height:22px;background-image: url(http://how2j.cn/tmall/img/site/wangwang.gif);background-repeat: no-repeat;background-color: transparent;background-attachment: scroll;background-position: 0px 0px;position:relative;top:0;left:2px;}
+/*删除列*/
+td.orderItemDeleteTD{text-align:right;}
+/*删除按钮*/
+span.orderListItemDelete{display:inline-block;margin:0 10px;color:#999999;font-size: 16px;}
+/*产品连接外部div*/
+div.orderListItemProductLinkOutDiv{position:relative;/*相对定位，为的是里面的3个图标所在div，可以使用绝对定位*/ height:80px;}
+/*三个图标所在div*/
+div.orderListItemProductLinkInnerDiv{position: absolute;bottom:0;}
+/*原始价格*/
+div.orderListItemProductOriginalPrice{color:#999999;font-size:14px;}
+/*促销价格*/
+div.orderListItemProductPrice{color:#3C3C3C;font-size: 14px;}
+/*数量所在td*/
+td.orderListItemNumberTD{text-align: center;}
+/*订单项所在td*/
+td.orderItemOrderInfoPartTD{border:1px solid #ECECEC;}
+/*数量颜色*/
+span.orderListItemNumber{color:#3C3C3C;}
+/*价格td*/
+td.orderListItemProductRealPriceTD{text-align: center;}
+/*价格信息*/
+div.orderListItemProductRealPrice{color: #3C3C3C;font-size:14px;font-weight: bold;}
+/*运费*/
+div.orderListItemPriceWithTransport{color: #6C6C6C;font-size: 12px;}
+/*按钮所在td*/
+td.orderListItemButtonTD{text-align: center;}
+/*评价按钮*/
+button.orderListItemReview{border:1px solid #DCDCDC;background-color:#fff;border-radius: 2px;color: #3C3C3C;font-size: 12px;font-weight: bold;padding: 6px 12px;}
+/*评价按钮鼠标悬浮状态*/
+button.orderListItemReview:hover{border-color: #C40000;color: #C40000;}
+/*确认收货按钮*/
+button.orderListItemConfirm{background-color: #66B6FF;border-radius: 2px;color:white;font-size: 12px;font-weight: bold;border-width: 0;/*without border*/padding: 6px 12px;}
+/*确认收货按钮鼠标悬浮状态*/
+button.orderListItemConfirm:hover{background-color: #118ADB;}
+/*所有超链*/
+a{color:#999;}
+/*超链鼠标悬停*/
+a:hover{text-decoration: none;color:#C40000;}
+
+</style>
+<body>
+    <div class="boughtDiv">
+        <div class="orderListItem">
+            
+            <table oid="946" orderstatus="waitReview" class="orderListItemTable">
+                <tbody>
+                    <!--第一个表格的第一个tr用来放置时间，订单号等-->
+                    <tr class="orderListItemFirstTR">
+                        <td colspan="2">
+                            <b>2016-09-12 17:00:41</b>
+                            <span>订单号: 20160912170041674794</span>
+                        </td>
+                        <td colspan="2"><img width="13px" src="http://how2j.cn/tmall/img/site/orderItemTmall.png">天猫商场</td>
+                        <td colspan="1">
+                            <a href="#nowhere" class="wangwanglink"><div class="orderItemWangWangGif"></div></a>
+                        </td>
+                        <td class="orderItemDeleteTD">
+                            <a href="#nowhere" oid="946" class="deleteOrderLink"><span class="orderListItemDelete glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                    
+                    <tr class="orderItemProductInfoPartTR">
+                        <td class="orderItemProductInfoPartTD"><img width="80" height="80" src="http://how2j.cn/tmall/img/productSingle_middle/3796.jpg"></td>
+                        <td class="orderItemProductInfoPartTD">
+                            <div class="orderListItemProductLinkOutDiv">
+                                <a href="#nowhere">公众智能扫地机器人家用全自动电动清洁地毯擦拖地一体机吸尘器</a>
+                                <div class="orderListItemProductLinkInnerDiv">
+                                    <img title="支持信用卡支付" src="http://how2j.cn/tmall/img/site/creditcard.png">
+                                    <img title="消费者保障服务,承诺7天退货" src="http://how2j.cn/tmall/img/site/7day.png">
+                                    <img title="消费者保障服务,承诺如实描述" src="http://how2j.cn/tmall/img/site/promise.png">
+                                </div>
+                            </div>
+                        </td>
+                        <td width="100px" class="orderItemProductInfoPartTD">
+                            <div class="orderListItemProductOriginalPrice">￥2,499.00</div>
+                            <div class="orderListItemProductPrice">￥2,124.15</div>
+                        </td>
+                        <td width="100px" valign="top" class="orderListItemNumberTD orderItemOrderInfoPartTD" rowspan="1">
+                            <span class="orderListItemNumber">1</span>
+                        </td>
+                        <td width="120px" valign="top" class="orderListItemProductRealPriceTD orderItemOrderInfoPartTD"
+                            rowspan="1">
+                            <div class="orderListItemProductRealPrice">￥2,124.15</div>
+                            <div class="orderListItemPriceWithTransport">(含运费：￥0.00)</div>
+                        </td>
+                        <td width="100px" valign="top" class="orderListItemButtonTD orderItemOrderInfoPartTD" rowspan="1">
+                            <a href="#nowhere">
+                                <button class="orderListItemReview">评价</button>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table oid="945" orderstatus="waitConfirm" class="orderListItemTable">
+                <tbody>
+                    <tr class="orderListItemFirstTR">
+                        <td colspan="2">
+                            <b>2016-09-12 17:00:33</b>
+                            <span>订单号: 201609121700333128784
+                            </span>
+                        </td>
+                        <td colspan="2"><img width="13px" src="http://how2j.cn/tmall/img/site/orderItemTmall.png">天猫商场</td>
+                        <td colspan="1">
+                            <a href="#nowhere" class="wangwanglink">
+                                <div class="orderItemWangWangGif"></div>
+                            </a>
+                        </td>
+                        <td class="orderItemDeleteTD">
+                            <a href="#nowhere" oid="945" class="deleteOrderLink">
+                                <span class="orderListItemDelete glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="orderItemProductInfoPartTR">
+                        <td class="orderItemProductInfoPartTD"><img width="80" height="80" src="http://how2j.cn/tmall/img/productSingle_middle/6651.jpg"></td>
+                        <td class="orderItemProductInfoPartTD">
+                            <div class="orderListItemProductLinkOutDiv">
+                                <a href="#nowhere">ULIFE原创信封包男个性真皮手包男士手拿包休闲男包手抓包拉链潮</a>
+                                <div class="orderListItemProductLinkInnerDiv">
+                                    <img title="支持信用卡支付" src="http://how2j.cn/tmall/img/site/creditcard.png">
+                                    <img title="消费者保障服务,承诺7天退货" src="http://how2j.cn/tmall/img/site/7day.png">
+                                    <img title="消费者保障服务,承诺如实描述" src="http://how2j.cn/tmall/img/site/promise.png">
+                                </div>
+                            </div>
+                        </td>
+                        <td width="100px" class="orderItemProductInfoPartTD">
+                            <div class="orderListItemProductOriginalPrice">￥1,188.00</div>
+                            <div class="orderListItemProductPrice">￥1,128.60</div>
+                        </td>
+                        <td width="100px" valign="top" class="orderListItemNumberTD orderItemOrderInfoPartTD" rowspan="1">
+                            <span class="orderListItemNumber">1</span>
+                        </td>
+                        <td width="120px" valign="top" class="orderListItemProductRealPriceTD orderItemOrderInfoPartTD"
+                            rowspan="1">
+                            <div class="orderListItemProductRealPrice">￥1,128.60</div>
+                            <div class="orderListItemPriceWithTransport">(含运费：￥0.00)</div>
+                        </td>
+                        <td width="100px" valign="top" class="orderListItemButtonTD orderItemOrderInfoPartTD" rowspan="1">
+                            <a href="#nowhere">
+                                <button class="orderListItemConfirm">确认收货</button>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+    </div>
+</body>
+</html>

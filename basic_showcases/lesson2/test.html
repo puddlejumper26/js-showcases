@@ -6,25 +6,59 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>test</title>
 <style type="text/css">
-    #div {
-        border:1px solid black;
-        height:40px;
-        padding-left: 200px;
-        width:300px;
-    }
-    #div2 {width: 100px;height: 100px;background: red}
+      div {
+    height: 40px;
+    width: 70%;
+    background: black;
+    margin: 50px auto;
+    border-radius: 5px;
+    position: relative;
+  }
+
+#rect {
+  animation-name: rainbow;
+  animation-duration: 4s;
+}
+
+@keyframes rainbow {
+  0% {
+    background-color: blue;
+    top: 0px;
+    left:0;
+  }
+  50% {
+    background-color: green;
+    top: 50px;
+    left:25px;
+  }
+  100% {
+    background-color: yellow;
+    top: 0px;
+    left:-25px;
+  }
+}
 </style>
 <script>
-    console.log("1:"+foo); // undefined
-     foo = 1;
-    console.log("2:"+foo); // 1
+   function nextInLine(arr, item) {
+      // Your code here
+      arr = arr.push('item');
+      var first = arr.shift();
+      return first;  // Change this line
+    }
+
+    //console.log(nextInLine);
+    //console.log(nextInLine([1,2], 5))
+
+
+    var arr1=[1,2,3];
+    var second = arr1.shift();
+    console.log(arr1);
+    console.log(second);
 </script>
 </head>
 
 <body id="body">
-    <div id="div">
-        这个表格单元拥有左内边距。
-    </div><div id="div2"></div>
+    
 </body>
 
 </html>

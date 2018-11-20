@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>order-conformation</title>
+<script src="http://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
+<link href="http://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="http://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+<style>
+/*结算页面div*/
+div.buyPageDiv{margin:20px auto;max-width: 1013px;}
+/*确认订单信息几个字*/
+div.addressTip, div.productListTip{color:#333333;font-size: 16px;font-weight: bold;text-align: left;margin-bottom: 30px;}
+/*产品列表所在table*/
+table.productListTable{width: 100%;border-collapse: separate/*边框折叠*/; font-size: 12px;}
+/*标题栏的每个单元格*/
+table.productListTable th{color:#999999;font-family:'Courier New', Courier, monospace;font-weight:normal;font-size: 12px;text-align: center;padding-bottom: 5px;}
+/*标题栏下的下划线*/
+table.productListTable tr.rowborder td{background-color: #b2d1ff;border-right: 2px solid #fff;height: 3px;}
+/*标题栏第一列*/
+th.productListTableFirstColumn{text-align: left !important;}
+/*天猫图片*/
+img.tmallbuy{width:15px;}
+/*天猫店铺超链*/
+a.marketLink{color:black;font-size:12px;font-family:'Courier New', Courier, monospace;font-weight: normal;}
+/*天猫店铺超链悬停状态*/
+a.marketLink:hover{color:black;font-size: 12px;text-decoration:underline;font-family: 'Courier New', Courier, monospace;font-weight: normal;}
+/*旺旺图标*/
+span.wangwangGif{display: inline-block;width: 25px;height: 25px;background-image:url(http://how2j.cn/tmall/img/site/wangwang.gif);background-repeat: no-repeat; background-color: transparent;background-attachment: scroll;/*滚动背景图片*/ background-position: -83px -0px; position: relative;top:8px;left: 2px;}
+/*产品列表单元格*/
+tbody.productListTableTbody td{text-align:center;}
+/*产品列表第一列*/
+tbody.productListTableTbody td.orderItemFirstTD{text-align: left;}
+/*产品信息单元格*/
+tr.orderItemTR td{border-bottom:1px solid #E5E5E5;}
+/*订单项单元格*/
+tr.orderItemTR td{padding:10px 0px;}
+/*产品图片*/
+img.orderItemImg{width:50px;height: 50px;border: 1px solid #E9E9E9;}
+/*产品信息*/
+td.orderItemProductInfo{text-align:left!important;}
+/*3个图标*/
+td.orderItemProductInfo img{height:16px;}
+/*产品超链*/
+a.orderItemProductLink{color:#666666;display:block;text-decoration: none;}
+/*产品超链悬停状态*/
+a.orderItemProductLink:hover{color:#666666;text-decoration: underline;}
+/*产品价格和产品数量*/
+span.orderItemProductPrice, span.orderItemProductNumber{color:#000000;}
+/*小计*/
+span.orderItemInitSum{color:#CC0000;font-weight:bold;}
+/*第一列和最后一列*/
+td.orderItemFirstTD, td.orderItemLastTD{border-bottom:0px solid black !important;}
+/*普通配送字样*/
+label.orderItemDeliveryLabel{color:#666666;font-family: Arial, Helvetica, sans-serif;font-size: 12px;font-weight: normal;}
+/*配送方式下拉*/
+select.orderItemDeliverySelect{width: 100px;height: 23px;}
+/*合计div*/
+div.orderItemSumDiv{padding:20px;border-top:2px solid #B4D0FF;background-color:#F2F6FF;}
+/*合计div下所有的span*/
+div.orderItemSumDiv span{color:#999999;}
+/*给卖家留言*/
+span.leaveMessageText{display:inline-block;margin-right:10px;float:left;}
+/*实付款所在div*/
+div.orderItemTotalSumDiv{margin:40px;height:40px;}
+/*提交订单按钮所在div*/
+div.submitOrderDiv{height:40px;margin:20px 0px;}
+/*实付款字样*/
+div.orderItemTotalSumDiv span{color:#999999;}
+/*实付款金额*/
+span.orderItemTotalSumSpan{color:#C40000 !important;font-size: 22px;font-weight: bold;border-bottom:10px dotted #F2F6FF;}
+/*提交订单按钮*/
+button.submitOrderButton{border:1px solid #C40000;background-color: #C40000;text-align: center;line-height: 14px;/*文本水平居中,文本垂直居中*/ font-size: 14px;font-weight: 700;color:white;float:right;display: inline-block;margin:0 10px;width:180px;height:40px;}
+/*整个body*/
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif;}
+
+/*留言打开的文本框*/
+textarea.leaveMessageTextarea {border: 1px solid #FFAD35;width: 250px;height: 60px;resize: none;}
+
+</style>
+<script>
+    /*默认显示的输入框其实是一个图片，点击的时候，显示可编辑的div*/
+    $(function () {
+        $("img.leaveMessageImg").click(function () {
+            $(this).hide();
+            $("span.leaveMessageTextareaSpan").show();
+            $("div.orderItemSumDiv").css("height", "100px");
+        });
+    });
+</script>
+
+</head>
+<body>
+    <div class="buyPageDiv">
+        <div class="productList">
+            <div class="productListTip">确认订单信息</div>
+            
+            <table class="productListTable">
+                <thead>
+                    <tr>
+                        <th class="productListTableFirstColumn" colspan="2">
+                            <img src="http://how2j.cn/tmall/img/site/tmallbuy.png" class="tmallbuy">
+                            <a href="#nowhere" class="marketLink">店铺：天猫店铺</a>
+                            <a href="#nowhere" class="wangwanglink"> <span class="wangwangGif"></span> </a>
+                        </th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>小计</th>
+                        <th>配送方式</th>
+                    </tr>
+                    <tr class="rowborder"><!--下面的这些td是用来制作下划线的效果的-->
+                        <td colspan="2"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody class="productListTableTbody">
+                    <tr class="orderItemTR">
+                        <td class="orderItemFirstTD"><img width="20px" src="http://how2j.cn/tmall/img/productSingle_middle/4205.jpg"
+                                class="orderItemImg"></td>
+                        <td class="orderItemProductInfo">
+                            <a class="orderItemProductLink" href="#nowhere">
+                                Philips/飞利浦 HR1897/30破壁微榨原汁机 多功能家用果汁榨汁机
+                            </a>
+                            <img title="支持信用卡支付" src="http://how2j.cn/tmall/img/site/creditcard.png">
+                            <img title="消费者保障服务,承诺7天退货" src="http://how2j.cn/tmall/img/site/7day.png">
+                            <img title="消费者保障服务,承诺如实描述" src="http://how2j.cn/tmall/img/site/promise.png">
+                        </td>
+                        <td>
+                            <span class="orderItemProductPrice">￥3,514.05</span>
+                        </td>
+                        <td>
+                            <span class="orderItemProductNumber">2</span>
+                        </td>
+                        <td><span class="orderItemUnitSum">
+                                ￥7,028.10
+                            </span></td>
+                        <td class="orderItemLastTD" rowspan="5">
+                            <label class="orderItemDeliveryLabel">
+                                <input type="radio" checked="checked" value="">
+                                普通配送
+                            </label>
+                            <select class="orderItemDeliverySelect">
+                                <option>快递 免邮费</option>
+                                <option>样式 2 </option>
+                                <option>样式 3 </option>
+                            </select>
+                        </td>
+                    </tr>
+                    
+                    <tr class="orderItemTR">
+                        <td class="orderItemFirstTD"><img width="20px" src="http://how2j.cn/tmall/img/productSingle_middle/3796.jpg"
+                                class="orderItemImg"></td>
+                        <td class="orderItemProductInfo">
+                            <a class="orderItemProductLink" href="#nowhere">
+                                公众智能扫地机器人家用全自动电动清洁地毯擦拖地一体机吸尘器
+                            </a>
+                            <img title="支持信用卡支付" src="http://how2j.cn/tmall/img/site/creditcard.png">
+                            <img title="消费者保障服务,承诺7天退货" src="http://how2j.cn/tmall/img/site/7day.png">
+                            <img title="消费者保障服务,承诺如实描述" src="http://how2j.cn/tmall/img/site/promise.png">
+                        </td>
+                        <td>
+                            <span class="orderItemProductPrice">￥2,124.15</span>
+                        </td>
+                        <td>
+                            <span class="orderItemProductNumber">1</span>
+                        </td>
+                        <td><span class="orderItemUnitSum">
+                                ￥2,124.15
+                            </span></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="orderItemSumDiv">
+                <div class="pull-left">
+                    <span class="leaveMessageText">给卖家留言:</span>
+                    <span>
+                        <img src="http://how2j.cn/tmall/img/site/leaveMessage.png" class="leaveMessageImg">
+                    </span>
+                    <span class="leaveMessageTextareaSpan" style="display: none;">
+                        <textarea class="leaveMessageTextarea" name="userMessage"></textarea>
+                        <div>
+                            <span>还可以输入200个字符</span>
+                            <!--这里还可以应用JS来实时显示剩下的字数-->
+                        </div>
+                    </span>
+                </div>
+                <span class="pull-right">店铺合计(含运费): ￥9,152.25</span>
+            </div>
+        </div>
+        <div class="orderItemTotalSumDiv">
+            <div class="pull-right">
+                <span>实付款：</span>
+                <span class="orderItemTotalSumSpan">￥9,152.25</span>
+            </div>
+        </div>
+        <div class="submitOrderDiv">
+            <button class="submitOrderButton" type="button">提交订单</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01_public_page_simple_searching</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<style>
+div.simpleSearchDiv{background-color: #C40000;width: 300px;margin: 10px 20px 40px;padding: 1px;height: 40px;display:block;}/*用块状显示，只有使用块状显示的时候，上下外边距才会生效*/
+div.simpleSearchDiv input{width:225px;border: 1px solid transparent;height: 34px; margin: 2px;outline: none;}/*去掉输入框轮廓，否则获取焦点的时候会发生颜色变化*/
+div.simpleSearchDiv button{width: 60px;border:1px solid transparent;background-color: #C40000;color: white;font-size: 14px;}
+div.searchBelow{margin-top:3px;margin-left:-20px;}/*左边距，结合超链的内边距，正好使得超链出现在开始的位置*/
+div.searchBelow span{color:#999;}
+div.searchBelow a{padding:0 20px 0 20px;font-size: 14px;}
+img.simpleLogo{position:absolute;left:10px;top:50px;widhth:140px;}
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif;}
+a{color:#999;}
+a:hover{color:#C40000;text-decoration: none;}
+</style>
+
+</head>
+
+<body>
+<div>
+    <a href="#nowhere">
+        <img src="../../img/site/simpleLogo.png" class="simpleLogo" id="simpleLogo">
+    </a>
+    <div class="simpleSearchDiv pull-right">
+        <input type="text" placeholder="平衡车 原汁机" name="keyword">
+        <button class="searchButton" type="submit">搜天猫</button>
+        <div class="searchBelow">
+            <span> <a href="#nowhere"> 冰箱 </a> <span>|</span>
+            </span> <span> <a href="#nowhere"> 空调 </a> <span>|</span>
+            </span> <span> <a href="#nowhere"> 女表 </a> <span>|</span>
+            </span> <span> <a href="#nowhere"> 男表 </a></span>
+
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <!--因为输入框所在的div 使用了pull-right ( 对应样式： float:right)， 导致其原本占用的位置让出来了。
+    如果没有<div style="clear:both"></div>，就会使得后续添加的html元素，占用被让出来得位置，视觉效果上两者就重叠了。
+    
+    所以，既希望输入框所在的div 向右浮动，又希望新添加的元素 "顺序排放在下面位置" 的话，就需要<div style="clear:both"></div> 这么一个元素。
+    
+    关于clear的用法还可以参考：
+    http://how2j.cn/k/css/css-float/252.html#step491-->
+</div>
+</body>
+</html>
