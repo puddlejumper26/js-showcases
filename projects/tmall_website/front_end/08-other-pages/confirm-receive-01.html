@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>confirm receive 01</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+<style>
+/*body以及表格*/
+body.table{font-size: 12px;font-family: Arial, Helvetica, sans-serif}
+/*确认支付div*/
+div.confirmPayPageDiv{max-width: 1013px;margin: 10px auto;}
+/*确认支付图片所在div*/
+div.confirmPayImageDiv{margin:5px auto 80px auto;width:900px;position: relative;}
+/*时间信息所在div*/
+div.confirmPayImageDiv div{color:#999999;}
+/*卖家发货时间*/
+div.confirmPayTime3{position: absolute;top: 100px;left: 400px;}
+/*付款到支付宝时间*/
+div.confirmPayTime2{position: absolute;top: 100px;left: 190px;}
+/*拍下商品时间*/
+div.confirmPayTime1{position: absolute;top: 100px;left: -20px;}
+/*同意付款字样*/
+div.confirmPayOrderInfoText{margin:10px 10px 0 10px;font-size:16px;font-weight: bold;color:black;padding-bottom: 15px;border-bottom:1px solid #ADC8E6}
+/*订单项列表div*/
+div.confirmPayOrderItemDiv{margin: 0 20px;}
+/*订单信息字样*/
+div.confirmPayOrderItemText{margin: 20px 10px;font-size: 14px;font-weight: normal;color: black;}
+/*订单项列表所在表格*/
+table.confirmPayOrderItemTable{border:1px solid #DDDDDD;width:100%;}
+/*表格的标题部分*/
+table.confirmPayOrderItemTable thead{background-color: #E8F2FF;height:33px;}
+/*表格的每一行*/
+table.confirmPayOrderItemTable tr{border:1px solid #DDDDDD;}
+/*单元格*/
+table.confirmPayOrderItemTable th, table.confirmPayOrderItemTable td{text-align: center;}
+/*订单项列表单元格*/
+table.confirmPayOrderItemTable td{padding: 20px;}
+/*产品连接*/
+td.confirmPayOrderItemProductLink{text-align: left !important;}
+/*产品单价*/
+span.confirmPayProductPrice{font-size: 18px;font-weight: bold;color: #666666;}
+/*产品总价*/
+span.confirmPayOrderItemSumPrice{color:#C40000;}
+/*所有超链*/
+a{color:#999;}
+/*所有超链鼠标悬停*/
+a:hover{text-decoration: none;color: #C40000;}
+
+
+</style>
+
+</head>
+<body>
+    <div class="confirmPayPageDiv">
+        
+        <div class="confirmPayImageDiv">
+            <img src="../../img/site/comformPayFlow.png">
+            <div class="confirmPayTime1">
+                2016-09-14 11:14:45
+            </div>
+            <div class="confirmPayTime2">
+                2016-09-14 11:14:47
+            </div>
+            <div class="confirmPayTime3">
+                yyyy-MM-dd HH:mm:ss
+            </div>
+        </div>
+        
+        <div class="confirmPayOrderInfoDiv">
+            <div class="confirmPayOrderInfoText">我已收到货，同意支付宝付款</div>
+        </div>
+        
+        <div class="confirmPayOrderItemDiv">
+            
+            <div class="confirmPayOrderItemText">订单信息</div>
+            
+            <table class="confirmPayOrderItemTable">
+                <thead>
+                    <tr>
+                        <th colspan="2">宝贝</th>
+                        <th width="120px">单价</th>
+                        <th width="120px">数量</th>
+                        <th width="120px">商品总价 </th>
+                        <th width="120px">运费</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img width="50px" src="../../img/productSingle_middle/5848.jpg"></td>
+                        <td class="confirmPayOrderItemProductLink">
+                            <a href="#nowhere">罗宾 钢带女表 女士腕表 水钻夜光防水石英表 潮流时尚复古手表女</a>
+                        </td>
+                        <td>￥990.00</td>
+                        <td>1</td>
+                        <td><span class="confirmPayProductPrice">￥792.00</span></td>
+                        <td><span>快递 ： 0.00 </span></td>
+                    </tr>
+                    <tr>
+                        <td><img width="50px" src="../../img/productSingle_middle/5868.jpg"></td>
+                        <td class="confirmPayOrderItemProductLink">
+                            <a href="#nowhere">科沃斯地宝凌云扫地机器人WiFi智能家用吸尘器超薄全自动洗擦地机</a>
+                        </td>
+                        <td>￥5,680.00</td>
+                        <td>1</td>
+                        <td><span class="confirmPayProductPrice">￥3,692.00</span></td>
+                        <td><span>快递 ： 0.00 </span></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="confirmPayOrderItemText pull-right">
+                实付款： <span class="confirmPayOrderItemSumPrice">￥4,484.00</span>
+            </div>
+        
+        </div>
+    </div>
+</body>
+</html>

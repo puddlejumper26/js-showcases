@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Evaluation 02</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+<style>
+/*评价div*/
+div.reviewDiv{max-width: 1013px;margin: 10px auto;}
+/*累计评价div*/
+div.reviewStasticsDiv{margin-top: 20px;}
+/*累计评价左侧div*/
+div.reviewStasticsLeft{width: 180px;float:left;}
+/*累计评价左上div*/
+div.reviewStasticsLeftTop{background-color:#C40000;height: 6px;}
+/*累计评价左边内容*/
+div.reviewStastivsLeftContent{line-height: 29px;border-left: 1px solid #D5D4D4;border-right: 1px solid #D5D4D4; background-color: #F6F5F1;text-align: center;font-size: 14px;columns: #363535;font-weight: bold;}
+/*累计评价左下div*/  /*注意这里的累计评价的方块包括右侧的条状，是由三个div组成的，*/
+div.reviewStasticsLeftContent{line-height: 29px;/*vertical center*/border-left: 1px solid #D5D4D4;border-right: 1px solid #D5D4D4; background-color: #F6F5F1;text-align: center;font-size: 14px;font-weight: bold;color: #363535;}
+/*累计评价左下div*/
+div.reviewStasticsLeftFoot{height: 6px;border-left: 1px solid #D5D4D4;border-bottom: 1px solid #D5D4D4;background-color: #F6F5F1}
+/*累计评价数字*/
+span.reviewStasticsNumber{color: #284CA5;}
+/*累计评价右侧div*/
+div.reviewStasticsRight{overflow:hidden;} /*自动填满右边*/
+/*累计评价右侧空白div*/
+div.reviewStasticsRightEmpty{height: 35px;}
+/*累计评价右下div*/
+div.reviewStasticsFoot{background-color:#F6F5F1;border:1px solid #D5D4D4; border-left-width: 0px;height: 6px;}
+/*进行评价div*/
+div.makeReviewDiv{border:1px solid #D1CCC8;margin:20px 0px; background-color:#EFEFEF;}
+/*其他买家，需要你的建议哦！*/
+div.makeReviewText{font-size: 16px;color:#333333;font-weight: bold;margin: 20px 40px;}
+/*评价商品表格*/
+table.makeReviewTable{margin: 20px 40px; font-size: 12px;}
+/*单元格*/
+table.makeReviewTable td{border: 1px solid #E7E7E7;padding: 10px;background-color: white;}
+/*文本域*/
+table.makeReviewTable textarea{border-width: 0;resize:none;/*not changeable for size*/width: 420px;height: 120px;}
+/*第一列*/
+td.makeReviewTableFirstTD{background-color: #F6F6F6;}
+/*提交评价按钮所在div*/
+div.makeReviewButtonDiv{background-color: white;text-align: center;padding: 15px;}
+/*提交评价按钮*/
+div.makeReviewButtonDiv button{width: 72px;height: 25px;border-radius:5px;background-color: #C40000;color: white;border-width:0px;font-weight: bold;}
+
+</style>
+
+</head>
+<body>
+
+    <div class="reviewDiv">
+        <div class="reviewStasticsDiv">
+            <div class="reviewStasticsLeft">
+                <div class="reviewStasticsLeftTop"></div>
+                <div class="reviewStasticsLeftContent">累计评价 <span class="reviewStasticsNumber"> 13</span></div>
+                <div class="reviewStasticsLeftFoot"></div>
+            </div>
+            <div class="reviewStasticsRight">
+                <div class="reviewStasticsRightEmpty"></div>
+                <div class="reviewStasticsFoot"></div>
+            </div>
+        </div>
+        <div class="makeReviewDiv">
+            <form method="post">
+                <div class="makeReviewText">其他买家，需要你的建议哦！</div>
+                <table class="makeReviewTable">
+                    <tbody>
+                        <tr>
+                            <td class="makeReviewTableFirstTD">评价商品</td>
+                            <td><textarea name="content"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="makeReviewButtonDiv">
+                    <input type="hidden" value="952" name="oid">
+                    <input type="hidden" value="256" name="pid">
+                    <button type="button">提交评价</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

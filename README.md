@@ -10,43 +10,65 @@
     <li><a href="projects/tmall_website/js/bootstrap" target="_blank">JS Bootstrap</a></li>
     <li><a href="projects/tmall_website/js/jquery" target="_blank">JS jQuery</a></li>
     <h3>Front-End</h3>
-        <h4>01_public_page</h4>
+        <h4>01-public-page</h4>
             <ul>
-                <li><a href="projects/tmall_website/front_end/01_public_page/top_nav.html" target="_blank">01_public_page/top_nav</a></li>
-                <li><a href="projects/tmall_website/front_end/01_public_page/searching.html" target="_blank">01_public_page/searching</a></li>
-                <li><a href="projects/tmall_website/front_end/01_public_page/simple_searching.html" target="_blank">01_public_page/simple_searching</a></li>
-                <li><a href="projects/tmall_website/front_end/01_public_page/footer.html" target="_blank">01_public_page/footer</a></li>
-                <li><a href="projects/tmall_website/front_end/01_public_page/footer2.html" target="_blank">01_public_page/footer2</a></li>
+                <li><a href="projects/tmall_website/front_end/01-public-page/top-nav.html" target="_blank">01-public-page/top-nav</a></li>
+                <li><a href="projects/tmall_website/front_end/01-public-page/searching.html" target="_blank">01-public-page/searching</a></li>
+                <li><a href="projects/tmall_website/front_end/01-public-page/simple-searching.html" target="_blank">01-public-page/simple-searching</a></li>
+                <li><a href="projects/tmall_website/front_end/01-public-page/footer.html" target="_blank">01-public-page/footer</a></li>
+                <li><a href="projects/tmall_website/front_end/01-public-page/footer2.html" target="_blank">01-public-page/footer2</a></li>
             </ul>
-        <h4>02_first_page</h4>
+        <h4>02-first-page</h4>
             <ul>
-                <li><a href="projects/tmall_website/front_end/02_first_page/category.html" target="_blank">02_first_page/category</a></li>
-                <li><a href="projects/tmall_website/front_end/02_first_page/nav_rotate.html" target="_blank">02_first_page/nav_rotate</a></li>
-                <li><a href="projects/tmall_website/front_end/02_first_page/products.html" target="_blank">02_first_page/products</a></li>
+                <li><a href="projects/tmall_website/front_end/02-first-page/category.html" target="_blank">02-first-page/category</a></li>
+                <li><a href="projects/tmall_website/front_end/02-first-page/nav-rotate.html" target="_blank">02-first-page/nav-rotate</a></li>
+                <li><a href="projects/tmall_website/front_end/02-first-page/products.html" target="_blank">02-first-page/products</a></li>
             </ul>
-        <h4>03_category</h4>
+        <h4>03-category</h4>
             <ul>
-                <li><a href="projects/tmall_website/front_end/03_category/order_price.html" target="_blank">03_category/order_price</a></li>
-                <li><a href="projects/tmall_website/front_end/03_category/products.html" target="_blank">03_category/products</a></li>
-                <li><a href="projects/tmall_website/front_end/03_category/03_js_order_price_products.html" target="_blank">03_js_order_price_products_combined</a></li>
+                <li><a href="projects/tmall_website/front_end/03-category/order-price.html" target="_blank">03-category/order_price</a></li>
+                <li><a href="projects/tmall_website/front_end/03-category/products.html" target="_blank">03-category/products</a></li>
+                <li><a href="projects/tmall_website/front_end/03-category/03-js-order-price-products.html" target="_blank">03-js-order-price-products-combined</a></li>
             </ul>
-        <h4>04_product</h4>
+        <h4>04-product</h4>
             <ul>
-                <li><a href="projects/tmall_website/front_end/04_product/product_img.html" target="_blank">04_product/product_img</a></li>
-                <li><a href="projects/tmall_website/front_end/04_product/basic_info.html" target="_blank">04_product/basic_info</a></li>
-                <li><a href="projects/tmall_website/front_end/04_product/product_detail.html" target="_blank">04_product/product_detail</a></li>
-                <li><a href="projects/tmall_website/front_end/04_product/comments.html" target="_blank">04_product/comments</a></li>
-                <li><a href="projects/tmall_website/front_end/04_product/04_js_basicinfo.html" target="_blank">04_product/04_js_basicinfo_combined</a></li>
-                <li><a href="projects/tmall_website/front_end/04_product/04_js_prodetail_comments.html" target="_blank">04_product/04_js_prodetail_comments_combined</a></li>
-                <li><a href="projects/tmall_website/front_end/04_product/04_js_proimg.html" target="_blank">04_product/04_js_proimg_combined</a></li>
+                <li><a href="projects/tmall_website/front_end/04-product/product-img.html" target="_blank">04-product/product-img</a></li>
+                <li><a href="projects/tmall_website/front_end/04-product/basic-info.html" target="_blank">04-product/basic-info</a></li>
+                <li><a href="projects/tmall_website/front_end/04-product/product-detail.html" target="_blank">04-product/product-detail</a></li>
+                <li><a href="projects/tmall_website/front_end/04-product/comments.html" target="_blank">04-product/comments</a></li>
+                <li><a href="projects/tmall_website/front_end/04-product/04-js-basicinfo.html" target="_blank">04-product/04-js-basicinfo-combined</a></li>
+                <li><a href="projects/tmall_website/front_end/04-product/04-js-prodetail-comments.html" target="_blank">04-product/04-js-prodetail-comments-combined</a></li>
+                <li><a href="projects/tmall_website/front_end/04-product/04-js-proimg.html" target="_blank">04-product/04-js-proimg-combined</a></li>
             </ul>   
-        <h4>05_shopping_cart</h4>
+        <h4>05-shopping-cart</h4>
             <ul>
-                <li><a href="projects/tmall_website/front_end/05_shopping_cart/pay_button.html" target="_blank">05_shopping_cart/pay_button</a></li>
-                <li><a href="projects/tmall_website/front_end/05_shopping_cart/order_list.html" target="_blank">05_shopping_cart/order_list</a></li>
-                <li><a href="projects/tmall_website/front_end/05_shopping_cart/05_js_orderlist_pay.html" target="_blank">05_shopping_cart/05_js_orderlist_pay_combined</a></li>
+                <li><a href="projects/tmall_website/front_end/05-shopping-cart/pay-button.html" target="_blank">05-shopping-cart/pay-button</a></li>
+                <li><a href="projects/tmall_website/front_end/05-shopping-cart/order-list.html" target="_blank">05-shopping-cart/order-list</a></li>
+                <li><a href="projects/tmall_website/front_end/05-shopping-cart/05-js-orderlist-pay.html" target="_blank">05-shopping-cart/05-js-orderlist-pay-combined</a></li>
             </ul>
-        <h4>06_my_order</h4>
+        <h4>06-my-order</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front-end/06-my-order/title.html" target="_blank">06-my-order/title.html</a></li>
+                <li><a href="projects/tmall_website/front-end/06-my-order/productlist.html" target="_blank">06-my-order/productlist.html</a></li>
+                <li><a href="projects/tmall_website/front-end/06-my-order/06-js-product-title.html" target="_blank">06-my-order/06-js-product-title</a></li>
+            </ul>
+        <h4>07-final-list-page</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front-end/07-final-list-page/title-address.html" target="_blank">07-final-list-page/title-address</a></li>
+                <li><a href="projects/tmall_website/front-end/07-final-list-page/07-js-order-confirmation.html" target="_blank">07-final-list-page/07-js-order-confirmation</a></li>
+            </ul>
+        <h4>08-other-pages</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/confirm-receive-01.html" target="_blank">08-other-pages/confirm-receive-01</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/confirm-receive-02.html" target="_blank">08-other-pages/confirm-receive-02</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/evaluation-01.html" target="_blank">08-other-pages/evaluation-01</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/evaluation-02.html" target="_blank">08-other-pages/evaluation-02</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/login-page.html" target="_blank">08-other-pages/login-page</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/pay-success.html" target="_blank">08-other-pages/pay-success</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/payment.html" target="_blank">08-other-pages/payment</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/received-suc.html" target="_blank">08-other-pages/received-suc</a></li>
+                <li><a href="projects/tmall_website/front-end/08-other-pages/register.html" target="_blank">08-other-pages/register</a></li>
+            </ul>
 
 # Part II Basic _ Show Cases
 <h2>Lesson 1</h2>
