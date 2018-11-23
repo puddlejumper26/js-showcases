@@ -9,7 +9,7 @@
     <li><a href="projects/tmall_website/css" target="_blank">CSS Bootstrap</a></li>
     <li><a href="projects/tmall_website/js/bootstrap" target="_blank">JS Bootstrap</a></li>
     <li><a href="projects/tmall_website/js/jquery" target="_blank">JS jQuery</a></li>
-    <h3>Front-End</h3>
+    <h3>front_end</h3>
         <h4>01-public-page</h4>
             <ul>
                 <li><a href="projects/tmall_website/front_end/01-public-page/top-nav.html" target="_blank">01-public-page/top-nav</a></li>
@@ -48,26 +48,26 @@
             </ul>
         <h4>06-my-order</h4>
             <ul>
-                <li><a href="projects/tmall_website/front-end/06-my-order/title.html" target="_blank">06-my-order/title.html</a></li>
-                <li><a href="projects/tmall_website/front-end/06-my-order/productlist.html" target="_blank">06-my-order/productlist.html</a></li>
-                <li><a href="projects/tmall_website/front-end/06-my-order/06-js-product-title.html" target="_blank">06-my-order/06-js-product-title</a></li>
+                <li><a href="projects/tmall_website/front_end/06-my-order/title.html" target="_blank">06-my-order/title.html</a></li>
+                <li><a href="projects/tmall_website/front_end/06-my-order/productlist.html" target="_blank">06-my-order/productlist.html</a></li>
+                <li><a href="projects/tmall_website/front_end/06-my-order/06-js-product-title.html" target="_blank">06-my-order/06-js-product-title</a></li>
             </ul>
         <h4>07-final-list-page</h4>
             <ul>
-                <li><a href="projects/tmall_website/front-end/07-final-list-page/title-address.html" target="_blank">07-final-list-page/title-address</a></li>
-                <li><a href="projects/tmall_website/front-end/07-final-list-page/07-js-order-confirmation.html" target="_blank">07-final-list-page/07-js-order-confirmation</a></li>
+                <li><a href="projects/tmall_website/front_end/07-final-list-page/title-address.html" target="_blank">07-final-list-page/title-address</a></li>
+                <li><a href="projects/tmall_website/front_end/07-final-list-page/07-js-order-confirmation.html" target="_blank">07-final-list-page/07-js-order-confirmation</a></li>
             </ul>
         <h4>08-other-pages</h4>
             <ul>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/confirm-receive-01.html" target="_blank">08-other-pages/confirm-receive-01</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/confirm-receive-02.html" target="_blank">08-other-pages/confirm-receive-02</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/evaluation-01.html" target="_blank">08-other-pages/evaluation-01</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/evaluation-02.html" target="_blank">08-other-pages/evaluation-02</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/login-page.html" target="_blank">08-other-pages/login-page</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/pay-success.html" target="_blank">08-other-pages/pay-success</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/payment.html" target="_blank">08-other-pages/payment</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/received-suc.html" target="_blank">08-other-pages/received-suc</a></li>
-                <li><a href="projects/tmall_website/front-end/08-other-pages/register.html" target="_blank">08-other-pages/register</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/confirm-receive-01.html" target="_blank">08-other-pages/confirm-receive-01</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/confirm-receive-02.html" target="_blank">08-other-pages/confirm-receive-02</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/evaluation-01.html" target="_blank">08-other-pages/evaluation-01</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/evaluation-02.html" target="_blank">08-other-pages/evaluation-02</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/login-page.html" target="_blank">08-other-pages/login-page</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/pay-success.html" target="_blank">08-other-pages/pay-success</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/payment.html" target="_blank">08-other-pages/payment</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/received-suc.html" target="_blank">08-other-pages/received-suc</a></li>
+                <li><a href="projects/tmall_website/front_end/08-other-pages/register.html" target="_blank">08-other-pages/register</a></li>
             </ul>
 
 # Part II Basic _ Show Cases
