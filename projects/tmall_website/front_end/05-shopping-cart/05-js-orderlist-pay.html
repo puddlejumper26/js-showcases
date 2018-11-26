@@ -87,7 +87,7 @@ span.cartSumPrice{color:#C40000;font-weight: bold;font-size: 20px}
 </style>
 
 <script>
-/*虽然业务比较复杂，但是有些功能是重复使用的，比如点击全选和点击某一种商品，都会去调整总价格和总数的显示。 把这些功能抽象出来，放在公共函数里，就可以大大的减少代码的冗余，降低维护的难度。*/
+/*虽然比较复杂，但是有些功能是重复使用的，比如点击全选和点击某一种商品，都会去调整总价格和总数的显示。 把这些功能抽象出来，放在公共函数里，就可以大大的减少代码的冗余，降低维护的难度。*/
                         
                         /*公共函数：*/
 
@@ -123,6 +123,9 @@ span.cartSumPrice{color:#C40000;font-weight: bold;font-size: 20px}
             $("button.createOrderButton").css("background-color","#C40000");
             $("button.createOrderButton").removeAttr("disabled");
         }
+        /*<button class="createOrderButton" style="background-color: rgb(170, 170, 170);" disabled="disabled">结 算</button>
+        这里的disabled是不可点击，在js中会根据情况直接去除
+        removeAttr("disabled")*/
 
         /*下面就是没有任何被选中，seletAny=false*/
         else{
@@ -136,6 +139,7 @@ span.cartSumPrice{color:#C40000;font-weight: bold;font-size: 20px}
     {
         var selectAll = true; /* 默认全部选中 */
         $(".cartProductItemIfSelected").each(function () {
+            
             if ("false" == $(this).attr("selectit")) {
                 selectAll = false; 
             }
@@ -146,6 +150,8 @@ span.cartSumPrice{color:#C40000;font-weight: bold;font-size: 20px}
             $("img.selectAllItem").attr("src", "../../img/site/cartNotSelected.png");
     }
 
+
+   
 /*公共函数4  计算总数量，总金额     显示被选中的商品总数，以及总价格。
 通过遍历每种商品是否被选中，累加被选中商品的总数和总价格，然后修改在上方的总价格，以及下方的总价格，总数*/
     function calcCartSumPriceAndNumber()
@@ -198,7 +204,7 @@ $(function(){
         /*如果已经选中了，那么就切换为未选中图片，修改selectit属性为false,并且把所在的tr背景色换为白色
         如果是未选中，那么就切换为已选中图片，修改selectit属性为selected,并且把所在的tr背景色换为#FFF8E1
         然后调用*/
-        if ("selectit" == selectit) 
+        if ("selectit" === selectit) 
         {
             $(this).attr("src", "../../img/site/cartNotSelected.png");
             $(this).attr("selectit", "false")
@@ -310,6 +316,8 @@ $(function(){
         <span>已选商品 (不含运费)</span>
         <span class="cartTitlePrice">￥0.00</span>
         <button class="createOrderButton" style="background-color: rgb(170, 170, 170);" disabled="disabled">结 算</button>
+        <!--这里的disabled是不可点击，在js中会根据情况直接去除
+            $("button.createOrderButton").removeAttr("disabled");-->
     </div>
 
     <!--在pay-button的前后部分中间插入order list 的代码-->

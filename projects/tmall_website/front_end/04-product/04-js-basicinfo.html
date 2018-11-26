@@ -20,7 +20,7 @@
     ****************************************/
 
     $(function () {
-        /*定义最大库存(这个值是从服务端取出来的，因为本章节围绕前端讲解，所以如何从服务端取到这个值就不展开了)*/
+        /*定义最大库存(这个值是从服务端取出来的，因为现在围绕前端 ，所以如何从服务端取到这个值就不展开了)*/
         var stock = 66;
 
         /*监听keyup键盘弹起事件，不能监听keypress和keydown，因为只有keyup才能获取到最后输入的值，其他不能。 这几种事件的区别，详见Jquery 键盘事件
@@ -66,199 +66,84 @@
 
 </script>
 <style>
-    body{
-    font-size: 12px;
-    font-family: Arial;
-}
-div.imgAndInfo{
-    margin: 40px 20px;
-}
-div.imgInimgAndInfo{
-    width: 100px;
-    float: left;
-}
-div.infoInimgAndInfo{
-    padding: 0px 20px;
-    overflow: hidden;
-}
-div.infoInimgAndInfo div.productTitle{
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0px 10px;
-}
-div.infoInimgAndInfo div.productSubTitle{
-    color: #DD2727;
-    font-size: 12px;
-    margin: 0px 10px;
-}
-div.infoInimgAndInfo div.juhuasuan{
-    background-color: #2DA77A;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    margin-top: 10px;
-}
-div.infoInimgAndInfo span.juhuasuanBig{
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 黑体;
-}
-div.infoInimgAndInfo span.juhuasuanTime{
-    color: #FFC057;
-    font-weight: bold;
-}
-div.infoInimgAndInfo div.productPriceDiv{
-    background-image:url(../../img/site/priceBackground.png);
-    height: 102px;
-    padding: 10px;
-    color: #666666;
-}
-div.infoInimgAndInfo div.gouwujuanDiv{
-    margin-top: 5px;
-}
-div.infoInimgAndInfo div.originalDiv{
-    margin-top: 5px;
-}
-div.infoInimgAndInfo span.originalPriceDesc{
-    color: #999999;
-    display: inline-block;
-    width: 68px;
-}
-div.infoInimgAndInfo span.originalPrice{
-    font-family: Arial;
-    font-size: 12px;
-    color: #333333;
-    text-decoration: line-through;
-}
-div.infoInimgAndInfo span.promotionPriceYuan{
-    font-family: Arial;
-    font-size: 18px;
-    color: #C40000;
-}
-div.infoInimgAndInfo span.promotionPrice{
-    color: #c40000;
-    font-family: Arial;
-    font-size: 30px;
-    font-weight: bold;
-}
-div.infoInimgAndInfo span.promotionPriceDesc{
-    color: #999999;
-    display: inline-block;
-    width: 68px;
-    position: relative;
-    left: 0px;
-    top: -10px;
-}
-div.infoInimgAndInfo div.productSaleAndReviewNumber{
-    margin: 20px 0px;
-    border-top-style: dotted;
-    border-top-color: #C9C9C9;
-    border-top-width: 1px;
-    border-bottom-style: dotted;
-    border-bottom-color: #C9C9C9;
-    border-bottom-width: 1px;
-    padding: 10px;
-}
-div.infoInimgAndInfo div.productSaleAndReviewNumber div{
-    display: inline-block;
-    width: 49%;
-    text-align: center;
-    color: #999999;
-    font-size: 12px;
-}
-div.infoInimgAndInfo div.productSaleAndReviewNumber div:first-child{
-    border-right-width: 1px;
-    border-right-style: solid;
-    border-right-color: #E5DFDA;
-}
-div.infoInimgAndInfo div.productNumber{
-    color: #999999;
-}
-div.infoInimgAndInfo span.productNumberSettingSpan{
-    border: 1px solid #999;
-    display: inline-block;
-    width: 43px;
-    height: 32px;
-    padding-top:7px;
-}
-div.infoInimgAndInfo input.productNumberSetting{
-    border: 0px;
-    height: 80%;
-    width: 80%;
-}
-div.productNumber span.updown img{
-    display:inline-block;
-    vertical-align:top;
-}
-div.productNumber span.updown{
-    border: 1px solid #999;
-    display: block;
-    width: 20px;
-    height: 14px;
-    text-align: center;
-    padding-top:4px;
-}
-div.productNumber span.updownMiddle{
-    height: 4px;
-    display: block;
-}
-div.productNumber span.arrow{
-    display: inline-block;
-    width: 22px;
-    height: 32px;
-    vertical-align:top;
-}
-div.serviceCommitment{
-    margin: 20px 0px;
-}
-div.infoInimgAndInfo span.serviceCommitmentDesc{
-    color: #999999;
-}
-div.infoInimgAndInfo span.serviceCommitmentLink a{
-    color: #666666;
-}
-div.buyDiv{
-    margin: 20px auto;
-    text-align: center;
-}
-div.buyDiv button{
-    display: inline-block;
-    margin: 0px 10px;
-    width: 180px;
-    height: 40px;
-}
-button.buyButton{
-    border: 1px solid #C40000;
-    background-color: #FFEDED;
-    text-align: center;
-    line-height: 40px;
-    font-size: 16px;
-    color: #C40000;
-    font-family: arial;
-}
-button.addCartButton{
-    border: 1px solid #C40000;
-    background-color: #C40000;
-    text-align: center;
-    line-height: 40px;
-    font-size: 16px;
-    color: white;
-    font-family: arial;
-}
-button.addCartButton span.glyphicon{
-    font-size: 12px;
-    margin-right: 8px;
-}
-a:hover{
-    text-decoration:none;
-}
-.redColor{
-    color: #C40000;
-}
-.boldWord{
-    font-weight: bold;
-}
+/*整个body*/
+body{font-size:12px;font-family: Arial, Helvetica, sans-serif}
+/*包括图片和基本信息的div*/
+div.imgAndInfo{margin:40px 20px}
+/*图片div，这里为了强调右边的基本信息，左侧只放了一个图片。*/
+div.imgInimgAndInfo{width: 100px;float: left}
+/*基本信息div*/
+div.infoInimgAndInfo{padding:0 20px;overflow: hidden} /*隐藏溢出部分。 结合图片div的float:left,就可以做到基本信息div和图片div水平摆放，并且基本信息div自动占用剩下所有的宽度*/
+/*产品标题*/
+div.infoInimgAndInfo div.productTitle{color: black;font-size: 16px;font-weight: bold;margin: 0 10px;}
+/*产品小标题*/
+div.infoInimgAndInfo div.productSubTitle{color:#DD2727;font-size:12px;margin: 0 10px;}
+/*聚划算div*/
+div.infoInimgAndInfo div.juhuasuan{background-color: #2DA77A;color: white;text-align: center;line-height: 40px;margin-top: 10px;}
+/*聚划算几个大字*/
+div.infoInimgAndInfo span.juhuasuanBig{font-size: 18px;font-weight: bold;font-family: 黑体;}
+/*聚划算日期*/
+div.infoInimgAndInfo span.juhuasuanTime{color:#FFC057;font-weight: bold}
+/*产品价格信息*/
+div.infoInimgAndInfo div.productPriceDiv{background-image: url(../../img/site/priceBackground.png);height: 102px;padding:10px;color:#666666}
+/*购物卷div*/
+div.infoInimgAndInfo div.gouwujuanDiv{margin-top:5px;}
+/*原始价格所在div*/
+div.infoInimgAndInfo div.originalDiv{margin-top:5px;}
+/*原始价格文字*/
+div.infoInimgAndInfo span.originalPriceDesc{color:#999999;display: inline-block;/*显示为内联，既可以设置大小，又能够不换行*/ }
+/*原始价格-价格数字*/
+div.infoInimgAndInfo span.originalPrice{text-decoration: line-through}
+/*促销价格 人民币标示*/
+div.infoInimgAndInfo span.promotionPriceYuan{font-size: 18px;color:#C40000}
+/*促销价格-价格数字*/
+div.infoInimgAndInfo span.promotionPrice{color:#C40000;font-size: 30px;font-weight: bold;}
+/*促销价格文字*/
+div.infoInimgAndInfo span.promotionPriceDesc{color:#999999;display: inline-block;/*显示为内联，既可以设置大小，又能够不换行*/ width: 68px;position: relative;left: 0;/*水平不动*/top: -10px;}
+/*销量和累计评价共同的div**/
+div.infoInimgAndInfo div.productSaleAndReviewNumber{margin: 20px 0;border-top-style: dotted;border-top-color: #C9C9C9;border-top-width: 1px;border-bottom-style: dotted;border-bottom-color: #c9c9c9;border-bottom-width: 1px;padding: 10px;}
+/*销量和累计评价分别的div*/
+div.infoInimgAndInfo div.productSaleAndReviewNumber div{display: inline-block;/*显示为内联，既可以设置大小，又能够不换行*/ width:49%;text-align: center;color: #999999;}
+/*销量所处的div 添加中间的竖线 :first-child就是第一个目录下的第一个元素，这里是div，也可以是其他的如span*/
+div.infoInimgAndInfo div.productSaleAndReviewNumber div:first-child{border-right-width: 1px;border-right-style: solid;border-right-color:#E5DFDA}
+/*产品数量和库存所在div*/
+div.infoInimgAndInfo div.productNumber{color:#999999;}
+/*输入数字的input所在的span*/
+div.infoInimgAndInfo span.productNumberSettingSpan{border: 1px solid #999;display: inline-block;width: 43px;height: 32px;padding-top: 7px/*上内边距 7px，把input顶下去*/}
+/*输入数字的input*/
+div.infoInimgAndInfo input.productNumberSetting{border:0;height: 80%;width: 80%}
+/*上下箭头所使用的图片*/
+div.productNumber span.updown img{display: inline-block;vertical-align: top;/*确保垂直向上对齐，因为在不同的浏览器下，img元素可能表现出不贴在上面的现象。 贴在上面之后，再借助其所在span的内边距的padding-top就可以很方便的调整其位置*/}
+
+/*上下箭头所在的两个span*/
+div.productNumber span.updown{border:1px solid #999;display: block;/*以块状显示，自动换行*/width: 20px;height: 14px;text-align: center;padding-top: 4px}
+/*上下箭头中间的span*/
+div.productNumber span.updownMiddle{height: 4px;display:block}
+/*上下箭头图标所在的span的父span*/
+div.productNumber span.arrow{display: inline-block;width: 22px;height: 32px;vertical-align: top}
+/*服务承诺信息所在div*/
+div.serviceCommitment{margin: 20px 0px;}
+/*服务承诺四个字所在span*/
+div.infoInimgAndInfo span.serviceCommitmentDesc{color: #999999;}
+/*服务承诺右侧四个连接所在span*/
+div.infoInimgAndInfo span.serviceCommitmentLink a{color: #666666;}
+/*立即购买和加入购物车所在div*/
+div.buyDiv{margin: 20px auto;text-align: center}
+/*立即购买和加入购物车按钮*/
+div.buyDiv button{display: inline-block;margin: 0 10px;width: 180px;height: 40px}
+/*立即购买按钮*/
+button.buyButton{border: 1px solid #C40000;background-color: #FFEDED;text-align: center;line-height: 40px;font-size: 16px;color: #C40000;font-family: Arial, Helvetica, sans-serif}
+/*加入购物车按钮*/
+button.addCartButton{border: 1px solid #C40000;background-color: #C40000;text-align: center;line-height: 40px;font-size: 16px;color:white;font-family: Arial}
+/*加入购物车前的图标*/
+button.addCartButton span.glyphicon{font-size: 12px;margin-right: 8px}
+/*超链鼠标悬停*/
+a:hover{text-decoration:none;}
+/*销量和累计评价后的数字*/
+.redColor{color: #C40000}
+/*销量和累计评价后的数字*/
+.boldWord{font-weight: bold}
+
 </style>
 <div class="imgAndInfo">
     <div class="imgInimgAndInfo">

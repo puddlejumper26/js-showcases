@@ -69,6 +69,14 @@
                 <li><a href="projects/tmall_website/front_end/08-other-pages/received-suc.html" target="_blank">08-other-pages/received-suc</a></li>
                 <li><a href="projects/tmall_website/front_end/08-other-pages/register.html" target="_blank">08-other-pages/register</a></li>
             </ul>
+        <h4>09-final-merge</h4>
+            <ul>
+                <li><a href="projects/tmall_website/front_end/09-final-merge/public-page.html" target="_blank">09-final-merge/public-page</a></li>
+                <li><a href="projects/tmall_website/front_end/09-final-merge/homepage.html" target="_blank">09-final-merge/homepage</a></li>
+                <li><a href="projects/tmall_website/front_end/09-final-merge/category.html" target="_blank">09-final-merge/category</a></li>
+                <li><a href="projects/tmall_website/front_end/09-final-merge/product.html" target="_blank">09-final-merge/product</a></li>
+                <li><a href="projects/tmall_website/front_end/09-final-merge/shoppingcart.html" target="_blank">09-final-merge/shopping-cart</a></li>
+            </ul>
 
 # Part II Basic _ Show Cases
 <h2>Lesson 1</h2>

@@ -15,7 +15,7 @@
 /*========================================================*/
 
 /*分类和轮播总体div*/
-    div.vategoryWithCarousel{width:100%;position: relative;}/*把这个div设计为相对定位，是因为在后面的carouselBackgroundDiv是居于这个div进行绝对定位的。*/
+    div.categoryWithCarousel{width:100%;position: relative;}/*把这个div设计为相对定位，是因为在后面的carouselBackgroundDiv是居于这个div进行绝对定位的。*/
 /*导航条*/
     div.categoryWithCarousel div.headbar{background-color: #DD2727}
 /*导航条中的商品分类字样*/
@@ -40,12 +40,22 @@
 */
     img.catear{position:absolute;height:15px;display: none}
 
+
+
+
+
+
+
 </style>
 
 
 
 </head>
 <body>
+<div style="height:50px"></div> <!--这里加一个div 用来看猫耳朵的效果-->
+
+<img class="catear" id="catear" src="http://how2j.cn/tmall/img/site/catear.png" style="left: 260.5px; top: 159.65px; display: none;">
+
 <div class="categoryWithCarousel">
     <div class="headbar">
         <div class="head ">
@@ -56,9 +66,12 @@
             <span><a href="#nowhere"><img src="../../img/site/chaoshi.png"></a></span>
             <span><a href="#nowhere"><img src="../../img/site/guoji.png"></a></span>
             <span><a href="#nowhere">平板电视</a></span>       <span><a href="#nowhere">电热水器</a></span>
+            <span><a href="#nowhere">沙发</a></span>
+            <span><a href="#nowhere">电热水器</a></span>
         </div>
     </div>
-<!--Bootstrap 的基本轮播-->
+
+<!--Bootstrap 的 基本轮播，查看使用的代码，下面的完全是复制，仅仅只是换去图片的src地址 http://how2j.cn/k/boostrap/boostrap-carousel/511.html#nowhere-->
     <div data-ride="carousel" class="carousel-of-product carousel slide" id="carousel-of-product">
   <!-- Indicators 展示图片下面的圆点-->
         <ol class="carousel-indicators">
@@ -99,7 +112,7 @@
         var width = $(this).css("width");
         var destLeft = parseInt(left) + parseInt(width)/2;
         $("img#catear").css("left",destLeft);
-        $("img#catear").css("top",top-20);
+        $("img#catear").css("top",top+30);
         $("img#catear").fadeIn(500);
     });
     /*当鼠标移出的时候，隐藏猫耳朵*/
