@@ -15,7 +15,8 @@
 /**************************************************************************************************
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ***************************************************************************************************
-  
+  通过整体的划分来分解细节，并通过每一个局部的 div 来实现效果
+
 整体分为： 
         1/ top nav （最上面的一行）    2/ 天猫logo 和 搜索栏        -----------公共页面
 
@@ -27,7 +28,7 @@
         1. 猫耳朵的高度的设定，需要每次添加一个元素之后进行调整，首先获取left和top，
         2. 点击菜单栏，不同的产品列表的展现   CID的设定，先设定一个显示函数，一个隐藏函数，
         3. margin:0 auto进行居中的时候，前面需要设定 display block, 例子看 endpng
-        4. 在footer 中加上了一个时钟
+        4. 在footer 中加上了一个时钟，
         5. 网页中众多链接的设定，jQuery
 
         6.  如果直接写成 [cid="cid"] 的话，那么就是去选择 属性cid的值是字符串 “cid” 的元素,这里是用到了jQuery的属性选择器http://how2j.cn/k/jquery/jquery-selector/468.html#nowhere +是字符串拼接
@@ -36,6 +37,8 @@
 
 难点：        
         1.这里购物车的数量应该和backend相结合，并且本身的添加删除各种产品，也需要从后端进行操作
+        2.搜索不能用，要和后端配合
+        3. 注册之后，登录之后，没有显示，也需要后台的
 
 
 
@@ -202,6 +205,11 @@ img.cateye{margin-left:20px;}
 div#clock{width:100%;text-align:center;background:#504e4e;margin:10px auto;padding:20px 0;color:#fff;}
 div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px solid #b4b4b4;margin:0 10px;padding:0 10px;}
 
+
+/************
+    valid
+***************/
+font.valid{background-color:red;color:white;padding:2px;border-radius:5px;}
    
 </style>
 
@@ -212,20 +220,20 @@ div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px
     <!--top-nav-->
 
     <nav class="top ">
-        <a href="#nowhere">
+        <a href="../09-final-merge/homepage.html">
             <span class="glyphicon glyphicon-home redColor"></span>
-            天猫首页
+            天猫 Home <font class="valid">VALID</font>
         </a>
 
         <span>喵，欢迎来天猫</span>
-        <a href="#nowhere">请登录</a>
-        <a href="#nowhere">免费注册</a>
+        <a href="../09-final-merge/login.html" target="_blank">请登录 Login <font class="valid">VALID</font></a>
+        <a href="../09-final-merge/register.html" target="_blank">注册 Register <font class="valid">VALID</font></a>
 
         <span class="pull-right">
-            <a href="forebought">我的订单</a>
-            <a href="forecart">
+            <a href="../09-final-merge/myorder.html" target="_blank">我的订单 My Order <font class="valid">VALID</font></a>
+            <a href="../09-final-merge/shoppingcart.html" target="_blank">
                 <span class=" glyphicon glyphicon-shopping-cart redColor"></span>
-                购物车<strong>0</strong>件</a>
+                购物车 Cart <font class="valid">VALID</font>  <strong>0</strong>件</a>
         </span>
 
     </nav>
@@ -233,14 +241,14 @@ div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px
     <!--searching-->
 
     <div>
-        <a href="#nowhere">
+        <a href="../09-final-merge/homepage.html">
             <img class="logo" src="../../img/site/logo.gif" id="logo">
         </a>
 
-        <form method="POST">
+        <form method="POST"><!--这个post和搜索有关-->
             <div class="searchDiv">
                 <input type="text" placeholder="时尚男鞋  太阳镜 " name="keyword">
-                <button class="searchButton" type="submit">搜索</button>
+                <button class="searchButton" type="submit"><a href="../09-final-merge/category.html" target="_blank" style="color:white;">搜索 Valid</a></button>
                 <div class="searchBelow">
                     <span> <a href="#nowhere"> 平衡车 </a> <span>|</span></span>
                     <span> <a href="#nowhere"> 扫地机器人 </a> <span>|</span></span>
@@ -253,8 +261,7 @@ div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px
 
     <!--猫耳朵的效果 div-->
 
-    <div style="height:0px"></div>
-
+<div class="list">
     <img class="catear" id="catear" src="../../img/site/catear.png" style="left: 260.5px; top: 159.65px; display: none;">
     <div class="categoryWithCarousel">
         <div class="headbar show1">
@@ -267,7 +274,7 @@ div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px
                 <span><a href="#nowhere"><img src="../../img/site/guoji.png"></a></span>
                 <span>
                     <a href="#nowhere">
-                        平板电视
+                        平板电视 
                     </a></span>
                 <span>
                     <a href="#nowhere">
@@ -285,7 +292,7 @@ div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px
         </div>
     </div>
     </div>
-
+</div>
      
     <div class="categoryWithCarousel">
         
@@ -293,8 +300,8 @@ div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px
             <div class="categoryMenu ">
                 <div class="eachCategory" cid="83">
                     <span class="glyphicon glyphicon-link"></span>
-                    <a href="#nowhere">
-                        平板电视
+                    <a href="../09-final-merge/category.html" target="_blank">
+                        平板电视 <font class="valid">VALID</font>
                     </a>
                 </div>
                 <!--cid="83" ,其中的"cid" 是自定义属性，"83" 是值。 83是这个分类在数据库中对应的主键值。
@@ -3318,12 +3325,12 @@ div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px
                 <br>
                 <!--!!!!-->
                 <div class="productItem">
-                    <a href="#nowhere"><img width="100px" src="../../img/productSingle_middle/9543.jpg" </a> <a href="#nowhere"
+                    <a href="../09-final-merge/product.html" target="_blank"><img width="100px" src="../../img/productSingle_middle/9543.jpg" </a> <a href="../09-final-merge/product.html" target="_blank"
                             class="productItemDescLink"><span class="productItemDesc">[热销]
                             好先生同款墨镜孙红雷偏光男士太阳镜韩明星
                         </span></a>
                     <span class="productPrice">
-                        97.50
+                        97.50 <font class="valid">VALID</font>
                     </span>
                 </div>
                 <div class="productItem">

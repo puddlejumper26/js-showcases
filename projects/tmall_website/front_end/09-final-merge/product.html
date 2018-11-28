@@ -16,14 +16,41 @@
 整体分为： 
         1/ top nav （最上面的一行）    2/ 天猫logo 和 搜索栏        -----------公共页面
 
-        3/ Category 部分
+        3/ 产品详情页面
+            左边的图片区域，右边的价格购买按钮，下面的商品详情和评价
         
         4/footer 和 footer2                                      ------------公共页面
 
 要点：
-        1. 排序功能还不能实现，价格范围通过 jQuery
+        1. jQuery 图片的更换
+            首先设定小图片里都有一个自定义的bigImgURL属性，用来存放对应的图片的位置
+            监听小图片的mouseenter，获取小图片的当中的自定义的属性
+            把大图片的src改为这个值
+
+            这里由一个预加载的设定，对于网站来说很重要，
+            在大图片加载好之后，根据每个小图片的bigImageURL ，创建一个Image对象，然后把这个image对象的src属性，设置为bigImageURL。 当这个img对象加载完毕之后，再放到被隐藏的div.img4load中，从而达到预加载的效果。
+                预加载是这样的：如果不使用预加载，那么当上面的主图片位置显示大图片的时候，浏览器"才"会到服务器去取大图片，而大图片加载比较慢，会影响用户体验。
+                使用了预加载，就是用户没有把鼠标移动到小图片之前，浏览器已经去把大图片加载了，当上面的主图片位置显示大图片的时候，直接就显示了，用户不会感受到加载的时间，感觉一下就显示出来了
 
 
+
+        2. 数量和库存的改写,首先定义库存，var stock = 66;
+            2.1 keyup
+                取出输入的值，并parseInt，然后判断是否数字，是否小于零，是否大于stock，给出对应的值，然后重新赋值到输入框里。
+
+                这里其实也可以用正则，直接在 inline 里限定输入数字
+                
+            2.2 点击+号 - 号， num++，num--，并且要判断和0和       stock之间的关系，然后赋值给输入框    
+
+
+        3.选项卡的变化，商品详情/累计评价 简单的div 的hide 和 show，所以这里的评论是HTML里输入的
+
+        4.商品详情和评价 红色的箭头通过CSS 中的 ：before 和：after 伪类，border的设定制作出来 https://www.cnblogs.com/wonyun/p/5807191.html
+
+
+难点：
+        1.数量选择之后，点击购买和购物车，这里面的连接
+        2.评论的更新
 
 
 
@@ -179,11 +206,7 @@ div.productDetailDiv{width: 790px; margin:40px auto}
 /*顶部div*/
 div.productDetailTopPart{border: 1px solid #DFDFDF;border-left-width: 0px;}/*左边框去掉，因为“商品详情”四个字接下来会用红色边框显示*/
 /*被选中的超链*/
-a.selected{position: relative;border-left: 1px solid #cfbfb1;border-right: 1px solid #cfbfb1;color:#b10000;display: inline-block;font-weight: bold;line-height: 46px;width: 90px;text-align: center}
-/*使用:before为超链上方加一个天猫色的横条*/
-a.selected:before{position:absolute;content:"";/*内容为空*/display: block;border-width: 1px;border-color:#b00000;border-style: solid;width: 90px;/*宽度: 90px，刚好和其父元素超链宽度一样*/ height: 0;top: -1px;/*向上移动*/margin-left: -1px}/*左外边距: -1px，向左边移动一个像素，导致和左边的边框重合*/
-/*使用:after 为超链上方加一个天猫色的美人尖*/
-a.selected:after{position:absolute;content:"";display: block;border-color: #b00000 transparent transparent;/*美人尖的原理是只有上边框，其他边框是透明色，#b00000 transparent transparent; 这种写法既表示只有上边框有颜色，其他都是透明色*/border-style: solid;border-width:5px;width: 0;height: 0;top: -1px;left: 50%;margin-left:-5px;}
+
 /*累计评论超链*/
 a.productDetailTopReviewLink{padding: 0 20px;border-right: 1px dotted #D2D2D2; color:#333333}
 /*评论数量*/
@@ -252,6 +275,10 @@ div.imgInimgAndInfo img.smallImage{width:60px;height:60px;border: 2px solid whit
 div.imgInimgAndInfo img.smallImage:hover{border: 2px solid black}
 
 
+/************
+    valid
+***************/
+font.valid{background-color:red;color:white;padding:2px;border-radius:5px;}
 
 </style>
 </head>
@@ -261,22 +288,22 @@ div.imgInimgAndInfo img.smallImage:hover{border: 2px solid black}
     <!--top-nav-->
 
     <nav class="top ">
-        <a href="#nowhere">
+        <a href="../09-final-merge/homepage.html">
             <span class="glyphicon glyphicon-home redColor"></span>
-            天猫首页
+            天猫 Home <font class="valid">VALID</font>
         </a>
-
+    
         <span>喵，欢迎来天猫</span>
-        <a href="#nowhere">请登录</a>
-        <a href="#nowhere">免费注册</a>
-
+        <a href="../09-final-merge/login.html" target="_blank">请登录 Login <font class="valid">VALID</font></a>
+        <a href="../09-final-merge/register.html" target="_blank">注册 Register <font class="valid">VALID</font></a>
+    
         <span class="pull-right">
-            <a href="forebought">我的订单</a>
-            <a href="forecart">
+            <a href="../09-final-merge/myorder.html" target="_blank">我的订单 My Order <font class="valid">VALID</font></a>
+            <a href="../09-final-merge/shoppingcart.html" target="_blank">
                 <span class=" glyphicon glyphicon-shopping-cart redColor"></span>
-                购物车<strong>0</strong>件</a>
+                购物车 Cart <font class="valid">VALID</font> <strong>0</strong>件</a>
         </span>
-
+    
     </nav>
 
     <!--searching-->
@@ -287,7 +314,7 @@ div.imgInimgAndInfo img.smallImage:hover{border: 2px solid black}
 
         <div class="searchDiv">
             <input type="text" placeholder="时尚男鞋  太阳镜 " name="keyword">
-            <button class="searchButton" type="submit">搜索</button>
+            <button class="searchButton" type="submit"><a href="../09-final-merge/category.html" target="_blank" style="color:white;">搜索 Valid</a></button>
             <div class="searchBelow">
                 <span> <a href="#nowhere"> 平衡车 </a> <span>|</span>
                 </span> <span> <a href="#nowhere"> 扫地机器人 </a> <span>|</span>
@@ -398,8 +425,8 @@ div.imgInimgAndInfo img.smallImage:hover{border: 2px solid black}
             </div>
             <!--购买按钮-->
             <div class="buyDiv">
-                <a href="#nowhere" class="buyLink"><button class="buyButton">立即购买</button></a>
-                <a class="addCartLink" href="#nowhere"><button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button></a>
+                <a href="../09-final-merge/orderconfirmation.html" class="buyLink"><button class="buyButton">立即购买 VALID</button></a>
+                <a class="addCartLink" href="../09-final-merge/shoppingcart.html" target="_blank"><button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车 VALID</button></a>
             </div>
         </div>
     </div>
@@ -850,6 +877,10 @@ div.imgInimgAndInfo img.smallImage:hover{border: 2px solid black}
             $("img.bigImg").attr("src", bigImageURL);
         });
 
+       
+
+
+       
         /*在大图片加载好之后，根据每个小图片的bigImageURL ，创建一个Image对象，然后把这个image对象的src属性，设置为bigImageURL。 当这个img对象加载完毕之后，再放到被隐藏的div.img4load中，从而达到预加载的效果。*/
         /*预加载是这样的：如果不使用预加载，那么当上面的主图片位置显示大图片的时候，浏览器"才"会到服务器去取大图片，而大图片加载比较慢，会影响用户体验。
         使用了预加载，就是用户没有把鼠标移动到小图片之前，浏览器已经去把大图片加载了，当上面的主图片位置显示大图片的时候，直接就显示了，用户不会感受到加载的时间，感觉一下就显示出来了。*/

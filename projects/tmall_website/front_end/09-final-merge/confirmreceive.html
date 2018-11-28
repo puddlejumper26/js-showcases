@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Confirm Receive</title>
+    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+    <style>
+        /**************************************************************************************************
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+***************************************************************************************************
+整体分为： 
+        1/ top nav （最上面的一行）    2/ 天猫logo 和 simple搜索栏        -----------公共页面
+
+        3/ Confirm Receive 商品信息    4/ 支付按钮
+        
+        4/footer 和 footer2                                      ------------公共页面
+
+要点：   1. 无JS
+        2. 两个表格
+        3. 成交时间：和时钟一样，但是不同每1000更新一下 setInterval(getTimes, 1000);注意这里不能用相同的参数，要分别
+
+难点：
+        1. 订单编号
+        2. 成交时间 也应该是前段就可以做的
+        3，收货信息和上一步的同步 （这个应该前段就可以做）
+        
+
+
+
+        
+**************************************************************************************************
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+**************************************************************************************************/
+
+
+
+/************************************************************************
+                                以下是 public 页面的设定
+*************************************************************************/
+
+
+                    /*top-nav*/
+body{font-size: 12px;font-family: Arial;}
+a{color:#999;}
+.redColor{color:#C40000 !important;}
+nav.top{background-color:#f2f2f2;padding-top:5px;padding-bottom:5px;border-bottom:1px solid #e7e7e7;}
+nav.top span, nav.top a{color:#999;margin:0 10px 0 10px;}
+nav.top a:hover{color: #C40000;text-decoration:none;}
+
+                /*Simple Searching*/
+div.simpleSearchDiv{background-color: #C40000;width: 300px;margin: 10px 20px 40px;padding: 1px;height: 40px;display:block;}/*用块状显示，只有使用块状显示的时候，上下外边距才会生效*/
+div.simpleSearchDiv input{width:225px;border: 1px solid transparent;height: 34px; margin: 2px;outline: none;}/*去掉输入框轮廓，否则获取焦点的时候会发生颜色变化*/
+div.simpleSearchDiv button{width: 60px;border:1px solid transparent;background-color: #C40000;color: white;font-size: 14px;}
+div.searchBelow{margin-top:3px;margin-left:-20px;}/*左边距，结合超链的内边距，正好使得超链出现在开始的位置*/
+div.searchBelow span{color:#999;}
+div.searchBelow a{padding:0 20px 0 20px;font-size: 14px;}
+img.simpleLogo{position:absolute;left:10px;top:50px;width:140px;}
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif;}
+a{color:#999;}
+a:hover{color:#C40000;text-decoration: none;}
+
+                /*footer*/
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif}
+a{color: #999;} a:hover{color: #C40000;text-decoration: none;}
+div.footer{margin:0 0;border-top-style: solid;border-top-width: 1px;border-top-color: #e7e7e7;}
+div.footer_ensure{margin-top:24px;margin-bottom:24px;text-align: center;}
+div.footer_desc{border-top-style: solid;border-top-width: 1px;border-top-color: #e7e7e7;padding-top:30px;margin:0 20px;}
+div.footer_desc div.descColumn{float: left;width: 20%;padding-left: 15px;}/*刚好有5列，所以每列占用20%*/
+div.footer_desc div.descColumn span.descColumnTitle{color: #646464;font-weight: bold;font-size: 16px;}
+div.footer_desc a{display: block;padding-top: 3px;}/*超链默认是inline,会水平摆放，改成block出现换行效果 这个时候出现的就是竖着排放*/
+
+            /* footer 2 */
+div.footer{margin:0 0;border-top-style:solid;border-top-width: 1px;border-top-color: #e7e7e7;}
+div.copyright{background-color: black;border-top-style: solid;border-top-color: #C40000;border-top-width: 2px;}
+div.copyright span.slash{color: white;}
+div.footer div.copyright div.white_link a{color: white;padding: 0 5px;}
+div.footer div.copyright div.white_link{padding: 10px 0;margin-left: 10px;}
+div.license{margin-left: 10px;padding-bottom: 30px;}
+div.license span{color:#A4A4A4;}
+div.license div.copyRightYear{margin: 10px 10px;color: #686868;}
+img.cateye{margin-left:20px;}
+
+/************
+    valid
+***************/
+font.valid{background-color:red;color:white;padding:2px;border-radius:5px;}
+
+/**************************************************************************
+                    clock
+**************************************************************************/
+div.clock{width:100%;text-align:center;background:#504e4e;margin:10px auto;padding:20px 0;color:#fff;}
+div.clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px solid #b4b4b4;margin:0 10px;padding:0 10px;}
+
+                    dealtime
+**************************************************************************/
+div.dealtime{width:100%;text-align:center;background:#2fc42a;margin:10px auto;padding:20px 0;color:#fff;}
+div.dealtime span{color:#000;width:240px;line-height:2;background:#fbfbfb;border:0px solid #b4b4b4;margin:0 10px;padding:0 10px;}
+
+
+/**********************************************************************
+                                以上是 public 页面的设定
+***********************************************************************/
+
+
+/*********************************************************************
+                   confirm receive
+**********************************************************************/
+/*body以及表格*/
+body.table{font-size: 12px;font-family: Arial, Helvetica, sans-serif}
+/*确认支付div*/
+div.confirmPayPageDiv{max-width: 1013px;margin: 10px auto;}
+/*确认支付图片所在div*/
+div.confirmPayImageDiv{margin:5px auto 80px auto;width:900px;position: relative;}
+/*时间信息所在div*/
+div.confirmPayImageDiv div{color:#999999;}
+/*卖家发货时间*/
+div.confirmPayTime3{position: absolute;top: 100px;left: 400px;}
+/*付款到支付宝时间*/
+div.confirmPayTime2{position: absolute;top: 100px;left: 190px;}
+/*拍下商品时间*/
+div.confirmPayTime1{position: absolute;top: 100px;left: -20px;}
+/*同意付款字样*/
+div.confirmPayOrderInfoText{margin:10px 10px 0 10px;font-size:16px;font-weight: bold;color:black;padding-bottom: 15px;border-bottom:1px solid #ADC8E6}
+/*订单项列表div*/
+div.confirmPayOrderItemDiv{margin: 0 20px;}
+/*订单信息字样*/
+div.confirmPayOrderItemText{margin: 20px 10px;font-size: 14px;font-weight: normal;color: black;}
+/*订单项列表所在表格*/
+table.confirmPayOrderItemTable{border:1px solid #DDDDDD;width:100%;}
+/*表格的标题部分*/
+table.confirmPayOrderItemTable thead{background-color: #E8F2FF;height:33px;}
+/*表格的每一行*/
+table.confirmPayOrderItemTable tr{border:1px solid #DDDDDD;}
+/*单元格*/
+table.confirmPayOrderItemTable th, table.confirmPayOrderItemTable td{text-align: center;}
+/*订单项列表单元格*/
+table.confirmPayOrderItemTable td{padding: 20px;}
+/*产品连接*/
+td.confirmPayOrderItemProductLink{text-align: left !important;}
+/*产品单价*/
+span.confirmPayProductPrice{font-size: 18px;font-weight: bold;color: #666666;}
+/*产品总价*/
+span.confirmPayOrderItemSumPrice{color:#C40000;}
+/*所有超链*/
+a{color:#999;}
+/*所有超链鼠标悬停*/
+a:hover{text-decoration: none;color: #C40000;}
+
+
+        /*按钮区域*/
+
+/*确认收货div*/
+div.confirmPayPageDiv{max-width: 1013px;margin:10px auto;}    
+/*订单详情div点*/
+div.confirmPayOrderDetailDiv{margin:40px;}
+/*订单详情table*/
+table.confirmPayOrderDetailTable{width:100%;border-top: 1px solid #DDDDDD;}
+/*单元格*/
+table.confirmPayOrderDetailTable td{padding:8px;color:black;font-size: 14px;}
+/*旺旺图标*/ /*基本上所有的旺旺图标都是这么设定*/
+span.confirmPayOrderDetailWangWangGif{display: inline-block;width:70px;height:25px;background-image: url(../../img/site/wangwang.gif);background-repeat: no-repeat;background-color: transparent; background-position: 0px 0px;position:relative; left:20px;}
+/*确认按钮div*/
+div.confirmPayButtonDiv{boder:1px solid #F58B0F;margin:20px;}
+/*支付警告*/
+div.confirmPayWarning{margin:20px 80px;font-size:18px;color:red;font-weight: bold;}
+/*确认按钮*/
+button.confirmPayButton{margin:20px 80px;width: 150px;height: 30px;border: 1px solid #67C00;background-color:#F4A21D;border-radius:5px;color:white;font-size:8px;}
+/*确认按钮悬停状态*/
+button.confirmPayButton:hover{background-color:#F6AE30;}
+</style>
+
+</head>
+
+<body>
+    <!--top-nav-->
+
+    <nav class="top ">
+        <a href="../09-final-merge/homepage.html">
+            <span class="glyphicon glyphicon-home redColor"></span>
+            天猫 Home <font class="valid">VALID</font>
+        </a>
+    
+        <span>喵，欢迎来天猫</span>
+        <a href="../09-final-merge/login.html" target="_blank">请登录 Login <font class="valid">VALID</font></a>
+        <a href="../09-final-merge/register.html" target="_blank">注册 Register <font class="valid">VALID</font></a>
+    
+        <span class="pull-right">
+            <a href="../09-final-merge/myorder.html" target="_blank">我的订单 My Order <font class="valid">VALID</font></a>
+            <a href="../09-final-merge/shoppingcart.html" target="_blank">
+                <span class=" glyphicon glyphicon-shopping-cart redColor"></span>
+                购物车 Cart <font class="valid">VALID</font> <strong>0</strong>件</a>
+        </span>
+    
+    </nav>
+
+    <!--Simple Searching-->
+    <a href="#nowhere">
+        <img src="../../img/site/simpleLogo.png" class="simpleLogo" id="simpleLogo">
+    </a>
+    <div class="simpleSearchDiv pull-right">
+        <input type="text" placeholder="平衡车 原汁机" name="keyword">
+        <button class="searchButton" type="submit"><a href="../09-final-merge/category.html" target="_blank" style="color:white;">S Valid</a></button>
+        <div class="searchBelow">
+            <span> <a href="#nowhere"> 冰箱 </a> <span>|</span>
+            </span> <span> <a href="#nowhere"> 空调 </a> <span>|</span>
+            </span> <span> <a href="#nowhere"> 女表 </a> <span>|</span>
+            </span> <span> <a href="#nowhere"> 男表 </a></span>
+
+        </div>
+    </div>
+    <div style="clear:both"></div>
+
+
+    <!-- ---------------------------------------------
+    
+                        这块区域就是用来填写之后的每个页面的内容的，
+                        因为大多数的页面都是有这几个公共因素，顶多
+                        搜索有所不同
+    
+                -------------------------------------------------->
+
+    <div class="confirmPayPageDiv">
+
+        <div class="confirmPayImageDiv">
+            <img src="../../img/site/comformPayFlow.png">
+            <div class="confirmPayTime1">
+                2016-09-14 11:14:45
+            </div>
+            <div class="confirmPayTime2">
+                2016-09-14 11:14:47
+            </div>
+            <div class="confirmPayTime3">
+                yyyy-MM-dd HH:mm:ss
+            </div>
+        </div>
+
+        <div class="confirmPayOrderInfoDiv">
+            <div class="confirmPayOrderInfoText">我已收到货，同意支付宝付款</div>
+        </div>
+
+        <div class="confirmPayOrderItemDiv">
+
+            <div class="confirmPayOrderItemText">订单信息</div>
+
+            <table class="confirmPayOrderItemTable">
+                <thead>
+                    <tr>
+                        <th colspan="2">宝贝</th>
+                        <th width="120px">单价</th>
+                        <th width="120px">数量</th>
+                        <th width="120px">商品总价 </th>
+                        <th width="120px">运费</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img width="50px" src="../../img/productSingle_middle/5848.jpg"></td>
+                        <td class="confirmPayOrderItemProductLink">
+                            <a href="#nowhere">罗宾 钢带女表 女士腕表 水钻夜光防水石英表 潮流时尚复古手表女</a>
+                        </td>
+                        <td>￥990.00</td>
+                        <td>1</td>
+                        <td><span class="confirmPayProductPrice">￥792.00</span></td>
+                        <td><span>快递 ： 0.00 </span></td>
+                    </tr>
+                    <tr>
+                        <td><img width="50px" src="../../img/productSingle_middle/5868.jpg"></td>
+                        <td class="confirmPayOrderItemProductLink">
+                            <a href="#nowhere">科沃斯地宝凌云扫地机器人WiFi智能家用吸尘器超薄全自动洗擦地机</a>
+                        </td>
+                        <td>￥5,680.00</td>
+                        <td>1</td>
+                        <td><span class="confirmPayProductPrice">￥3,692.00</span></td>
+                        <td><span>快递 ： 0.00 </span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="confirmPayOrderItemText pull-right">
+                实付款： <span class="confirmPayOrderItemSumPrice">￥4,484.00</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="confirmPayPageDiv">
+        <div class="confirmPayOrderDetailDiv">
+            <table class="confirmPayOrderDetailTable">
+                <tbody>
+                    <tr>
+                        <td>订单编号：</td>
+                        <td>201609141114454899001 <img width="23px" src="../../img/site/confirmOrderTmall.png"></td>
+                    </tr>
+                    <tr>
+                        <td>卖家昵称：</td>
+                        <td>天猫商铺 <span class="confirmPayOrderDetailWangWangGif"></span></td>
+                    </tr>
+                    <tr>
+                        <td>收货信息： </td>
+                        <td>北京市 朝阳区 天安门 4栋二单元 490，朝阳群众， 15800000000，10000 </td>
+                    </tr>
+                    <tr>
+                        <td>Deal Time：<font class="valid">VALID</font></td>
+                        <td><div class="dealtime" id="dealtime">
+                            <span></span>Years <span></span>Month
+                            <span></span>Days
+                            <span></span>Hours
+                            <span></span>Minutes
+                            <span></span>Seconds
+                        </div></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="confirmPayButtonDiv">
+            <div class="confirmPayWarning">请收到货后，再确认收货！否则您可能钱货两空！</div>
+            <a href="../09-final-merge/payment.html"><button class="confirmPayButton" style="font-size:5px;">确认支付 VALID Pay</button></a>
+        </div>
+    </div>
+
+    <!--footer-->
+
+    <div style="display: block;" class="footer" id="footer">
+        <div class="footer_ensure" id="footer_ensure">
+            <a href="#nowhere">
+                <img src="../../img/site/ensure.png">
+            </a>
+        </div>
+  
+        
+        <!--clock-->
+        <div class="clock" id="clock">
+            <span></span>Hours
+            <span></span>Minutes
+            <span></span>Seconds
+        </div>
+
+
+        
+        <div class="footer_desc" id="footer_desc">
+            <div class="descColumn">
+                <span class="descColumnTitle">购物指南</span>
+                <a href="#nowhere">免费注册</a>
+                <a href="#nowhere">开通支付宝</a>
+                <a href="#nowhere">支付宝充值</a>
+            </div>
+            <div class="descColumn">
+                <span class="descColumnTitle">天猫保障</span>
+                <a href="#nowhere">发票保障</a>
+                <a href="#nowhere">售后规则</a>
+                <a href="#nowhere">缺货赔付</a>
+            </div>
+            <div class="descColumn">
+                <span class="descColumnTitle">支付方式</span>
+                <a href="#nowhere">快捷支付</a>
+                <a href="#nowhere">信用卡</a>
+                <a href="#nowhere">蚂蚁花呗</a>
+                <a href="#nowhere">货到付款</a>
+            </div>
+            <div class="descColumn">
+                <span class="descColumnTitle">商家服务</span>
+                <a href="#nowhere">商家入驻</a>
+                <a href="#nowhere">商家中心</a>
+                <a href="#nowhere">天猫智库</a>
+                <a href="#nowhere">天猫规则</a>
+                <a href="#nowhere">物流服务</a>
+                <a href="#nowhere">喵言喵语</a>
+                <a href="#nowhere">运营服务</a>
+            </div>
+            <div class="descColumn">
+                <span class="descColumnTitle">手机天猫</span>
+                <a href="#nowhere"><img src="../../img/site/ma.png"></a>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+    <!--footer2-->
+
+    <div class="footer" id="footer">
+        <img src="../../img/site/cateye.png" class="cateye" id="cateye">
+        <div class="copyright" id="copyright">
+            <div class="white_link">
+                <a href="#nowhere">关于天猫</a>
+                <a href="#nowhere"> 帮助中心</a>
+                <a href="#nowhere">开放平台</a>
+                <a href="#nowhere"> 诚聘英才</a>
+                <a href="#nowhere">联系我们</a>
+                <a href="#nowhere">网站合作</a>
+                <a href="#nowhere">法律声明</a>
+                <a href="#nowhere">知识产权</a>
+                <a href="#nowhere"> 廉正举报 </a>
+            </div>
+            <div class="white_link">
+                <a href="#nowhere"> 阿里巴巴集团</a><span class="slash">|</span>
+                <a href="#nowhere"> 淘宝网</a><span class="slash">|</span>
+                <a href="#nowhere">天猫 </a><span class="slash">|</span>
+                <a href="#nowhere"> 聚划算</a><span class="slash">|</span>
+                <a href="#nowhere">全球速卖通</a><span class="slash">|</span>
+                <a href="#nowhere">阿里巴巴国际交易市场</a><span class="slash">|</span>
+                <a href="#nowhere">1688</a><span class="slash">|</span>
+                <a href="#nowhere">阿里妈妈</a><span class="slash">|</span>
+                <a href="#nowhere"> 阿里旅行·去啊 </a><span class="slash">|</span>
+                <a href="#nowhere"> 阿里云计算 </a><span class="slash">|</span>
+                <a href="#nowhere"> 阿里通信 </a><span class="slash">|</span>
+                <a href="#nowhere"> YunOS </a><span class="slash">|</span>
+                <a href="#nowhere"> 阿里旅行·去啊 </a><span class="slash">|</span>
+                <a href="#nowhere"> 万网 </a><span class="slash">|</span>
+                <a href="#nowhere"> 高德 </a><span class="slash">|</span>
+                <a href="#nowhere"> 优视 </a><span class="slash">|</span>
+                <a href="#nowhere"> 友盟 </a><span class="slash">|</span>
+                <a href="#nowhere"> 虾米 </a><span class="slash">|</span>
+                <a href="#nowhere"> 天天动听 </a><span class="slash">|</span>
+                <a href="#nowhere"> 来往 </a><span class="slash">|</span>
+                <a href="#nowhere"> 钉钉 </a><span class="slash">|</span>
+                <a href="#nowhere"> 支付宝 </a>
+            </div>
+            <div class="license">
+                <span>增值电信业务经营许可证： 浙B2-20110446</span>
+                <span>网络文化经营许可证：浙网文[2015]0295-065号</span>
+                <span>互联网医疗保健信息服务 审核同意书 浙卫网审【2014】6号 </span>
+                <span>互联网药品信息服务资质证书编号：浙-（经营性）-2012-0005</span>
+                <div class="copyRightYear">© 2003-2016 TMALL.COM 版权所有</div>
+                <div>
+                    <img src="../../img/site/copyRight1.jpg">
+                    <img src="../../img/site/copyRight2.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    /****************************************************************************************
+            clock
+    ***************************************************************************************/
+    var oClock = document.getElementById("clock");
+    var aSpan = oClock.getElementsByTagName("span");
+
+    setInterval(getTimes, 1000);
+    getTimes();
+    function getTimes() {
+        var oDate = new Date();
+        var aDate = [oDate.getHours(), oDate.getMinutes(), oDate.getSeconds()];
+
+        for (var i in aDate) { aSpan[i].innerHTML = format(aDate[i]) }
+    }
+    function format(a) {
+        // 0$1 it is to show the numbers with two digits when it is still a single digit
+        return a.toString().replace(/^(\d)$/, '0$1');
+    }
+   
+        /***************************
+            deal time
+        **********************************/
+    var oClock2=document.getElementById("dealtime");
+    var aSpan2=oClock2.getElementsByTagName("span");
+
+     
+    getDealTime();
+    function getDealTime() {
+        var oDate2=new Date();
+        var aDate2=[oDate2.getFullYear(),oDate2.getMonth()+1,oDate2.getDate(),oDate2.getHours(),oDate2.getMinutes(),oDate2.getSeconds()];
+        for (var i in aDate2) { aSpan2[i].innerHTML = format(aDate2[i]) }
+    }
+
+
+
+    /************************************************
+                       公共链接
+           ************************************************/
+
+    $("div#footer a[href$=#nowhere]").click(function () {
+        alert("simulations of Ali links");
+    });
+
+    $("div.productsAsideCategorys a[href$=#nowhere]").click(function () {
+        alert("simulations of Products links");
+    })   
+</script>
+
+</html>

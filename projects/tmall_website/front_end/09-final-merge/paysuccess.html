@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pay Success</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+<style>
+/**************************************************************************************************
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+***************************************************************************************************
+整体分为： 
+        1/ top nav （最上面的一行）    2/ 天猫logo 和 simple搜索栏        -----------公共页面
+
+        3/ paysuccess 仅仅是显示一段话
+        
+        4/footer 和 footer2                                      ------------公共页面
+
+要点：
+        1.  无JS
+        
+**************************************************************************************************
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+**************************************************************************************************/
+
+
+
+/************************************************************************
+                                以下是 public 页面的设定
+*************************************************************************/
+
+
+                    /*top-nav*/
+body{font-size: 12px;font-family: Arial;}
+a{color:#999;}
+.redColor{color:#C40000 !important;}
+nav.top{background-color:#f2f2f2;padding-top:5px;padding-bottom:5px;border-bottom:1px solid #e7e7e7;}
+nav.top span, nav.top a{color:#999;margin:0 10px 0 10px;}
+nav.top a:hover{color: #C40000;text-decoration:none;}
+
+                /*Simple Searching*/
+div.simpleSearchDiv{background-color: #C40000;width: 300px;margin: 10px 20px 40px;padding: 1px;height: 40px;display:block;}/*用块状显示，只有使用块状显示的时候，上下外边距才会生效*/
+div.simpleSearchDiv input{width:225px;border: 1px solid transparent;height: 34px; margin: 2px;outline: none;}/*去掉输入框轮廓，否则获取焦点的时候会发生颜色变化*/
+div.simpleSearchDiv button{width: 60px;border:1px solid transparent;background-color: #C40000;color: white;font-size: 14px;}
+div.searchBelow{margin-top:3px;margin-left:-20px;}/*左边距，结合超链的内边距，正好使得超链出现在开始的位置*/
+div.searchBelow span{color:#999;}
+div.searchBelow a{padding:0 20px 0 20px;font-size: 14px;}
+img.simpleLogo{position:absolute;left:10px;top:50px;width:140px;}
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif;}
+a{color:#999;}
+a:hover{color:#C40000;text-decoration: none;}
+
+                /*footer*/
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif}
+a{color: #999;} a:hover{color: #C40000;text-decoration: none;}
+div.footer{margin:0 0;border-top-style: solid;border-top-width: 1px;border-top-color: #e7e7e7;}
+div.footer_ensure{margin-top:24px;margin-bottom:24px;text-align: center;}
+div.footer_desc{border-top-style: solid;border-top-width: 1px;border-top-color: #e7e7e7;padding-top:30px;margin:0 20px;}
+div.footer_desc div.descColumn{float: left;width: 20%;padding-left: 15px;}/*刚好有5列，所以每列占用20%*/
+div.footer_desc div.descColumn span.descColumnTitle{color: #646464;font-weight: bold;font-size: 16px;}
+div.footer_desc a{display: block;padding-top: 3px;}/*超链默认是inline,会水平摆放，改成block出现换行效果 这个时候出现的就是竖着排放*/
+
+            /* footer 2 */
+div.footer{margin:0 0;border-top-style:solid;border-top-width: 1px;border-top-color: #e7e7e7;}
+div.copyright{background-color: black;border-top-style: solid;border-top-color: #C40000;border-top-width: 2px;}
+div.copyright span.slash{color: white;}
+div.footer div.copyright div.white_link a{color: white;padding: 0 5px;}
+div.footer div.copyright div.white_link{padding: 10px 0;margin-left: 10px;}
+div.license{margin-left: 10px;padding-bottom: 30px;}
+div.license span{color:#A4A4A4;}
+div.license div.copyRightYear{margin: 10px 10px;color: #686868;}
+img.cateye{margin-left:20px;}
+
+/************
+    valid
+***************/
+font.valid{background-color:red;color:white;padding:2px;border-radius:5px;}
+
+/**********************************************************************
+                                以上是 public 页面的设定
+***********************************************************************/
+
+
+/*********************************************************************
+                    pay success
+**********************************************************************/
+/*支付成功页面*/
+div.payedDiv{border:1px solid #D4D4D4;}
+/*您已成功付款字样所在div*/
+div.payedTextDiv{height: 60px;background-color:#ECFFDC;padding: 15px 0 0 25px;}
+/*您已成功付款*/
+div.payedTextDiv span{font-weight: bold;font-size: 14px;margin-left:10px;}
+/*地址信息所在div*/
+div.payedAddressInfo{padding: 25px 35px}
+/*地址信息列表*/
+div.payedAddressInfo li{background-image: url(../../img/site/li_dot.png);background-repeat: no-repeat;background-color: transparent;background-attachment: scroll;background-position: 0 13px;list-style-type: none;color:#333333;padding-left:15px;padding-top:5px;}
+/*实付款*/
+span.payedInfoPrice{color:#B10000;font-weight: bold;font-size: 14px;font-family: Arial, Helvetica, sans-serif;}
+/*查看已买到的宝贝所在div*/
+div.payedCheckLinkDiv{margin-left: 38px;}
+/*两个查看连接*/
+a.payedCheckLink{color:#2D8CBA;}
+/*两个查看连接鼠标悬停状态*/
+a.payedCheckLink:hover{color:#2D8CBA;text-decoration: underline;}
+/*分割线*/
+div.payedSeperateLine{border-top:1px dotted #D4D4D4;margin: 0 31px;}
+/*警告div*/
+div.warningDiv{margin:25px 45px;height:50px;line-height:50px;color:black;}
+/*整个body*/
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif;}
+/*文字粗体*/
+.boldWord{font-weight: bold;}
+/*天猫红*/
+.redColor{color:#C40000;}
+
+
+div.middle1013{max-width:1013px; margin:auto;}
+</style>
+
+</head>
+<body>
+<!--top-nav-->
+
+<nav class="top ">
+    <a href="../09-final-merge/homepage.html">
+        <span class="glyphicon glyphicon-home redColor"></span>
+        天猫 Home <font class="valid">VALID</font>
+    </a>
+
+    <span>喵，欢迎来天猫</span>
+    <a href="../09-final-merge/login.html" target="_blank">请登录 Login <font class="valid">VALID</font></a>
+    <a href="../09-final-merge/register.html" target="_blank">注册 Register <font class="valid">VALID</font></a>
+
+    <span class="pull-right">
+        <a href="../09-final-merge/myorder.html" target="_blank">我的订单 My Order <font class="valid">VALID</font></a>
+        <a href="../09-final-merge/shoppingcart.html" target="_blank">
+            <span class=" glyphicon glyphicon-shopping-cart redColor"></span>
+            购物车 Cart <font class="valid">VALID</font> <strong>0</strong>件</a>
+    </span>
+
+</nav>
+
+<!--Simple Searching-->
+<a href="#nowhere">
+    <img src="../../img/site/simpleLogo.png" class="simpleLogo" id="simpleLogo">
+</a>
+<div class="simpleSearchDiv pull-right">
+    <input type="text" placeholder="平衡车 原汁机" name="keyword">
+    <button class="searchButton" type="submit"><a href="../09-final-merge/category.html" target="_blank" style="color:white;">S Valid</a></button>
+    <div class="searchBelow">
+        <span> <a href="#nowhere"> 冰箱 </a> <span>|</span>
+        </span> <span> <a href="#nowhere"> 空调 </a> <span>|</span>
+        </span> <span> <a href="#nowhere"> 女表 </a> <span>|</span>
+        </span> <span> <a href="#nowhere"> 男表 </a></span>
+
+    </div>
+</div>
+<div style="clear:both"></div>
+
+
+<!-- ---------------------------------------------
+    
+                        这块区域就是用来填写之后的每个页面的内容的，
+                        因为大多数的页面都是有这几个公共因素，顶多
+                        搜索有所不同
+    
+                -------------------------------------------------->
+
+<div class="payedDiv">
+    <div class="payedTextDiv">
+        <div class="middle1013">
+            <img src="../../img/site/paySuccess.png">
+            <span>您已成功付款</span>
+        </div>
+    </div>
+    <div class="payedAddressInfo middle1013">
+        <ul>
+            <li>收货地址： 北京市 朝阳区 </li>
+            <li>实付款：<span class="payedInfoPrice">
+                    ￥2,124.15
+                </span></li>
+            <li>预计08月08日送达 </li>
+        </ul>
+        <div class="payedCheckLinkDiv">
+            您可以
+            <a href="#nowhere" class="payedCheckLink">查看已买到的宝贝</a>
+            <a href="#nowhere" class="payedCheckLink">查看交易详情 </a>
+        </div>
+    </div>
+    <div class="payedSeperateLine middle1013">
+    </div>
+    <div class="warningDiv middle1013">
+        <img src="../../img/site/warning.png">
+        <b>安全提醒：</b>下单后，<span class="redColor boldWord">用QQ给您发送链接办理退款的都是骗子！</span>天猫不存在系统升级，订单异常等问题，谨防假冒客服电话诈骗！
+    </div>
+</div>
+
+<!--footer-->
+
+<div style="display: block;" class="footer" id="footer">
+    <div class="footer_ensure" id="footer_ensure">
+        <a href="#nowhere">
+            <img src="../../img/site/ensure.png">
+        </a>
+    </div>
+    <div class="footer_desc" id="footer_desc">
+        <div class="descColumn">
+            <span class="descColumnTitle">购物指南</span>
+            <a href="#nowhere">免费注册</a>
+            <a href="#nowhere">开通支付宝</a>
+            <a href="#nowhere">支付宝充值</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">天猫保障</span>
+            <a href="#nowhere">发票保障</a>
+            <a href="#nowhere">售后规则</a>
+            <a href="#nowhere">缺货赔付</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">支付方式</span>
+            <a href="#nowhere">快捷支付</a>
+            <a href="#nowhere">信用卡</a>
+            <a href="#nowhere">蚂蚁花呗</a>
+            <a href="#nowhere">货到付款</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">商家服务</span>
+            <a href="#nowhere">商家入驻</a>
+            <a href="#nowhere">商家中心</a>
+            <a href="#nowhere">天猫智库</a>
+            <a href="#nowhere">天猫规则</a>
+            <a href="#nowhere">物流服务</a>
+            <a href="#nowhere">喵言喵语</a>
+            <a href="#nowhere">运营服务</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">手机天猫</span>
+            <a href="#nowhere"><img src="../../img/site/ma.png"></a>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</div>
+
+<!--footer2-->
+
+<div class="footer" id="footer">
+    <img src="../../img/site/cateye.png" class="cateye" id="cateye">
+    <div class="copyright" id="copyright">
+        <div class="white_link">
+            <a href="#nowhere">关于天猫</a>
+            <a href="#nowhere"> 帮助中心</a>
+            <a href="#nowhere">开放平台</a>
+            <a href="#nowhere"> 诚聘英才</a>
+            <a href="#nowhere">联系我们</a>
+            <a href="#nowhere">网站合作</a>
+            <a href="#nowhere">法律声明</a>
+            <a href="#nowhere">知识产权</a>
+            <a href="#nowhere"> 廉正举报 </a>
+        </div>
+        <div class="white_link">
+            <a href="#nowhere"> 阿里巴巴集团</a><span class="slash">|</span>
+            <a href="#nowhere"> 淘宝网</a><span class="slash">|</span>
+            <a href="#nowhere">天猫 </a><span class="slash">|</span>
+            <a href="#nowhere"> 聚划算</a><span class="slash">|</span>
+            <a href="#nowhere">全球速卖通</a><span class="slash">|</span>
+            <a href="#nowhere">阿里巴巴国际交易市场</a><span class="slash">|</span>
+            <a href="#nowhere">1688</a><span class="slash">|</span>
+            <a href="#nowhere">阿里妈妈</a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里旅行·去啊 </a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里云计算 </a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里通信 </a><span class="slash">|</span>
+            <a href="#nowhere"> YunOS </a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里旅行·去啊 </a><span class="slash">|</span>
+            <a href="#nowhere"> 万网 </a><span class="slash">|</span>
+            <a href="#nowhere"> 高德 </a><span class="slash">|</span>
+            <a href="#nowhere"> 优视 </a><span class="slash">|</span>
+            <a href="#nowhere"> 友盟 </a><span class="slash">|</span>
+            <a href="#nowhere"> 虾米 </a><span class="slash">|</span>
+            <a href="#nowhere"> 天天动听 </a><span class="slash">|</span>
+            <a href="#nowhere"> 来往 </a><span class="slash">|</span>
+            <a href="#nowhere"> 钉钉 </a><span class="slash">|</span>
+            <a href="#nowhere"> 支付宝 </a>
+        </div>
+        <div class="license">
+            <span>增值电信业务经营许可证： 浙B2-20110446</span>
+            <span>网络文化经营许可证：浙网文[2015]0295-065号</span>
+            <span>互联网医疗保健信息服务 审核同意书 浙卫网审【2014】6号 </span>
+            <span>互联网药品信息服务资质证书编号：浙-（经营性）-2012-0005</span>
+            <div class="copyRightYear">© 2003-2016 TMALL.COM 版权所有</div>
+            <div>
+                <img src="../../img/site/copyRight1.jpg">
+                <img src="../../img/site/copyRight2.jpg">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    
+
+    /************************************************
+                       公共链接
+           ************************************************/
+
+    $("div#footer a[href$=#nowhere]").click(function () {
+        alert("simulations of Ali links");
+    });
+
+    $("div.productsAsideCategorys a[href$=#nowhere]").click(function () {
+        alert("simulations of Products links");
+    })   
+</script>
+</html>

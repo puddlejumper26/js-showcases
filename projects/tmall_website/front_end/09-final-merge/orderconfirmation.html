@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Order Confirmation</title>
+<script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+<link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+
+<style>
+/**************************************************************************************************
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+***************************************************************************************************
+整体分为： 
+        1/ top nav （最上面的一行）    2/ 天猫logo 和 搜索栏        -----------公共页面
+
+        3/ order confirmation 地址  
+            使用表格
+        
+        4/订单信息 
+            使用表格
+            注意这里下划线的制作，使用空的<td></td>，这样最简单，不用再考虑宽度之类的
+        
+        5/footer 和 footer2                                      ------------公共页面
+
+要点：
+        1.  给卖家留言的文本框的变化，这里是通过文本框来更换一张图片，简单好用。
+        2.  留言的字数限制和统计   这里blur keyup都可以用，但是blur需要在鼠标点击到文本框之外只有，下面的字数等才会更新，所以没有keyup好用。
+        3.  邮编和电话都先使用 inline style onkeyup="this.value=this.value.replace(/\D/g,'')"，限制输入的必须是 数字
+        4.  邮编，电话，姓名使用相同的JS 代码，通过inline style 里设定的 id 和 maxlength 来控制长度
+        5. 这里如果把所有的JS都放在末尾会冲突，导致留言的失效，所以把留言的放在最后，把邮编，电话，姓名的放在html中对应的位置。
+
+难点：
+        
+        2. 配送方式
+        
+**************************************************************************************************
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+**************************************************************************************************/
+
+
+
+/************************************************************************
+                                以下是 public 页面的设定
+*************************************************************************/
+
+
+                    /*top-nav*/
+body{font-size: 12px;font-family: Arial;}
+a{color:#999;}
+.redColor{color:#C40000 !important;}
+nav.top{background-color:#f2f2f2;padding-top:5px;padding-bottom:5px;border-bottom:1px solid #e7e7e7;}
+nav.top span, nav.top a{color:#999;margin:0 10px 0 10px;}
+nav.top a:hover{color: #C40000;text-decoration:none;}
+
+                /*footer*/
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif}
+a{color: #999;} a:hover{color: #C40000;text-decoration: none;}
+div.footer{margin:0 0;border-top-style: solid;border-top-width: 1px;border-top-color: #e7e7e7;}
+div.footer_ensure{margin-top:24px;margin-bottom:24px;text-align: center;}
+div.footer_desc{border-top-style: solid;border-top-width: 1px;border-top-color: #e7e7e7;padding-top:30px;margin:0 20px;}
+div.footer_desc div.descColumn{float: left;width: 20%;padding-left: 15px;}/*刚好有5列，所以每列占用20%*/
+div.footer_desc div.descColumn span.descColumnTitle{color: #646464;font-weight: bold;font-size: 16px;}
+div.footer_desc a{display: block;padding-top: 3px;}/*超链默认是inline,会水平摆放，改成block出现换行效果 这个时候出现的就是竖着排放*/
+
+            /* footer 2 */
+div.footer{margin:0 0;border-top-style:solid;border-top-width: 1px;border-top-color: #e7e7e7;}
+div.copyright{background-color: black;border-top-style: solid;border-top-color: #C40000;border-top-width: 2px;}
+div.copyright span.slash{color: white;}
+div.footer div.copyright div.white_link a{color: white;padding: 0 5px;}
+div.footer div.copyright div.white_link{padding: 10px 0;margin-left: 10px;}
+div.license{margin-left: 10px;padding-bottom: 30px;}
+div.license span{color:#A4A4A4;}
+div.license div.copyRightYear{margin: 10px 10px;color: #686868;}
+img.cateye{margin-left:20px;}
+
+/************
+    valid
+***************/
+font.valid{background-color:red;color:white;padding:2px;border-radius:5px;}
+
+/**********************************************************************
+                                以上是 public 页面的设定
+***********************************************************************/
+
+
+/*********************************************************************
+                    地址
+**********************************************************************/
+/*结算页面div*/
+div.buyPageDiv{margin:20px auto;max-width: 1013px;}
+/*地址div*/
+div.address{margin:20px 5px; text-align:left;}
+/*输入收货地址几个字*/
+div.addressTip, div.productListTip{color:#333333;font-size:16px;font-weight: bold;text-align: left;margin-bottom: 30px;}
+/*地址信息表格*/
+table.addressTable{margin:20px 20px; width:600px;font-size:12px;}
+/*单元格*/
+table.addressTable td{color:#333333;text-align: right;vertical-align: top;padding-right: 5px;text-align: left;height: 30px;}
+/*第一列*/
+table.addressTable td.firstColumn{width: 100px;}
+/*详细地址文本域*/
+table.addressTable td textarea{border:1px solid #AFAFAF;margin-bottom: 10px;width: 400px;}
+/*输入框*/
+table.addressTable td input{border:1px solid #AFAFAF;width: 200px;}
+/*星号*/
+span.redStar{color:red;font-size:10px;}
+
+
+
+
+
+/*********************************************************************
+                    订单信息
+**********************************************************************/
+/*结算页面div*/
+div.buyPageDiv{margin:20px auto;max-width: 1013px;}
+/*确认订单信息几个字*/
+div.addressTip, div.productListTip{color:#333333;font-size: 16px;font-weight: bold;text-align: left;margin-bottom: 30px;}
+/*产品列表所在table*/
+table.productListTable{width: 100%;border-collapse: separate/*边框折叠*/; font-size: 12px;}
+/*标题栏的每个单元格*/
+table.productListTable th{color:#999999;font-family:'Courier New', Courier, monospace;font-weight:normal;font-size: 12px;text-align: center;padding-bottom: 5px;}
+/*标题栏下的下划线*/
+table.productListTable tr.rowborder td{background-color: #b2d1ff;border-right: 2px solid #fff;height: 3px;}
+/*标题栏第一列*/
+th.productListTableFirstColumn{text-align: left !important;}
+/*天猫图片*/
+img.tmallbuy{width:15px;}
+/*天猫店铺超链*/
+a.marketLink{color:black;font-size:12px;font-family:'Courier New', Courier, monospace;font-weight: normal;}
+/*天猫店铺超链悬停状态*/
+a.marketLink:hover{color:black;font-size: 12px;text-decoration:underline;font-family: 'Courier New', Courier, monospace;font-weight: normal;}
+/*旺旺图标*/
+span.wangwangGif{display: inline-block;width: 25px;height: 25px;background-image:url(../../img/site/wangwang.gif);background-repeat: no-repeat; background-color: transparent;background-attachment: scroll;/*滚动背景图片*/ background-position: -83px -0px; position: relative;top:8px;left: 2px;}
+/*产品列表单元格*/
+tbody.productListTableTbody td{text-align:center;}
+/*产品列表第一列*/
+tbody.productListTableTbody td.orderItemFirstTD{text-align: left;}
+/*产品信息单元格*/
+tr.orderItemTR td{border-bottom:1px solid #E5E5E5;}
+/*订单项单元格*/
+tr.orderItemTR td{padding:10px 0px;}
+/*产品图片*/
+img.orderItemImg{width:50px;height: 50px;border: 1px solid #E9E9E9;}
+/*产品信息*/
+td.orderItemProductInfo{text-align:left!important;}
+/*3个图标*/
+td.orderItemProductInfo img{height:16px;}
+/*产品超链*/
+a.orderItemProductLink{color:#666666;display:block;text-decoration: none;}
+/*产品超链悬停状态*/
+a.orderItemProductLink:hover{color:#666666;text-decoration: underline;}
+/*产品价格和产品数量*/
+span.orderItemProductPrice, span.orderItemProductNumber{color:#000000;}
+/*小计*/
+span.orderItemInitSum{color:#CC0000;font-weight:bold;}
+/*第一列和最后一列*/
+td.orderItemFirstTD, td.orderItemLastTD{border-bottom:0px solid black !important;}
+/*普通配送字样*/
+label.orderItemDeliveryLabel{color:#666666;font-family: Arial, Helvetica, sans-serif;font-size: 12px;font-weight: normal;}
+/*配送方式下拉*/
+select.orderItemDeliverySelect{width: 100px;height: 23px;}
+/*合计div*/
+div.orderItemSumDiv{padding:20px;border-top:2px solid #B4D0FF;background-color:#F2F6FF;}
+/*合计div下所有的span*/
+div.orderItemSumDiv span{color:#999999;}
+/*给卖家留言*/
+span.leaveMessageText{display:inline-block;margin-right:10px;float:left;}
+/*实付款所在div*/
+div.orderItemTotalSumDiv{margin:40px;height:40px;}
+/*提交订单按钮所在div*/
+div.submitOrderDiv{height:40px;margin:20px 0px;}
+/*实付款字样*/
+div.orderItemTotalSumDiv span{color:#999999;}
+/*实付款金额*/
+span.orderItemTotalSumSpan{color:#C40000 !important;font-size: 22px;font-weight: bold;border-bottom:10px dotted #F2F6FF;}
+/*提交订单按钮*/
+button.submitOrderButton{border:1px solid #C40000;background-color: #C40000;text-align: center;line-height: 14px;/*文本水平居中,文本垂直居中*/ font-size: 14px;font-weight: 700;color:white;float:right;display: inline-block;margin:0 10px;width:180px;height:40px;}
+/*整个body*/
+body{font-size: 12px;font-family: Arial, Helvetica, sans-serif;}
+
+/*留言打开的文本框*/
+textarea.leaveMessageTextarea {border: 1px solid #FFAD35;width: 250px;height: 60px;resize: none;}
+
+
+
+   
+
+
+</style>
+
+</head>
+<body>
+<!--top-nav-->
+
+<nav class="top ">
+    <a href="../09-final-merge/homepage.html">
+        <span class="glyphicon glyphicon-home redColor"></span>
+        天猫 Home <font class="valid">VALID</font>
+    </a>
+
+    <span>喵，欢迎来天猫</span>
+    <a href="../09-final-merge/login.html" target="_blank">请登录 Login <font class="valid">VALID</font></a>
+    <a href="../09-final-merge/register.html" target="_blank">注册 Register <font class="valid">VALID</font></a>
+
+    <span class="pull-right">
+        <a href="../09-final-merge/myorder.html" target="_blank">我的订单 My Order <font class="valid">VALID</font></a>
+        <a href="../09-final-merge/shoppingcart.html" target="_blank">
+            <span class=" glyphicon glyphicon-shopping-cart redColor"></span>
+            购物车 Cart <font class="valid">VALID</font> <strong>0</strong>件</a>
+    </span>
+
+</nav>
+
+<!-- ---------------------------------------------
+    
+                        这块区域就是用来填写之后的每个页面的内容的，
+                        因为大多数的页面都是有这几个公共因素，顶多
+                        搜索有所不同
+    
+                -------------------------------------------------->
+
+<!--地址 -->
+<div class="buyPageDiv">
+    <div class="buyFlow">
+        <img src="../../img/site/simpleLogo.png" class="pull-left">
+        <img src="../../img/site/buyflow.png" class="pull-right">
+        <div style="clear:both"></div>
+    </div>
+
+<script>
+    /*限制邮编号码数位*/
+
+    $(function () {
+        //匹配包含给定属性的元素，keyup在按键释放时发生
+        $("#postcode").keyup(function () {
+            var areapost = $(this);
+            //parseInt 方法返回与保存在 numString 中的数字值相等的整数。如果 numString 的前缀不能解释为整数，则返回 NaN（而不是数字）。
+            var maxpost = parseInt(areapost.attr("maxlength"), 10); //获取maxlength的值 转化为10进制，将输入到textarea的文本长度
+            //这个判断可知max得到的是不是数字，设定的大小是多少
+            if (maxpost > 0) {
+
+                if (areapost.val().length > maxpost) { //textarea的文本长度大于maxlength 
+                    areapost.val(areapost.val().substr(0, maxpost)); //截断textarea的文本重新赋值 
+                }
+
+            });
+
+
+        /*限制姓名数位*/
+
+        $(function () {
+            //匹配包含给定属性的元素，keyup在按键释放时发生
+            $("#nameinput").keyup(function () {
+                var areaname = $(this);
+                //parseInt 方法返回与保存在 numString 中的数字值相等的整数。如果 numString 的前缀不能解释为整数，则返回 NaN（而不是数字）。
+                var maxname = parseInt(areaname.attr("maxlength"), 10); //获取maxlength的值 转化为10进制，将输入到textarea的文本长度
+                //这个判断可知max得到的是不是数字，设定的大小是多少
+                if (maxname > 0) {
+
+                    if (areaname.val().length > maxname) { //textarea的文本长度大于maxlength 
+                        areaname.val(areaname.val().substr(0, maxname)); //截断textarea的文本重新赋值 
+                    }
+
+                });
+
+        /*限制手机数位*/
+
+            $(function () {
+                //匹配包含给定属性的元素，keyup在按键释放时发生
+                $("#phonenumberinput").keyup(function () {
+                    var areaname = $(this);
+                    //parseInt 方法返回与保存在 numString 中的数字值相等的整数。如果 numString 的前缀不能解释为整数，则返回 NaN（而不是数字）。
+                    var maxname = parseInt(areaname.attr("maxlength"), 10); //获取maxlength的值 转化为10进制，将输入到textarea的文本长度
+                    //这个判断可知max得到的是不是数字，设定的大小是多少
+                    if (maxname > 0) {
+
+                        if (areaname.val().length > maxname) { //textarea的文本长度大于maxlength 
+                            areaname.val(areaname.val().substr(0, maxname)); //截断textarea的文本重新赋值 
+                        }
+
+                    });    
+
+</script>
+    <div class="address">
+        <div class="addressTip">输入收货地址</div>
+        <div>
+            <table class="addressTable">
+                <tbody>
+                    <tr>
+                        <td class="firstColumn">详细地址<span class="redStar">*</span></td>
+                        <td><textarea placeholder="建议您如实填写详细收货地址，例如街道名称，门牌号码，楼层和房间号等信息" name="address"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>邮政编码<font class="valid">VALID</font></td>
+                        <td><input type="text" placeholder="如果您不清楚Post Code，请填写000000" name="post" onkeyup="this.value=this.value.replace(/\D/g,'')" id="postcode" maxlength="6"></td>
+                    </tr>
+                    <tr>
+                        <td>姓名<font class="valid">VALID</font><span class="redStar">*</span></td>
+                        <td><input type="text" placeholder="长度不超过25个字符" name="receiver" id="nameinput" maxlength="20"></td>
+                    </tr>
+                    <tr>
+                        <td>手机号码 <font class="valid">VALID</font><span class="redStar">*</span></td>
+                        <td><input type="text" placeholder="请输入11位手机号码" name="mobile"  onkeyup="this.value=this.value.replace(/\D/g,'')" id="phonenumberinput" maxlength="11"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!--订单信息-->
+<div class="buyPageDiv">
+    <div class="productList">
+        <div class="productListTip">确认订单信息</div>
+
+        <table class="productListTable">
+            <thead>
+                <tr>
+                    <th class="productListTableFirstColumn" colspan="2">
+                        <img src="../../img/site/tmallbuy.png" class="tmallbuy">
+                        <a href="#nowhere" class="marketLink">店铺：天猫店铺</a>
+                        <a href="#nowhere" class="wangwanglink"> <span class="wangwangGif"></span> </a>
+                    </th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                    <th>配送方式</th>
+                </tr>
+                <tr class="rowborder">
+                    <!--下面的这些td是用来制作下划线的效果的-->
+                    <td colspan="2"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody class="productListTableTbody">
+                <tr class="orderItemTR">
+                    <td class="orderItemFirstTD"><img width="20px" src="../../img/productSingle_middle/4358.jpg" class="orderItemImg"></td>
+                    <td class="orderItemProductInfo">
+                        <a class="orderItemProductLink" href="#nowhere">
+                            Philips/飞利浦 HR1897/30破壁微榨原汁机 多功能家用果汁榨汁机
+                        </a>
+                        <img title="支持信用卡支付" src="../../img/site/creditcard.png">
+                        <img title="消费者保障服务,承诺7天退货" src="../../img/site/7day.png">
+                        <img title="消费者保障服务,承诺如实描述" src="../../img/site/promise.png">
+                    </td>
+                    <td>
+                        <span class="orderItemProductPrice">￥3,514.05</span>
+                    </td>
+                    <td>
+                        <span class="orderItemProductNumber">2</span>
+                    </td>
+                    <td><span class="orderItemUnitSum">
+                            ￥7,028.10
+                        </span></td>
+                    <td class="orderItemLastTD" rowspan="5">
+                        <label class="orderItemDeliveryLabel">
+                            <input type="radio" checked="checked" value="">
+                            普通配送
+                        </label>
+                        <select class="orderItemDeliverySelect">
+                            <option>快递 免邮费</option>
+                            <option>样式 2 </option>
+                            <option>样式 3 </option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr class="orderItemTR">
+                    <td class="orderItemFirstTD"><img width="20px" src="../../img/productSingle_middle/3796.jpg" class="orderItemImg"></td>
+                    <td class="orderItemProductInfo">
+                        <a class="orderItemProductLink" href="#nowhere">
+                            公众智能扫地机器人家用全自动电动清洁地毯擦拖地一体机吸尘器
+                        </a>
+                        <img title="支持信用卡支付" src="../../img/site/creditcard.png">
+                        <img title="消费者保障服务,承诺7天退货" src="../../img/site/7day.png">
+                        <img title="消费者保障服务,承诺如实描述" src="../../img/site/promise.png">
+                    </td>
+                    <td>
+                        <span class="orderItemProductPrice">￥2,124.15</span>
+                    </td>
+                    <td>
+                        <span class="orderItemProductNumber">1</span>
+                    </td>
+                    <td><span class="orderItemUnitSum">
+                            ￥2,124.15
+                        </span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="orderItemSumDiv">
+            <div class="pull-left">
+                <span class="leaveMessageText">给卖家留言<font class="valid">VALID</font>:</span>
+                <span>
+                    <img src="../../img/site/leaveMessage.png" class="leaveMessageImg">
+                </span>
+                <span class="leaveMessageTextareaSpan" style="display: none;">
+                    <textarea class="leaveMessageTextarea area" id="caseContent" maxlength="50" name="userMessage"></textarea>
+                    <div>
+                        <span>已输入 <label id="lyishu">0</label> 个字符，还可输入 <label id="lsheng">50</label> 个字符</span>
+                        <!--这里还可以应用JS来实时显示剩下的字数-->
+                    </div>
+                </span>
+            </div>
+            <span class="pull-right">店铺合计(含运费): ￥9,152.25</span>
+        </div>
+    </div>
+    <div class="orderItemTotalSumDiv">
+        <div class="pull-right">
+            <span>实付款：</span>
+            <span class="orderItemTotalSumSpan">￥9,152.25</span>
+        </div>
+    </div>
+    <div class="submitOrderDiv">
+        <button class="submitOrderButton" type="button"><a href="../09-final-merge/confirmreceive.html">提交订单 VALID</a></button>
+    </div>
+</div>
+
+
+
+<!--footer-->
+
+<div style="display: block;" class="footer" id="footer">
+    <div class="footer_ensure" id="footer_ensure">
+        <a href="#nowhere">
+            <img src="../../img/site/ensure.png">
+        </a>
+    </div>
+    <div class="footer_desc" id="footer_desc">
+        <div class="descColumn">
+            <span class="descColumnTitle">购物指南</span>
+            <a href="#nowhere">免费注册</a>
+            <a href="#nowhere">开通支付宝</a>
+            <a href="#nowhere">支付宝充值</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">天猫保障</span>
+            <a href="#nowhere">发票保障</a>
+            <a href="#nowhere">售后规则</a>
+            <a href="#nowhere">缺货赔付</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">支付方式</span>
+            <a href="#nowhere">快捷支付</a>
+            <a href="#nowhere">信用卡</a>
+            <a href="#nowhere">蚂蚁花呗</a>
+            <a href="#nowhere">货到付款</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">商家服务</span>
+            <a href="#nowhere">商家入驻</a>
+            <a href="#nowhere">商家中心</a>
+            <a href="#nowhere">天猫智库</a>
+            <a href="#nowhere">天猫规则</a>
+            <a href="#nowhere">物流服务</a>
+            <a href="#nowhere">喵言喵语</a>
+            <a href="#nowhere">运营服务</a>
+        </div>
+        <div class="descColumn">
+            <span class="descColumnTitle">手机天猫</span>
+            <a href="#nowhere"><img src="../../img/site/ma.png"></a>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</div>
+
+<!--footer2-->
+
+<div class="footer" id="footer">
+    <img src="../../img/site/cateye.png" class="cateye" id="cateye">
+    <div class="copyright" id="copyright">
+        <div class="white_link">
+            <a href="#nowhere">关于天猫</a>
+            <a href="#nowhere"> 帮助中心</a>
+            <a href="#nowhere">开放平台</a>
+            <a href="#nowhere"> 诚聘英才</a>
+            <a href="#nowhere">联系我们</a>
+            <a href="#nowhere">网站合作</a>
+            <a href="#nowhere">法律声明</a>
+            <a href="#nowhere">知识产权</a>
+            <a href="#nowhere"> 廉正举报 </a>
+        </div>
+        <div class="white_link">
+            <a href="#nowhere"> 阿里巴巴集团</a><span class="slash">|</span>
+            <a href="#nowhere"> 淘宝网</a><span class="slash">|</span>
+            <a href="#nowhere">天猫 </a><span class="slash">|</span>
+            <a href="#nowhere"> 聚划算</a><span class="slash">|</span>
+            <a href="#nowhere">全球速卖通</a><span class="slash">|</span>
+            <a href="#nowhere">阿里巴巴国际交易市场</a><span class="slash">|</span>
+            <a href="#nowhere">1688</a><span class="slash">|</span>
+            <a href="#nowhere">阿里妈妈</a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里旅行·去啊 </a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里云计算 </a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里通信 </a><span class="slash">|</span>
+            <a href="#nowhere"> YunOS </a><span class="slash">|</span>
+            <a href="#nowhere"> 阿里旅行·去啊 </a><span class="slash">|</span>
+            <a href="#nowhere"> 万网 </a><span class="slash">|</span>
+            <a href="#nowhere"> 高德 </a><span class="slash">|</span>
+            <a href="#nowhere"> 优视 </a><span class="slash">|</span>
+            <a href="#nowhere"> 友盟 </a><span class="slash">|</span>
+            <a href="#nowhere"> 虾米 </a><span class="slash">|</span>
+            <a href="#nowhere"> 天天动听 </a><span class="slash">|</span>
+            <a href="#nowhere"> 来往 </a><span class="slash">|</span>
+            <a href="#nowhere"> 钉钉 </a><span class="slash">|</span>
+            <a href="#nowhere"> 支付宝 </a>
+        </div>
+        <div class="license">
+            <span>增值电信业务经营许可证： 浙B2-20110446</span>
+            <span>网络文化经营许可证：浙网文[2015]0295-065号</span>
+            <span>互联网医疗保健信息服务 审核同意书 浙卫网审【2014】6号 </span>
+            <span>互联网药品信息服务资质证书编号：浙-（经营性）-2012-0005</span>
+            <div class="copyRightYear">© 2003-2016 TMALL.COM 版权所有</div>
+            <div>
+                <img src="../../img/site/copyRight1.jpg">
+                <img src="../../img/site/copyRight2.jpg">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    /*默认显示的输入框其实是一个图片，点击的时候，显示可编辑的div*/
+    $(function () {
+        $("img.leaveMessageImg").click(function () {
+            $(this).hide();
+            $("span.leaveMessageTextareaSpan").show();
+            $("div.orderItemSumDiv").css("height", "100px");
+        });
+    });
+
+
+ 
+
+
+    
+
+            
+
+    /*统计留言限制字数的*/
+     $(function () {
+            //匹配包含给定属性的元素，keyup在按键释放时发生
+            $("#caseContent").keyup(function () {
+                var area = $(this);
+                //parseInt 方法返回与保存在 numString 中的数字值相等的整数。如果 numString 的前缀不能解释为整数，则返回 NaN（而不是数字）。
+                var max = parseInt(area.attr("maxlength"), 10); //获取maxlength的值 转化为10进制，将输入到textarea的文本长度
+                //这个判断可知max得到的是不是数字，设定的大小是多少
+                if (max > 0) {
+
+                    if (area.val().length > max) { //textarea的文本长度大于maxlength 
+                        area.val(area.val().substr(0, max)); //截断textarea的文本重新赋值 
+                    }
+
+                    var yishu = area.val().length;
+                    var sheng = max - area.val().length;
+                    $("#lyishu").html(yishu);
+                    $("#lsheng").html(sheng);
+                }
+            });
+           /* $("#caseContent").blur(function () {
+                var area = $(this);
+                var max = parseInt(area.attr("maxlength"), 10); //获取maxlength的值 
+                if (max > 0) {
+
+                    if (area.val().length > max) { //textarea的文本长度大于maxlength 
+                        area.val(area.val().substr(0, max)); //截断textarea的文本重新赋值 
+                    }
+
+                    var yishu = area.val().length;
+                    var sheng = max - area.val().length;
+                    $("#lyishu").html(yishu);
+                    $("#lsheng").html(sheng);
+                }
+            });*/
+
+
+
+
+
+
+
+        });
+
+
+
+    /************************************************
+                       公共链接
+           ************************************************/
+
+    $("div#footer a[href$=#nowhere]").click(function () {
+        alert("simulations of Ali links");
+    });
+
+    $("div.productsAsideCategorys a[href$=#nowhere]").click(function () {
+        alert("simulations of Products links");
+    })   
+</script>
+
+</html>

@@ -16,15 +16,34 @@
 整体分为： 
         1/ top nav （最上面的一行）    2/ 天猫logo 和 搜索栏        -----------公共页面
 
-        3/ Category 部分
+        3/ Category 部分 
+            直接的图片
+            一系列的筛选用表格做出
         
         4/footer 和 footer2                                      ------------公共页面
 
 要点：
         1. 排序功能还不能实现，价格范围通过 jQuery
+            1.1 keyup
+                var num = $(this).val();
+                方框里输入的值，如果是0，全部显示
+                非数字，
+                小于零
+                赋值给方框
+            1.2 查看begin和end 的输入值
+                所有产品都先 hide
+                 begin<=price<=end $(this).show();
 
+        2. 每个产品里面设定 price 的属性，并赋予其对应的价格的数值，所以在后面的价格筛选中就会用到
+               var price = $(this).attr("price");
+                // price = new Number(price);
 
+                if (price <= end && price >= begin)
+                    $(this).show();
+        3. 输入范围的时候要考虑 输入0，输入非数字，输入负数的情况
 
+难点：  1. 这里的筛选的功能？
+        2.不同卖家的ID，和聊天的连接？
 
 
 
@@ -48,6 +67,7 @@ nav.top span, nav.top a{color:#999;margin:0 10px 0 10px;}
 nav.top a:hover{color: #C40000;text-decoration:none;}
 
                 /*Searching*/
+div.mainsearch{display:block;max-width: 1013px;margin:10px auto}
 div.searchDiv{background-color: #C40000;width: 400px;margin: 50px auto;padding: 1px;height: 40px;display: block;
 /*以块状元素显示，只有在以块状元素显示的时候,水平居中才有效果。 当然div默认也是块状元素显示的*/}
 div.searchDiv input{width: 275px;border: 1px solid transparent;
@@ -159,6 +179,10 @@ div.productUnit span.monthDeal,div.productUnit span.productReview{display: inlin
 div.productUnit span.wangwang{padding-left:3px}
 
 
+/************
+    valid
+***************/
+font.valid{background-color:red;color:white;padding:2px;border-radius:5px;}
 
 
 </style>
@@ -168,33 +192,33 @@ div.productUnit span.wangwang{padding-left:3px}
 <!--top-nav-->
 
 <nav class="top ">
-    <a href="#nowhere">
+    <a href="../09-final-merge/homepage.html">
         <span class="glyphicon glyphicon-home redColor"></span>
-        天猫首页
+        天猫 Home <font class="valid">VALID</font>
     </a>
 
     <span>喵，欢迎来天猫</span>
-    <a href="#nowhere">请登录</a>
-    <a href="#nowhere">免费注册</a>
+    <a href="../09-final-merge/login.html" target="_blank">请登录 Login <font class="valid">VALID</font></a>
+    <a href="../09-final-merge/register.html" target="_blank">注册 Register <font class="valid">VALID</font></a>
 
     <span class="pull-right">
-        <a href="forebought">我的订单</a>
-        <a href="forecart">
+        <a href="../09-final-merge/myorder.html" target="_blank">我的订单 My Order <font class="valid">VALID</font></a>
+        <a href="../09-final-merge/shoppingcart.html" target="_blank">
             <span class=" glyphicon glyphicon-shopping-cart redColor"></span>
-            购物车<strong>0</strong>件</a>
+            购物车 Cart <font class="valid">VALID</font> <strong>0</strong>件</a>
     </span>
 
 </nav>
 
 <!--searching-->
 
-<div>
+<div class="mainsearch">
     <a href="#nowhere"> <img class="logo" src="../../img/site/logo.gif" id="logo">
     </a>
 
     <div class="searchDiv">
         <input type="text" placeholder="时尚男鞋  太阳镜 " name="keyword">
-        <button class="searchButton" type="submit">搜索</button>
+        <button class="searchButton" type="submit"><a href="../09-final-merge/category.html" target="_blank" style="color:white;">搜索 Valid</a></button>
         <div class="searchBelow">
             <span> <a href="#nowhere"> 平衡车 </a> <span>|</span>
             </span> <span> <a href="#nowhere"> 扫地机器人 </a> <span>|</span>
@@ -204,12 +228,6 @@ div.productUnit span.wangwang{padding-left:3px}
     </div>
 </div>
 
-
-
-
-
-
-<div style="height:50px"></div>
 
 
 <!-- ---------------------------------------------
@@ -248,11 +266,11 @@ div.productUnit span.wangwang{padding-left:3px}
     <div class="categoryProducts">
         <div price="799.2" class="productUnit">
             <div class="productUnitFrame">
-                <a href="#nowhere">
+                <a href="../09-final-merge/product.html" target="_blank">
                     <img width="100px" src="../../img/productSingle_middle/7058.jpg" class="productImage">
                 </a>
-                <span class="productPrice">¥799.20</span>
-                <a href="#nowhere" class="productLink">
+                <span class="productPrice">¥799.20 <font class="valid">VALID</font></span>
+                <a href="../09-final-merge/product.html" target="_blank" class="productLink">
                     MAXFEEL休闲男士手包真皮手拿包大容量信封包手抓包夹包软韩版潮
                 </a>
                 <a href="#nowhere" class="tmallLink">天猫专卖</a>
