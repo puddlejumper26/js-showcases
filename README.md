@@ -2,8 +2,9 @@
 <br><br>
 
  # JS-showcases  - Updating
-  based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt
-  Tmall project is the learning project from http://how2j.cn online learning education.
+  Basic showcases are mainly based on the information from http://www.fgm.cc/learn/ and Youtube channel https://www.youtube.com/watch?v=sn7TPuWpxg4&list=PLXfTLiJIRszzMwQS0IFcuHFD9J5dR_OPt<br><br>
+  
+  Tmall project is the project from http://how2j.cn online learning education. It is the complete simulation of the biggest online shopping website,including homepage, login, register, products, evaluation, shopping cart, my order... etc,please check the 09-final-merge.
 
 # Part I Projects
 <h2>Tmall_website</h2>
