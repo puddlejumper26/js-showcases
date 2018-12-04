@@ -8,21 +8,71 @@
     <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
     <link href="../../css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
     <script src="../../js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<style>
+
+p a {color:red;}
+
+/*rgba(100, 200, 0, 0.5)
+#5580F2
+orange
+rgb(1000, 200, 100)
+transparent
+rgb(100, 200, 0)*/
+div#div1{width:100%;position:relative;background-color:blue;height:150px;}
+p#div2{width:1000px; background-color:red;  text-align:right;padding-right:500px;}
+div#div5{position:absolute;float: left;}
+div#div3{box-sizing: content-box; 
+border: 3px solid black; 
+padding: 5px; 
+padding-top: 10px; 
+height: 100px; 
+width:100px;
+background: red;}
+div#div4{margin: -10px; width: 100px; height: 100px; background:transparent ;} 
+</style>
+
 </head>
 <body>
-<div class="right">
-    <p>
-        <textarea id="caseContent" name="caseContent" maxlength="20" class="area"></textarea>
-    </p>
-    <p>
-        <input type="submit" value="提交评论" class="sub_bt">
-       
+<body>
+    <h1>Birds and Not Birds</h1>
+    <h2>A compendium of flying and not flying things</h2>
+    <p>While walking through the woods with my daughter she asked me <q>Papa, what kind of bird is that?</q> and was
+        pointing to an <a href="#ok">oesterkirche</a>. (A huge one!)</p>
+    <p>I told her its name and explained that while an oesterkirche flies like a bird and eats bugs and worms (<a
+                href="#footnote">*sfwafaw</a>) like a bird, it is not, in fact, a bird. This lead us to a discussion of
+        other flying things that might or might not be birds, and birds that don't fly. Here is our list:</p>
+    <ul>
+        <li class="bird">penguin</li>
+        <li class="bird flying">hawk</li>
+        <li class="flying">oesterkirche</li>
+        <li class="insect flying">butterfly</li>
+        <li class="bird">ostrich</li>
+        <li class="insect flying">wasp</li>
+        <li class="bird flying">sparrow</li>
+        <li class="insect">ant</li>
+    </ul>
 
-        已输入 <label id="lyishu">0</label> 个字符，还可输入 <label id="lsheng">20</label> 个字符</p>
+    <hr>
+    <p id="footnote">(*) - Does anyone know exactly what oesterkirche eat? Don't they also eat fish?</p>
+    <img id="ok" src="oesterkirche.jpg" alt="scary oesterkirche, don't get close!">
+
+    <div id="div1"><p id="div2">asdfwfasvwv asdwfasdfwf </p></div>
+    <br><br>
+    <div id="div5">
+      <div id="div3"></div> <div id="div4"></div>
     </div>
+<br><br>
+
+
+<video src="http://techslides.com/demos/sample-videos/small.mp4" muted autoplay
+
+    poster="https://courses.edx.org/asset-v1:W3Cx+HTML5.0x+3T_2016+type@asset+block@badgehtml5.png"
+    height="320" width="240">
+    Your browser does not support the HTML5 video element.
+</video>
+
 
 </body>
-
  <script type="text/javascript">
             $(function () {
                 //匹配包含给定属性的元素，keyup在按键释放时发生
