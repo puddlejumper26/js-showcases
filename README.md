@@ -1,4 +1,4 @@
-<h1>Please also check my work directly on <a href="https://codepen.io/puddlejumper26/" target="_blank">Codepen</a> </h1>
+<h1>Check my work directly on <a href="https://puddlejumper26.github.io/js-showcases/" target="_blank">Personal Website</a> </h1>
 <br><br>
 
  # JS-showcases  - Updating
