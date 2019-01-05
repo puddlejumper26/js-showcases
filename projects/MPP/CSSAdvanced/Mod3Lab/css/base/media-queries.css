@@ -1,0 +1,4 @@
+/* 768px / 16px = 48em */
+/*Note: By subtracting 0.0625 from your mq-1 variable, you are basically removing a pixel. You remove the pixel so that the next media query mixin will not overlap.*/
+/*You have created a mixin that you can easily use add to your SCSS files, you also have the power to change a breakpoint variable in one place. You can nest this mixin inside of a module which makes you code much easier to read because you can see you device differences right there in the module.*/
+/*# sourceMappingURL=media-queries.css.map */
