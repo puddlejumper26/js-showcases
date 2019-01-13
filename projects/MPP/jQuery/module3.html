@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Module 3</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+    <style>
+        body {
+   font-family: Verdana;
+  }
+  h1, h2, h3 {
+   color: darkblue;
+  }
+  .rating-circle {
+   height: 2em;
+   width: 2em;
+   border: .1em solid black;
+   border-radius: 1.1em;
+   display: inline-block;
+   margin: 0;
+   padding: .1em;
+  }
+
+  .rating-hover {
+   background-color: yellow;
+  }
+
+  .rating-chosen {
+   background-color: green;
+  }
+  </style>
+</head>
+
+<body>
+
+    <h1>Contoso Web Developer Conference</h1>
+    <h2>Finding elements using jQuery</h2>
+    <div>This session is about identifying elements using jQuery methods and selectors.</div>
+    <h3>Rate this session</h3>
+
+    <div id="rating-container"></div>
+    <!-- <div>Cliked Circles:
+        <input type="text" id="clickednumber"/> 
+    </div> -->
+    <div>
+        <label for="max-value">Enter max value:</label>
+        <input type="text" id="max-value" />
+        <button type="button" id="update-max-value">Update max value</button>
+    </div>
+    <div>
+        <button type="button" id="save-rating">Save rating</button>
+    </div>
+    <div id="output"></div>
+
+    <script>
+        $(function () {
+                       
+            $('#update-max-value').click(function () {
+                //first to clear everything from last time operation
+                $('#rating-container').empty();
+                //获取#max-value这个div里面的值，并运用到下面的循环中，来创造空白circle
+                var num = $('#max-value').val();
+                for (var i = 0; i < num; i++) {
+                    $('#rating-container').append('<div class="rating-circle"></div>');
+                }
+
+                //  circle color from Module 1
+                var children = $(".rating-circle");
+                var container = $("#rating-container");
+                var target, pos;
+                
+                function addColor(position, index, name) {
+                    $(position).prevAll().addClass(name);
+                    // 这里是指如果鼠标点击或者悬浮在最后一个circle的情况，那么这时候所有的circle都要改变颜色
+                    if (index === children.length - 1) {
+                        children.addClass(name);
+                    }
+                    
+                }
+                //notice here the code could be chain together, 也可以对 $(children).hover, $(children).mouseout, $(children).click
+
+                // 1. 鼠标悬浮circle的情况，
+                $(children).mouseenter(function () {
+                    //结合点击的情况来看，当鼠标悬浮的时候，所有circle 的状态都变为黄色或者空白，即便选中的绿色这里也会失效，所以这里removeClass("rating-chosen");
+                    $(".rating-circle").removeClass("rating-chosen");
+                    //获取悬浮的位置，注意要加1
+                    var index = container.children().index($(this));
+                    var position = container.children().get(index + 1);
+                    //通过函数加上颜色
+                    addColor(position, index, "rating-hover");
+
+                //2. 鼠标移出circle的情况    
+                }).mouseout(function () {
+                    //首先去除hover的颜色
+                    $(".rating-circle").removeClass("rating-hover");
+                    //但是之前如果有点击，绿色的circle要保持上次的选择，这里pos和target传自click函数里的对应值
+                    addColor(pos, target, "rating-chosen");
+
+                //3. 鼠标点击circle 的情况
+                }).click(function () {
+                    //首先去除上次click的颜色
+                    $(".rating-circle").removeClass("rating-chosen");
+                    //和上一步一样的获取位置信息
+                    var index = container.children().index($(this));
+                    target = index;  
+                    //$("#clickednumber").val(index+1);
+                    var position = container.children().get(index + 1);
+                    pos = position;
+                    //添加颜色
+                    addColor(position, index, "rating-chosen"); 
+                    $(this).addClass('rating-chosen');
+                }); 
+            });
+
+ // 方法 一           
+            $('#save-rating').click(function(){
+                var score = new Object(); 
+                //下面的value和 maxValue一定要和post后面URL中的参数一一对应，不然不会有回应
+                score.value = $('.rating-chosen').length; 
+                score.maxValue = $('#max-value').val();
+                $.post('http://jquery-edx.azurewebsites.net/api/Rating',
+                    score,
+                    function (data) {
+                        //var output = 'You chose' + data.value+'out of' + data.maxValue;//这一行是完全用不上的,也是错误的
+                        $('#output').text(data.message);
+                    })
+            })    
+//方法 二
+            //  $('#save-rating').click(function () {
+
+            //     $('button').attr('disabled', 'disabled');
+                
+            //     $.post('http://jquery-edx.azurewebsites.net/api/Rating', { 'value': $('.rating-chosen').length, 'maxValue': $('#max-value').val()}).done(function (data) {
+            //         $('#output').text(data.message);
+            //         $('button').removeAttr('disabled');
+            //     });
+            // });
+        });
+
+</script>
+<script>
+//1
+        //    $(document).ready(makeCircles);
+        //     //default number of circles is 5
+        //     var maxValue = 5;
+
+        //     //loop to make circles 
+        //     function makeCircles() {
+        //         i = 0;
+        //         while (i < maxValue) {
+        //             $("#rating-container").append("<div class='rating-circle'></div>");
+        //             i++;
+        //         }
+        //     }
+        //     //use user input to change number of circles
+        //     $("#update-max-value").click(function () {
+        //         maxValue = $("#max-value").val();
+        //         //send maxValue to postable object as new property
+        //         postable.maxValue = maxValue;
+        //         $("#rating-container").empty();
+        //         makeCircles();
+        //     })
+        //     //highlight circles by hovering before choice is made
+        //     $("#rating-container").on("mouseenter", ".rating-circle", function () {
+        //         $(this).prevAll().andSelf().addClass("rating-hover")
+        //     }).on("mouseleave", ".rating-circle", function () {
+        //         $(this).prevAll().andSelf().removeClass("rating-hover");
+        //     });
+
+        //     //change color of final selection to green
+        //     $("#rating-container").on("click", ".rating-circle", function () {
+        //         $(".rating-circle").removeClass("rating-chosen");
+        //         $(this).prevAll().andSelf().addClass("rating-chosen");
+        //     })
+        //     if ($("#max-value").val()) {
+        //         maxValue = $("#max-value").val();
+        //     }
+        //     //create object to be passed to server
+        //     var postable = {};
+
+        //     $("#save-rating").click(function () {
+        //         console.log(postable.maxValue);
+        //         //capture the index number of the clicked circle, and add one to compensate for zero index
+        //         $("#rating-container").on("click", ".rating-circle", function () {
+        //             var rating = ($(".rating-circle").index(this)) + 1;
+        //             //pass the converted index to the postable object as a new property
+        //             postable.value = rating;
+        //         });
+        //         //post object to server and display output
+        //         $.post("https://jquery-edx.azurewebsites.net/api/Rating", postable,
+        //             function (data) {
+        //                 $("#output").text(data.message)
+        //             })
+        //     }) 
+    </script>
+    <script>
+    // $(function () {
+    //         //rating circle element
+    //         var ratingCircle = '<div class="rating-circle"></div>';
+    //         //variable for tracking chosen circles
+    //         var selected = $('.rating-chosen');
+    //         //container of rating circles
+    //         var $container = $('#rating-container');
+    //         //get initial max value
+    //         var maxValue = $container.attr('max-value');
+    //         //creates the given number of rating circles in #rating-container
+    //         function createRatingCircles(num) {
+    //             for (i = 0; i < num; i++) {
+    //                 $container.append(ratingCircle);
+    //             }
+    //         }
+    //         //start with five rating circles
+    //         createRatingCircles(maxValue);
+    //         $('#max-value').val(maxValue);
+    //         //Update max value
+    //         $('#update-max-value').click(function () {
+    //             maxValue = $('#max-value').val();
+    //             $container.empty();
+    //             $container.attr('max-value', maxValue);
+    //             createRatingCircles(maxValue);
+    //             //reset selected
+    //             selected = $('.rating-chosen');
+    //         })
+    //         //add mouseenter event to circles
+    //         $('#rating-container').on('mouseenter', '.rating-circle', function () {
+    //             //remove class of chosen circles
+    //             selected.removeClass('rating-chosen');
+    //             //add class for hovering
+    //             $(this).addClass('rating-hover');
+    //             $(this).prevAll().addClass('rating-hover');
+    //         });
+    //         //add mouseout event to circles
+    //         $('#rating-container').on('mouseout', '.rating-circle', function () {
+    //             //restore classes of chosen circles
+    //             selected.addClass('rating-chosen');
+    //             //remove class for hovering
+    //             $(this).removeClass('rating-hover');
+    //             $(this).prevAll().removeClass('rating-hover');
+    //         });
+    //         //add click event to circles
+    //         $('#rating-container').on('click', '.rating-circle', function () {
+    //             //remove chosen class for any circles beyond clicked circle
+    //             $(this).nextAll().removeClass('rating-chosen');
+    //             //add chosen class for clicked circle and previous siblings
+    //             $(this).addClass('rating-chosen');
+    //             $(this).prevAll().addClass('rating-chosen');
+    //             //reset chosen circles
+    //             selected = $('.rating-chosen');
+    //         });
+
+    //         $('#save-rating').click(function () {
+    //             $('button').attr('disabled', 'disabled');
+    //             $.post('http://jquery-edx.azurewebsites.net/api/Rating', { 'value': selected.length, 'maxValue': maxValue }).done(function (data) {
+    //                 $('#output').text(data.message);
+    //                 $('button').removeAttr('disabled');
+    //             });
+    //         });
+    //     });
+    </script>
+</body>
+
+</html>

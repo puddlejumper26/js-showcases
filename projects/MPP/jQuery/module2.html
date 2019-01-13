@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Module 2</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+    <style>
+        body {
+   font-family: Verdana;
+  }
+  h1, h2, h3 {
+   color: darkblue;
+  }
+  .rating-circle {
+   height: 2em;
+   width: 2em;
+   border: .1em solid black;
+   border-radius: 1.1em;
+   display: inline-block;
+   margin: 0;
+   padding: .1em;
+  }
+
+  .rating-hover {
+   background-color: yellow;
+  }
+
+  .rating-chosen {
+   background-color: green;
+  }
+  </style>
+</head>
+
+<body>
+
+    <h1>Contoso Web Developer Conference</h1>
+    <h2>Finding elements using jQuery</h2>
+    <div>This session is about identifying elements using jQuery methods and selectors.</div>
+    <h3>Rate this session</h3>
+
+    <div id="rating-container" max-value="5">
+        
+    </div>
+
+    <div>
+        <label for="max-value">Enter max value:</label>
+        <input type="text" id="max-value" />
+        <button type="button" id="update-max-value">Update max value</button>
+    </div>
+
+    <script>
+        $(function () {
+             $('#update-max-value').click(function(){
+                    
+                    $('#rating-container').empty();
+                    var num = $('#max-value').val();
+
+                    for(var i=0; i<num;i++){
+                        $('#rating-container').append('<div class="rating-circle"></div>');
+                    }
+                
+        //  circle color from Module 1
+                    var children = $(".rating-circle");
+                    var container = $("#rating-container");
+                    var target, pos;
+
+                    function addColor(position, index, name) {
+                        $(position).prevAll().addClass(name);
+                        if (index === children.length - 1) {
+                            children.addClass(name);
+                        }
+                    }
+                    //notice here the code could be chain together, 也可以对 $(children).hover, $(children).mouseout, $(children).click
+                    $(children).mouseenter(function () {
+                        $(".rating-circle").removeClass("rating-chosen");
+                        var index = container.children().index($(this));
+                        var position = container.children().get(index + 1);
+                        addColor(position, index, "rating-hover");
+                    }).mouseout(function () {
+                        $(".rating-circle").removeClass("rating-hover");
+                        addColor(pos, target, "rating-chosen");
+                    }).click(function () {
+                        $(".rating-circle").removeClass("rating-chosen");
+                        var index = container.children().index($(this));
+                        target = index;
+                        var position = container.children().get(index + 1);
+                        pos = position;
+                        addColor(position, index, "rating-chosen");
+                    });
+            });
+        });   
+// 1
+        // var max = $('#rating-container').attr('max-value');;
+        //     for (i = 0; i < max; i++) {
+        //         $('#rating-container').append('<div class="rating-circle"><div>');
+        //     }
+        //     $(document).delegate('button', 'click', function () {
+
+        //         max = $("#max-value").val();
+        //         $('#rating-container').empty();
+        //         for (i = 0; i < max; i++) {
+        //             $('#rating-container').append('<div class="rating-circle"><div>');
+        //         }
+        //     });
+        //     $(document).on('mouseenter', 'div.rating-circle', function () {
+        //         $(this).addClass('rating-hover')
+        //         $(this).prevAll('.rating-circle').addClass('rating-hover')
+        //         $(this).nextAll('.rating-circle').attr('style', 'background-color:white');
+        //     })
+        //     $(document).on('mouseout', 'div.rating-circle', function () {
+        //         $(this).removeClass('rating-hover')
+        //         $(this).prevAll('.rating-circle').removeClass('rating-hover')
+        //         $(this).nextAll('.rating-circle').removeAttr('style', 'background-color:white');
+        //     })
+        //     $(document).on('click', 'div.rating-circle', function () {
+        //         $(this).addClass('rating-chosen')
+        //         $(this).prevAll('.rating-circle').addClass('rating-chosen')
+        //         $(this).nextAll('.rating-circle').removeClass('rating-chosen');
+        //     })
+
+// 2 
+            // $(document).ready(makeCircles);
+            //     var max = 5;
+
+            //     function makeCircles() {
+            //         i = 0;
+            //         while (i < max) {
+            //             $("#rating-container").append("<div class='rating-circle'></div>");
+            //             i++;
+            //         }
+            //     }
+            //     $("#update-max-value").click(function () {
+            //         max = $("#max-value").val();
+            //         $("#rating-container").empty();
+            //         makeCircles();
+            //     })
+            //     $("#rating-container").on("mouseenter", ".rating-circle", function () {
+            //         $(this).prevAll().andSelf().addClass("rating-hover")
+            //     }).on("mouseleave", ".rating-circle", function () {
+            //         $(this).prevAll().andSelf().removeClass("rating-hover");
+            //     });
+            //     $("#rating-container").on("click", ".rating-circle", function () {
+            //         $(".rating-circle").removeClass("rating-chosen");
+            //         $(this).prevAll().andSelf().addClass("rating-chosen");
+            //     })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--
+    <button type="button" id="first">First button</button>
+    <button type="button" id="Second">Second button</button>
+    <button type="button" id="trigger">trigger</button>
+    <button type="button" id="trigger-handler">triggerHandler</button>
+
+    <button type="button" class="btn updater">First button</button>
+    <button type="button" class="btn updater">Second button</button>
+    <button type="button" class="btn updater" id="target">trigger</button>
+    <button type="button" class="btn updater" id="target2">trigger2</button>
+
+    <div id="display"></div> 
+
+    <div id="container"></div>-->
+    <script>
+        // $(function(){ 
+        //   $(function () {
+        //            $(document).on('click', function1);
+        //            function1();  
+        //     });
+
+        //      function function1() {
+        //            $('#container').append('<button>Click!</button>');
+
+        //     }
+
+        //     });
+
+
+
+        // $(function () {
+        //     $('button').click(function () {
+        //         // display the id of the button
+        //         alert(this.id);
+
+        //     });
+
+        //     $('#trigger').click(function () {
+        //         // Would alert every button's id
+        //         // including the last two
+        //         $('button').trigger('click');
+        //     });
+
+        //     // Would alert "first"
+        //     $('#trigger-handler').click(function () {
+        //         // Would alert "first"
+        //         $('button').trigger('click');
+        //     });
+        // });
+    </script>
+    <script>
+        // $(function(){
+        //     $("button.updater").click(function(){
+        //         var existingText = $("#display").text();
+        //         var buttonText = $(this).text();
+        //         $('#display').text(existingText+'-'+buttonText);
+        //     });
+
+        //     $("#target").click(function(){
+        //         //$("button.updater").click();
+        //         $("button.updater").trigger('click');    
+
+        //     });
+
+        //     $("#target2").click(function(){
+        //         $("button.updater").trigger('click');    
+        //     })
+
+        // });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
+    <style>
+        body {
+   font-family: Verdana;
+  }
+  h1, h2, h3 {
+   color: darkblue;
+  }
+  .rating-circle {
+   height: 2em;
+   width: 2em;
+   border: .1em solid black;
+   border-radius: 1.1em;
+   display: inline-block;
+   margin: 0;
+   padding: .1em;
+  }
+
+  .rating-hover {
+   background-color: yellow;
+  }
+
+  .rating-chosen {
+   background-color: green;
+  }
+  </style>
+</head>
+
+<body>
+
+    <h1>Contoso Web Developer Conference</h1>
+    <h2>Finding elements using jQuery</h2>
+    <div>This session is about identifying elements using jQuery methods and selectors.</div>
+    <h3>Rate this session</h3>
+
+    <div id="rating-container"></div>
+  
+    <div>
+        <label for="max-value">Enter max value:</label>
+        <input type="text" id="max-value" />
+        <button type="button" id="update-max-value">Update max value</button>
+    </div>
+    <div>
+        <button type="button" id="save-rating">Save rating</button>
+    </div>
+    <div id="output"></div>
+
+    
+    <script>
+    $(function () {
+            //rating circle element
+            var ratingCircle = '<div class="rating-circle"></div>';
+            //variable for tracking chosen circles
+            var selected = $('.rating-chosen');
+            //container of rating circles
+            var $container = $('#rating-container');
+            //get initial max value
+            var maxValue = $container.attr('max-value');
+            //creates the given number of rating circles in #rating-container
+            function createRatingCircles(num) {
+                for (i = 0; i < num; i++) {
+                    $container.append(ratingCircle);
+                }
+            }
+            //start with five rating circles
+            createRatingCircles(maxValue);
+            $('#max-value').val(maxValue);
+            //Update max value
+            $('#update-max-value').click(function () {
+                maxValue = $('#max-value').val();
+                $container.empty();
+                $container.attr('max-value', maxValue);
+                createRatingCircles(maxValue);
+                //reset selected
+                selected = $('.rating-chosen');
+            })
+            //add mouseenter event to circles
+            $('#rating-container').on('mouseenter', '.rating-circle', function () {
+                //remove class of chosen circles
+                selected.removeClass('rating-chosen');
+                //add class for hovering
+                $(this).addClass('rating-hover');
+                $(this).prevAll().addClass('rating-hover');
+            });
+            //add mouseout event to circles
+            $('#rating-container').on('mouseout', '.rating-circle', function () {
+                //restore classes of chosen circles
+                selected.addClass('rating-chosen');
+                //remove class for hovering
+                $(this).removeClass('rating-hover');
+                $(this).prevAll().removeClass('rating-hover');
+            });
+            //add click event to circles
+            $('#rating-container').on('click', '.rating-circle', function () {
+                //remove chosen class for any circles beyond clicked circle
+                $(this).nextAll().removeClass('rating-chosen');
+                //add chosen class for clicked circle and previous siblings
+                $(this).addClass('rating-chosen');
+                $(this).prevAll().addClass('rating-chosen');
+                //reset chosen circles
+                selected = $('.rating-chosen');
+            });
+
+            $('#save-rating').click(function () {
+                $('button').attr('disabled', 'disabled');
+                $.post('http://jquery-edx.azurewebsites.net/api/Rating', { 'value': selected.length, 'maxValue': maxValue }).done(function (data) {
+                    $('#output').text(data.message);
+                    $('button').removeAttr('disabled');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
