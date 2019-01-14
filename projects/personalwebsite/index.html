@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/projects/personalwebsite/Styles/bootstrap.min.css" rel="stylesheet" />
+    <script src="/projects/personalwebsite/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="/projects/personalwebsite/Scripts/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="/projects/personalwebsite/img/favicon.ico">
+    <title>Home | Xiang WU</title>
+    <style>
+    body{}
+    .navbar{position: fixed;top: 0;width: 100%;z-index: 99;}
+    .container{margin-top:120px;}
+    @media only screen and (min-width: 320px){html {font-size: 62.5%!important;}}
+    @media only screen and (min-width: 360px){html {font-size: 72.5%!important;}}
+    @media only screen and (min-width: 400px){html {font-size: 82.5%!important;}}
+    @media only screen and (min-width: 480px){html {font-size: 94%!important;}}
+ 
+ /*Moving blue chips*/   
+    #wrap {width: 100%;  display: flex;justify-content: center;}
+    #wrap div {width: 8px;height: 50px;background-color: rgb(95, 194, 224);float: left;margin-left: 1px;border-radius: 10%;-webkit-animation: fadeOut 1s infinite ease-in-out;}
+
+    @-webkit-keyframes fadeOut 
+    {
+        0%,
+        40%,
+        100% {
+            -webkit-transform: scaleY(0.4);
+        }
+        20% {
+            -webkit-transform: scaleY(1);
+        }
+    }
+    #wrap .line1 {-webkit-animation-delay: -0.9s;}
+    #wrap .line2 {-webkit-animation-delay: -0.8s;}
+    #wrap .line3 {-webkit-animation-delay: -0.7s;}
+    #wrap .line4 {-webkit-animation-delay: -0.8s;}
+    #wrap .line5 {-webkit-animation-delay: -0.9s;}
+ 
+ /* clock */
+    div#clock{width:100%;text-align:center;background:#504e4e;margin:10px auto;padding:20px 0;color:#fff;}
+    div#clock span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px solid #b4b4b4;margin:0 10px;padding:0 10px;}
+    </style>
+</head> 
+<body>
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow: 10px 10px 5px #888888;">
+        <a class="navbar-brand" href="#" style="font-family:Arial, Helvetica, sans-serif">Xiang's Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link"> <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/projects/personalwebsite/index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects/personalwebsite/contents/about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects/personalwebsite/contents/projects.html">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/resources/personaldoc/CV-XiangWU-de.pdf" target="blank">CV</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects/personalwebsite/contents/showcases.html" >Show
+                        Cases</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects/personalwebsite/contents/certificates.html">Certificates</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog(in progress)</a>
+                </li>
+            </ul>
+        </div>
+        <img src="/projects/personalwebsite/img/nav.png">
+    </nav>
+
+
+<div class="container">
+    <div class="jumbotron" style="box-shadow: 5px 5px 5px 5px #888888;">
+        <h3 class="display-3">Xiang's Website</h3>
+        <img src="/projects/personalwebsite/img/background.jpg" style="width:100%">
+    </div>
+
+    <!-- clock -->
+    <div class="clock" id="clock" style="box-shadow: 5px 5px 5px 5px #888888;">
+        <span></span>Hours<span></span>Minutes<span></span>Seconds
+    </div>
+
+    <div id="wrap" >
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+        <div class="line4"></div>
+        <div class="line5"></div>
+    </div>
+    <blockquote class="blockquote text-center" style="margin:20px;">
+        <p class="mb-0"></p>
+        <footer class="blockquote-footer">Puddlejumper26  2019—<cite title="Source Title"></cite></footer>
+    </blockquote>
+</div>
+
+
+<script>
+        var oClock = document.getElementById("clock");
+        var aSpan = oClock.getElementsByTagName("span");
+
+        setInterval(getTimes, 1000);
+        getTimes();
+        function getTimes() {
+            var oDate = new Date();
+            var aDate = [oDate.getHours(), oDate.getMinutes(), oDate.getSeconds()];
+
+            for (var i in aDate) { aSpan[i].innerHTML = format(aDate[i]) }
+        }
+        function format(a) {
+            // 0$1 it is to show the numbers with two digits when it is still a single digit
+            return a.toString().replace(/^(\d)$/, '0$1');
+        }
+
+</script>
+
+
+
+
+</body>
+</html>
