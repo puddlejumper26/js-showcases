@@ -1,0 +1,14 @@
+{
+  "name": "shandiren",
+  "version": "1.0.0",
+  "description": "",
+  "main": "demo01.js",
+  "scripts": {
+    "build":"tsc demo01.ts",
+    "test":"node demo01.js",
+    "start":"npm run build && npm run test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

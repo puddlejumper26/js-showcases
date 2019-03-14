@@ -1,0 +1,29 @@
+<!-- 1  如何显示一个星星 -->
+<!-- <span class="glyphicon glyphicon-star"></span> -->
+
+<!-- 2 如何显示一个空的星星 -->
+<!-- <span class="glyphicon glyphicon-star glyphicon-star-empty"></span> -->
+
+<!-- 3 如何显示5颗星 -->
+<!-- 首先在对应的ts文件中建立一个列表,然后在这里使用ngFor -->
+<!-- <p>
+  <span *ngFor="let star of stars" class="glyphicon glyphicon-star"></span>
+</p> -->
+
+<!-- 4 如何有的空心，有的实心 -->
+<!-- 属性绑定 -->
+<!-- <p>
+  <span *ngFor="let star of stars" class="glyphicon glyphicon-star" [class.glyphicon-star-empty]="star"></span> -->
+  <!-- 这里就是将 样式绑定 glyphicon-star-empty 绑定到 star，如果star是true，就会显示 -->
+<!-- </p> -->
+
+<!-- 5 如何将商品的星级评价数值传递给组件-->
+<!-- 输入属性  看对应的TS 文档 -->
+<p>
+  <span *ngFor="let star of stars" class="glyphicon glyphicon-star" [class.glyphicon-star-empty]="star"></span>
+  <span>{{rating}}</span>
+</p>
+
+
+<!-- 6 如何根据星级来决定星星的空心，实心-->
+

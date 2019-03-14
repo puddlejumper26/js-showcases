@@ -1,0 +1,15 @@
+<!-- 2.8  这里的 products就是后台的那个列表，ngFor就是要循环这个列表里的信息 ， 用来在页面上反复生成一段html-->
+<div *ngFor="let product of products" class="col-md-4 col-sm-4 col-lg-4">
+  <div class="thumbnail">
+    <img src="https://via.placeholder.com/320x150">
+    <div class="caption">
+      <h4 class="pull-right">{{product.price}} Euro</h4>
+      <h4><a>{{product.title}}</a></h4>
+      <p>{{product.desc}}</p>
+    </div>
+    <div>
+      <app-stars [rating]="product.rating"></app-stars>
+      <!--2.10 星级评价当中的rating属性应该由当前组件当中的rating属性传递进去 -->
+    </div>
+  </div>
+</div>
