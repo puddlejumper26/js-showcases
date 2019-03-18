@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -7,15 +7,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  //3.3.1
-  private productId: number;
 
+  private productId: number;
+  private productName: string;
   constructor(private routeInfo: ActivatedRoute) { }
 
   ngOnInit() {
-    // 3.3.2
-    // this.productId = this.routeInfo.snapshot.queryParams ["id"];
-    this.productId = this.routeInfo.snapshot.params["id"];
+    this.routeInfo.params.subscribe((params: Params) => this.productId = params["id"]);
+    this.routeInfo.data.subscribe((data: {product: Product})=>{
+      // 赋予到本地的productId和productName
+      this.productId = data.product.id;
+      this.productName = data.product.name;
+    });
   }
 
 }
+export class Product{
+  constructor(public id: number, public name: string){}
+}
+

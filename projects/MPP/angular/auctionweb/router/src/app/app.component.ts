@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router }from "@angular/router";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,13 +8,10 @@ import { Router }from "@angular/router";
 export class AppComponent {
   title = 'router';
 
-  //3.2 
-  // 先拿一个router 对象
-  constructor (private router: Router){
-
+  constructor(private router: Router) {
   }
 
-  toProductDetails(){
-    this.router.navigate(['/product']);
+  toProductDetails() {
+    this.router.navigate(['/product', 2]);
   }
 }
