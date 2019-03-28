@@ -1,6 +1,31 @@
 <div class="thumbnail">
   <img src="https://via.placeholder.com/820x230">
-  <h4 class="pull-right">{{product.price}} Euro</h4>
-  <h4>{{product.title}}</h4>
-  <p>{{product.desc}}</p>
+  <div>
+    <h4 class="pull-right">{{product.price}} Euro</h4>
+    <h4>{{product.title}}</h4>
+    <p>{{product.desc}}</p>
+  </div>
+  <div>
+      <!-- 首先显示出有多少的评论 -->
+      <p class="pull-right">{{comments.length}}</p>
+      <!-- 加入星级评价组件 -->
+      <p>
+        <app-stars [rating]="product.rating"></app-stars>
+      </p>
+  </div>
+</div>
+
+<!-- 具体展示评论的服务 -->
+<div class="well">
+  <!-- 因为comments是一个数组，所以用到*ngFor -->
+  <div class="row" *ngFor="let comment of comments">
+    <hr>
+    <div class="col-md-12">
+      <app-stars [rating]="comment.rating"></app-stars>
+      <span>{{comment.user}}</span>
+      <span class="pull-right">{{comment.timestamp}}</span>
+      <p>{{comment.content}}</p> 
+      
+    </div>
+  </div>
 </div>

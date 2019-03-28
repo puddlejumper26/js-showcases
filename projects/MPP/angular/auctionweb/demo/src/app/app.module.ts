@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
+import { FormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
@@ -11,16 +12,8 @@ import { ProductComponent } from './product/product.component';
 import { StarsComponent } from './stars/stars.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { HomeComponent } from './home/home.component';
-import { Routes, RouterModule } from '@angular/router';
-import { ProductService } from './shared/product.service';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FilterPipe } from './pipe/filter.pipe';
 
-
-const routeConfig: Routes = [
-  {path:'', component: HomeComponent},
-  {path:'product/:productId', component: ProductDetailComponent}
-]
+ 
 
 @NgModule({
   declarations: [
@@ -33,16 +26,13 @@ const routeConfig: Routes = [
     StarsComponent,
     ProductDetailComponent,
     HomeComponent,
-    FilterPipe
+
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule.forRoot(routeConfig),
-    FormsModule,
-    ReactiveFormsModule,
+  imports: [FormsModule,
+    BrowserModule,ReactiveFormsModule,
+    AppRoutingModule
   ],
-  providers: [ProductService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

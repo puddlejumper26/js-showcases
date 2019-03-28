@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProductService } from '../shared/product.service';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-product',
@@ -10,9 +12,22 @@ export class ProductComponent implements OnInit {
 
   // 2.8 生成一个数组来存储页面上展示的数据
   private products: Product[];
+  
+  //5.8.1 
+  private keyword: string;
+  
+  titleFilter: FormControl = new FormControl();
+
+  //2.10 属性绑定
   private imgUrl = 'https://via.placeholder.com/320x150';
   
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) {
+    this.titleFilter.valueChanges
+      
+      .subscribe(
+        value => this.keyword = value,
+      );
+   }
 
   ngOnInit() {
 
