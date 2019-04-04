@@ -1,0 +1,19 @@
+<div>我是父组件</div>
+<div>
+    <input type="text" placeholder="请输入股票代码" [(ngModel)]="stock">
+    <!-- //这里用上双向绑定，盒子里放香蕉，绑定到后面的stock属性上 -->
+    <!-- <app-order [stockCode]="stock" [amount]="100"></app-order> -->
+    <!-- //这里要展示order组件的内容，展示的时候把其stockCode的属性设置成自己的 stock属性，
+  //amount的属性的值直接设置成100
+  //这里要求在子组件里一定要写 @Input() 的装饰器，不然没法绑定。 -->
+</div>
+
+<app-price-quote (buy)="buyHandler($event)"></app-price-quote>
+<app-order [priceQuote]="priceQuote"></app-order>
+<hr>
+<div>
+    这是在报价组件外部，股票代码是{{priceQuote.stockCode}}，股票价格是{{priceQuote.lastPrice | number:'2.2-2'}}
+</div>
+
+<hr>
+<app-child (valueChange)='displayCounter($event)'></app-child>
