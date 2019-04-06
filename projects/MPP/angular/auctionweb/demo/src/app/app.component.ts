@@ -1,25 +1,19 @@
-import { Component } from '@angular/core';
-import { PriceQuote } from './price-quote/price-quote.component';
+import { Component, AfterViewInit, AfterContentInit, AfterContentChecked } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterContentInit,AfterContentChecked,AfterViewInit{
+  ngAfterContentInit(): void {
+    console.log("父组件的投影内容初始化完毕");
+  }
+  ngAfterContentChecked(): void {
+    console.log("父组件的投影内容变更检测完毕");
+  }
+  ngAfterViewInit(): void {
+    console.log("父组件的视图内容初始化完毕");
+  }
  
-  stock="";
-  priceQuote: PriceQuote = new PriceQuote("", 0); //0是默认
-  
-  // priceQuoteHandler(event: PriceQuote) {
-  //     this.priceQuote = event;
-  //   }
-
-  buyHandler(event: PriceQuote) {
-    this.priceQuote = event;
-  }
-
-  displayCounter(count) {
-    console.log(count);
-  }
 }

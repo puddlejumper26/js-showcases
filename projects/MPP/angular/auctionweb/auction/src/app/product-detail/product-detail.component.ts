@@ -9,6 +9,13 @@ import { Product, ProductService, Comment } from '../shared/product.service';
 })
 export class ProductDetailComponent implements OnInit {
 
+  // 6.11.2 首先加入评价星级的, 用来保存星级
+  newRating: number = 5;
+  // 6.11.2 加入评论，用来保存评价内容
+  newComment: string = "";
+  //6.11.3 默认情况下 相关的div是隐藏的
+  isCommentHidden = true; 
+
   product: Product;//声明了product的一个本地属性，类型是Product
 
   comments: Comment[]; //声明一个comments的一个本地属性，其类型是一个Comment[]，用来存放从服务里拿到的评论的信息
@@ -25,5 +32,19 @@ export class ProductDetailComponent implements OnInit {
     //根据从snapshot中拿到的productId，来调用ProductService的getProduct方法，获得一个明确的product
     this.comments = this.productService.getCommentsForProductId(productId);
     //这样就拿到了当前这个ID所对应的商品的所有的评论信息
+  }
+
+  //6.11.2
+  addComment(){
+    let comment = new Comment(0,this.product.id, new Date().toISOString(), "someone",this.newRating,this.newComment);
+    this.comments.unshift(comment);
+    //6.11.4
+    this.newComment = null;
+    this.newRating = 5;
+    this.isCommentHidden = true;
+
+    //6.11.5
+    let sum=this.comments.reduce((sum,comment)=>sum+comment.rating,0);
+    this.product.rating = sum / this.comments.length;
   }
 }

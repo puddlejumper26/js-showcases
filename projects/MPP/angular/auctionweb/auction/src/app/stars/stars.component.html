@@ -20,8 +20,9 @@
 <!-- 5 如何将商品的星级评价数值传递给组件-->
 <!-- 输入属性  看对应的TS 文档 -->
 <p>
-  <span *ngFor="let star of stars" class="glyphicon glyphicon-star" [class.glyphicon-star-empty]="star"></span>
-  <span>{{rating}}</span>
+  <span *ngFor="let star of stars; let i=index;" class="glyphicon glyphicon-star" [class.glyphicon-star-empty]="star" (click)="clickStar(i)"></span>
+  <span>{{rating | number:'1.0-2'}}</span>
+  <!-- 一位整数0或者最多2位小数 -->
 </p>
 
 

@@ -1,23 +1,21 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterContentChecked} from '@angular/core';
 
 @Component({
   selector: 'app-child',
-  template: `<button class='btn btn-primary' (click)="valueChanged()">Click me</button> `,
+  templateUrl: './child.component.html',
   styleUrls: ['./child.component.css']
 })
-export class ChildComponent implements OnInit {
-   
+export class ChildComponent implements OnInit, AfterContentInit, AfterContentChecked{
   
-  constructor() { }
-
-  ngOnInit() {
+  message:string = "hello";
+  ngOnInit(): void {  }
+  
+  ngAfterContentInit(): void {
+    console.log("子组件的投影内容初始化完毕");
+    this.message = "world";
   }
-  
-  @Output() valueChange = new EventEmitter();
-  counter = 0;
-  
-  valueChanged() { // You can give any function name
-    this.counter = this.counter + 1;
-    this.valueChange.emit(this.counter);
+  ngAfterContentChecked(): void {
+    console.log("子组件的投影内容变更检测完毕");
   }
 }
+ 
