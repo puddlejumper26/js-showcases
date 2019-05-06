@@ -1,0 +1,15 @@
+<p>
+  bind works!
+</p>
+<button (click)="doOnClick($event)">点我</button>
+<!-- 属性绑定的写法 -->
+<img [src]="imgUrl">
+
+<!-- 插值表达式的写法 -->
+<img src="{{imgUrl}}"> <br>
+======<br>
+1<input [(ngModel)]="name">{{name}} <br>
+2<input (keyup)="onKey($event)"><br>
+3<input #myField (keyup)="onClick(myField.value)"><br>
+4<input [formControl]="searchInput"><br>
+ 

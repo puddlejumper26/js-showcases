@@ -14,6 +14,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProductService } from './shared/product.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FilterPipe } from './pipe/filter.pipe';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 const routeConfig: Routes = [
@@ -32,14 +34,14 @@ const routeConfig: Routes = [
     StarsComponent,
     ProductDetailComponent,
     HomeComponent,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routeConfig),
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,HttpClientModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

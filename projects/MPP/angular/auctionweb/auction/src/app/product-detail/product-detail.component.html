@@ -1,16 +1,16 @@
 <div class="thumbnail">
   <img src="https://via.placeholder.com/820x230">
   <div>
-    <h4 class="pull-right">{{product.price}} Euro</h4>
-    <h4>{{product.title}}</h4>
-    <p>{{product.desc}}</p>
+    <h4 class="pull-right">{{product?.price}} Euro</h4>
+    <h4>{{product?.title}}</h4>
+    <p>{{product?.desc}}</p>
   </div>
   <div>
       <!-- 首先显示出有多少的评论 -->
-      <p class="pull-right">{{comments.length}}</p>
+      <p class="pull-right">{{comments?.length}}</p>
       <!-- 加入星级评价组件 -->
       <p>
-        <app-stars [rating]="product.rating"></app-stars>
+        <app-stars [rating]="product?.rating"></app-stars>
       </p>
   </div>
 </div>

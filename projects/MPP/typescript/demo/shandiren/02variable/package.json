@@ -1,0 +1,14 @@
+{
+  "name": "02variable",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build":"tsc variable.ts",
+    "test": "node variable.js",
+    "start":"npm run build && npm run test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

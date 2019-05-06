@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProductService } from '../shared/product.service';
 import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/internal/Observable';
 
 
 @Component({
@@ -9,24 +10,27 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  //8.5.2
+  // // 2.8 生成一个数组来存储页面上展示的数据
+  // private products: Product[];
+  private products: Observable<Product[]>;
 
-  // 2.8 生成一个数组来存储页面上展示的数据
-  private products: Product[];
+  //8.5.2
+  // //5.8.1 
+  // private keyword: string;
   
-  //5.8.1 
-  private keyword: string;
-  
-  titleFilter: FormControl = new FormControl();
+  // titleFilter: FormControl = new FormControl();
 
   //2.10 属性绑定
   private imgUrl = 'https://via.placeholder.com/320x150';
   
   constructor(private productService: ProductService) {
-    this.titleFilter.valueChanges
+    //8.5.2
+    // this.titleFilter.valueChanges
       
-      .subscribe(
-        value => this.keyword = value,
-      );
+    //   .subscribe(
+    //     value => this.keyword = value,
+    //   );
    }
 
   ngOnInit() {

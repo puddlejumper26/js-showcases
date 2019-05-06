@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>d属性</title>
+</head>
+<body>
+<pre>
+path元素是用来定义形状的通用元素。所有的基本形状都可以用path元素来创建。
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/d">对于d 的解释</a>
+
+属性d包含了一系列路径描述,由下面这些指令组成：属性d
+<ul><li>Moveto</li><li>Lineto</li><li>Curveto</li><li>Arcto</li><li>ClosePath</li></ul>
+
+一下元素可以使用d属性
+<ul><li>path</li><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/glyph" target="blank">glyph</a></li></ul>
+注意：原点（坐标系0,0点）经常是上下文的左上角。然而glyph 元素的原点在它的字母框的左下角。
+
+e.g.
+&lt;svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+    y="0px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve"&gt;
+    &lt;path fill="#F7931E" d="M37,17v15H14V17H37z M50,0H0v50h50V0z" /&gt;
+&lt;/svg&gt;
+
+d="M37,17v15H14V17H37z M50,0H0v50h50V0z"
+d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 || z"
+d=这个属性包含了构成整个SVG的字符串。
+M37,17
+    M是MoveTo的缩写。大写的“M”意味着绝对坐标，小写的“m”意味着相对距离。它暗含着是基于开始坐标，线在框里面，而且你在方框内矩形的右上角开始。
+    37是开始svg位置的缩写，在X轴坐标37像素处。
+    17开始svg位置，在y轴的17像素处。
+v15
+    v代表垂直。大写的V意味着绝对坐标，小写的v表示相对的长度、距离。dx/dy和x/y可以用在H/V和h/v相应的位置里。
+    这里是表示相对于给定坐标画一条15像素的垂直线。它意味着你向下画15像素，到坐标37,32。
+H14
+    H代表水平，它是绝对坐标，因为它是大写的。
+    从v15的终点开始，画一条水平线直到到达绝对坐标14，当到达x坐标14时结束画线。笔触位于坐标14,32。
+V17
+    就像前面那样，从上一条线的终点开始，画一条垂直线，直到到达y轴坐标17。笔触位于坐标14,17。
+H37
+    最后，从14,17开始，画一条水平线，直到到达x轴坐标37。笔触位于坐标37,17（M的值）
+z
+    小写的z和大写的Z都是闭合一系列svg线段。
+,
+    逗号开始下一串简单矢量图形线段。下一系列简单矢量线段将制作外层方框。
+M50,0
+    在x轴50和y轴0处开始。
+H0
+    画一条直线直到(0,0)。
+v50
+    相对于0,0画一条50像素的垂直线。这条线将画到(0,50)。
+h50
+    相对于(0,-50)画一条50像素的水平线。这条线将向右画到(50,50)。
+V0
+    画一条垂直线直到到达y轴坐标0。这将画线到(50,0)，即M的值。
+z
+    小写的z和大写的Z都是闭合一系列svg线段。
+
+</pre>
+<hr>
+e.g.
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+    y="0px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
+    <path fill="#F7931E" d="M37,17v15H14V17H37z M50,0H0v50h50V0z" />
+</svg>
+
+    
+</body>
+</html>

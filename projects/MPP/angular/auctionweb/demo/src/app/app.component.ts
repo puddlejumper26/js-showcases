@@ -1,19 +1,22 @@
-import { Component, AfterViewInit, AfterContentInit, AfterContentChecked } from '@angular/core';
+import { Component } from '@angular/core';
+import { PriceQuote } from './price-quote/price-quote.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterContentInit,AfterContentChecked,AfterViewInit{
-  ngAfterContentInit(): void {
-    console.log("父组件的投影内容初始化完毕");
-  }
-  ngAfterContentChecked(): void {
-    console.log("父组件的投影内容变更检测完毕");
-  }
-  ngAfterViewInit(): void {
-    console.log("父组件的视图内容初始化完毕");
-  }
- 
+export class AppComponent {
+  title = 'demo';
+  birthday = new Date(1988, 3, 15); // April 15, 1988
+  toggle = true; // start with true == shortDate
+  stock='haha';
+  get format() { return  'fullDate'; }
+  // toggleFormat() { this.toggle = !this.toggle; }
+
+  
+  appQuote:PriceQuote = new PriceQuote('',0);
+ // priceQuoteHandler(event:PriceQuote){this.appQuote=event;}
+  buyHandler(event:PriceQuote){this.appQuote=event;}
+
 }

@@ -1,4 +1,4 @@
-<form name="searchForm" role="form">
+<!-- <form name="searchForm" role="form">
   <div class="form-group">
     <label for="productTitle">Product Title:</label>
     <input type="text" id="productTitle" placeholder="Product Title" class="form-control">
@@ -14,5 +14,42 @@
   <div class="form-group">
     <button type="submit" class="btn btn-primary btn-block">Search</button>
   </div>
+</form> -->
 
+<!-- 7.9.3 -->
+<!-- 第一步处理form标签先连接formModel,novalidate禁用浏览器默认的校验行为 -->
+<form [formGroup]="formModel" (ngSubmit)="onSearch()" novalidate> 
+<!-- 第一个字段商品名称要做一个样式绑定,has-error是bootstrap的一个样式 -->
+<!-- 当title的minlength有错误的时候，会往div上加一个has-error的样式 -->
+  <div class="form-group" [class.has-error]="formModel.hasError('minlength','title')">
+    <label for="productTitle">Product Title:</label>
+    <!-- 和后面的title属性绑定起来 -->
+    <input type="text" formControlName="title" id="productTitle" placeholder="Product Title" class="form-control">
+    <!-- 这里是用来错误信息的， -->
+    <span class="help-block" [class.hidden]="!formModel.hasError('minlength','title')">Please Input at least 3 letters</span>
+  </div>
+
+<!-- 第二个字段 -->
+  <div class="form-group" [class.has-error]="formModel.hasError('positiveNumber','price')">
+    <label for="productTitle">Product Price:</label>
+    <input type="number" formControlName="price" id="productPrice" placeholder="Product Price" class="form-control">
+    <span class="help-block" [class.hidden]="!formModel.hasError('positiveNumber','price')">Please Input Positive Numbers</span>
+  </div>
+
+<!-- 第三个字段 product.service.ts中有一个方法getAllCategories()获取全部的类别，现在需要把这个方法的数据拿到组件里，到search.component.ts中申明一个categories-->
+  <div class="form-group">
+    <label for="productCategory">Product Category:</label>
+    <!-- select要和数据模型绑起来， -->
+    <select id="productCategory" formControlName="category" class="form-control">
+      <!-- 因为category默认值是-1，所以下面先申明value是-1的option -->
+      <option value="-1">All Categories</option>
+      <!-- 下面的开始需要ngFor循环 就是循环后面的categoreis这个变量,循环出来的category变量会被绑定到value属性上，同时作为显示的值显示在字段上{{}}-->
+      <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+    </select>
+  </div>
+  <!-- 这样product category字段属性既和绑定的数据类型category绑定了， 又通过categories这个数组把所有的分类的数据展示在了下拉框了 -->
+  
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block">Search</button>
+  </div>
 </form>

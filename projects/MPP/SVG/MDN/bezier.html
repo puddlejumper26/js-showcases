@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bezier Curve贝塞尔曲线</title>
+</head>
+<body>
+<h1>目录</h1>
+<ul>
+    <li><a href="#erci">二次贝塞尔曲线</a></li>
+    <li><a href="#sanci">三次贝塞尔曲线</a></li>
+    <li><a href="http://myst729.github.io/bezier-curve/" target="blank">动态绘制贝塞尔曲线的在线演示-github网页</a></li>
+    <li><a href="#huizhisan">绘制 - 三次贝塞尔</a></li>
+    <li><a href="#smingling">S 命令</a></li>
+    <li><a href="#huizhier">绘制 - 二次贝塞尔</a></li>
+    <li><a href="#tmingling">T 命令</a></li>
+</ul>
+<div style="border: 2px dashed black"></div>
+<pre>
+什么是贝塞尔曲线，通过这一篇文章<a href="http://www.html-js.com/article/1628" target="blank">贝塞尔曲线扫盲</a>
+
+<a href="https://www.jianshu.com/p/55c721887568" target="blank">贝塞尔曲线开发的艺术</a>
+
+数据点：通常指一条路径的起始点和终止点
+控制点：控制点决定了一条路径的弯曲轨迹，根据控制点的个数，贝塞尔曲线被分为一阶贝塞尔曲线（0个控制点）、二阶贝塞尔曲线（1个控制点）、三阶贝塞尔曲线（2个控制点）等等。
+
+
+<h3 id="erci">二次贝塞尔曲线</h3>
+1.在平面内任选 3 个不共线的点，依次用线段连接。
+<img src="/MDN/img/bezier1.png">
+2.在第一条线段上任选一个点 D。计算该点到线段起点的距离 AD，与该线段总长 AB 的比例。
+<img src="/MDN/img/bezier2.png">
+3.根据上一步得到的比例，从第二条线段上找出对应的点 E，使得 AD:AB = BE:BC。
+<img src="/MDN/img/bezier3.png">
+4.连接这两点 DE。
+<img src="/MDN/img/bezier4.png">
+5.从新的线段 DE 上再次找出相同比例的点 F，使得 DF:DE = AD:AB = BE:BC。
+<img src="/MDN/img/bezier5.png">
+6. 让选取的点 D 在第一条线段上从起点 A 移动到终点 B，找出所有的贝塞尔曲线上的点 F。所有的点找出来之后，我们也得到了这条贝塞尔曲线。
+<img src="/MDN/img/bezier6.png">
+整体的绘制
+<img src="/MDN/img/bezier.gif">
+看控制点的作用
+<img src="/MDN/img/bezierer.gif">
+
+<hr>
+<h3 id="sanci">三次贝塞尔曲线</h3>
+1.当控制点个数为 4 时
+<img src="/MDN/img/bezier7.png">
+2.步骤都是相同的，只不过我们每确定一个贝塞尔曲线上的点，要进行三轮取点操作。如图，AE:AB = BF:BC = CG:CD = EH:EF = FI:FG = HJ:HI，其中点 J 就是最终得到的贝塞尔曲线上的一个点。
+<img src="/MDN/img/bezier8.png">
+3.这样我们得到的是一条三次贝塞尔曲线。
+<img src="/MDN/img/bezier9.png">
+整体的绘制
+<img src="/MDN/img/bezier三次.gif">
+看控制点的作用
+<img src="/MDN/img/beziersan.gif">
+</pre>
+
+<div style="border:1px dashed black"></div>
+<pre id="huizhisan">
+<h2>绘制 - 三次贝塞尔曲线</h2>
+在 path 属性里面，三次贝塞尔曲线C
+三次贝塞尔曲线需要定义一个点和两个控制点，所以用C命令创建三次贝塞尔曲线，需要设置三组坐标参数：
+
+<img src="/MDN/img/beziersank.png">
+
+e.g.
+
+C x1 y1, x2 y2, x y (or c dx1 dy1, dx2 dy2, dx dy)
+
+这里的最后一个坐标(x,y)表示的是曲线的终点，另外两个坐标是控制点，(x1,y1)是起点的控制点，(x2,y2)是终点的控制点。
+控制点描述的是曲线起始点的斜率，曲线上各个点的斜率，是从起点斜率到终点斜率的渐变过程。
+（文字描述不好，维基百科上有图示，更直观。）
+
+e.g.
+
+<svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+    <path d="M10 10 C 20 20, 40 20, 50 10" stroke="black" fill="red" />
+    <path d="M70 10 C 70 20, 120 20, 120 10" stroke="black" fill="transparent" />
+    <path d="M130 10 C 120 20, 180 20, 170 10" stroke="black" fill="blue" />
+    <path d="M10 60 C 20 80, 40 80, 50 60" stroke="black" fill="transparent" />
+    <path d="M70 60 C 70 80, 110 80, 110 60" stroke="black" fill="transparent" />
+    <path d="M130 60 C 120 80, 180 80, 170 60" stroke="black" fill="transparent" />
+    <path d="M10 110 C 20 140, 40 140, 50 110" stroke="black" fill="transparent" />
+    <path d="M70 110 C 70 140, 110 140, 110 110" stroke="black" fill="transparent" />
+    <path d="M130 110 C 120 140, 180 140, 170 110" stroke="black" fill="transparent" />
+</svg>
+
+&lt;svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+
+    &lt;path d="M10 10 C 20 20, 40 20, 50 10" stroke="black" fill="red" /&gt;
+    &lt;path d="M70 10 C 70 20, 120 20, 120 10" stroke="black" fill="transparent" /&gt;
+    &lt;path d="M130 10 C 120 20, 180 20, 170 10" stroke="black" fill="blue" /&gt;
+    &lt;path d="M10 60 C 20 80, 40 80, 50 60" stroke="black" fill="transparent" /&gt;
+    &lt;path d="M70 60 C 70 80, 110 80, 110 60" stroke="black" fill="transparent" /&gt;
+    &lt;path d="M130 60 C 120 80, 180 80, 170 60" stroke="black" fill="transparent" /&gt;
+    &lt;path d="M10 110 C 20 140, 40 140, 50 110" stroke="black" fill="transparent" /&gt;
+    &lt;path d="M70 110 C 70 140, 110 140, 110 110" stroke="black" fill="transparent" /&gt;
+    &lt;path d="M130 110 C 120 140, 180 140, 170 110" stroke="black" fill="transparent" /&gt;
+&lt;/svg&gt;
+
+上面的例子里，创建了9个三次贝塞尔曲线。
+图例上的曲线从左往右看，控制点在水平方向上逐渐分开，图例上的曲线从右往左看，控制点之间离得越来越远。
+这里要注意观察，曲线沿着起点到第一控制点的方向伸出，逐渐弯曲，然后沿着第二控制点到终点的方向结束。
+
+----------------------------------------------
+
+<h3 id="smingling">S命令</h3>
+可以将若干个贝塞尔曲线连起来，从而创建出一条很长的平滑曲线。通常情况下，一个点某一侧的控制点是它另一侧的控制点的对称（以保持斜率不变）。这样，你可以使用一个简写的贝塞尔曲线命令S，如下所示：
+
+S x2 y2, x y (or s dx2 dy2, dx dy)
+
+S命令可以用来创建与前面一样的贝塞尔曲线，但是，如果S命令跟在一个C或S命令后面，则它的第一个控制点会被假设成前一个命令曲线的第二个控制点的中心对称点。
+如果S命令单独使用，前面没有C或S命令，那当前点将作为第一个控制点。
+下面是S命令的语法示例，图中左侧红色标记的点对应的控制点即为蓝色标记点。
+
+<img src="/MDN/img/beziers.png">
+<svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent" />
+</svg>
+上图的代码
+
+&lt;svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+
+&lt;path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent"/&gt;
+
+&lt;/svg&gt;
+
+</pre>
+
+
+<div style="border:1px dashed black"></div>
+
+<pre id="huizhier">
+在 path 属性里面，二次贝塞尔曲线Q
+只需要一个控制点，用来确定起点和终点的曲线斜率。因此它需要两组参数，控制点和终点坐标。
+
+Q x1 y1, x y (or q dx1 dy1, dx dy)
+
+<img src="/MDN/img/beziererk.png">
+
+<svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg"">
+  <path d=" M10 80 Q 95 10 180 80" stroke="black" fill="transparent" />
+</svg>
+
+上述代码
+
+&lt;svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg""&gt;
+&lt;path d=" M10 80 Q 95 10 180 80" stroke="black" fill="transparent" /&gt;
+&lt;/svg&gt;
+
+
+<h3 id="tmingling">T 命令</h3>
+T x y (or t dx dy)
+
+和之前一样，快捷命令T会通过前一个控制点，推断出一个新的控制点。
+这意味着，在你的第一个控制点后面，可以只定义终点，就创建出一个相当复杂的曲线。
+需要注意的是，T命令前面必须是一个Q命令，或者是另一个T命令，才能达到这种效果。
+如果T单独使用，那么控制点就会被认为和终点是同一个点，所以画出来的将是一条直线。
+
+<img src="/MDN/img/beziert.png">
+
+<svg width="1900px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 80 Q 52.5 10, 95 80 T 180 80 T 270 80" stroke="black" fill="transparent" />
+</svg>
+
+上述代码
+
+&lt;svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;path d="M10 80 Q 52.5 10, 95 80 T 180 80 T 270 80" stroke="black" fill="transparent" /&gt;
+&lt;/svg&gt;
+
+</pre>
+
+</body>
+</html>
