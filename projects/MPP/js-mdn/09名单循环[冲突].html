@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>09名单 循环</title>
+</head>
+<body>
+    
+<div class="admitted"></div>
+<ul class="ulad"></ul>
+<div class="refused"></div>
+<ul class="ulre"></ul>
+    
+    
+    
+    <script>
+    var people = ['Chris', 'Anne', 'Colin', 'Terri', 'Phil', 'Lola', 'Sam', 'Kay', 'Bruce'];
+
+        var admitted = document.querySelector('.admitted');
+        var refused = document.querySelector('.refused');
+        var ulAd=document.querySelector('.ulad');
+        var ulRe=document.querySelector('.ulre');
+        
+        
+        function drawNode(node,textNode){
+            var node = document.createElement('li');
+            var textNode = document.createTextNode(people[i]);
+            return node.appendChild(textNode);
+        }
+
+        admitted.textContent = 'Admit: ';
+        refused.textContent = 'Refuse: ';
+
+        for(var i=0; i<people.length;i++){
+            if(people[i]==='Phil' || people[i]==='Lola')
+            {
+                let node = document.createElement('li');
+                let textNode = document.createTextNode(people[i]);
+                node.appendChild(textNode);
+                ulRe.appendChild(node);
+            }else{ 
+                let node = document.createElement('li');
+                let textNode = document.createTextNode(people[i]);
+                node.appendChild(textNode);
+                ulAd.appendChild(node);
+            }
+        } 
+       
+
+        //  if (people[i] === 'Phil' || people[i] === 'Lola') {
+        //         refused.textContent += people[i] + ', ';
+        //     } else {
+        //         admitted.textContent += people[i] + ', ';
+        //     }
+    </script>
+</body>
+</html>

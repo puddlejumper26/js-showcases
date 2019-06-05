@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>13 事件介绍</title>
+<style>
+font{
+    color:red;
+}
+</style>
+
+</head>
+<body>
+    <button onclick="bgChange()">Press me</button>
+    
+
+
+    <pre>
+        function random(number) {
+            return <font>Math.floor(Math.random()*number);</font>
+        }
+
+        function bgChange(){
+            var rndCol= 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+            <font>document.body.style.backgroundColor=rndCol;</font>
+        }
+ 
+        上面使用的方法是 Inline event handler    ----      button onclick="bgChange()"
+        现在不要再使用
+       <hr>
+        <font>addEventListener</font>
+        <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener" target="blank">链接</a>
+
+        var btn = document.querySelector('button');
+        
+        function bgChange() {
+            var rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+            document.body.style.backgroundColor = rndCol;
+        }
+        
+        btn.<font>addEventListener('click', bgChange);</font>
+
+        <table id="outside">
+            <tr>
+                <td id="t1">one</td>
+            </tr>
+            <tr>
+                <td id="t2">two</td>
+            </tr>
+        </table>
+        <hr>
+
+        
+        <font>removeEventListener</font>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener" target="blank">链接</a>
+
+        btn.removeEventListener('click', bgChange);
+
+        <hr>
+
+        您也可以给同一个监听器注册多个处理器，下面这种方式不能实现这一点：
+        myElement.onclick = functionA;
+        myElement.onclick = functionB;
+
+        第二行会覆盖第一行，但是下面这种方式就会正常工作了：
+
+        myElement.addEventListener('click', functionA);
+        myElement.addEventListener('click', functionB);
+
+        <hr>
+        <button class="changeColor">Change Color</button>
+
+        button class="changeColor"
+
+        var btnColor= document.querySelector('.changeColor');
+        function changeColor(<font>e</font>){
+            var rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+            <font>e.target.</font>style.backgroundColor = rndCol;
+            console.log(<font>e</font>);
+        }
+        btnColor.addEventListener('click',changeColor);
+
+        在函数中包括一个事件对象e，并在函数中设置背景颜色样式在<font>e.target</font>上 - 它指的是按钮本身。 
+        事件对象<font>e.target</font>属性始终是事件刚刚发生的元素的引用。 
+        所以在这个例子中，我们在按钮上设置一个随机的背景颜色，而不是页面。
+        
+
+
+        <font></font>
+        <font></font>
+
+    </pre>
+
+    <script>
+    function random(number) {
+        return Math.floor(Math.random() * number);
+    }
+    function bgChange(){
+        var rndCol= 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+        document.body.style.backgroundColor=rndCol;
+    }
+    
+// addEventListener
+    function modifyText() {
+        var t2 = document.getElementById("t2");
+        if (t2.firstChild.nodeValue == "three") {
+            t2.firstChild.nodeValue = "two";
+        } else {
+            t2.firstChild.nodeValue = "three";
+        }
+    }
+
+    // 为table添加事件监听器
+    var el = document.getElementById("outside");
+    el.addEventListener("click", modifyText,true);
+
+// change color  
+
+    var btnColor= document.querySelector('.changeColor');
+    function changeColor(e){
+        var rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+        e.target.style.backgroundColor = rndCol;
+        console.log(e);
+    }
+    btnColor.addEventListener('click',changeColor);
+
+    </script>
+</body>
+</html>

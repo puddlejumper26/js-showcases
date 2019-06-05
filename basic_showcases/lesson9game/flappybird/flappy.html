@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flappy Bird Javascript</title>
+    <link rel="stylesheet" href="https://font.googleapis.com/css?family=Teko:700">
+    
+    <style>
+    canvas{
+        border:1px solid #000;
+        display:block;
+        margin:0 auto;
+        }
+    
+    </style>
+</head>
+<body>
+    <canvas id="bird" width="320" height="480"></canvas>
+    
+
+    <script src="game.js"></script>
+
+    <pre>
+        original video is <a href="https://www.youtube.com/watch?v=0ArCFchlTq4" target="blank">here</a> 
+        Youtube Page: https://www.youtube.com/watch?v=0ArCFchlTq4
+    </pre>
+    <h3>canvas重要的知识点</h3>
+   
+    <ol> <pre>
+        <li>const cvs = document.getElementById('pong');
+const ctx = cvs.getContext('2d');</li>
+        <li>//load the sound  
+        const comScore=new Audio();
+        comScore.src="sounds/comScore.mp3"
+//use the sound
+        comScore.play();</li>
+        <li>const DEGREE=Math.PI/180;后面使用直接 度数*DEGREE</li>
+        <li>function loop()
+    {
+        update();
+        draw();
+        frames++;
+        //console.log(frames);
+        requestAnimationFrame(loop);这里会不停的更新画布
+    }
+        
+        loop();</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        </pre>
+    </ol>
+   
+    <h3>本节重要的知识点</h3>
+    
+    <ol>
+        <pre>
+        <li>ball 的设定里面有 </li>
+        <li>在使用audio.play()的时候，如果希望能够只播放一遍，那么可以进行一个条件设定，在整个更新的外面设定一个变量，然后在这个条件里面
+            let onceS = 1;
+
+            if(onceS ===1 ){
+                HIT.play();
+                DIE.play();
+                onceS = 0;
+            }
+        那么只要是在这个状态之下，也就是无论画布怎么更新，onceS的值都是0，也就会不再播放HIT和DIE。 这时候再在新的状态里面设定onceS=1， 并且从现在的状态到新状态的过渡用一个按钮进行控制。
+        
+        </li>
+        </pre>
+    </ol>
+    
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06日历</title>
+<style>
+.output * {
+  box-sizing: border-box;
+}
+
+.output ul {
+  padding-left: 0;
+}
+
+.output li {
+  display: block;
+  float: left;
+  width: 25%;
+  border: 2px solid white;
+  padding: 5px;
+  height: 40px;
+  background-color: #4A2DB6;
+  color: white;
+}
+</style>
+</head>
+<body>
+    <div class="output" style="height: 500px;overflow: auto;">
+        <label for="month">Select month: </label>
+        <select id="month">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>
+    
+        <h1>January</h1>
+    
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+            <li>21</li>
+            <li>22</li>
+            <li>23</li>
+            <li>24</li>
+            <li>25</li>
+            <li>26</li>
+            <li>27</li>
+            <li>28</li>
+            <li>29</li>
+            <li>30</li>
+            <li>31</li>
+        </ul>
+    </div>
+
+<script>
+    var select = document.querySelector('select');
+    var list = document.querySelector('ul');
+    var h1 = document.querySelector('h1');
+
+    select.onchange = function () {
+        var choice = select.value;
+        var days=31;
+        // ADD CONDITIONAL HERE
+
+    //    if(choice ==='April'||'June'||'September'){
+    //        days = 30;
+    //        }else if(choice==='February'){
+    //            days=28;}
+            // switch(choice){
+            //     case 'April' || 'June' || 'September':
+            //     days = 30; break;
+            //     case 'February':
+            //     days=28; break;
+            // }  
+
+        createCalendar(days, choice);
+    }
+
+    function createCalendar(days, choice) {
+         list.innerHTML = '';
+        h1.textContent = choice;
+        for (var i = 1; i <= days; i++) {
+            var listItem = document.createElement('li');
+            listItem.textContent = i;
+            list.appendChild(listItem);
+        }
+    }
+
+   // createCalendar(31, 'January');
+
+</script>
+</body>
+</html>
