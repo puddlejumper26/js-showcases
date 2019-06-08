@@ -20,6 +20,37 @@
         <h1>This is my website</h1>
     </div>
 
+    <pre>
+            var select = document.querySelector('select');
+            var html = document.querySelector('.output');
+            
+            select.onchange = function () {
+                var choice = select.value;
+                var bgColor;
+                
+                switch(choice){
+                    case 'white':
+                    bgColor = 'black';break;
+                    case 'black':
+                    bgColor='yellow';break;
+                    case 'purple':
+                    bgColor="red";break;
+                    case 'yellow':
+                    bgColor = 'green';break;
+                    case 'psychedelic':
+                    bgColor =" blue"; break;
+                }
+                
+                update(bgColor,choice)
+            }
+            
+            
+            
+            function update(bgColor, textColor) {
+                html.style.backgroundColor = bgColor;
+                html.style.color = textColor;
+            }
+    </pre>
     
 
     <script>

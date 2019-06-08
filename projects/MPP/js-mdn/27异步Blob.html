@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>27 异步 Blob</title>
+</head>
+<body>
+<pre>
+    var data1="a";
+    var data2="b";
+    var data3="&lt;div style='color:red;'&gt;This is a blob&lt;/div&gt;";
+    var data4={'name':'abc'};
+    
+    var blob1=new Blob([data1]);
+    var blob2=new Blob([data1,data2]);
+    var blob3 = new Blob([data3]);
+    var blob4 = new Blob([JSON.stringify(data4)]);
+    var blob5 = new Blob([data4]);
+    var blob6 = new Blob([data3, data4]);
+    
+    console.log('blob1--',blob1); //输出：Blob {size: 1, type: ""}
+    console.log('blob2--',blob2); //输出：Blob {size: 2, type: ""}
+    console.log('blob3--',blob3); //输出：Blob {size: 44, type: ""}
+    console.log('blob4--',blob4); //输出：Blob {size: 14, type: ""}
+    console.log('blob5--',blob5); //输出：Blob {size: 15, type: ""}
+    console.log('blob6--',blob6); //输出：Blob {size: 59, type: ""}
+    console.log('typeof(JSON.stringify(data4))--',typeof(JSON.stringify(data4)));//输出：string
+    console.log('JSON.stringify(data4)--',JSON.stringify(data4)); //输出： {"name":"abc"}
+    console.log('typeof(data4)--',typeof(data4)); //输出：object
+    console.log('data4--',data4); //输出： Object { name: "abc" }
+
+    // 作者：艾特老干部
+    // 链接：https://juejin.im/post/59e35d0e6fb9a045030f1f35
+    // 来源：掘金
+    // 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+    
+    var data5 = 'abcdef';
+    var blob7=new Blob([data5]);
+    var blob8 = blob7.slice(0,3);
+    
+    console.log('blob7--',blob7); //输出：Blob {size: 6, type: ""}
+    console.log('blob8--',blob8); //输出：Blob {size: 3, type: ""}
+
+
+    size代表Blob对象中所包含数据的字节数。
+    这里要注意，使用字符串和普通对象创建Blob时的不同，
+    blob4使用通过JSON.stringify把data4对象转换成json字符串，blob5则直接使用data4创建，
+    两个对象的size分别为14和15。blob4的size等于14很容易理解，
+    因为JSON.stringify(data4)的结果为："{"name":"abc"}"，正好14个字节(不包含最外层的引号)。
+    blob5的size等于15是如何计算而来的呢？实际上，当使用普通对象创建Blob对象时，
+    相当于调用了普通对象的toString()方法得到字符串数据，然后再创建Blob对象。
+    所以，blob5保存的数据是"[object Object]"，是15个字节(不包含最外层的引号)。
+
+
+    <hr>
+
+
+
+</pre>
+
+
+
+    <script>
+    var data1="a";
+    var data2="b";
+    var data3="<div style='color:red;'>This is a blob</div>";
+    var data4={'name':'abc'};
+
+    var blob1=new Blob([data1]);
+    var blob2=new Blob([data1,data2]);
+    var blob3 = new Blob([data3]);
+    var blob4 = new Blob([JSON.stringify(data4)]);
+    var blob5 = new Blob([data4]);
+    var blob6 = new Blob([data3, data4]);
+
+    console.log('blob1--',blob1);  //输出：Blob {size: 1, type: ""}
+    console.log('blob2--',blob2);  //输出：Blob {size: 2, type: ""}
+    console.log('blob3--',blob3);  //输出：Blob {size: 44, type: ""}
+    console.log('blob4--',blob4);  //输出：Blob {size: 14, type: ""}
+    console.log('blob5--',blob5);  //输出：Blob {size: 15, type: ""}
+    console.log('blob6--',blob6);  //输出：Blob {size: 59, type: ""}
+    console.log('typeof(JSON.stringify(data4))--',typeof(JSON.stringify(data4)));
+    console.log('JSON.stringify(data4)--',JSON.stringify(data4));
+    console.log('typeof(data4)--',typeof(data4));
+    console.log('data4--',data4)
+        // 作者：艾特老干部
+        // 链接：https://juejin.im/post/59e35d0e6fb9a045030f1f35
+        // 来源：掘金
+        // 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+
+    var data5 = 'abcdef';
+    var blob7=new Blob([data5]);
+    var blob8 = blob7.slice(0,3);
+
+    console.log('blob7--',blob7); //输出：Blob {size: 6, type: ""}
+    console.log('blob8--',blob8); //输出：Blob {size: 3, type: ""}
+    </script>
+</body>
+</html>

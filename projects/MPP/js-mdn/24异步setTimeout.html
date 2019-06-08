@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>24 异步 setTimeout</title>
+</head>
+<body>
+<pre>
+
+//匿名函数
+let myGreeting = setTimeout(() => {
+console.log('1--Hallo, Universe!');
+}, 2000);
+
+//普通函数 方法一
+
+let myGreeting2 = setTimeout(function sayHi(){
+console.log('2--Hallo');
+},4000);
+
+//普通函数 方法二
+
+function sayHi2() {
+console.log('3--Hallo');
+}
+
+let myGreeting3=setTimeout(sayHi2,6000);
+
+
+// 传递参数
+function sayHi3(who) {
+alert('Hello ' + who + '!');
+}
+
+let myGreeting4 = setTimeout(sayHi3, 7000,'Mr. Universe');
+//如果上面 let myGreeting4 = setTimeout(sayHi3('Mr. Universe'), 7000); 这么写就会直接执行，不等7秒钟
+
+</pre>
+
+<script>
+   
+//匿名函数
+   let myGreeting = setTimeout(() => {
+        console.log('1--Hallo, Universe!');
+    }, 2000); 
+    
+//普通函数 方法一
+
+    let myGreeting2 = setTimeout(function sayHi(){
+        console.log('2--Hallo');
+    },4000);
+    
+//普通函数  方法二
+
+    function sayHi2() {
+        console.log('3--Hallo');        
+    }
+
+    let myGreeting3=setTimeout(sayHi2,6000);
+
+
+// 传递参数  
+    function sayHi3(who) {
+            alert('Hello ' + who + '!');
+        }
+
+    let myGreeting4 = setTimeout(sayHi3, 7000,'Mr. Universe');
+    //如果上面 let myGreeting4 = setTimeout(sayHi3('Mr. Universe'), 7000); 这么写就会直接执行，不等7秒钟
+    </script>
+</body>
+</html>

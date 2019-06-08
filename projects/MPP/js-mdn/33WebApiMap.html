@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>33 WebApi Map</title>
+</head>
+  <style>
+      #map {
+        width: 600px;
+        height: 600px;
+      }
+    </style>
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+    <script>
+      // 1. The basic part of the example
+      var L;
+      window.onload = function() {
+          
+        L.mapquest.key = '0KBzNHAKGqnEAkRTXV4LLy6JMLGRB9ui';
+
+        // 'map' refers to a <div> element with the ID map
+        var map = L.mapquest.map('map', {
+        //   center: [53.480759, -2.242631],
+          center:[48.137154, 11.576124],  
+          layers: L.mapquest.tileLayer('hybrid'), //其他选项 hybrid,satellite,dark,light
+          zoom: 12
+        });
+
+        //add control
+        map.addControl(L.mapquest.control({position: 'topleft'})); //topright,bottomleft,bottomright
+
+        //add customer marker  就是标记点
+        L.marker([48.137154, 11.576124], {
+        icon: L.mapquest.icons.marker({
+            primaryColor: '#22407F', 
+            secondaryColor: '#3B5998',
+            shadow: true,
+            size: 'md',
+            symbol: 'M'  //这里的字母可以换，但是主要是一个字母
+        })
+        }) //显示点击指标的 文本
+        .bindPopup('This is Munich!')
+        .addTo(map);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Simple Mapquest example</h1>
+
+    <div id="map"></div>
+
+    <pre>
+        // 1. The basic part of the example
+        var L;
+        window.onload = function() {
+        
+        L.mapquest.key = '0KBzNHAKGqnEAkRTXV4LLy6JMLGRB9ui';
+        
+        // 'map' refers to a <div> element with the ID map
+            var map = L.mapquest.map('map', {
+                // center: [53.480759, -2.242631],
+                center:[48.137154, 11.576124],
+                layers: L.mapquest.tileLayer('hybrid'), //其他选项 hybrid,satellite,dark,light
+                zoom: 12
+            });
+        
+            //add control
+            map.addControl(L.mapquest.control({position: 'topleft'})); //topright,bottomleft,bottomright
+        
+            //add customer marker 就是标记点
+            L.marker([48.137154, 11.576124], {
+                icon: L.mapquest.icons.marker({
+                    primaryColor: '#22407F',
+                    secondaryColor: '#3B5998',
+                    shadow: true,
+                    size: 'md',
+                    symbol: 'M' //这里的字母可以换，但是主要是一个字母
+                })
+            }) //显示点击指标的 文本
+            .bindPopup('This is Munich!')
+            .addTo(map);
+            }
+
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>31 Web Api 购物清单</title>
+<style>
+    li {
+        margin-bottom: 10px;
+    }
+
+    li button {
+        font-size: 8px;
+        margin-left: 20px;
+        color: #666;
+    }
+</style>
+</head>
+
+<body>
+
+    <h1>My shopping list</h1>
+
+    <div>
+        <label for="item">Enter a new item:</label>
+        <input type="text" name="item" id="item">
+        <button>Add item</button>
+    </div>
+
+    <ul>
+
+    </ul>
+
+    <script>
+        var ul = document.querySelector('ul');
+        var input = document.querySelector('input');
+        var button = document.querySelector('button');
+
+       
+
+        //用来存储 input 输入的信息
+        var info='';
+
+        button.onclick = () =>{
+            //console.log('1--',input.value);
+            info = input.value;
+            input.textContent='';
+           
+            var list = document.createElement('li');
+            var span = document.createElement('span');
+            var button2 = document.createElement('button');
+
+            span.textContent = info;
+            button2.textContent = 'Delete';
+            list.appendChild(span);
+            list.appendChild(button2);
+            ul.appendChild(list);
+
+            button2.onclick =() => {
+                ul.removeChild(list);
+            }
+
+            //聚焦到输入框
+
+            input.focus();
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>
