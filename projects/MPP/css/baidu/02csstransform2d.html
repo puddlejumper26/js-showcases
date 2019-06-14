@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02 CSS Transform 2D</title>
+<style>
+
+.box{
+    font-size: 20px;
+    float: left;
+    margin:20px;
+    height: 100px;
+    width:100px;
+    border: 1px solid black;
+    /* 文字居中 */
+    text-align: center;
+    line-height:100px;
+}
+
+#box1{
+   /* IE */
+    transform:skew(30deg,0);
+    /* Chrome/Safari */
+    -webkit-transform:skew(30deg,0);
+    /* IE 9 */
+    -ms-transform:skew(30deg,0);
+    /* Opera */
+    -o-transform:skew(30deg,0);
+    /* Firefox */
+    -moz-transform:skew(30deg,0);
+}
+#box2{
+    /* IE */
+    transform:scaleX(0.5);
+    /* Chrome/Safari */
+    -webkit-transform:scaleX(0.5);
+    /* IE 9 */
+    -ms-transform:scaleX(0.5);
+    /* Opera */
+    -o-transform:scaleX(0.5);
+    /* Firefox */
+    -moz-transform:scaleX(0.5);
+}
+#box3{
+    /* IE */
+    transform:rotate(45deg);
+    /* Chrome/Safari */
+    -webkit-transform:rotate(45deg);
+    /* IE 9 */
+    -ms-transform:rotate(45deg);
+    /* Opera */
+    -o-transform:rotate(45deg);
+    /* Firefox */
+    -moz-transform:rotate(45deg);
+}
+#box4{
+    /* IE */
+    transform:translate(10px,20px);
+    /* Chrome/Safari */
+    -webkit-transform:translate(10px,20px);
+    /* IE 9 */
+    -ms-transform:translate(10px,20px);
+    /* Opera */
+    -o-transform:translate(10px,20px);
+    /* Firefox */
+    -moz-transform:translate(10px,20px);
+}
+#box5{
+        /* IE */
+    transform:translate(10px,20px) skew(30deg,0) scaleX(0.5) rotate(45deg);
+    /* Chrome/Safari */
+    -webkit-transform:translate(10px,20px),skew(30deg,0),scaleX(0.5) rotate(45deg);
+    /* IE 9 */
+    -ms-transform:translate(10px,20px) skew(30deg,0) scaleX(0.5) rotate(45deg);
+    /* Opera */
+    -o-transform:translate(10px,20px) skew(30deg,0) scaleX(0.5) rotate(45deg);
+    /* Firefox */
+    -moz-transform:translate(10px,20px) skew(30deg,0) scaleX(0.5) rotate(45deg);
+}
+
+</style>
+</head>
+<body>
+
+    <div class="box" id="box0">box 0</div>
+    <div class="box" id="box1">box 1</div>
+    <div class="box" id="box2">box 2</div>
+    <div class="box" id="box3">box 3</div>
+    <div class="box" id="box4">box 4</div>
+    <div class="box" id="box5">box 5</div>
+
+</body>
+</html>

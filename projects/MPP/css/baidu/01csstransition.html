@@ -41,15 +41,15 @@ div{
     </pre>
     <center>
         <p id="p">前端学苑</p>
-        <div class="div"></div><br>
+        <div id="line"></div><br>
         <button id="button" onclick="added()">切换样式</button>
    </center>
 </body>
 <script>
 function added(){
 
-    var p=document.querySelector('p');
-    var div=document.querySelector('div');
+    var p=document.querySelector('#p');
+    var div=document.querySelector('#line');
 
     if(p.className === ''){
         p.setAttribute('class','pAdded');
