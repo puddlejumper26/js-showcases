@@ -29,34 +29,34 @@
 
 <h3 id="erci">二次贝塞尔曲线</h3>
 1.在平面内任选 3 个不共线的点，依次用线段连接。
-<img src="/MDN/img/bezier1.png">
+<img src="img/bezier1.png">
 2.在第一条线段上任选一个点 D。计算该点到线段起点的距离 AD，与该线段总长 AB 的比例。
-<img src="/MDN/img/bezier2.png">
+<img src="img/bezier2.png">
 3.根据上一步得到的比例，从第二条线段上找出对应的点 E，使得 AD:AB = BE:BC。
-<img src="/MDN/img/bezier3.png">
+<img src="img/bezier3.png">
 4.连接这两点 DE。
-<img src="/MDN/img/bezier4.png">
+<img src="img/bezier4.png">
 5.从新的线段 DE 上再次找出相同比例的点 F，使得 DF:DE = AD:AB = BE:BC。
-<img src="/MDN/img/bezier5.png">
+<img src="img/bezier5.png">
 6. 让选取的点 D 在第一条线段上从起点 A 移动到终点 B，找出所有的贝塞尔曲线上的点 F。所有的点找出来之后，我们也得到了这条贝塞尔曲线。
-<img src="/MDN/img/bezier6.png">
+<img src="img/bezier6.png">
 整体的绘制
-<img src="/MDN/img/bezier.gif">
+<img src="img/bezier.gif">
 看控制点的作用
-<img src="/MDN/img/bezierer.gif">
+<img src="img/bezierer.gif">
 
 <hr>
 <h3 id="sanci">三次贝塞尔曲线</h3>
 1.当控制点个数为 4 时
-<img src="/MDN/img/bezier7.png">
+<img src="img/bezier7.png">
 2.步骤都是相同的，只不过我们每确定一个贝塞尔曲线上的点，要进行三轮取点操作。如图，AE:AB = BF:BC = CG:CD = EH:EF = FI:FG = HJ:HI，其中点 J 就是最终得到的贝塞尔曲线上的一个点。
-<img src="/MDN/img/bezier8.png">
+<img src="img/bezier8.png">
 3.这样我们得到的是一条三次贝塞尔曲线。
-<img src="/MDN/img/bezier9.png">
+<img src="img/bezier9.png">
 整体的绘制
-<img src="/MDN/img/bezier三次.gif">
+<img src="img/bezier三次.gif">
 看控制点的作用
-<img src="/MDN/img/beziersan.gif">
+<img src="img/beziersan.gif">
 </pre>
 
 <div style="border:1px dashed black"></div>
@@ -65,7 +65,7 @@
 在 path 属性里面，三次贝塞尔曲线C
 三次贝塞尔曲线需要定义一个点和两个控制点，所以用C命令创建三次贝塞尔曲线，需要设置三组坐标参数：
 
-<img src="/MDN/img/beziersank.png">
+<img src="img/beziersank.png">
 
 e.g.
 
@@ -118,7 +118,7 @@ S命令可以用来创建与前面一样的贝塞尔曲线，但是，如果S命
 如果S命令单独使用，前面没有C或S命令，那当前点将作为第一个控制点。
 下面是S命令的语法示例，图中左侧红色标记的点对应的控制点即为蓝色标记点。
 
-<img src="/MDN/img/beziers.png">
+<img src="img/beziers.png">
 <svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent" />
 </svg>
@@ -141,7 +141,7 @@ S命令可以用来创建与前面一样的贝塞尔曲线，但是，如果S命
 
 Q x1 y1, x y (or q dx1 dy1, dx dy)
 
-<img src="/MDN/img/beziererk.png">
+<img src="img/beziererk.png">
 
 <svg width="190px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg"">
   <path d=" M10 80 Q 95 10 180 80" stroke="black" fill="transparent" />
@@ -162,7 +162,7 @@ T x y (or t dx dy)
 需要注意的是，T命令前面必须是一个Q命令，或者是另一个T命令，才能达到这种效果。
 如果T单独使用，那么控制点就会被认为和终点是同一个点，所以画出来的将是一条直线。
 
-<img src="/MDN/img/beziert.png">
+<img src="img/beziert.png">
 
 <svg width="1900px" height="160px" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 80 Q 52.5 10, 95 80 T 180 80 T 270 80" stroke="black" fill="transparent" />
