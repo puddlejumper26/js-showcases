@@ -167,79 +167,68 @@
          /*左耳*/
           .face:hover ~.ear-wrap .left{
              -moz-transform:rotate(-30deg);
+             -webkit-transform:rotate(-30deg);
               /* -moz-transition:all 1s ease; */
           } 
-            /*左耳能够同样平缓返回*/
-            .ear-wrap .left{
-                -moz-transition:all 1s ease;
-            }
+            
           /*右耳*/
          .face:hover ~.ear-wrap .right{
              -moz-transform:rotate(30deg);
+             -webkit-transform:rotate(30deg);
              /* -moz-transition: all 1s ease; */
          }
-            .ear-wrap .right{
-                -moz-transition:all 1s ease;
-            }
+           
          /* 左眼 */
                 /* 左下眼眶 */
                 .face:hover .eye-wrap .left .eye-bottom{
                     -moz-transform: translateY(-15px);
+                    -webkit-transform: translateY(-15px);
                 }
-                    .eye-wrap .left .eye-bottom{
-                        -moz-transition:all 1s ease;
-                    }
+                   
                 /* 左眼珠 */
                 .face:hover .eye-wrap .left .eye-core{
                     -moz-transform:scaleX(0.8);
+                    -webkit-transform:scaleX(0.8);
                 }
-                    .eye-wrap .left .eye-core{
-                        -moz-transition:all 1s ease;
-                    }
+                  
                 /* 左腮红 */
                 .face:hover .eye-wrap .left .face-red{
                     opacity:1;
                 }
-                    .eye-wrap .left .face-red{
-                        -moz-transition:all 1s ease;
-                    }
+                 
         /* 右眼 */
                 /* 右下眼眶 */
                 .face:hover .eye-wrap .right .eye-bottom{
                     -moz-transform: translateY(-15px);
+                    -webkit-transform: translateY(-15px);
                 }
-                    .eye-wrap .right .eye-bottom{
-                        -moz-transition:all 1s ease;
-                    }
+                    
                 /* 右眼珠 */
                 .face:hover .eye-wrap .right .eye-core{
                     -moz-transform:scaleX(0.8);
+                    -webkit-transform:scaleX(0.8);
                 }
-                    .eye-wrap .right .eye-core{
-                        -moz-transition:all 1s ease;
-                    }
+                   
                 /* 右腮红 */
                 .face:hover .eye-wrap .right .face-red{
                     opacity:1;
                 }
-                    .eye-wrap .right .face-red{
-                        -moz-transition:all 1s ease;
-                    }
+                   
          /* 左嘴角 */
         .face:hover .mouth-wrap .left{
                 border-radius: 0 40% 50% 50%;
             }
-            .mouth-wrap .left{
-                -moz-transition:all 1s ease;
-            }      
+         
          /* 右嘴角 */
         .face:hover .mouth-wrap .right{
                 border-radius: 0 40% 50% 50%;
-            }
-            .mouth-wrap .right{
-                -moz-transition:all 1s ease;
-            }      
+            }    
 
+        /*所有能够同样平缓返回*/
+            .ear-wrap .left,.ear-wrap .right,.eye-wrap .left .eye-bottom, .eye-wrap .left .eye-core, .eye-wrap .left .face-red,.eye-wrap .right .eye-bottom, .eye-wrap .right .eye-core,.eye-wrap .right .face-red,.mouth-wrap .left,.mouth-wrap .right{
+                -moz-transition:all 1s ease;
+                -webkit-transition:all 1s ease;
+            }
 </style>
 </head>
 <body>
