@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01 CSS Transition</title>
+<style>
+#box{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+}
+#p{
+    font-size: 30px;
+    -webkit-transition-property: color;
+    -webkit-transition-duration: 2s;
+    -webkit-transition-timing-function: ease;
+}
+div{
+    height: 4px; 
+    width:0px;
+    background-color:blue;
+    -webkit-transition-property: width;
+    -webkit-transition-duration: 2s;
+     -webkit-transition-timing-function: ease;
+}
+
+.pAdded{
+    color:blue;
+}
+.divAdded{
+    width:150px;
+}
+
+</style>
+</head>
+<body>
+    <pre>
+        <a href="http://ife.baidu.com/course/detail/id/18?t=1560455378707#learn" target="blank">设计师学院 - No.1 - 制作一个简单的菜单动画效果</a>
+    </pre>
+    <center>
+        <p id="p">前端学苑</p>
+        <div id="line"></div><br>
+        <button id="button" onclick="added()">切换样式</button>
+   </center>
+</body>
+<script>
+function added(){
+
+    var p=document.querySelector('#p');
+    var div=document.querySelector('#line');
+
+    if(p.className === ''){
+        p.setAttribute('class','pAdded');
+        div.setAttribute('class','divAdded');
+    }else{
+        p.setAttribute('class', '');
+        div.setAttribute('class', '');
+    }
+}
+</script>
+</html>
