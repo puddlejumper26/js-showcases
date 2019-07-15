@@ -1,0 +1,35 @@
+div {
+  background-color: #74acf1; }
+
+.round {
+  border-top-right-radius: 50%;
+  border-bottom-left-radius: 50%; }
+
+div {
+  width: 100px;
+  height: 100px;
+  margin-left: 20px;
+  transition: all .5s ease-in;
+  text-align: center;
+  line-height: 100px; }
+  div span {
+    color: white; }
+  div:hover span {
+    color: red; }
+  div:hover {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 50%;
+    transform: translateX(0); }
+
+.class1, .class2 {
+  border: 1px solid #ccc; }
+
+.class2 {
+  transform: translateX(20px); }
+
+#sidebar {
+  border: 10px solid #999; }
+
+/*# sourceMappingURL=sass-basics.css.map */

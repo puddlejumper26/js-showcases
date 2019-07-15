@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Basics | CSS揭秘</title>
+<link rel="stylesheet" href="styles/sass-basics.css">
+<style> 
+/* template */
+    html,body{min-width:290px;color: #4d4e53;background-color: #ffffff;font-family: 'Open Sans',Arial,sans-serif;line-height: 1.5;}
+    #navbar{position:fixed;min-width:290px;top:0px;left:0px;width:300px;height:100%;border-right:solid;border-color:rgba(0,22,22,0.4)}
+    header{color:black;font-size: 30px;margin:10px;text-align:center;font-size:1.8em;font-weight:thin;}
+    #main-doc header{text-align:left;margin:0px;}
+    #navbar ul{height:88%;overflow-y:auto;overflow-x:hidden;}
+    #navbar li{color: #4d4e53;border:1px solid;border-bottom-width:0px;padding:8px;padding-left:45px;list-style: none;position:relative;left:-50px;width:100%;}
+    #navbar a{color: #4d4e53;text-decoration:none;cursor:pointer;} 
+    #main-doc{position: absolute;margin-left:310px;padding:20px;margin-bottom:110px;}
+    section article{color: #4d4e53;margin:15px;font-size:0.96em;}
+    section li {margin:15px 0px 0px 20px;}
+    code{display:block;text-align: left; white-space: pre;position: relative;word-break: normal;word-wrap: normal;line-height: 1;background-color:rgb(208, 223, 208,0.8);padding:5px;margin:10px;border-radius:5px;}
+
+    @media only screen and (max-width: 815px) {
+        /* For mobile phones: */
+        #navbar ul{border:1px solid;height:207px;}
+        #navbar{background-color:white;position:absolute;top:0;padding:0;margin: 0;width:100%;max-height:275px;border:none;z-index:1;
+        border-bottom:2px solid;}
+        #main-doc{position: relative;margin-left:0px;margin-top:270px;}
+        #main-doc section {/*     padding-top: 240px; */  }
+    }
+    @media only screen and (max-width: 400px) {
+        #main-doc{margin-left:-10px;}
+        code{margin-left:-20px; text-align:left;width:100%;padding:15px;padding-left:10px;padding-right:45px;min-width:233px;white-space: pre;position: relative;word-break: normal;word-wrap: normal;}
+    }
+
+/* main section */
+
+/* SASS 练习 */
+    
+
+</style>
+
+</head>
+<body>
+    
+    <nav id="navbar">
+        <header><strong>CSS Basics</strong></header>
+        <ul>
+            <a class="nav-link" href="#sass" rel="internal">
+                <li>SASS 练习</li>
+            </a>
+            <a class="nav-link" href="#outline" rel="internal">
+                <li>outline 描边 | outline-offset</li>
+            </a>
+            <a class="nav-link" href="#background-position" rel="internal">
+                <li>background-position |
+                    background-origin</li>
+            </a>
+            <a class="nav-link" href="#calc" rel="internal">
+                <li>calc() 方案</li>
+            </a>
+            <a class="nav-link" href="#biankuangei" rel="internal">
+                <li>边框内圆角</li>
+            </a>
+            <a class="nav-link" href="#hentiaowen" rel="internal">
+                <li>横条纹 | background:linear-gradient() | background-size</li>
+            </a>
+            <a class="nav-link" href="#shutiaowen" rel="internal">
+                <li>竖条纹 | background:linear-gradient(to right,/* 或 90deg */)</li>
+            </a>
+            <a class="nav-link" href="#xietiaowen" rel="internal">
+                <li>斜向条纹 | background: repeating-linear-gradient(45deg,...)</li>
+            </a>
+            <a class="nav-link" href="#wangge" rel="internal">
+                <li>网格 | background-image: linear-gradient</li>
+            </a>
+            <a class="nav-link" href="#bodian" rel="internal">
+                <li>波点 | background-image: radial-gradient</li>
+            </a>
+            <a class="nav-link" href="#tuxiangbk" rel="internal">
+                <li>图像边框 | background-clip</li>
+            </a>
+            <a class="nav-link" href="#xinfeng" rel="internal">
+                <li>信封样式</li>
+            </a>
+            <a class="nav-link" href="#ant" rel="internal">
+                <li>蚂蚁行军边框</li>
+            </a>
+            <a class="nav-link" href="#footnote" rel="internal">
+                <li>Footnote</li>
+            </a>
+            <a class="nav-link" href="#Reference" rel="internal">
+                <li>Reference</li>
+            </a>
+            <a class="nav-link" href="#Reference" rel="internal">
+                <li>Reference</li>
+            </a>
+            <a class="nav-link" href="#Reference" rel="internal">
+                <li>Reference</li>
+            </a>
+        </ul>
+    </nav>
+
+    <main id="main-doc">
+   
+        <section class="main-section" id="sass">
+            <header>SASS 练习</header>
+            <article>
+                <div class="round class2">
+                    <span>This is text</span>
+                </div>
+                <div id="sidebar"></div>
+
+                <code>
+&lt;div class="ant"&gt;CONTENTS &lt;/div&gt;
+
+
+                </code>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+       
+        <section class="main-section" id="Reference">
+            <header>Reference</header>
+            <article>
+                <div class="ant">marching ants</div>
+                <code>
+&lt;div class="ant"&gt;CONTENTS &lt;/div&gt;
+
+
+                </code>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+    </main>
+</body>
+</html>
