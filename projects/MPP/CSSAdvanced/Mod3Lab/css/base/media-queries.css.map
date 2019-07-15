@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAsB,yBAAyB;AAQ/C,sKAAsK;AAOtK,4SAA4S",
-    "sources": [
-        "media-queries.scss"
-    ],
-    "names": [],
-    "file": "media-queries.css"
-}
