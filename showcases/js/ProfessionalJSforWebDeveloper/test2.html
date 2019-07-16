@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test2</title>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
+<style>
+ 
+.zoomcont{
+    margin:12px;
+    padding:12px;
+    background:#f1f1f1;
+    border:1px solid #bababa;
+    box-sizing:border-box;
+}
+.zsmall{
+    width:350px;
+    height:350px;
+    position:relative;
+    border:1px solid #bababa;
+}
+.zsmall img{
+    width:100%;
+    height:100%;
+}
+#zconsole{
+    margin-top:20px;
+    background:#fff;
+    line-height: 26px;
+    font-size:13px;
+    color:#C91010;
+}
+.zbig{
+    position:absolute;
+    z-index: 3;
+    top:0;
+    left:100%;
+    margin-left:4px;
+    overflow:hidden;
+    display:none;
+    border:1px solid #0F9B4E;
+}
+.zbig img{
+    width:3000px;
+    height:900px;
+    position:relative;
+}
+.zmask{
+    position:absolute;
+    z-Index:2;
+    width:175px;
+    height:175px;
+    box-sizing: border-box;
+    background:#FEDE4F;
+    border:1px solid #dadada;
+    opacity:0.5;
+    filter:alpha(opacity=50);
+}
+</style>
+
+</head>
+<body>
+
+ <div class="zoomcont">
+    <div class="zsmall">
+        <img src="img/String.png" />
+        <div class="zbig">
+            <img src="img/String.png" />
+        </div>
+    </div>
+    <!-- <div id="zconsole">
+        鼠标进入进行局部放大效果
+    </div> -->
+</div>
+<div class="zoomcont">
+    <div class="zsmall">
+        <img src="img/String.png" />
+        <div class="zbig">
+            <img src="img/String.png" />
+        </div>
+    </div>
+    <!-- <div id="zconsole">
+        鼠标进入进行局部放大效果
+    </div> -->
+</div>
+
+<script>
+    var ow = 350;
+    var oh = 350;
+    var mw = 175;
+    var mh = 175;
+    var bw = 3000;
+    var bh = 900;
+    //计算放大容器的大小。
+    var bigcw = (bw / ow) * mw;
+    var bigch = (bh / oh) * mh;
+    $(".zbig").css({ width: bigcw, height: bigch });
+    //绑定鼠标移动事件
+    $(".zsmall").bind("mousemove", function (evt) {
+        var x = evt.clientX;
+        var y = evt.clientY;
+        var rect = this.getBoundingClientRect();
+        var left = rect.left - document.documentElement.clientLeft;
+        var top = rect.top - document.documentElement.clientTop;
+        var offx = x - left;
+        var offy = y - top;
+        $("#zconsole").html("offsetX:" + offx + " ---- offsetY:" + offy);
+        //显示div蒙版放大范围
+        var mask = $(this).find(".zmask");
+        if (mask.length == 0) {
+            mask = $("<div class='zmask'></div>");
+            mask.appendTo($(this));
+        } else {
+            mask.css("display", "block");
+        }
+        var mx = offx - mw / 2;
+        var my = offy - mh / 2;
+        if (mx < 0) { mx = 0; }
+        if (mx > ow - mw) { mx = ow - mw; }
+        if (my < 0) { my = 0; }
+        if (my > oh - mh) { my = oh - mh; }
+        mask.css({ left: mx, top: my });
+        //大图的偏移位置
+        var bx = -(bw / ow) * mx;
+        var by = -(bh / oh) * my;
+        $(".zbig img").css({ left: bx, top: by });
+        if ($(".zbig").css("display") == "none") {
+            $(".zbig").css("display", "block");
+        }
+    });
+    //绑定鼠标离开事件
+    $(".zsmall").bind("mouseleave", function () {
+        $(this).find(".zmask").css("display", "none");
+        $(this).find(".zbig").css("display", "none");
+        $("#zconsole").html("鼠标进入进行局部放大效果");
+    });
+</script>
+
+</body>
+</html>
