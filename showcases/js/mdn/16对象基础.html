@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>16对象基础</title>
+<style>
+font{color:red};
+</style>
+</head>
+<body>
+    <body>
+        <p>This example requires you to enter commands in your browser's JavaScript console (see 
+            <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">What
+                are browser developer tools</a> for more information).
+        </p>
+    
+
+        <pre>
+            对象成员的值可以是任意的，
+            在我们的person对象里有字符串(string)，数字(number)，两个数组(array)，两个函数(function)。
+            前4个成员是资料项目，被称为对象的<font>属性(property)</font>，后两个成员是函数，允许对象对资料做一些操作，被称为对象的<font>方法(method)</font>
+            
+            一个如上所示的对象被称之为对象的<font>字面量(literal)</font>——手动的写出对象的内容来创建一个对象。
+            不同于从类实例化一个对象，我们会在后面学习这种方式。
+            
+            当你想要<font>传输一些有结构和关联的资料时</font>常见的方式是使用字面量来创建一个对象，
+            举例来说，发起一个请求到服务器以存储一些数据到数据库，发送一个对象要比分别发送这些数据更有效率，
+            而且比起数组更为易用，因为你使用名字(name)来标识这些资料。
+
+        </pre>
+    </body>
+    
+    <script>
+        var person={
+            name: ['Bob', 'Smith'],
+            age: 32,
+            gender: 'male',
+            interests: ['music', 'skiing'],
+            bio: function () {
+                alert(this.name[0] + ' ' + this.name[1] + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+            },
+            greeting: function () {
+                alert('Hi! I\'m ' + this.name[0] + '.');
+            }
+        };
+
+
+    </script>
+</body>
+</html>

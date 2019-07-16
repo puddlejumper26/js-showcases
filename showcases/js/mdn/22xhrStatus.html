@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>22 XHR Status</title>
+
+</head>
+<body>
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="blank"><h1>HTTP response status codes</h1></a>
+The read-only <strong>XMLHttpRequest.status</strong> property returns the numerical <strong> status code</strong> of the XMLHttpRequest's response.
+
+
+
+
+    <script>
+    var xhr = new XMLHttpRequest;
+        console.log('UNSENT: ', xhr.status);
+
+        xhr.open('GET', '/server');
+        console.log('OPENED: ', xhr.status);
+
+        xhr.onprogress = function () {
+            console.log('LOADING: ', xhr.status);
+        };
+
+        xhr.onload = function () {
+            console.log('DONE: ', xhr.status);
+        };
+
+        xhr.send();    
+        
+    </script>
+</body>
+</html>

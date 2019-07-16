@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08倒计时</title>
+<script>
+
+    function sleep(delay) {
+            var start = new Date().getTime();
+            while (new Date().getTime() < start + delay);
+        }
+
+window.onload=function(){
+    // var output = document.querySelector('.output');
+    var output = document.getElementById('output');
+    output.innerHTML = '';
+
+    var i = 10;
+
+    while (i >= 0) {
+        var para = document.createElement('p');
+      
+             if (i === 10) {
+                para.textContent = 'Countdown ' + i;
+            } else if (i === 0) {
+                para.textContent = 'Blast off!';
+            } else {
+                para.textContent = i;sleep(1000);
+            }
+
+            output.appendChild(para);
+
+            i--;
+        
+        
+       
+    }
+}
+</script>
+</head>
+<body>
+    <div class="output" id="output" style="height: 410px;overflow: auto;border:1px solid black"></div>
+
+<script>
+ 
+    
+
+</script>
+</body>
+</html>

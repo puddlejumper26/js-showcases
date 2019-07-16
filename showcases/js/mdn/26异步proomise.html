@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>26 异步 promise</title>
+</head>
+<body>
+    <p>This is my page</p>
+
+    <script>
+    let promise= fetch('21异步can store/images/beans.jpg');
+    let promise2=promise.then(response=> response.blob())
+    let promise3=promise2.then(myBlob=>{
+        let objectURL = URL.createObjectURL(myBlob);
+        let image = document.createElement('img');
+        image.src = objectURL;
+        document.body.appendChild(image);
+    })
+    let errorCase = promise3.catch(e => {
+            console.log('There has been a problem with your fetch operation: ' + e.message);
+        });
+    
+    </script>
+</body>
+</html>

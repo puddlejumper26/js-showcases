@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>23 异步代码</title>
+</head>
+<body>
+    <button>Click me</button>
+
+    <script>
+        console.log('PIC-Starting');
+        let image;
+        fetch('21异步can store/images/beans.jpg').then((response) => {
+            console.log('PIC- It worked :)')
+            return response.blob();
+        }).then((myBlob) => {
+            let objectURL = URL.createObjectURL(myBlob);
+            image = document.createElement('img');
+            image.src = objectURL;
+            document.body.appendChild(image);
+            
+        }).then(()=>{ console.log('PIC- All done! ' + image.src + ' displayed.');}).catch((error) => {
+            console.log('There has been a problem with your fetch operation: ' + error.message);
+        });
+       
+       
+       // console.log('PIC- All done! ' + image + 'displayed.');
+
+
+
+    //     var button=document.querySelector('button');
+
+    //    console.log("BTN- registering click handler");
+
+    //     button.addEventListener('click', () => {
+    //         console.log("BTN- get click");
+    //     });
+
+    //     console.log("BTN- all done");
+    </script>
+</body>
+</html>

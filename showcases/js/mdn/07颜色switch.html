@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07 颜色</title>
+</head>
+<body>
+    <div class="output" style="height: 300px;">
+        <label for="theme">Select theme: </label>
+        <select id="theme">
+            <option value="white">White</option>
+            <option value="black">Black</option>
+            <option value="purple">Purple</option>
+            <option value="yellow">Yellow</option>
+            <option value="psychedelic">Psychedelic</option>
+        </select>
+    
+        <h1>This is my website</h1>
+    </div>
+
+    <pre>
+            var select = document.querySelector('select');
+            var html = document.querySelector('.output');
+            
+            select.onchange = function () {
+                var choice = select.value;
+                var bgColor;
+                
+                switch(choice){
+                    case 'white':
+                    bgColor = 'black';break;
+                    case 'black':
+                    bgColor='yellow';break;
+                    case 'purple':
+                    bgColor="red";break;
+                    case 'yellow':
+                    bgColor = 'green';break;
+                    case 'psychedelic':
+                    bgColor =" blue"; break;
+                }
+                
+                update(bgColor,choice)
+            }
+            
+            
+            
+            function update(bgColor, textColor) {
+                html.style.backgroundColor = bgColor;
+                html.style.color = textColor;
+            }
+    </pre>
+    
+
+    <script>
+    var select = document.querySelector('select');
+    var html = document.querySelector('.output');
+
+    select.onchange = function () {
+        var choice = select.value;
+        var bgColor;
+        switch(choice){
+            case 'white':
+            bgColor = 'black';break;
+            case 'black':
+            bgColor='yellow';break;
+            case 'purple':
+            bgColor="red";break;
+            case 'yellow':
+            bgColor = 'green';break;
+            case 'psychedelic':
+            bgColor =" blue"; break;
+        }
+
+        update(bgColor,choice)
+    }
+
+
+
+    function update(bgColor, textColor) {
+        html.style.backgroundColor = bgColor;
+        html.style.color = textColor;
+    }
+
+    </script>
+</body>
+</html>

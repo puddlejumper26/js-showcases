@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>17对象原型</title>
+</head>
+<body>
+    <script>
+        function doSomething() { }
+        doSomething.prototype.foo = "bar";
+        doSomething.prototype.laa = "ann";
+
+        var doSomeInstance=new doSomething();
+        doSomeInstance.prop='some value';
+        
+        console.log(doSomeInstance);
+        console.log(doSomething.prototype);
+        // It does not matter how you declare the function, a
+        //  function in javascript will always have a default
+        //  prototype property.
+        var doSomethingSec = function () { };
+        doSomethingSec.prototype.sec='asdfw';
+        var doSomeSec=new doSomethingSec();
+        doSomeSec.aloha='haha';
+        console.log(doSomeSec);
+        console.log(doSomethingSec.prototype);
+    
+    </script>
+</body>
+</html>

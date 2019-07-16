@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gradients 渐变</title>
+
+<style type="text/css">
+    #rect1 {
+        fill: url(#Gradient1);
+    }
+
+    .stop1 {
+        stop-color: red;
+    }
+
+    .stop2 {
+        stop-color: black;
+        stop-opacity: 0;
+    }
+
+    .stop3 {
+        stop-color: blue;
+    }
+</style>
+
+</head>
+<body>
+
+<h2>目录</h2>
+<ul>
+    <li><a href="#lieargra">线性渐变-Linear Gradient</a></li>
+    <li><a href="#radialgra">径向渐变-Radial Gradient</a></li>
+</ul>
+
+<pre id="lineargra">
+线性渐变-Linear Gradient
+线性渐变沿着直线改变颜色，要插入一个线性渐变，你需要在SVG文件的defs元素内部，创建一个&lt;linearGradient&gt;节点
+<svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="Gradient1">
+            <stop class="stop1" offset="0%" />
+            <stop class="stop2" offset="50%" />
+       
+            <stop class="stop3" offset="100%" />
+        </linearGradient>
+        <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="50%" stop-color="black" stop-opacity="0" />
+            <stop offset="100%" stop-color="blue" />
+        </linearGradient>
+
+    </defs>
+
+    <rect id="rect1" x="10" y="10" rx="15" ry="15" width="100" height="100" />
+    <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#Gradient2)" />
+</svg>
+
+下面是源代码，注意看是如何进行链接的
+&lt;svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;defs&gt;
+        &lt;linearGradient <font style="color:red">id="Gradient1"</font>&gt;
+            &lt;stop class="stop1" offset="0%" /&gt;
+            &lt;stop class="stop2" offset="50%" /&gt;
+            &lt;stop class="stop3" offset="100%" /&gt;
+        &lt;/linearGradient&gt;
+        &lt;linearGradient <font style="color:blue">id="Gradient2"</font> x1="0" x2="0" y1="0" y2="1"&gt;
+            &lt;stop offset="0%" stop-color="red" /&gt;
+            &lt;stop offset="50%" stop-color="black" stop-opacity="0" /&gt;
+            &lt;stop offset="100%" stop-color="blue" /&gt;
+        &lt;/linearGradient&gt;
+
+    &lt;/defs&gt;
+
+    &lt;rect <font style="color:red">id="rect1"</font> x="10" y="10" rx="15" ry="15" width="100" height="100" /&gt;
+    &lt;rect x="10" y="120" rx="15" ry="15" width="100" height="100"  <font style="color:blue">fill="url(#Gradient2)"</font> /&gt;
+
+&lt;/svg&gt;
+
+&lt;style type="text/css"&gt;
+    <font style="color:red">#rect1</font> {
+       <font style="color:red"> fill: url(#Gradient1);</font>
+    }
+
+    .stop1 {
+        stop-color: red;
+    }
+
+    .stop2 {
+        stop-color: black;
+        stop-opacity: 0;
+        注意：这里虽然显示的是白色，但是和 
+        stop-color:white直接设置成白色还是有区别的
+    }
+
+    .stop3 {
+        stop-color: blue;
+    }
+&lt;/style&gt;
+
+以上是一个应用了线性渐变的&lt;rect&gt;元素的示例。线性渐变内部有几个&lt;stop&gt;结点，
+这些结点通过指定位置的offset（偏移）属性和stop-color（颜色中值）属性来说明在渐变的特定位置上应该是什么颜色；
+可以直接指定这两个属性值，也可以通过CSS来指定他们的值，该例子中混合使用了这两种方法。
+
+
+stop-color 的设定
+stop-color:white; 上/下 stop-color:black;stop-opacity:0;
+<svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        
+      <linearGradient id="Gradient3" >
+            <stop offset="0%" stop-color="red" />
+            <stop offset="50%" stop-color="white" />
+            <stop offset="100%" stop-color="blue" />
+        </linearGradient>
+       
+        <linearGradient id="Gradient4" >
+            <stop offset="0%" stop-color="red" />
+            <stop offset="50%" stop-color="black" stop-opacity="0" />
+            <stop offset="100%" stop-color="blue" />
+        </linearGradient>
+
+    </defs>
+
+    <rect x="10" y="10" rx="15" ry="15" width="100" height="100" fill="url(#Gradient3)"  />
+    <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#Gradient4)" />
+</svg>
+
+
+&lt;linearGradient&gt;
+元素还需要一些其他的属性值，它们指定了渐变的大小和出现范围。
+渐变的方向可以通过两个点来控制，它们分别是属性x1、x2、y1和y2，这些属性定义了渐变路线走向。
+渐变色默认是水平方向的，但是通过修改这些属性，就可以旋转该方向。
+下例中的Gradient2创建了一个垂直渐变。
+
+
+<div style="border: 2px dashed black"></div>
+
+<pre id="radialgra">
+<h1>径向渐变-Radial Gradient</h1>
+径向渐变与线性渐变相似，只是它是从一个点开始发散绘制渐变
+创建径向渐变需要在文档的defs中添加一个&lt;radialGradient&gt;元素
+<svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient id="RadialGradient1">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="100%" stop-color="blue" />
+        </radialGradient>
+        <radialGradient id="RadialGradient2" cx="0.25" cy="0.25" r="0.25">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="100%" stop-color="blue" />
+        </radialGradient>
+    </defs>
+
+    <rect x="10" y="10" rx="15" ry="15" width="100" height="100" fill="url(#RadialGradient1)" />
+    <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#RadialGradient2)" />
+
+</svg>
+
+上述的代码是
+&lt;svg width="120" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;defs&gt;
+        &lt;radialGradient id="RadialGradient1"&gt;
+            &lt;stop offset="0%" stop-color="red" /&gt;
+            &lt;stop offset="100%" stop-color="blue" /&gt;
+        &lt;/radialGradient&gt;
+        &lt;radialGradient id="RadialGradient2" <font style="color: red">cx="0.25" cy="0.25" r="0.25"</font>&gt;
+            &lt;stop offset="0%" stop-color="red" /&gt;
+            &lt;stop offset="100%" stop-color="blue" /&gt;
+        &lt;/radialGradient&gt;
+    &lt;/defs&gt;
+
+    &lt;rect x="10" y="10" rx="15" ry="15" width="100" height="100" fill="url(#RadialGradient1)" /&gt;
+    &lt;rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#RadialGradient2)" /&gt;
+
+&lt;/svg&gt;
+
+径向渐变也是通过两个点来定义其边缘位置，两点中的第一个点定义了渐变结束所围绕的圆环，它需要一个中心点，由cx和cy属性及半径r来定义，
+通过设置这些点我们可以移动渐变范围并改变它的大小，如上例的第二个&lt;rect&gt;所展示的。
+
+第二个点被称为焦点，由fx和fy属性定义。第一个点描述了渐变边缘位置，焦点则描述了渐变的中心，
+
+
+<svg width="120" height="120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient id="Gradient" cx="0.5" cy="0.5" r="0.5" fx="0.25" fy="0.25">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="100%" stop-color="blue" />
+        </radialGradient>
+    </defs>
+
+    <rect x="10" y="10" rx="15" ry="15" width="100" height="100" fill="url(#Gradient)" stroke="black"
+        stroke-width="2" />
+
+    <circle cx="60" cy="60" r="50" fill="transparent" stroke="white" stroke-width="2" />
+    <circle cx="35" cy="35" r="2" fill="white" stroke="white" />
+    <circle cx="60" cy="60" r="2" fill="white" stroke="white" />
+    <text x="38" y="40" fill="white" font-family="sans-serif" font-size="10pt">(fx,fy)</text>
+    <text x="63" y="63" fill="white" font-family="sans-serif" font-size="10pt">(cx,cy)</text>
+</svg>
+如果没有给出焦点，将认为该点与中心点的位置一致。
+
+&lt;svg width="120" height="120" version="1.1" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;defs&gt;
+        &lt;radialGradient id="Gradient" cx="0.5" cy="0.5" r="0.5" fx="0.25" fy="0.25"&gt;
+            &lt;stop offset="0%" stop-color="red" /&gt;
+            &lt;stop offset="100%" stop-color="blue" /&gt;
+        &lt;/radialGradient&gt;
+    &lt;/defs&gt;
+
+    &lt;rect x="10" y="10" rx="15" ry="15" width="100" height="100" fill="url(#Gradient)" stroke="black"
+        stroke-width="2" /&gt;
+
+    &lt;circle cx="60" cy="60" r="50" fill="transparent" stroke="white" stroke-width="2" /&gt;
+    &lt;circle cx="35" cy="35" r="2" fill="white" stroke="white" /&gt;
+    &lt;circle cx="60" cy="60" r="2" fill="white" stroke="white" /&gt;
+    &lt;text x="38" y="40" fill="white" font-family="sans-serif" font-size="10pt"&gt;(fx,fy)&lt;/text&gt;
+    &lt;text x="63" y="63" fill="white" font-family="sans-serif" font-size="10pt"&gt;(cx,cy)&lt;/text&gt;
+&lt;/svg&gt;
+
+线性渐变和径向渐变都需要一些额外的属性用于描述渐变过程，
+这里我希望额外提及一个spreadMethod属性，该属性控制了当渐变到达终点的行为，但是此时该对象尚未被填充颜色。
+这个属性可以有三个值：pad、reflect或repeat。
+Pad就是目前我们见到的效果，即当渐变到达终点时，最终的偏移颜色被用于填充对象剩下的空间。
+reflect会让渐变一直持续下去，不过它的效果是与渐变本身是相反的，以100%偏移位置的颜色开始，逐渐偏移到0%位置的颜色，然后再回到100%偏移位置的颜色。
+repeat也会让渐变继续，但是它不会像reflect那样反向渐变，而是跳回到最初的颜色然后继续渐变。
+
+<svg width="220" height="220" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient id="GradientPad" cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75" spreadMethod="pad">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="100%" stop-color="blue" />
+        </radialGradient>
+        <radialGradient id="GradientRepeat" cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75" spreadMethod="repeat">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="100%" stop-color="blue" />
+        </radialGradient>
+        <radialGradient id="GradientReflect" cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75" spreadMethod="reflect">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="100%" stop-color="blue" />
+        </radialGradient>
+    </defs>
+
+    <rect x="10" y="10" rx="15" ry="15" width="100" height="100" fill="url(#GradientPad)" />
+    <rect x="10" y="120" rx="15" ry="15" width="100" height="100" fill="url(#GradientRepeat)" />
+    <rect x="120" y="120" rx="15" ry="15" width="100" height="100" fill="url(#GradientReflect)" />
+
+    <text x="15" y="30" fill="white" font-family="sans-serif" font-size="12pt">Pad</text>
+    <text x="15" y="140" fill="white" font-family="sans-serif" font-size="12pt">Repeat</text>
+    <text x="125" y="140" fill="white" font-family="sans-serif" font-size="12pt">Reflect</text>
+
+</svg>
+下面是代码，注意spreadMethod的值
+
+&lt;radialGradient id="GradientPad" cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75" <font style="color: red">spreadMethod="pad"</font>&gt;
+    &lt;stop offset="0%" stop-color="red" /&gt;
+    &lt;stop offset="100%" stop-color="blue" /&gt;
+&lt;/radialGradient&gt;
+&lt;radialGradient id="GradientRepeat" cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75" <font style="color: red">spreadMethod="repeat"</font>&gt;
+    &lt;stop offset="0%" stop-color="red" /&gt;
+    &lt;stop offset="100%" stop-color="blue" /&gt;
+&lt;/radialGradient&gt;
+&lt;radialGradient id="GradientReflect" cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75" <font style="color: red">spreadMethod="reflect"</font>&gt;
+    &lt;stop offset="0%" stop-color="red" /&gt;
+    &lt;stop offset="100%" stop-color="blue" /&gt;
+&lt;/radialGradient&gt;
+
+
+
+
+</pre>
+
+
+
+
+</pre>
+
+
+
+
+</body>
+</html>

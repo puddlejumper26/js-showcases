@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>25 setInterval 秒表</title>
+<style>
+    p {
+        font-family: sans-serif;
+    }
+</style>
+</head>
+<body>
+    <p class="clock"></p>
+    <button class="start">Start</button>
+    <button class="stop">Stop</button>
+    <button class="reset">Reset</button>
+
+    <script>
+    let secondCount=0;
+    let stopWatch;
+
+    const displayPara=document.querySelector('.clock');
+
+    function displayCount(){
+        let hours=Math.floor(secondCount/3600);
+        let minutes=Math.floor((secondCount%3600)/60);
+        let seconds=Math.floor(secondCount%60);
+
+        //这里是为了当出现个位数的时候，能够在前面加上一个 0
+        let displayHours=(hours<10)?'0'+hours:hours;
+        let displayMinutes=(minutes<10)?'0'+minutes:minutes;
+        let displaySeconds=(seconds<10)?'0'+seconds:seconds;
+
+        displayPara.textContent=displayHours+':'+displayMinutes+':'+displaySeconds;
+
+        secondCount++;
+    }
+
+    const startBtn = document.querySelector('.start');
+    const stopBtn = document.querySelector('.stop');
+    const resetBtn = document.querySelector('.reset');
+
+    //注意这里使用 disabled，这样点击了一次之后，就会显示不能再点击，不然连续的点击会让程序反复加载
+    startBtn.onclick=()=>{
+        stopWatch=setInterval(displayCount,1000);
+        startBtn.disabled=true;
+    }
+
+
+    stopBtn.onclick=()=>{
+        clearInterval(stopWatch);
+        startBtn.disabled = false;
+    }
+
+    resetBtn.onclick=()=>{
+        //需要先停一下，不然之后仍然会自动从0开始计数
+        clearInterval(stopWatch);
+        secondCount=0;
+        displayCount();
+         startBtn.disabled = false;
+    }
+    //用来显示 00:00:00
+    displayCount();
+    </script>
+
+    <script>
+        //     function displayTime() {
+        //         let date = new Date();
+        //       //  console.log("date--",date)
+        //         let time = date.toLocaleTimeString();
+        //       //  console.log('time--',time);
+        //         document.querySelector('.clock').textContent = time;
+        //     }
+        //     displayTime();
+        //     const createClock = setInterval(displayTime, 1000);
+
+        //     const startBtn=document.querySelector('.start');
+        //     const stopBtn=document.querySelector('.stop');
+        //     const resetBtn=document.querySelector('.reset');
+        //     const display=document.querySelector('.display');
+
+        //     //取出当前的时间
+        //     let startTime =0;
+        //     //储存中止时候的秒数
+        //     let stopSec=0;
+
+        //     let seconds;
+
+        //     //开始按钮
+        //     startBtn.onclick=()=>{
+        //         startTime== Date.now();
+        //         function displaySec(){
+        //             // console.log('startTime--',startTime);
+        //             if(stopSec==0){
+        //                 seconds= parseInt(Math.floor((Date.now()-startTime)/1000));
+        //                 console.log('seconds--',seconds);  
+        //                 display.textContent=seconds;
+        //             }else{
+        //                 startTime=startTime+stopSec;
+        //                 seconds= parseInt(Math.floor((Date.now() - startTime) / 1000))-1;
+        //                 display.textContent =seconds;
+        //             }
+
+        //         }
+        //         //从1开始显示
+        //         displaySec(); 
+        //         const showing=setInterval(displaySec,1000);
+
+        //         //中止按钮
+        //         stopBtn.onclick = () => {
+        //             clearInterval(showing);
+        //             stopSec=parseInt(display.textContent);
+        //             console.log('stopSec--',stopSec);
+        //         }
+        //     }
+
+
+
+        //  //  console.log(showing);
+
+
+
+        //     //清零按钮
+        //     resetBtn.onclick = () => {
+
+        //         display.textContent=0;
+        //         stopSec=0;
+        //         startTime=Date.now();
+
+        //     }
+    </script>
+</body>
+</html>

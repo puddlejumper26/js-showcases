@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo03</title>
+</head>
+<body>
+    <div class="output" style="min-height: 150px;">
+    
+        <ul>
+            <li>0</li>
+        </ul>
+    
+        <p>Total: $0.00</p>
+    
+    </div>
+
+    <script>
+        var list = document.querySelector('.output ul');
+            var totalBox = document.querySelector('.output p');
+            var total = 0;
+            list.innerHTML = '';
+            totalBox.textContent = '';
+            // number 1
+            'Underpants:6.99'
+            'Socks:5.99'
+            'T-shirt:14.99'
+            'Trousers:31.99'
+            'Shoes:23.99';
+
+            var orgData=[
+            'Underpants:6.99',
+            'Socks:5.99',
+            'T-shirt:14.99',
+            'Trousers:31.99',
+            'Shoes:23.99',
+            ];
+
+            var shopCat=[];
+
+            function parseData(){
+                for (let i=0;i<orgData.length;i++){
+                    let curData=orgData[i];
+                    let curDataArr=curData.split(':');
+                    let name= curDataArr[0];
+                    let price=parseFloat(curDataArr[1]);
+                    // let price=Number(curDataArr[1]);
+                    // let price=+(curDataArr[1]);
+                    shopCat.push({
+                        name:name,
+                        price:price
+                    })
+                }
+            }
+
+            parseData();
+
+            console.log("shopCat->", shopCat)
+
+          
+
+            for (var i = 0; i <= shopCat.length-1; i++) { 
+                let product = shopCat[i];
+               
+                itemText = "产品名称"+product.name+"-----"+product.price;
+                // console.log(shopCat.price);
+                total += product.price;
+
+                var listItem = document.createElement('li');
+                listItem.textContent = itemText;
+                list.appendChild(listItem);
+            }
+
+            totalBox.textContent = 'Total: $' + total.toFixed(2);
+
+    </script>
+</body>
+</html>
