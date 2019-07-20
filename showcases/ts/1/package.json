@@ -1,0 +1,14 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc 1.ts",
+    "test":"node 1.js",
+    "start":"npm run build && npm run test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -34,8 +34,21 @@
 // template = template.replace()
 
 // 4.12 标签模板
-console.log(123);
-console.log`234`;
+// console.log(123);
+// console.log`234`;
+
+// 7.2 rest
+
+ function add ( ...value){
+     let sum = 0;
+     for (var val of value){
+         sum += val;
+     }
+
+     return sum;
+ }
+
+add(2,3,4);
 
 
 
