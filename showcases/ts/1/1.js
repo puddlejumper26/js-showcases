@@ -1,15 +1,9 @@
 // function sayHallo(person:string){
 //     return "hello --" + person;
 // }
-function createSquare(config) {
-    var newSquare = { color: 'white', area: 100 };
-    if (config.color) {
-        newSquare.color = config.color;
-    }
-    if (config.width) {
-        newSquare.area = config.width * config.width;
-    }
-    return newSquare;
+function printLabel(labelledObj) {
+    console.log(labelledObj.label);
+    console.log(labelledObj.size);
 }
-var mySquare = createSquare({ color: 'blank', width: 20 });
-console.log(mySquare);
+var myObj = { size: 10, label: "Size 10 Object" };
+printLabel(myObj);
