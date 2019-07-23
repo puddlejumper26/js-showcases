@@ -243,17 +243,316 @@
 // }
 // var myObj = { size: 10, label: "Size 10 Object" };
 // printLabel(myObj);
+// // 错误：使用数值型的字符串索引，有时会得到完全不同的Animal!
+// interface NotOkay {
+//     [x: number]: Animal;
+//     [x: string]: Dog;
+// }
+// class Dog  {
+//     breed: string;
+// }
+// class Animal extends Dog{
+//     name: string;
+// }
 
-class Dog  {
-    breed: string;
-}
-class Animal extends Dog{
-    name: string;
-}
+
+// function createArray<ANY>(length: number, value: ANY): Array<ANY> {
+//     let result: ANY[] = [];
+//     for(let i=0;i<length;i++){
+//         result[i]=value;
+//     }
+//     return result;
+// }
+// console.log(createArray(3,3));
+
+// interface NumberArray{
+//     [index:number]:string;
+// }
+// let a: NumberArray = ['a','b'];
+// console.log(a);
+
+// var global_num=12;
+// class Numbers{
+//     num_val = 13;
+//     static sval=10;
+
+//     storeNum():void{
+//         var local_num=14;
+//     }
+// }
+
+// console.log(Numbers.sval)
+
+// let obj=new Numbers();
+// console.log(obj.num_val);
+
+// let someArray=[1,'a',false];
+// for (let i of someArray){
+//     console.log(i);
+// }
+
+// (function(){var x = 'Hello!';console.log(x);})()
+
+// class User{
+//     name:string;
+//     private sex:string = 'male';
+//     protected age:number =29;
+//     constructor(_name:string){this.name=_name;};
+
+//     sayHallo():string{return `Hallo, ${this.name} ,the sex is ${this.sex} and the age is ${this.age}`}
+
+// }
+
+// let user = new User('John');
+
+// // user.name='Root';
+
+// console.log(user.name);
+// // console.log(user.age);
+// // console.log(user.sex);
+// console.log(user.sayHallo());
+
+// class Greeter{
+//     greeting:string;
+//     constructor(message:string){
+//         this.greeting=message;
+//     }
+//     greet(){return `hallo, ${this.greeting}`}
+
+// }
+
+// let greeter = new Greeter("World");
+
+// console.log(greeter.greet());
+
+// class Animal{
+//     name:string;
+//     constructor(theName:string){this.name=theName;};
+//     move(distanceInMeters:number=0){
+//         console.log(`${this.name} moved ${distanceInMeters} meters`);
+//     }
+
+// }
+
+// class Dog extends Animal{
+
+//     name:string;
+//     constructor(name:string){
+//         super();
+//         this.name=name;
+//     }
+//     move(distanceInMeters:number = 5){console.log(`${this.name} moved ${distanceInMeters} meters`)};
+//     // jump(distanceInMeters: number = 5) { console.log(`woof`); super.move(distanceInMeters); }
+//     // bark() {
+//         // console.log(`${this.name} Woof!`);
+//     // }
+// }
+
+// class Snake extends Animal{
+//     name:string;
+//     constructor(name:string){super(name)};
+//     move(distanceInMeters: number = 20) { console.log(`${this.name} moved ${distanceInMeters} meters`)};
+// }
+
+// const dog = new Dog("Jessy");
+// const snake= new Snake('haha');
+// console.log(dog.name);
+// // console.log(dog.move());
+// // console.log(dog.jump());
+// // console.log(snake.move());
 
 
-// 错误：使用数值型的字符串索引，有时会得到完全不同的Animal!
-interface NotOkay {
-    [x: number]: Animal;
-    [x: string]: Dog;
+// class Animal {
+//     private name:string;
+//     constructor(theName:string){this.name=theName;};
+// }
+// class Bull extends Animal{
+//     constructor(){super('Bull');};
+// }
+// class Employee{
+//     private name:string;
+//     constructor(theName:string){this.name=theName;};
+// }
+
+// let animal = new Animal('Goat');
+// let bull = new Bull ();
+// let emp = new Employee('Bob');
+
+// animal = bull;
+// animal = emp;
+
+
+// class Person{
+//     protected name:string;
+//     constructor(theName:string){this.name=theName;}
+// }
+// class Emp extends Person{
+//     private department:string;
+//     constructor(name:string,department:string){
+//         super(name);
+//         this.department=department;
+//     }
+//     public getEle(){
+//         return `hallo, this is ${this.name}, and i am from ${this.department}`;
+//     }
+// }
+
+// let howard = new Emp('Howard',"HR");
+// console.log(howard.getEle());
+
+
+// class Octo{
+//     name:string;
+//     numberofLegs:number = 10;
+//     constructor(name:string){this.name=name;}
+// }
+// let dad = new Octo('haha');
+// console.log(dad.name);
+// dad.name='asdfaf';
+// console.log(dad.numberofLegs);
+// dad.numberofLegs=2;
+// console.log(dad.numberofLegs);
+
+
+// class Element1{
+//     private _class:string=null;
+//     get className(){
+//         return this._class;
+//     }
+//     set className(name){
+//         this._class=`todd-${name}`;
+//     }
+// }
+
+// let ele = new Element1();
+// ele.className='asdf';   
+// console.log(ele.className);
+
+// let passcode="secret passcode";
+
+// class Employee{
+//     private _fullName:string;
+//     get fullName(){
+//         return this._fullName;
+//     }
+//     set fullName(newName:string){
+//         if(passcode && passcode === 'secret passcode'){
+//             this._fullName=newName;
+//         }else{
+//             console.log('Error..............');
+//         }
+//     }
+// }
+
+// let emp = new Employee();
+// emp.fullName='Bob';
+// if(emp.fullName){
+//     console.log(emp.fullName);
+// }
+
+class Grid {
+    static origin = { x: 0, y: 0 };
+    calculateDistanceFromOrigin(point: { x: number; y: number; }) {
+        let xDist = (point.x - Grid.origin.x);
+        let yDist = (point.y - Grid.origin.y);
+        return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+    }
+    constructor(public scale: number) { }
 }
+
+let grid1 = new Grid(1.0);  // 1x scale
+let grid2 = new Grid(5.0);  // 5x scale
+
+console.log(grid1.calculateDistanceFromOrigin({ x: 10, y: 10 }));
+console.log(grid2.calculateDistanceFromOrigin({ x: 10, y: 10 }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
