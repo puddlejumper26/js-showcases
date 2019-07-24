@@ -85,6 +85,7 @@ mark{background: yellow}
 <li>灰色代表 num2 数组已经处理过的元素</li>
 <li>红色代表当前正在进行比较的元素</li>
 <li>绿色代表已经就位的元素</li>
+<br>下面的例子里m=3，n=3
 </ul>
 <img src="img/88.merge-sorted-array-1.png" alt="">
 <img src="img/88.merge-sorted-array-2.png" alt="">
@@ -108,7 +109,7 @@ var merge = function(nums1, m, nums2, n) {
 
   while (current >= 0) {
     
-    // 没必要继续了
+    // n===0 没必要继续了
     
     if (n === 0) return;
 
