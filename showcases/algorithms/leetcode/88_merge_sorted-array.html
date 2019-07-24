@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>88_Merge_sorted_array</title>
+<style>
+code{
+   display:block;text-align: left; white-space: pre;position: relative;word-break: normal;word-wrap: normal;line-height: 1;background-color:rgb(208, 223, 208,0.8);padding:5px;margin:10px;border-radius:5px;
+}
+mark{background: yellow}
+ @media only screen and (max-width: 400px) {
+        #main-doc{margin-left:-10px;}
+        code{margin-left:-20px; text-align:left;width:100%;padding:15px;padding-left:20px;padding-right:45px;min-width:233px;white-space: pre;position: relative;word-break: normal;word-wrap: normal;}
+    }
+</style>
+</head>
+<body>
+    <h1>Question: 88 Merge_sorted_array</h1>
+    
+        Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.<br><br>
+        
+        Note:<br><br>
+        
+        The number of elements initialized in nums1 and nums2 are m and n respectively.<br>
+        You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.
+        <br><br>
+        Example:
+        <br><br>
+        Input:<br>
+        nums1 = [1,2,3,0,0,0], m = 3<br>
+        nums2 = [2,5,6], n = 3<br>
+        <br>
+        Output: [1,2,2,3,5,6]
+
+    <h1>Resources:</h1>
+    https://github.com/azl397985856/leetcode/blob/master/problems/88.merge-sorted-array.md
+    <!-- Solution in JAVA: <a href="">click</a> -->
+    <h1>Key Points</h1>
+    <li>符合直觉的做法是将nums2插到num1的末尾, 然后排序</li>
+<code>
+    // 这种解法连m都用不到
+    // 这显然不是出题人的意思
+    if (n === 0) return;
+    let current2 = 0;
+    for(let i = nums1.length - 1; i >= nums1.length - n ; i--) {
+        nums1[i] = nums2[current2++];
+    }
+    nums1.sort((a, b) => a - b); 
+    // 当然你可以自己写排序，这里懒得写了，
+    //因为已经偏离了题目本身
+</code>
+
+我这里理解可以将 arr2 直接加到arr1 的后面，然后进行排序就可以了
+<code>
+    var arr1=[1,2,3];
+    var arr2=[3,4,5];
+    <mark>arr1.push.apply(arr1,arr2);</mark>
+    console.log(arr1.<mark>sort()</mark>);  // [1,2,3,3,4,5]
+</code>
+这里没有考虑到0这个元素，和题目不符合，那么考虑到0，并且需要删除的话，需要进行遍历，这里只考虑arr1当中有0的情况
+<code>
+    var arr1=[1,2,3,0,0,0];
+    var arr2=[3,4,5];
+    arr1.push.apply(arr1,arr2);
+    arr1.sort();
+    console.log(arr1);
+    for(let i=0;i < arr1.length;i++){ 
+        if (arr1[0]===0){arr1.<mark>shift()</mark>;} 
+    } 
+    console.log(arr1);
+</code>
+这里要求原地修改，其实我们能只要从后往前比较，并从后往前插入即可。<br>
+我们需要三个指针：<br><br>
+<ol>
+<li>current 用于记录当前填补到那个位置了</li>
+
+<li>m 用于记录 nums1 数组处理到哪个元素了</li>
+
+<li>n 用于记录 nums2 数组处理到哪个元素了</li>
+</ol>
+如图所示：
+<ul>
+<li>灰色代表 num2 数组已经处理过的元素</li>
+<li>红色代表当前正在进行比较的元素</li>
+<li>绿色代表已经就位的元素</li>
+</ul>
+<img src="img/88.merge-sorted-array-1.png" alt="">
+<img src="img/88.merge-sorted-array-2.png" alt="">
+<img src="img/88.merge-sorted-array-3.png" alt="">
+
+<code>
+/**
+* @param {number[]} nums1
+* @param {number} m
+* @param {number[]} nums2
+* @param {number} n
+* @return {void} Do not return anything, modify nums1 in-place instead.
+*/
+
+var merge = function(nums1, m, nums2, n) {
+  
+    // 设置一个指针，指针初始化指向nums1的末尾
+  // 然后不断左移指针更新元素
+  
+  let current = nums1.length - 1;
+
+  while (current >= 0) {
+    
+    // 没必要继续了
+    
+    if (n === 0) return;
+
+    // 为了方便大家理解，这里代码有点赘余
+    
+    if (m < 1) {
+      nums1[current--] = nums2[--n];
+      continue;
+    }
+    
+    // 后置型是包含的语句被求值后才执行的
+
+    if (n < 1) {
+      nums1[current--] = nums1[--m];
+      continue;
+    }
+    
+    // 取大的填充 nums1的末尾
+    // 然后更新 m 或者 n
+    
+    if (nums1[m - 1] > nums2[n - 1]) {
+      nums1[current--] = nums1[--m];
+    } else {
+      nums1[current--] = nums2[--n];
+    }
+  }
+};
+
+</code>
+
+</body>
+</html>
