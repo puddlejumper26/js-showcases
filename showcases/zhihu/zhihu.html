@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>知乎 | Notes | 笔记</title>
+<link rel="stylesheet" href="styles/sass-basics.css">
+<style>
+/* template */
+    html,body{min-width:290px;color: #4d4e53;background-color: #ffffff;font-family: 'Open Sans',Arial,sans-serif;line-height: 1.5;}
+    #navbar{position:fixed;min-width:290px;top:0px;left:0px;width:300px;height:100%;border-right:solid;border-color:rgba(22, 15, 0, 0.4)}
+    header{color:black;font-size: 30px;margin:10px;text-align:center;font-size:1.8em;font-weight:thin;}
+    .nav-head{font-weight:900;font-size: 20px;}
+    .nav-subhead{font-weight:800}
+    #main-doc header{text-align:left;margin:0px;}
+    #navbar ul{height:88%;overflow-y:auto;overflow-x:hidden;}
+    #navbar li{color: #4d4e53;border:1px solid;border-bottom-width:0px;padding:8px;padding-left:45px;list-style: none;position:relative;left:-50px;width:100%;}
+    #navbar a{color: #4d4e53;text-decoration:none;cursor:pointer;} 
+
+    .note{display:block;text-align: left; white-space: pre;position: relative;word-break: normal;word-wrap: normal;line-height: 1;background-color:rgba(228, 214, 29, 0.8);padding:5px;margin:10px;border-left-style:solid;border-left-color: rgb(51, 182, 80);border-left-width: 5px;}
+
+    #main-doc{position: absolute;margin-left:310px;padding:20px;margin-bottom:110px;}
+    section article{color: #4d4e53;margin:15px;font-size:0.96em;}
+    section li {margin:15px 0px 0px 20px;}
+
+    .code{display:block;text-align: left; white-space: pre;position: relative;word-break: normal;word-wrap: normal;line-height: 1;background-color:rgb(208, 223, 208,0.8);padding:5px;margin:10px;border-radius:5px;}
+
+    @media only screen and (max-width: 815px) {
+        /* For mobile phones: */
+        #navbar ul{border:1px solid;height:207px;}
+        #navbar{background-color:white;position:absolute;top:0;padding:0;margin: 0;width:100%;max-height:275px;border:none;z-index:1;
+        border-bottom:2px solid;}
+        #main-doc{position: relative;margin-left:0px;margin-top:270px;}
+        #main-doc section {/*     padding-top: 240px; */  }
+    }
+    @media only screen and (max-width: 400px) {
+        #main-doc{margin-left:-10px;}
+       .note .code{margin-left:-20px; text-align:left;width:100%;padding:5px;padding-left:10px;padding-right:45px;min-width:233px;word-wrap:break-word;position: relative;}
+
+    }
+
+/* Up-Arrow */
+ .float{width: 100px;height: 80px;background: rgba(184, 88, 88, 0);position: absolute;right: 0;bottom: 0;z-index:99;text-align:center;line-height:80px;border-radius:10px;font-weight:900;font-size:25px;}
+.uparrow {
+    margin-left: 60px;
+    width:0;height:0;
+    border-width:16px;
+    border-style:solid;
+    border-color:transparent transparent #333 transparent;
+    position:relative;
+    opacity: 0.4;
+}
+.uparrow:after {
+    content:" ";
+    width:16px;
+    height:16px;
+    background-color:#333;
+    /* opacity: 0.6; */
+    position:absolute;
+    bottom:-30px;
+    left:-8px;
+}
+
+/* main section */
+
+mark{background:yellow;font-weight: 900};
+import{background:red;}
+    
+
+</style>
+
+</head>
+
+<!-- Up Arrow -->
+
+<script>
+    window.onscroll = function () {
+        //The onscroll event occurs when an element's scrollbar is being scrolled.
+        //1,给浏览器的滚动添加事件，onscollTop事件
+        var oDiv = document.getElementById('float');
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 取整体的高度
+        //The scrollTop property sets or returns the number of pixels an element's content is scrolled vertically.
+        //The documentElement property returns the documentElement of the document, as an Element object.
+        //可视区域的高度减掉物体高度再加上向上滚动的高度
+        //  oDiv.style.top = document.documentElement.clientHeight-oDiv.offsetHeight+scrollTop+'px';
+
+        // 如果想其在屏幕中间，则
+        //oDiv.style.top = (document.documentElement.clientHeight-oDiv.offsetHeight)/2+scrollTop+'px';
+        // 否则就是在屏幕的右下角
+        // 注意，这个时候的红色区域是在中间不断地抖动，是因为 /2 会产生0.5，那么最后就会不停地跳动
+        //    starMove((document.documentElement.clientHeight-oDiv.offsetHeight)/2 +scrollTop)
+        //	所以需要添加一个 parseInt，
+        starMove(parseInt((document.documentElement.clientHeight - oDiv.offsetHeight) + scrollTop))
+    };
+
+    var timer = null;
+
+    function starMove(iTarget) {
+
+        var oDiv = document.getElementById('float');
+        clearInterval(timer);
+        timer = setInterval(function () {
+
+            var speed = (iTarget - oDiv.offsetTop) / 4;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+            if (oDiv.offsetTop == iTarget) {
+
+                clearInterval(timer)
+            }
+            else {
+                oDiv.style.top = oDiv.offsetTop + speed + 'px';
+            }
+        }, 30)
+    }       
+</script>
+<body>
+    
+    <nav id="navbar">
+        <header><strong>Note</strong></header>
+        <ul>
+<!-- Altorithms | Interview  NAV-->
+            <a class="nav-link nav-head"  rel="internal">
+                <li>Algorithms | Interview</li>
+            </a>
+
+                    <a class="nav-link" href="#coding-interview-university" rel="internal">
+                        <li>- - Coding Interview University</li>
+                    </a>
+                    <a class="nav-link" href="#js-algorithms-data-structures" rel="internal">
+                        <li>- - JavaScript Algorithms and Data Structures</li>
+                    </a>
+                    <a class="nav-link" href="#js-sorting-algorithms" rel="internal">
+                        <li>- - 十大经典排序算法</li>
+                    </a>
+<!-- Leetcode  NAV-->
+                <a class="nav-link nav-subhead" rel="internal">
+                    <li>- Leetcode</li>
+                </a>
+                    <a class="nav-link" href="#leetcode-animation" rel="internal">
+                        <li>- - Leetcode in Animation (JS)</li>
+                    </a>
+
+
+<!-- Materials    NAV         -->
+            <a class="nav-link nav-head"  rel="internal">
+                <li>Materials</li>
+            </a>
+            
+                <a class="nav-link" href="#material-design-for-bootstrap" rel="internal">
+                    <li>- - Material Design for Bootstrap 4 （MDB）</li>
+                </a>
+           
+            
+<!-- Testing  NAV-->
+            <a class="nav-link nav-head"  rel="internal">
+                <li>Testing</li>
+            </a>
+            
+                <a class="nav-link" href="#yidong-zhenji-tiaoshi" rel="internal">
+                    <li>- - 移动端真机调试</li>
+                </a>
+
+
+            <a class="nav-link" href="#Reference" rel="internal">
+                <li>Reference</li>
+            </a>
+        </ul>
+    </nav>
+
+                <!-- =============================== -->
+                <!-- MAIN -->
+                <!-- =============================== -->
+
+
+    <main id="main-doc">
+
+<!-- floating right window -->
+<a href="#"><div class="float" id="float">
+    <div class="uparrow"></div>
+</div>
+</a>
+
+
+<!-- Algorithms | Interview  -->
+        <section class="main-section" id="coding-interview-university">
+            <header><h3>Coding Interview University</h2></header>
+            <article>
+                <div class="round class2">
+                <h2>Purpose</h2>
+                Increase Algorithms 
+                <h2>Link</h2>
+                <a href="https://github.com/jwasham/coding-interview-university" target="_blank">Coding Interview University</a>
+                <br>
+                <a href="https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md" target="_blank">中文对应资料，不全</a>
+                <h3>Original Source:</h3>
+                <a href="https://zhuanlan.zhihu.com/p/74884162" target="_blank">Zhihu(CN)</a>
+                    <!-- <span class="note">
+                        <li>Each function in JS has two non-inherit methods： call ( ) 和 apply （）。</li>
+                        <li>the fundamental difference is that call() accepts an argument list, while apply() accepts a single array of arguments.</li>
+                        </note>-->
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="js-algorithms-data-structures">
+            <header>
+                <h3>JavaScript Algorithms and Data Structures</h3>
+            </header>
+            <article>
+                <h2>Background:</h2>
+                This repository contains JavaScript based examples of many popular algorithms and data structures.
+                <br><br>
+                Each algorithm and data structure has its own separate README with related explanations and links for further reading
+                (including ones to YouTube videos).
+                <h2>Source：</h2>
+                <a href="https://github.com/trekhleb/javascript-algorithms" target="_blank">Github</a>
+                <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+                <hr>
+        </section>
+
+        <section class="main-section" id="js-sorting-algorithms">
+            <header>
+                <h3> 十大经典排序算法 </h3>
+            </header>
+            <article>
+                <h2>Background:</h2>
+                排序算法是《数据结构与算法》中最基本的算法之一。<br><br>
+                排序算法可以分为内部排序和外部排序，内部排序是数据记录在内存中进行排序，而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。常见的内部排序算法有：<b>插入排序、希尔排序、选择排序、冒泡排序、归并排序、快速排序、堆排序、基数排序等。</b><br><br>
+
+                <1> 关于时间复杂度：<br><br>
+                
+                平方阶 (O(n2)) 排序 各类简单排序：直接插入、直接选择和冒泡排序。
+                线性对数阶 (O(nlog2n)) 排序 快速排序、堆排序和归并排序；
+                O(n1+§)) 排序，§ 是介于 0 和 1 之间的常数。 希尔排序
+                线性阶 (O(n)) 排序 基数排序，此外还有桶、箱排序。<br><br>
+                
+                <2></2>关于稳定性：<br><br>
+                
+                <strong>稳定的排序算法：</strong>冒泡排序、插入排序、归并排序和基数排序。<br>
+                
+                <strong>不是稳定的排序算法</strong>：选择排序、快速排序、希尔排序、堆排序。<br><br>
+                
+                <3></3>名词解释：<br><br>
+                
+                n：数据规模<br>
+                
+                k：“桶”的个数<br>
+                
+                In-place：占用常数内存，不占用额外内存<br>
+                
+                Out-place：占用额外内存<br>
+                
+                稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同<br><br>
+
+                <img src="https://github.com/hustcc/JS-Sorting-Algorithm/blob/master/res/sort.png?raw=true" style="width: 500px;">
+
+                <h2>Language:</h2>
+                JS,Python,Go,Java,Php<br>
+                <h2>Source：</h2>
+                <a href=" https://github.com/hustcc/JS-Sorting-Algorithm " target="_blank"> Github </a>
+                <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+                <hr>
+        </section>
+
+        <section class="main-section" id="    ">
+            <header>
+                <h3> </h3>
+            </header>
+            <article>
+                <h2>Background:</h2>
+        
+                <h2>Source：</h2>
+                <a href="  " target="_blank"> </a>
+                <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+                <hr>
+        </section>
+<!-- Leetcode -->
+       <section class="main-section" id="leetcode-animation">
+            <header><h3>Leetcode in Animations</h2></header>
+            <article>
+                <div class="round class2">
+                <h2>Purpose</h2>
+                Increase Algorithms Ability
+                <h2>Link</h2>
+                <a href="https://github.com/azl397985856/leetcode" target="_blank">LeetCode in JS (Animation)</a>
+                <br>
+                <a href="https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md" target="_blank">中文对应资料，不全</a>
+                <h3>Original Source:</h3>
+                <a href="https://zhuanlan.zhihu.com/p/74884162" target="_blank">Zhihu(CN)</a>
+                    <!-- <span class="note">
+                        <li>Each function in JS has two non-inherit methods： call ( ) 和 apply （）。</li>
+                        <li>the fundamental difference is that call() accepts an argument list, while apply() accepts a single array of arguments.</li>
+                        </note>-->
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+<!-- Materials -->
+        <section class="main-section" id="material-design-for-bootstrap">
+            <header>
+                <h3>Material Design For Bootstrap</h3>
+            </header>
+            <article>
+                <h2>Background:</h2>
+                The world's most popular framework for building responsive, mobile-first websites and apps
+                <h2>Source：</h2>
+                <a href="https://mdbootstrap.com/" target="_blank">MDB</a>
+                <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+                <hr>
+        </section>
+
+<!-- Testing -->
+        <section class="main-section" id="yidong-zhenji-tiaoshi">
+            <header><h3>Mobile 真机调试</h3></header>
+            <article>
+                <h2>Background:</h2>
+            移动端调试困难<br><br>
+            很多时候，我们在进行移动端开发时，都是先在PC端使用手机模拟器进行调试，没有问题后，我们才会在手机端的浏览器进行测试，这个时候，如果没有出现问题，皆大欢喜。但是一旦出现问题，我们就很难解决，因为缺乏可视化的界面。不似在PC端，我们能直观的去改变样式，或者是进行断点调试。有时，在移动端我们不得不借助于alert来调试，但是这样的调试方法效率极其低下，很多时候，都是靠经验，或者是靠排除法。甚至，我们不得不归结为是浏览器的实现问题。<br><br>
+            
+            那么，有什么什么方法，能够让我们调试移动端的适配的时候，像调试PC端一样直观呢？本文旨在为你提供移动端的调试方法，希望能够为你打开新的一扇门。
+                
+                <h2>Testing Method</h2>
+                <ol>
+                    <li>chrome 真机调试</li>
+                    <li>weinre 调试</li>
+                    <li>spy-debugger 调试</li>
+                </ol>
+
+                <h2>Source：</h2>
+                <a href="https://zhuanlan.zhihu.com/p/72255568" target="_blank">Zhihu（CN）</a>
+                <br><a href="https://github.com/YvetteLau/Blog/issues/5" target="_blank">Github Blog (same cotent)</a>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+ 
+
+
+        <section class="main-section" id="Reference">
+            <header><h3></h3>Reference</header>
+            <article>
+                <div class="ant">marching ants</div>
+                <code>
+        &lt;div class="ant"&gt;CONTENTS &lt;/div&gt;
+        
+        
+                        </code>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="Reference">
+            <header>
+                <h3></h3>Reference
+            </header>
+            <article>
+                <div class="ant">marching ants</div>
+                <code>
+                &lt;div class="ant"&gt;CONTENTS &lt;/div&gt;
+                
+                
+                                </code>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+    </main>
+</body>
+</html>
