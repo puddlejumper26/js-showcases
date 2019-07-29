@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LinkedList 链表</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+       
+    
+        <h1>LinkedList 类 定义</h1>
+    链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。每个
+    元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。
+    <br><br>
+    链表需要使用指针，因此实现链表时需要额外注意。数组的另一个细节是可以直接访问任何
+    位置的任何元素，而要想访问链表中间的一个元素，需要从起点（表头）开始迭代列表直到找到
+    所需的元素
+    <br><br>
+    链表其实有许多的种类：单向链表、双向链表、单向循环链表和双向循环链表
+    <br><br>
+    现实中也有一些链表的例子。一个例子是寻宝游戏。
+    <br><br>
+    还有一个可能是用来说明链表的最流行的例子，那就是火车。一列火车是由一系列车厢（也
+    称车皮）组成的。每节车厢或车皮都相互连接。你很容易分离一节车皮，改变它的位置，添加或
+    移除它。
+        <div class="code">
+        
+            function LinkedList() {
+
+                //LinkedList数据结构还需要一个Node辅助类（行{1}）。 Node类表示要加入列表的项。它
+                包含一个element属性，即要添加到列表的值，以及一个next属性，即指向列表中下一个节点
+                项的指针。
+                
+                var Node = function(element){ // {1}
+                    this.element = element;
+                    this.next = null;
+                };
+
+                //向为空的列表添加一个元素。当我们创建一个LinkedList对象时，head会指向null：
+                var length = 0; // {2}
+                var head = null; // {3}
+
+//向链表尾部追加元素:可能有两种场景：列表为空，添加的是第一个元素，或者列表不为空，向其追加元素。
+
+                this.append = function(element){
+                    var node = new Node(element), //{1}
+                    current; //{2}
+                    if (head === null){ //列表中第一个节点 //{3}
+                        head = node;
+                    } else {
+                        current = head; //{4}
+                        //循环列表，直到找到最后一项
+                        while(current.next){
+                            current = current.next;
+                        }
+                        //找到最后一项，将其next赋为node，建立链接
+                        current.next = node; //{5}
+                    }
+                    length++; //更新列表的长度 //{6}
+                };
+                <img src="/img/linkedlist-append.PNG" alt="">
+                <img src="/img/linkedlist-append-2.PNG" alt="">
+
+//从链表中移除元素:实现两种remove方法：第一种是从特定位置移除一个元素，第二种是根据元素的值移除元素
+
+                this.removeAt = function(position){
+                //检查越界值
+                if (position > -1 && position < length){ // {1} 
+                    var current=head, // {2} 
+                        previous, // {3} 
+                        index=0; // {4} 
+                        
+                    //移除第一项 
+                    if(position===0){ // {5} 
+                        head=current.next; 
+                    } else { 
+                            while (index++ < position){ // {6} 
+                                previous=current; // {7}
+                                current=current.next; // {8} 
+                            } 
+                            
+                            //将previous与current的下一项链接起来：跳过current，从而移除它 
+                            previous.next=current.next; // {9} 
+                        }
+                    
+                        length--; // {10} 
+                        return current.element; 
+                    } else { 
+                        return null; // {11} 
+                    } 
+                };
+
+                <div class="note">
+                    该方法要得到需要移除的元素的位置，就需要验证这个位置是有效
+                    的（行{1}）。从0（包括0）到列表的长度（size – 1，因为索引是从零开始的）都是有效的位
+                    置。如果不是有效的位置，就返回null（意即没有从列表中移除元素）。
+                </div>
+
+                移除第一个元素
+                <img src="/img/linkedlist-removeat.png" alt="">
+
+                <div class="note">
+                    因此，如果想移除第一个元素，要做的就是让head指向列表的第二个元素。我们将用
+                    current变量创建一个对列表中第一个元素的引用（行{2}——我们还会用它来迭代列表，但稍
+                    等一下再说）。这样 current变量就是对列表中第一个元素的引用。如果把 head赋为
+                    current.next，就会移除第一个元素。
+                </div>
+
+                <div class="note">
+                    现在，假设我们要移除列表的最后一项或者中间某一项。为此，需要依靠一个细节来迭代列
+                    表，直到到达目标位置（行{6}——我们会使用一个用于内部控制和递增的index变量）：current
+                    变量总是为对所循环列表的当前元素的引用（行{8}）。我们还需要一个对当前元素的前一个元
+                    素的引用（行{7}）；它被命名为previous（行{3}）
+
+                    因此，要从列表中移除当前元素，要做的就是将previous.next和current.next链接起
+                    来（行{9}）。这样，当前元素就会被丢弃在计算机内存中，等着被垃圾回收器清除。
+                </div>
+            
+                <img src="/img/linkedlist-removeat-1.png" alt="">
+
+                <div class="note">
+                    对于最后一个元素，当我们在行{6}跳出循环时， current变量将是对列表中最后一个元素
+                    的引用（要移除的元素）。 current.next的值将是null（因为它是最后一个元素）。由于还保留
+                    了对previous元素的引用（当前元素的前一个元素）， previous.next就指向了current。那
+                    么要移除current，要做的就是把previous.next的值改变为current.next
+                </div>
+                <img src="/img/linkedlist-removeat-2.png" alt="">
+
+//在任意位置插入一个元素
+
+                this.insert = function(position, element){
+                //检查越界值
+                if (position >= 0 && position <= length){ //{1}
+                    var node = new Node(element),
+                        current = head,
+                        previous,
+                        index = 0;
+                    
+                    if (position === 0){ //在第一个位置添加
+                        node.next = current; //{2}
+                        head = node;
+                    } else {
+                        while (index++ < position){ //{3}
+                            previous = current;
+                            current = current.next;
+                        }
+                        node.next = current; //{4}
+                        previous.next = node; //{5}
+                    }
+                    
+                    length++; //更新列表的长度
+                    return true;
+                    
+                } else {
+                    return false; //{6}
+                    }
+                };
+                <img src="/img/linkedlist-insert-1.png" alt="">
+                <img src="/img/linkedlist-insert-2.png" alt="">
+                <img src="/img/linkedlist-insert-3.png" alt="">
+
+//把LinkedList对象转换成一个字符串
+                this.toString = function (){
+                    
+                    var current = head, //{1}
+                        string = ''; //{2}
+                    
+                    while (current) { //{3}
+                        string = current.element; //{4}
+                        current = current.next; //{5}
+                    }
+
+                    return string; //{6}
+                }
+
+                <div class="note">
+                    首先，要循环访问列表中的所有元素，就需要有一个起点，也就是head。我们会把current
+                    变量当作索引（行{1}），控制循环访问列表。我们还需要初始化用于拼接元素值的变量（行{2}）。
+                    接下来就是循环访问列表中的每个元素（行{3}）。我们要用current来检查元素是否存在
+                    （如果列表为空，或是到达列表中最后一个元素的下一位（null）， while循环中的代码就不会执
+                    行）。然后我们就得到了元素的内容，将其拼接到字符串中（行{4}）。最后，继续迭代下一个元
+                    素（行{5}）。最后，返回列表内容的字符串（行{6}）。
+                </div>
+
+//indexOf方法接收一个元素的值，如果在列表中找到它，就返回元素的位置，否则返回-1。
+                this.indexOf = function(element){
+                    
+                    var current = head, //{1}
+                    index = -1;
+                    
+                    while (current) { //{2}
+                        if (element === current.element) {
+                            return index; //{3}
+                        }
+                        index++; //{4}
+                        current = current.next; //{5}
+                    }
+
+                    return -1;
+                };
+
+                <div class="note">
+                    我们需要一个变量来帮助我们循环访问列表，这个变量是current，它的初始值
+                    是head（列表的第一个元素——我们还需要一个index变量来计算位置数（行{1}））。然后循环
+                    访问元素（行{2}），检查当前元素是否是我们要找的。如果是，就返回它的位置（行{3}）；如
+                    果不是，就继续计数（行{4}），检查列表中下一个节点（行{5}）。
+                    如果列表为空，或是到达列表的尾部（current = current.next将是null），循环就不
+                    会执行。如果没有找到值，就返回-1
+                </div>
+                <div class="note">
+                    实现了这个方法，我们就可以实现remove等其他的方法
+                </div>
+// remove 
+                this.remove = function (element){
+                    var index = this.indexOf(element);
+                    return this.removeAt(index);
+                }                
+
+// isEmpty
+                this.isEmpty = function (){
+                    return length=0;
+                }
+
+//size
+                this.size = function(){
+                    return length;
+                }
+            
+// getHead
+                this.getHead = function(){
+                    return head;
+                }
+
+
+
+
+            }
+
+            // 后面的 通过 var newLinkedList = new LinkedList（ ） 来进行使用
+        </div>
+        <div class="note">
+             append(element)：向列表尾部添加一个新的项。
+             insert(position, element)：向列表的特定位置插入一个新的项。
+             remove(element)：从列表中移除一项。
+             indexOf(element)：返回元素在列表中的索引。如果列表中没有该元素则返回-1。
+             removeAt(position)：从列表的特定位置移除一项。
+             isEmpty()：如果链表中不包含任何元素，返回true，如果链表长度大于0则返回false。
+             size()：返回链表包含的元素个数。与数组的length属性类似。
+             toString()：由于列表项使用了Node类，就需要重写继承自JavaScript对象默认的
+            toString方法，让其只输出元素的值
+        </div>
+       
+
+    <h1>双向链表</h1>
+双向链表和普通链表的区别在于，在链表中，
+一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素，
+另一个链向前一个元素，如下图所示：
+
+    <img src="/img/linkedlist-doubly-1.PNG" alt="">
+双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节
+点的下一个或前一个元素。在单向链表中，如果迭代列表时错过了要找的元素，就需要回到列表
+起点，重新开始迭代。这是双向链表的一个优点
+    <div class="code">
+        function DoublyLinkedList() {
+            
+            var Node = function(element){
+                this.element = element;
+                this.next = null;
+                this.prev = null; //新增的
+            };
+            
+            var length = 0;
+            var head = null;
+            var tail = null; //新增的
+            
+//这里是方法
+//在任意位置插入一个新元素
+//向双向链表中插入一个新项跟（单向）链表非常类似。区别在于，链表只要控制一个next
+指针，而双向链表则要同时控制next和prev（previous，前一个）这两个指针。
+
+            this.insert = function(position, element){
+                //检查越界值
+                if (position >= 0 && position <= length){ 
+                    var node=new Node(element), 
+                        current=head, 
+                        previous, 
+                        index=0; 
+                    if(position===0){ //在第一个位置添加 
+                        if (!head){ //新增的 {1} 
+                            head=node; tail=node; } else {                      node.next=current;
+                                current.prev=node; //新增的 {2} 
+                                head=node; 
+                            } 
+                        } else if (position===length) { //最后一项 //新增的         current=tail; // {3}
+                               current.next=node; 
+                               node.prev=current;
+                               tail = node;
+                        } else {
+                            while (index++ < position){ //{4}
+                                previous = current;
+                                current = current.next;
+                            }
+                            node.next = current; //{5}
+                            previous.next = node;
+                            current.prev = node; //新增的
+                            node.prev = previous; //新增的
+                        }
+                    length++; //更新列表的长度
+                    return true;
+                } else {
+                return false;
+                }
+            };
+
+
+            <div class="note">
+                我们来分析第一种场景：在列表的第一个位置（列表的起点）插入一个新元素。如果列表为
+                空（行{1}），只需要把head和tail都指向这个新节点。如果不为空， current变量将是对列表
+                中第一个元素的引用。就像我们在链表中所做的，把node.next设为current，而head将指向
+                node（它将成为列表中的第一个元素）。不同之处在于，我们还需要为指向上一个元素的指针设
+                一个值。 current.prev指针将由指向null变为指向新元素（node——行{2}）。 node.prev指
+                针已经是null，因此不需要再更新任何东西。
+            </div>
+            <img src="/img/linkedlist-doubly-2.PNG" alt="">
+            <div class="note">
+                现在来分析一下，假如我们要在列表最后添加一个新元素。这是一个特殊情况，因为我们还
+                控制着指向最后一个元素的指针（tail）。 current变量将引用最后一个元素（行{3}）。然后开
+                始建立第一个链接： node.prev将引用current。 current.next指针（指向null）将指向node
+                （由于构造函数， node.next已经指向了null）。然后只剩一件事了，就是更新tail，它将由指
+                向current变为指向node。下图展示了这些行为：
+            </div>
+            <img src="/img/linkedlist-doubly-3.PNG" alt="">
+            <div class="note">
+                然后还有第三种场景：在列表中间插入一个新元素。就像我们在之前的方法中所做的，迭代
+                列表，直到到达要找的位置（行{4}）。我们将在current和previous元素之间插入新元素。首
+                先， node.next将指向current（行{5}），而previous.next将指向node，这样就不会丢失节
+                点之间的链接。然后需要处理所有的链接： current.prev将指向node，而node.prev将指向
+                previous。下图展示了这一过程：
+            </div>
+            <img src="/img/linkedlist-doubly-4.PNG" alt="">
+
+//从任意位置移除元素
+            this.removeAt = function(position){
+
+                //检查越界值
+                if (position > -1 && position < length){ 
+                    var current=head,
+                        previous,
+                        index = 0;
+
+                    //移除第一项
+                    if (position === 0){
+                            head = current.next; // {1}
+                            
+                            //如果只有一项，更新tail //新增的
+                            if (length === 1){ // {2}
+                            tail = null;
+                        } else {
+                            head.prev = null; // {3}
+                        }
+                    } else if (position === length-1){ //最后一项 //新增的
+                        current = tail; // {4}
+                        tail = current.prev;
+                        tail.next = null;
+                    } else {
+                        while (index++ < position){ // {5}
+                            previous = current;
+                            current = current.next;
+                        }
+                    
+                        //将previous与current的下一项链接起来——跳过current
+                        previous.next = current.next; // {6}
+                        current.next.prev = previous; //新增的
+                    }
+
+                    length--;
+                    return current.element;
+
+                } else {
+
+                    return null;
+                }
+            };
+
+            <div class="note">
+                我们来看看如何移除第一个元素。 current变量是对列表中第一个元素的引用，也就是我
+                们 想 移 除 的 元 素 。 需 要 做 的 就 是 改 变 head 的 引 用 ， 将 其 从 current 改 为 下 一 个 元 素
+                （current.next——行{1}）。但我们还需要更新current.next指向上一个元素的指针（因为
+                第一个元素的prev指针是null）。因此，把head.prev的引用改为null（行{3}——因为head
+                也指向列表中新的第一个元素，或者也可以用current.next.prev）。由于还需要控制tail
+                的引用，我们可以检查要移除的元素是否是第一个元素，如果是，只需要把tail也设为null（行{2}）。
+            </div>
+            <img src="/img/linkedlist-doubly-5.PNG" alt="">
+            <div class="note">
+                下一种场景是从最后一个位置移除元素。既然已经有了对最后一个元素的引用（tail），我
+                们就不需要为找到它而迭代列表。这样我们也就可以把tail的引用赋给current变量（行{4}）。
+                接下来，需要把tail的引用更新为列表中倒数第二个元素（current.prev，或者tail.prev
+                也可以）。 既然tail指向了倒数第二个元素，我们就只需要把next指针更新为null（tail.next
+                = null）。下图演示了这一行为：
+            </div>
+            <img src="/img/linkedlist-doubly-6.PNG" alt="">
+            <div class="note">
+                第三种也是最后一种场景：从列表中间移除一个元素。首先需要迭代列表，直到到达要找的
+                位置（行{5}）。 current变量所引用的就是要移除的元素。那么要移除它，我们可以通过更新
+                previous.next和current.next.prev的引用，在列表中跳过它。因此， previous.next将
+                指向current.next，而current.next.prev将指向previous，如下图所示：
+            </div>
+            <img src="/img/linkedlist-doubly-7.PNG" alt="">
+
+        
+        }
+
+    </div>
+
+
+
+    <h1>循环链表 Circular LinkedList</h1>
+    循环链表可以像链表一样只有单向引用，也可以像双向链表一样有双向引用。循环链表和链
+    表之间唯一的区别在于，最后一个元素指向下一个元素的指针（tail.next）不是引用null，
+    而是指向第一个元素（head），如下图所示 <br>
+    <img src="/img/linkedlist-circular-1.PNG" alt=""> <br>
+    双向循环链表有指向head元素的tail.next，和指向tail元素的head.prev。<br>
+    <img src="/img/linkedlist-circular-2.PNG" alt="">
+
+
+    
+    
+</body>
+
+
+</html>

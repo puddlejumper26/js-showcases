@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stack-进制转换-回文</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Stack 类 定义</h1>
+    <div class="code">
+        //Stack 定义
+        
+        function Stack() {
+
+            var items = [];
+
+            this.push = function(element){
+                items.push(element);
+            };
+            this.pop = function(){
+                return items.pop();
+            };
+            this.peek = function(){
+                return items[items.length-1];
+            };
+            this.isEmpty = function(){
+                return items.length == 0;
+            };
+            this.size = function(){
+                return items.length;
+            };
+            this.clear = function(){
+                items = [];
+            };
+            this.print = function(){
+                console.log(items.toString());
+            };
+        }
+
+        // 后面的 通过  var newStack = new Stack（ ） 来进行使用
+    </div>
+
+    <h1>进制转换（2-9）</h1>
+    现实生活中，我们主要使用十进制。但在计算科学中，二进制非常重要，因为计算机里的所
+    有内容都是用二进制数字表示的（0和1）。没有十进制和二进制相互转化的能力，与计算机交流
+    就很困难。<br><br>
+    要把十进制转化成二进制，我们可以将该十进制数字和2整除（二进制是满二进一），直到结
+    果是0为止。举个例子，把十进制的数字10转化成二进制的数字，过程大概是这样：
+
+    <img src="/img/十进制.PNG" alt="">
+
+    <div class="code">
+
+    //进制转换（2-9）
+    
+    function mulBase ( num , base ) {
+        var s = new Stack();  //这里用 new Array( 
+        
+        do{
+            s.push( num % base );
+            num = Math.floor( num /= base );
+        }while ( num > 0 );
+        
+        var converted = '';
+        
+        while (s.length> 0){
+            converted += s.pop();
+        }
+        
+        return converted;
+    }
+    
+    console.log( mulBase( 125 , 2 ) ); // 1111101
+    console.log( mulBase( 125 , 8 ) ); // 175
+
+
+    </div>
+
+    <div class="note">
+        在这段代码里，当结果满足和2做整除的条件时（行{1}），我们会获得当前结果和2的余数，
+        放到栈里（行{2}、 {3}）。然后让结果和2做整除（行{4}）。另外请注意： JavaScript有数字类型，
+        但是它不会区分究竟是整数还是浮点数。因此，要使用Math.floor函数让除法的操作仅返回整
+        数部分。最后，用pop方法把栈中的元素都移除，把出栈的元素变成连接成字符串（行{5}）
+    </div>
+
+    <h1>回文判断</h1>
+    回文是指一个字符串，从前往后写和从后往前写结果都是一样的，比如单词 'level' ， 'racecar'，就是回文，数字 1001 也是回文。
+    <br><br>
+    我们采用栈，可以很轻松判断一个字符串是否是回文，实现算法很简单，相信你们都猜到了。我们把字符串从左到右依次压入栈，这样，栈中保存了该字符串反转后的字符，我们再依次出栈，通过比较出栈后的字符串是否与原字符串是否相等，就可判断该字符串是否是回文。
+
+
+    <div class="code">
+        
+//回文判断
+        function isPalindrome ( word ) {
+            var s = new Stack();
+            for( var i = 0 ; i < word.length ; i ++ ){ 
+                s.push( word[i] ); 
+            } 
+            
+            var rword='' ; 
+            while( s.size()> 0 ){
+                rword += s.pop();
+            }
+            
+            if( word == rword ){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+            console.log( isPalindrome('level') ) // true
+            console.log( isPalindrome('1001') ) // true
+            console.log( isPalindrome('word') ) // false
+
+    </div>
+</body>
+</html>
