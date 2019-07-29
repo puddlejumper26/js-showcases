@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>9_Palindrome Number 回文数</title>
+<style>
+.code{
+    display:block;text-align: left; white-space: pre;position: relative;word-break: normal;word-wrap: normal;line-height: 1;background-color:rgb(208, 223, 208,0.8);padding:5px;margin:10px;border-radius:5px;
+}
+</style>
+</head>
+<body>
+<h1>Question: 9 Palindrome Number</h1>
+<pre>
+    Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+    
+    Example 1:
+    
+    Input: 121
+    Output: true
+    Example 2:
+    
+    Input: -121
+    Output: false
+    Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+    Example 3:
+    
+    Input: 10
+    Output: false
+    Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+</pre>
+
+<h1>Resource:</h1>
+<pre>
+    https://github.com/MisterBooo/LeetCodeAnimation/blob/master/notes/LeetCode%E7%AC%AC9%E5%8F%B7%E9%97%AE%E9%A2%98%EF%BC%9A%E5%9B%9E%E6%96%87%E6%95%B0.md
+
+   
+</pre>
+
+<h1>Key Points</h1>
+<pre>
+
+</pre>
+
+<h1>GIF</h1>
+<img src="gif/9.gif" alt="">
+<br>(gif： https://github.com/MisterBooo/LeetCodeAnimation)
+
+
+<h1>Solution in JS</h1>
+<pre class="code">
+    // through string and Array()
+
+function huiwen (word){
+    
+    word=word.toString();
+    
+    var arr= new Array();
+    
+    for( var i = 0 ; i < word.length ; i ++ ){ 
+        arr.push( word[i] ); 
+    } 
+    
+    var rword='' ; 
+    while( arr.length> 0 ){
+        rword += arr.pop();
+    }
+
+    if( word == rword ){
+        return true;
+    }else{
+        return false;
+    }
+}
+</pre>
+
+</body>
+
+<script>
+ 
+
+
+
+
+
+</script>
+</html>
