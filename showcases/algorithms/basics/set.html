@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Set 集合</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+       
+    
+        <h1>Set 集合 定义</h1>
+        集合是由一组无序且唯一（即不能重复）的项组成的。
+        你也可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。
+        在数学中，集合也有并集、交集、差集等基本操作。
+
+        <div class="code">
+        
+            function Set() {
+                var items = {};
+
+ //has(value)方法
+               this.has = function(value){
+                   return value in items;
+               }
+               this.has = function(value){
+                   return items.hasOwnProperty(value);
+               }
+
+// add方法
+               this.add = function(value){
+                   if(!this.has(value)){
+                       items[value]=value;  //{1}
+                       return true;
+                   }
+                   return false;
+               }
+
+               <div class="note">
+                对于给定的value，可以检查它是否存在于集合中。如果不存在，就把value添加到集合中
+                （行{1}），返回true，表示添加了这个值。如果集合中已经有这个值，就返回false，表示没有
+                添加它。
+
+                添加一个值的时候，把它同时作为键和值保存，因为这样有利于查找这个值。
+               </div>
+
+// remove和clear方法
+                this.remove = function(value){
+
+                    if (this.has(value)){
+                        delete items[value]; //{2}
+                        return true;
+                    }
+                    return false;
+                };
+
+                this.clear = function(){
+                    items = {}; // {3}
+                };
+
+// size方法
+                this.size = function(){
+                    return Object.keys(items).length; //{4}
+                };
+
+                <div class="note">
+                    JavaScript的Object类有一个keys方法，它返回一个包含给定对象所有属性的数组。在这种
+                    情况下，可以使用这个数组的length属性（行{4}）来返回items对象的属性个数。
+                </div>
+
+// values方法
+                this.values = function(){
+                    return Object.keys(items);
+                };
+
+
+// <h1>并集</h1>
+对于给定的两个集合，返回一个包含两个集合中所有元素的新集合。
+                
+                this.union = function(otherSet){
+                
+                    var unionSet = new Set(); //{1}
+                    var values = this.values(); //{2}
+                
+                    for (var i=0; i < values.length; i++){ 
+                        unionSet.add(values[i]); 
+                    } 
+                    
+                    values=otherSet.values(); //{3} 
+                    
+                    for (var i=0; i < values.length; i++){ 
+                        unionSet.add(values[i]); 
+                    } 
+                    
+                    return unionSet; 
+                };
+
+// 交集
+                this.intersection = function(otherSet){
+                    
+                    var intersectionSet = new Set(); //{1}
+                    var values = this.values();
+                    
+                    for (var i=0; i < values.length; i++){ //{2}
+                        if (otherSet.has(values[i])){ //{3}
+                            intersectionSet.add(values[i]); //{4}
+                        }
+                    }
+                    return intersectionSet;
+                };
+
+// 差集
+                this.difference = function(otherSet){
+                    
+                    var differenceSet = new Set(); //{1}
+                    var values = this.values();
+                    
+                    for (var i=0; i < values.length; i++){ //{2}
+                        if (!otherSet.has(values[i])){ //{3}
+                            differenceSet.add(values[i]); //{4}
+                        }
+                    }
+                    return differenceSet;
+                };
+
+// 子集
+                this.subset = function(otherSet){
+                    if (this.size() > otherSet.size()){ //{1}
+                        return false;
+                    } else {
+                        var values = this.values();
+                        for (var i=0; i < values.length; i++){ //{2}
+                            if (!otherSet.has(values[i])){ //{3}
+                                return false; //{4}
+                            }
+                        }
+                        return true; //{5}
+                    }
+                };
+
+            }
+        
+            // 后面的 通过 var set = new Set（ ） 来进行使用
+        </div>
+       
+
+   
+    
+</body>
+</html>
