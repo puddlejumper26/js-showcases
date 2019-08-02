@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map 字典 | Hash-Table 散列表</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+        <h1>Map 字典 定义</h1>
+        字典中，我们用[键，值]的形式来存储数据，其中键名是用来查询特定元素的。字典也称作映射。
+
+<div class="code">
+        function Dictionary(){
+            var items={};
+
+            //has和set方法
+
+            this.has = function(key){
+
+                return key in items;  
+                
+                //使用JavaScript中的in操作符来验证一个key是否是items对象的一个属性
+            }
+
+            this.set = function(key,value){
+
+                items[key] = value;  // {1}
+
+                //将value设为items对象的key属性的
+            }
+            //remove方法
+
+            this.remove = function(key){
+                if(this.has(key)){
+                    delete items[key];
+                    return true;
+                }
+                return false;
+            };
+
+            //get和values方法 (values方法。这个方法以数组的形式返回字典中所有values实例的值)
+
+            this.get = function(key){
+                return this.has(key) ? items[key]:undefined;
+            };
+
+            this.values = function(){
+                var values = {};
+                for (var k in items){  // {1}
+                    if (this.has(k)){
+                        values.push(items[k]);  //{2}
+                    }
+                }
+                return 
+            };
+
+            //clear、 size、 keys和getItems方法
+
+            this.clear = function(){
+                items = {};
+            };
+            
+            this.size = function(){
+                return Object.keys(items).length;  
+            };
+
+            this.getItems = function() {
+                return items;
+            };
+        }
+
+</div>
+
+
+
+
+
+        <h1>Hash-Table 散列表</h1> 
+        散列表（Hash table，也叫哈希表），是根据键（Key）而直接访问在内存存储位置的数据结构。 也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。
+        这个映射函数称做散列函数，存放记录的数组称做散列表。
+        
+        <div class="code">
+            function HashTable(){
+
+                var table = [];
+
+//要实现的第一个方法是散列函数，它是HashTable类中的一个私有方法：
+                
+                var loseloseHashCode = functio (key){
+                    var hash = 0;                               // {1}
+                    for (var i = 0; i < key.length ; i++){     // {2}
+                        hash += key.charCodeAt(i);              //{3}
+                    }
+                    return hash % 37 ;                         // {4}     
+                }
+
+                <div class="note">
+                    给定一个key参数，我们就能根据组成key的每个字符的ASCII码值的和得到一个数字。所以，
+                    首先需要一个变量来存储这个总和（行{1}）。然后，遍历key（行{2}）并将从ASCII表中查到
+                    的每个字符对应的ASCII值加到hash变量中（可以使用JavaScript的String类中的charCodeAt
+                    方法——行{3}）。最后，返回hash值。为了得到比较小的数值，我们会使用hash值和一个任意
+                    数做除法的余数（mod）。
+                </div>
+                
+//put方法
+                this.put = function(key, value) {
+                    var position = loseloseHashCode(key); //{5}
+                    console.log(position + ' - ' + key); //{6}
+                    table[position] = value; //{7}
+                };
+
+                <div class="note"> 
+                    根据给定的key，我们需要根据所创建的散列函数计算出它在表中的位置（行{5}）。
+                    为了便于展示信息，我们将计算出的位置输出至控制台（行{6}）。由于它不是必需的，我们也
+                    可以将这行代码移除。然后要做的，是将value参数添加到用散列函数计算出的对应的位置上。
+                    （行{7}）。
+                </div>
+
+//get方法
+                this.get = function (key) {
+                    return table[loseloseHashCode(key)];
+                };
+
+//remove方法
+                this.remove = function(key) {
+                    table[loseloseHashCode(key)] = undefined;
+                };
+
+// print 方法
+                this.print = function() {
+                    for (var i = 0; i < table.length; ++i) { //{1} 
+                        if (table[i] !==undefined) { //{2} 
+                            console.log(i + ": " + table[i]);//{3}
+                        } 
+                    } 
+                };
+
+
+            }
+
+        </div>
+   
+        <h1>散列表中的冲突</h1>
+        一些键会有相同的散列值。不同的值在散列表中对应相同位置的时候，我们称其为冲突。
+
+        当不同的key 有相同的 hash value 的时候
+        <div class="code">
+            var hash = new HashTable();
+            hash.put('Jonathan', 'jonathan@email.com');  // 5 - Jonathan
+            hash.put('Jamie', 'jamie@email.com');       // 5 - Jamie
+            hash.put('Sue', 'sue@email.com');           // 5 - Sue
+
+            hash.print();  // 5: sue@email.com
+        </div>
+        <div class="note">
+            Jonathan、 Jamie和Sue有相同的散列值，也就是5。由于Sue是最后一个被添加的， Sue
+            将是在HashTable实例中占据位置5的元素。首先， Jonathan会占据这个位置，然后Jamie会覆
+            盖它，然后Sue会再次覆盖。这对于其他发生冲突的元素来说也是一样的
+        </div>
+
+        
+
+
+</body>
+</html>
