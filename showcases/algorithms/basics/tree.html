@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tree 树</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+       
+    
+        <h1>BinarySearchTree类</h1>
+        二叉搜索树（BST）是二叉树的一种，但是它只允许你在左侧节点存储（比父节点）小的值，
+        在右侧节点存储（比父节点）大（或者等于）的值。
+        <br><br>
+        不同于在之前的章节中将节点
+        本身称作节点或项，我们将会称其为键。键是树相关的术语中对节点的称呼。
+        <br>
+
+        <img src="/img/binarysearchtree-1.PNG" alt="">
+
+        <div class="code">
+            function BinarySearchTree() {
+                
+                var Node = function(key){ //{1}
+                    this.key = key;
+                    this.left = null;
+                    this.right = null;
+                };
+
+                var root = null; //{2}   //一个变量以控制此数据结构的第一个节点
+
+                <div class="note">
+                    声明一个Node类
+                    来表示树中的每个节点（行{1}）。值得注意的一个小细节是，不同于在之前的章节中将节点
+                    本身称作节点或项，我们将会称其为键。键是树相关的术语中对节点的称呼。
+
+                    遵循和LinkedList类中相同的模式（第5章），这表示也将声明一个变量以控制此
+                    数据结构的第一个节点。在树中，它不再是头节点，而是根元素（行{2}）
+                </div>
+
+//私有的辅助函数
+
+                var insertNode = function(node, newNode){
+                    
+                    if (newNode.key < node.key){ //{4}  新节点的键小于当前节点的键
+
+                        if (node.left===null){ //{5}  检查当前节点的左侧子节点
+                    
+                            node.left=newNode; //{6} 如果它没有左侧子节点（行{5}），就在那里插入新的节点。
+                        
+                        } else { 
+                            
+                            insertNode(node.left,newNode); //{7}   如果有左侧子节点，需要通过递归调用insertNode方法（行{7}）继续找到树的下一层
+                        } 
+
+                    } else { 
+                        
+                        if (node.right===null){ //{8} 
+                            
+                            node.right=newNode; //{9} 
+                        
+                        } else { 
+                            
+                            insertNode(node.right, newNode); //{10}
+                        }
+                    }
+                };
+
+
+//向树中插入一个键
+                this.insert = function(key){
+                    var newNode = new Node(key); //{1}
+                    if (root === null){ //{2}
+                        root = newNode;
+                    } else {
+                        insertNode(root,newNode); //{3}
+                    }
+                };
+
+
+
+            }
+
+        </div>
+   
+        <h1>遍历的方法</h1>
+        <h2>中序遍历 inOrderTraverse</h2>
+
+        <div class="code">
+            this.inOrderTraverse = function(callback){
+
+                inOrderTraverseNode(root, callback); //{1}
+
+                var inOrderTraverseNode = function (node, callback) {
+                    if (node !== null) { //{2}
+                        inOrderTraverseNode(node.left, callback); //{3}
+                        callback(node.key); //{4}
+                        inOrderTraverseNode(node.right, callback); //{5}
+                    }
+                };
+            };
+        </div>
+
+        <img src="/img/binarysearchtree-2.PNG" alt="">
+
+        <h2>先序遍历 preOrderTraverse</h2>
+        
+        <div class="code">
+            this.preOrderTraverse = function(callback){
+        
+                preOrderTraverseNode(root, callback); 
+            
+                var preOrderTraverseNode = function (node, callback) {
+                    if (node !== null) { 
+                        callback(node.key); //{1}
+                        preOrderTraverseNode(node.left, callback); //{2}
+                        preOrderTraverseNode(node.right, callback); //{3}
+                    }
+                };
+            };
+        </div>
+        
+        <img src="/img/binarysearchtree-3.PNG" alt="">
+
+        <h2>后序遍历 postOrderTraverse</h2>
+        
+        <div class="code">
+            this.postOrderTraverse = function(callback){
+        
+                postOrderTraverseNode(root, callback);
+            
+                var postOrderTraverseNode = function (node, callback) {
+                    if (node !== null) {
+                        postOrderTraverseNode(node.left, callback); //{1}
+                        postOrderTraverseNode(node.right, callback); //{2}
+                        callback(node.key); //{3}
+                        }
+                };
+            };
+        </div>
+        
+        <img src="/img/binarysearchtree-4.PNG" alt="">
+
+        <h1>最小、最大值</h1>
+
+        <div class="code">
+            this.min = function() {
+
+                return minNode(root); //{1}
+
+                var minNode = function (node) {
+                    if (node){
+                        while (node && node.left !== null) { //{2}
+                            node = node.left; //{3}
+                        }
+                        return node.key;
+                    }
+                    return null; //{4}
+                };
+            };
+
+            this.max = function() {
+                return maxNode(root);
+            };
+            
+            var maxNode = function (node) {
+                if (node){
+                    while (node && node.right !== null) { //{5}
+                        node = node.right;
+                    }
+                    return node.key;
+                }
+                return null;
+            };
+        </div>
+
+
+        <h1>搜索一个特定的值</h1>
+
+        this.search = function(key){
+            return searchNode(root, key); //{1}
+        };
+        
+        var searchNode = function(node, key){
+            if (node === null){ //{2}
+                return false;
+            }
+            
+            if (key < node.key){ //{3} 
+                return searchNode(node.left, key); //{4} 
+            } else if (key> node.key){ //{5}
+                return searchNode(node.right, key); //{6}
+            } else {
+                return true; //{7}
+            }
+        };
+
+        <div class="note">
+            让我们再来查找值为8的节点：
+
+                (1) 调用searchNode方法，传入root作为参数（行{1}）。（node[root[11]]）不是null
+                （行{2}），因此我们来到行{3}。
+                (2) （key[8] < node[11]）为真（行{3}），因此执行到行{4}并再次调用searchNode方
+                法，传入（node[7], key[8]）作为参数。
+                (3) （node[7]）不是null，因此来到行{3}。
+                (4) （key[8] < node[7]）为假（行{3}），因此来到行{5}。
+                (5) （key[8] > node[7]）为真（行{5}），因此来到行{6}并再次调用searchNode方法，
+                传入（node[9], key[8]）作为参数。
+                (6) （node[9]）不是null（行{2}），因此来到行{3}。
+                (7) （key[8] < node[9]）为真（行{3}），因此来到行{4}并再次调用searchNode方法，
+                传入（node[8], key[8]）作为参数。
+                (8) （node[8]）不是null（行{2}），因此来到行{3}。
+                (9) （key[8] < node[8]）为假（行{3}），因此来到行{5}。
+                (10)（key[8] > node[8]）为假（行{5}），因此来到行{7}并返回true，因为node[8]
+                就是要找的键。
+                (11) 然后，方法调用会依次出栈，代码执行过程结束。
+        </div>
+
+
+</body>
+</html>
