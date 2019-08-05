@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JS Basics | Notes</title>
+    <title>JS Functions | Notes</title>
 <link rel="stylesheet" href="styles/sass-basics.css">
+<script src="js-function-es5.js"></script>
 <style>
 /* template */
     html,body{min-width:290px;color: #4d4e53;background-color: #ffffff;font-family: 'Open Sans',Arial,sans-serif;line-height: 1.5;}
@@ -54,14 +55,17 @@
     <nav id="navbar">
         <header><strong>JS Basics</strong></header>
         <ul>
+            <a class="nav-link nav-head" href="#forword" rel="internal">
+                <li>FORWORD</li>
+            </a>
             <a class="nav-link nav-head" href="#" rel="internal">
-                <li>Function</li>
+                <li>String</li>
             </a>
-            <a class="nav-link nav-subhead" href="#" rel="internal">
+            <!-- <a class="nav-link nav-subhead" href="#" rel="internal">
                 <li>- Function-Method</li>
-            </a>
-            <a class="nav-link" href="#function-prototype-call" rel="internal">
-                <li>- - Function.prototype.call( )</li>
+            </a> -->
+            <a class="nav-link" href="#trim" rel="internal">
+                <li>- - delete space in string</li>
             </a>
         
             
@@ -79,23 +83,45 @@
 
     <main id="main-doc">
    
-        <section class="main-section" id="function-prototype-call">
-            <header>Function.prototype.call ()</header>
+        <section class="main-section" id="forword">
+            <header>FORWORD</header>
             <article>
-                <div class="round class2">
-                    <span >
+                开发的时候应该知道，有很多常见的实例操作。比如数组去重，关键词高亮，打乱数组等。这些操作，代码一般不会很多，实现的逻辑也不会很难，因此把一些常见的操作封装成函数，调用的时候，直接调用就好！
                     
-                    用途：特定的作用域中调用函数，也就是设置函数体内 this 对象的值。</span>
-<span class="note">
-<li>Each function in JS has two non-inherit methods： call ( ) 和 apply （）。</li>
-<li>the fundamental difference is that call() accepts an argument list, while apply() accepts a single array of arguments.</li>
-</note>
+                    作者：守候i
+                    链接：https://juejin.im/post/5a2a7a5051882535cd4abfce
+                    来源：掘金
+                    
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="trim">
+            <header>Delete Space in String</header>
+            <article>
+                <h2>ES 5</h2>
+                <div class="code">
+    //去除空格 type 1-所有空格 2-前后空格 3-前空格 4-后空格
+    //ecDo.trim(' 1235asd',1)
+    //result：1235asd
+    //这个方法有原生的方案代替，但是考虑到有时候开发PC站需要兼容IE8，所以就还是继续保留
+    
+    trim:function(str,type){
+        switch(type){
+            case 1:
+                return str.replace(/\s+/g,"");
+            case 2:
+                return str.replace(/(^\s*)|(\s*$)/g,"");
+            case 3:
+                return str.replace(/(^\s*)/g,"");
+            case 4:
+                return str.replace()
+        }
+    }
+                    
                 </div>
-                <div id="sidebar"></div>
-
-                <pre class="code">
-
-                </pre>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
@@ -106,12 +132,7 @@
         <section class="main-section" id="Reference">
             <header>Reference</header>
             <article>
-                <div class="ant">marching ants</div>
-                <code>
-&lt;div class="ant"&gt;CONTENTS &lt;/div&gt;
 
-
-                </code>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
