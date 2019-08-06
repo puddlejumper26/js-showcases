@@ -331,6 +331,7 @@ var jsFuncEs5={
             result += _this.changeCase(item,1)+' ';
         })
         return this.trim(result,4)
+        //trim 4, 是去掉后空格
     },
 
 
@@ -484,6 +485,7 @@ var jsFuncEs5={
 
     removeArrayForValue:function(arr,val,type){
         return arr.filter(function(item){
+            console.log(item);//传入数组的每一个元素
             return type?item.indexOf(val) === -1 : item!==val;
         })
     },
@@ -491,6 +493,127 @@ var jsFuncEs5={
 
 
 //获取对象数组某些项
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //getOptionArray(arr,'a,c')
+    //result：[{a:1,c:9},{a:2,c:5},{a:5,c:underfind},{a:4,c:5},{a:4,c:7}]
+    //getOptionArray(arr,'b')
+    //result：[2, 3, 9, 2, 5]
+
+    getOptionArray:function(arr,keys){
+        var newArr=[];
+        if(!keys){
+            return arr;
+        }
+        var _keys=keys.split(','),
+            newArrOne ={};
+        //是否只是需要获取某一项的值
+        if(_keys.length === 1){
+            for(var i=0; i<arr.length; i++){
+                newArr.push(arr[i][keys]);
+            }
+            return newArr;
+        }
+        for(var i=0; i<arr.length;i++){
+            newArrOne = {};
+            for(var j=0;j<keys.length;j++){
+                newArrOne[_keys[j]]=arr[i][_keys[j]];
+            }
+            newArr.push(newArrOne);
+        }
+        return newArr;
+    },
+
+
+// 排除对象数组某些项 
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //filterOptionArray(arr,'a')
+    //result：[{b:2,c:9},{b:3,c:5},{b:9},{b:2,c:5},{b:5,c:7}]
+    //filterOptionArray(arr,'a,c')
+    //result：[{b:2},{b:3},{b:9},{b:2},{b:5}]
+    filterOptionArray:function(arr,keys){
+        var newArr = []
+        var _keys = keys.split(','), newArrOne = {};
+        for (var i = 0, len = arr.length; i < len; i++) {
+            newArrOne = {};
+            for (var key in arr[i]) {
+                //如果key不存在排除keys里面,添加数据
+                if (_keys.indexOf(key) === -1) {
+                    newArrOne[key] = arr[i][key];
+                }
+            }
+            newArr.push(newArrOne);
+        }
+        return newArr
+
+    },
+
+
+//对象数组排序
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //arraySort(arr,'a,b')a是第一排序条件，b是第二排序条件
+    //result：[{"a":1,"b":2,"c":9},{"a":2,"b":3,"c":5},{"a":4,"b":2,"c":5},{"a":4,"b":5,"c":7},{"a":5,"b":9}]
+
+    arraySort: function (arr, sortText) {
+        if (!sortText) {
+            return arr
+        }
+        var _sortText = sortText.split(',').reverse(), 
+            _arr = arr.slice(0);
+
+        for (var i = 0, len = _sortText.length; i < len; i++) {
+            _arr.sort(function (n1, n2) {
+                return n1[_sortText[i]] - n2[_sortText[i]]
+            })
+        }
+        return _arr;
+    },
+
+
+//数组扁平化
+    // steamroller([1,2, [4,5, [1,23]]])
+    //[1, 2, 4, 5, 1, 23]
+
+    steamroller:function(arr){
+        var newArr = [],
+            _this = this;
+        for(var i=0;i<arr.length;i++){
+            if(Array.isArray(arr[i])){
+                // 如果是数组，调用(递归)steamroller 将其扁平化
+                // 然后再 push 到 newArr 中
+                newArr.push.apply(newArr, _this.steamroller(arr[i]));
+            }else{
+                // 不是数组直接 push 到 newArr 中
+                newArr.push(arr[i]);
+            }
+        }
+        return newArr;
+    },
+        //push is intentionally generic. This method can be used with call() or apply() on objects resembling arrays.
+
+
+
+
+//****************************DOM操作****************************/
+    //这个部分代码其实参考jquery的一些函数写法，唯一区别就是调用不用，参数一样.比如下面的栗子
+    //设置对象内容
+    // jquery：$('#xxx').html('hello world');
+    // 现在：ecDo.html(document.getElementById('xxx'), 'hello world')
+    //获取对象内容
+    // jquery：$('#xxx').html();
+    //     现在：ecDo.html(document.getElementById('xxx'))
+
+
+// 检测对象是否有哪个类名
+    hasClass:function(obj,classStr){
+        if(obj.className && this.trim(obj.className,1) !==""){
+            //trim 1 是去掉所有空格
+            
+        }
+    }
+
+
+
+
 
 }
 
