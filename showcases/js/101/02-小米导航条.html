@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-小米导航条</title>
+<style>
+*{margin:0px;padding:0px}
+body{
+    color:#212121;height: 2000px;
+}
+.nav-bar{
+    width:100%;background: white;
+    height:63px;
+    border:solid 1px rgb(224, 224, 224);
+    border-left: 0px;
+    border-right:0px;  
+    margin-top:140px;
+}
+
+#fixed{
+    margin:0px;
+    position:fixed;
+    top:-65px;
+    transition:all .3s linear;
+}
+#fixed.active{
+    top:0px;
+}
+
+.nav-bar .container{
+    width:1226px;height:60px;
+    margin: 0 auto;
+    background: white;
+}
+.nav-bar .container .proj-name{
+    display:inline-block; 
+    /* notice here */
+    height:60px;
+    line-height: 60px;
+    font-size: 18px;
+    font-weight: 400;
+}
+.nav-bar .container .right{
+    display:inline-block;
+    /* notice here */
+    float:right;
+    height: 30px;
+    margin-top:17px;
+}
+.nav-bar .container .right .separator{
+    color:#e0e0e0;
+    font-size:14px;
+    line-height: 21px;
+    margin:0 3.5px;
+}
+.nav-bar .container .right a:not(.buy-now){
+    font-size:14px;
+    line-height: 21px;
+    text-decoration: none;
+    color:#616161;
+}
+.nav-bar .container .right .cur{
+    color:#ff6700 !important;
+}
+.nav-bar .container .right a:hover{
+    color:#ff6700;
+}
+.nav-bar .container .right .buy-now{
+    width:118px;
+    height:28px;
+    display:inline-block;
+    background:rgb(255, 103,0);
+    border:solid 1px rgb(255, 103,0);
+    color:white;
+    text-align: center;
+    font-size:12px;
+    text-decoration: none;
+    line-height: 28px;
+    margin-left: 5px;
+    transition:all .3s;
+}
+.nav-bar .container .right .buy-now:hover{
+    background: #f25807;
+    border-color:#f25807;
+    color:white;
+}
+</style>
+</head>
+<body>
+    <!-- 2号导航条 隐藏的那个-->
+    <!-- 100%的盒子 -->
+    <div class="nav-bar" id="fixed">
+        <!-- 1226px 内容区 -->
+        <div class="container">
+            <h2 class="proj-name">小米 MIX6 fixed</h2>
+            <div class="right">
+                <a href="" class="cur">概述</a>
+                <span class="separator">|</span>
+                <a href="">参数</a>
+                <span class="separator">|</span>
+                <a href="">图集</a>
+                <span class="separator">|</span>
+                <a href="">F码通道</a>
+                <span class="separator">|</span>
+                <a href="">用户评价</a>
+                <a href="" class="buy-now">立即购买</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 100%的盒子 -->
+    <div class="nav-bar" id="static">
+        <!-- 1226px 内容区 -->
+        <div class="container">
+            <h2 class="proj-name">小米 MIX6 static</h2>
+            <div class="right">
+                <a href="" class="cur">概述</a>
+                <span class="separator">|</span>
+                <a href="">参数</a>
+                <span class="separator">|</span>
+                <a href="">图集</a>
+                <span class="separator">|</span>
+                <a href="">F码通道</a>
+                <span class="separator">|</span>
+                <a href="">用户评价</a>
+                <a href="" class="buy-now">立即购买</a>
+            </div>
+        </div>
+    </div>
+
+导航条的效果
+<a href="https://www.mi.com/mix3/" target="_blank">click</a>
+<br><br>
+<h2>Points</h2>
+<li>transition: all .3s</li>
+<li>block / inline-block</li>
+<li>*{padding:0px;margin:0px}</li>
+<li>a{text-decoration:none}</li>
+<li>chrome自带的选择器来检查元素的属性</li>
+<li>-----在chrome的console里面 $('#类名')[0] 可以看到所有的属性</li>
+<li>offsetHeight / offsetTop</li>
+<li>window.scrollY</li>
+<li>window.scrollTo</li>
+<li>(function(){
+        本篇内部的代码    
+})()  -- 这样不会污染环境，不会影响其他有相同名字的代码</li>
+<li>简写  --- br*100---回车</li>
+<li>z-index 的值一般是 1，10,100,1000这样的</li>
+</body>
+
+<script>
+  (function(){
+        var fixedNavbar = document.getElementById('fixed');
+      var staticNavbar = document.getElementById('static');
+
+      var y = staticNavbar.offsetHeight + staticNavbar.offsetTop;
+
+      var positionY = 0;
+      var timer = window.setInterval(function () {
+          positionY += 1;
+          if (positionY <= staticNavbar.offsetTop) {
+              window.scrollTo(0, positionY);
+          } else {
+              clearInterval(timer);
+          }
+      }, 5)
+
+      var show = function () {
+          fixedNavbar.classList.add('active');
+      }
+      var hide = function () {
+          fixedNavbar.classList.remove('active');
+      }
+
+      window.addEventListener('scroll', function () {
+          if (window.scrollY > y) {
+              show();
+          } else {
+              hide();
+          }
+      })
+
+  })()
+       
+
+</script>
+</html>
