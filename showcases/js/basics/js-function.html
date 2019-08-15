@@ -65,18 +65,67 @@
                 <li>- Function-Method</li>
             </a> -->
             <a class="nav-link" href="#trim" rel="internal">
-                <li>- - delete space in string</li>
+                <li>-- 去除字符串空格 - trim()</li>
             </a>
-        
-            
             <a class="nav-link" href="#changeCase" rel="internal">
-                <li>-- 字母大小写切换 </li>
+                <li>-- 字母大小写切换 - changeCase() </li>
             </a>
-            <a class="nav-link" href="#Reference" rel="internal">
-                <li>Reference</li>
+            <a class="nav-link" href="#repeatStr" rel="internal">
+                <li>-- 字符串循环复制 - repeatStr()</li>
             </a>
-            <a class="nav-link" href="#Reference" rel="internal">
-                <li>Reference</li>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 字符串替换 - replaceAll()</li>
+            </a>
+            <a class="nav-link" href="#replaceStr" rel="internal">
+                <li>-- 字符替换 - replaceStr()</li>
+            </a>
+            <a class="nav-link" href="#checkType" rel="internal">
+                <li>-- 检测字符串 - checkType()</li>
+            </a>
+            <a class="nav-link" href="#checkPwd" rel="internal">
+                <li>-- 检测密码强度 - checkPwd()</li>
+            </a>
+            <a class="nav-link" href="#randomWord" rel="internal">
+                <li>-- 随机码（toString详解）-randomWord()</li>
+            </a>
+            <a class="nav-link" href="#countStr" rel="internal">
+                <li>-- 查找字符串出现的次数 - countStr()</li>
+            </a>
+            <a class="nav-link" href="#filterStr" rel="internal">
+                <li>-- 过滤字符串 - filterStr()</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
             </a>
         </ul>
     </nav>
@@ -414,7 +463,7 @@
             <header>随机码（toString详解）</header>
             <article>
 <div class="note">
-// count取值范围0 - 36
+// count取值范围0 - 36，主要是根据toString(count),不同的进制来转换成不同的结果
 //randomWord(10)
 //result："2584316588472575"
 //randomWord(14)
@@ -462,7 +511,7 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
 //字符串，替换内容（special-特殊字符,html-html标签,emjoy-emjoy表情,word-小写字母，WORD-大写字母，number-数字,chinese-中文），要替换成什么，默认'',保留哪些特殊字符
 //如果需要过滤多种字符，type参数使用,分割，如下栗子
 //过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
-//var str='asd 654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src="" />啊实打实大蠢猪自行车这些课程';
+//var str='asd 654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}? < div > < /div > < img src="" / > 啊实打实大蠢猪自行车这些课程';
 // filterStr(str,'html,WORD,chinese,special','*','%?')
 //result："asd 654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
 </div>        
