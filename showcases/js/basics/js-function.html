@@ -454,10 +454,52 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
             <hr>
         </section>
 
-        <section class="main-section" id="Reference">
-            <header>Reference</header>
+        <section class="main-section" id="filterStr">
+            <header>过滤字符串</header>
             <article>
+<div class="note">
+//过滤字符串(html标签，表情，特殊字符)
+//字符串，替换内容（special-特殊字符,html-html标签,emjoy-emjoy表情,word-小写字母，WORD-大写字母，number-数字,chinese-中文），要替换成什么，默认'',保留哪些特殊字符
+//如果需要过滤多种字符，type参数使用,分割，如下栗子
+//过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
+//var str='asd 654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src="" />啊实打实大蠢猪自行车这些课程';
+// filterStr(str,'html,WORD,chinese,special','*','%?')
+//result："asd 654a**sasdasd*********6d5#%^*^&*^%^&*$\"'#@!()*/-())_'":"{}?*****************"
+</div>        
+<h2>ES 5</h2>
+<div class="code">
+    filterStr:function(str,type,restr,spstr){
         
+        var typeArr = type.split(',');
+        _str=str;
+
+        for(var i=0;i < typeArr.length;i++){
+            //是否是过滤特殊符号
+            if(typeArr[i] === 'special'){
+                var pattern,
+                    regText = '$()[]{}?\|^*+./\"\'+';
+                //是否有哪些特殊符号需要保留
+                if(spstr){
+                    var _spstr = spstr.split(""),
+                        _regText="[^0-9A-Za-z\\s]";
+                    for(var j=0;j < _spstr.length;j++){
+                        if(regText.indexOf(_spstr[j])===-1){
+                            _regText += _spstr[j];
+                        }
+                        else{
+                            _regText += '\\'+_spstr[j];
+                        }
+                    }
+                    _regText += 'J';
+                    pattern = new RegExp(_regText,'g');
+                }
+                else{
+                    pattern = new RegExp("[^0-9A-Za-z\\s]",'g')
+                }
+            }
+        }
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
