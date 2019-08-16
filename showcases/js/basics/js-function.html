@@ -599,10 +599,29 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
 
 
-        <section class="main-section" id="Reference">
-            <header>Reference</header>
+        <section class="main-section" id="formatText">
+            <header>格式化处理字符串</header>
             <article>
+<div class="note">
+//formatText('1234asda567asd890')
+//result："12,34a,sda,567,asd,890"
+//formatText('1234asda567asd890',4,' ')
+//result："1 234a sda5 67as d890"
+//formatText('1234asda567asd890',4,'-')
+//result："1-234a-sda5-67as-d890"
+</div>        
+<h2>ES 5</h2>
+<div class="code">
+    formatText:function(str,size,delimiter){
+        var _size = size || 3,
+            _delimiter = delimiter || ',';
         
+        var regText = '\B(?=())';
+        var reg = new RegExp(regText,'g');
+        
+        return str.replace(reg,_delimiter);
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
