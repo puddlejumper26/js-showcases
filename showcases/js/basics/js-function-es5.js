@@ -236,6 +236,7 @@ var jsFuncEs5={
         //The split() method splits a String object into an array of strings by separating the string into substrings, using a specified separator string to determine where to make each split.
 
         for(var i=0,len=typeArr.length; i<len;i++){
+
             //是否是过滤特殊符号
             if(typeArr[i]==='special'){
                 var pattern,
@@ -243,28 +244,39 @@ var jsFuncEs5={
                 //是否有哪些特殊符号需要保留
                 if(spstr){
                     var _spstr = spstr.split(""),
-                        _regText="[^0-9A-Za-z\\s]";
+                        _regText = "[^0-9A-Za-z\\s]";// 其实这里直接定义"[^0-9A-Za-z\\s"后面就不需要去除最后的"]"
+                        console.log('01---' + _regText);
                     
-                    for(var j=0,len1=_spstr.length;j<len1;j++){
+                    for (var j = 0; j < _spstr.length; j++){
+                        //如果regText = '$()[]{}?\|^*+./\"\'+';中不含有_spstr[j]
                         if(regText.indexOf(_spstr[j])===-1){
-                            console.log('00---' + _regText);
+                            console.log('02---' + _regText);
+                            //下面这一步使用string的replace方法把_regText="[^0-9A-Za-z\\s]"最后的“]”给除去
+                            _regText = _regText.replace(/]/,'');
                             _regText += _spstr[j];
+
                             console.log('0---' + _spstr[j])
-                            console.log('1---' + _regText);
+                            console.log('03---' + _regText);
                         }
                         else{
-                            _regText += '\\' +_spstr[j];
-                            console.log('2---' + _regText);
+                            _regText = _regText.replace(/]/, '');
+                            _regText +='\\'+_spstr[j];
+                            console.log('04---' + _regText);
                         }
+                  
+
                     }
                     _regText += ']';
-                    console.log('3---' + _regText);
+                    console.log('05---' + _regText);
                     pattern = new RegExp(_regText, 'g');
                 }
                 else {
                     pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
+                    //[^0-9A-Za-z\s]意思就是不是数字和大小写字母的元素
                 }
             }
+
+
             var _restr = restr || '';
 
             switch (typeArr[i]) {

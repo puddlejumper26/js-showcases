@@ -518,36 +518,80 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
 <h2>ES 5</h2>
 <div class="code">
     filterStr:function(str,type,restr,spstr){
-        
-        var typeArr = type.split(',');
-        _str=str;
+        var typeArr = type.split(','),
+            _str=str;
+        //The split() method splits a String object into an array of strings by separating the string into substrings, using a specified separator string to determine where to make each split.
 
-        for(var i=0;i < typeArr.length;i++){
+        for(var i=0,len=typeArr.length; i < len;i++){
+
             //是否是过滤特殊符号
-            if(typeArr[i] === 'special'){
+            if(typeArr[i]==='special'){
                 var pattern,
                     regText = '$()[]{}?\|^*+./\"\'+';
                 //是否有哪些特殊符号需要保留
                 if(spstr){
                     var _spstr = spstr.split(""),
-                        _regText="[^0-9A-Za-z\\s]";
-                    for(var j=0;j < _spstr.length;j++){
+                        _regText="[^0-9A-Za-z\\s]"; // 其实这里直接定义"[^0-9A-Za-z\\s"后面就不需要去除最后的"]"
+                        console.log('01---' + _regText);
+                    
+                    for (var j = 0; j < _spstr.length; j++){
+                        //如果regText = '$()[]{}?\|^*+./\"\'+';中不含有_spstr[j]
                         if(regText.indexOf(_spstr[j])===-1){
+                            console.log('02---' + _regText);
+                            //下面这一步使用string的replace方法把_regText="[^0-9A-Za-z\\s]"最后的“]”给除去
+                            _regText = _regText.replace(/]/,'');
                             _regText += _spstr[j];
+
+                            console.log('0---' + _spstr[j])
+                            console.log('03---' + _regText);
                         }
                         else{
-                            _regText += '\\'+_spstr[j];
+                            _regText = _regText.replace(/]/, '');
+                            _regText +='\\'+_spstr[j];
+                            console.log('04---' + _regText);
                         }
+                  
+
                     }
-                    _regText += 'J';
-                    pattern = new RegExp(_regText,'g');
+                    _regText += ']';
+                    console.log('05---' + _regText);
+                    pattern = new RegExp(_regText, 'g');
                 }
-                else{
-                    pattern = new RegExp("[^0-9A-Za-z\\s]",'g')
+                else {
+                    pattern = new RegExp("[^0-9A-Za-z\\s]", 'g')
+                    //[^0-9A-Za-z\s]意思就是不是数字和大小写字母的元素
                 }
             }
+
+
+            var _restr = restr || '';
+
+            switch (typeArr[i]) {
+                case 'special':
+                    _str = _str.replace(pattern, _restr);
+                    break;
+                case 'html':
+                    _str = _str.replace(/<\/?[^>]*>/g, _restr);
+                    break;
+                case 'emjoy':
+                    _str = _str.replace(/[^\u4e00-\u9fa5|\u0000-\u00ff|\u3002|\uFF1F|\uFF01|\uff0c|\u3001|\uff1b|\uff1a|\u3008-\u300f|\u2018|\u2019|\u201c|\u201d|\uff08|\uff09|\u2014|\u2026|\u2013|\uff0e]/g, _restr);
+                    break;
+                case 'word':
+                    _str = _str.replace(/[a-z]/g, _restr);
+                    break;
+                case 'WORD':
+                    _str = _str.replace(/[A-Z]/g, _restr);
+                    break;
+                case 'number':
+                    _str = _str.replace(/[0-9]/g, _restr);
+                    break;
+                case 'chinese':
+                    _str = _str.replace(/[\u4E00-\u9FA5]/g, _restr);
+                    break;
+            }
         }
-    }
+        return _str;
+    },
 </div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
@@ -597,8 +641,8 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
 
 </body>
 <script>
-var str='<html>AIA?[';
-console.log(jsFuncEs5.filterStr (str,'html,special','*','%?'));
+// var str='<html>AIA?[￥%()]';
+// console.log(jsFuncEs5.filterStr (str,'html,special','*',']'));
 // console.log(new RegExp("[^0-9A-Za-z\\s]"))
 </script>
 
