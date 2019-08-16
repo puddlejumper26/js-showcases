@@ -247,13 +247,18 @@ var jsFuncEs5={
                     
                     for(var j=0,len1=_spstr.length;j<len1;j++){
                         if(regText.indexOf(_spstr[j])===-1){
+                            console.log('00---' + _regText);
                             _regText += _spstr[j];
+                            console.log('0---' + _spstr[j])
+                            console.log('1---' + _regText);
                         }
                         else{
                             _regText += '\\' +_spstr[j];
+                            console.log('2---' + _regText);
                         }
                     }
                     _regText += ']';
+                    console.log('3---' + _regText);
                     pattern = new RegExp(_regText, 'g');
                 }
                 else {
