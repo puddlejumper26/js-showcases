@@ -106,17 +106,17 @@
             <a class="nav-link nav-head" href="#" rel="internal">
                 <li>Array</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#removeRepeatArray" rel="internal">
+                <li>-- 数组去重 - removeRepeatArray()</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#upsetArr" rel="internal">
+                <li>-- 数组顺序打乱 - upsetArr()</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#downArr" rel="internal">
+                <li>-- 数组降/升序排列 - downArr()/upArr()</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#maxArr" rel="internal">
+                <li>-- 数组最大值最小值 - maxArr()/minArr()</li>
             </a>
             <a class="nav-link" href="#replaceAll" rel="internal">
                 <li>-- 过滤字符串</li>
@@ -745,30 +745,67 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
 
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="downArr">
+            <header>数组降/升序排列</header>
             <article>
-        
+<h2>降序 downArr</h2>
+<div class="code">
+    downArr:function(arr){
+        return arr.sort(function(n1,n2){
+            if(n1>=n2){return n2-n1;}
+        })
+    }
+</div>
+<h2>升序 upArr</h2>
+<div class="code">
+    upArr:function(arr){
+        return arr.sort(function(n1,n2){
+            if(n1<=n2){return n1-n2;}
+        })
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
 
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="maxArr">
+            <header>数组最大值最小值</header>
             <article>
-        
+<div class="code">
+    maxArr: function(arr){
+        return Math.max.apply(null,arr);
+    }
+</div>   
+<div class="code">
+    minArr: function(arr){
+        return Math.min.apply(null,arr);
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
 
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="sumArr">
+            <header>数组求和，平均值</header>
             <article>
-        
+<div class="code">
+    //求和
+    sumArr:function(arr){
+        return arr.reduce(function(pre,cur){
+            return pre+cur;
+        })
+    },
+</div>    
+<div class="code">
+    //数组平均值,小数点可能会有很多位，这里不做处理，处理了使用就不灵活！
+    covArr: function (arr) {
+        return this.sumArr(arr) / arr.length;
+    },
+</div> 
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
