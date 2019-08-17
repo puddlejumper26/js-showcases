@@ -318,9 +318,19 @@ var jsFuncEs5={
             _delimiter = delimiter || ',';
 
         var regText = '\\B(?=(\\w{' + _size + '})+(?!\\w))';
+        //这里不用 \\B应该也是可以的
         var reg = new RegExp(regText,'g');
         return str.replace(reg,_delimiter);
     },
+    // (?=l)，表示 "l" 字符前面的位置，例如：
+    // var result = "hello".replace(/(?=l)/g, '#');
+    // console.log(result);
+    // // => "he#l#lo"
+    // (?!p) 就是 (?=p) 的反面意思，比如：
+    // var result = "hello".replace(/(?!l)/g, '#');
+    // console.log(result);
+    // // => "#h#ell#o#
+
 
 //找出最长单词
     //longestWord('Find the Longest word in a String')
@@ -339,7 +349,7 @@ var jsFuncEs5={
                 _item = item;
             }
         })
-        return {el:_item,max:_max};
+        return {word:_item,length:_max};
     },
 
 //句中单词首字母大写 

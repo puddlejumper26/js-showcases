@@ -94,8 +94,8 @@
             <a class="nav-link" href="#filterStr" rel="internal">
                 <li>-- 过滤字符串 - filterStr()</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#formatText" rel="internal">
+                <li>-- 格式化处理字符串 - formatText()</li>
             </a>
             <a class="nav-link" href="#replaceAll" rel="internal">
                 <li>-- 过滤字符串</li>
@@ -616,10 +616,52 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         var _size = size || 3,
             _delimiter = delimiter || ',';
         
-        var regText = '\B(?=())';
+        var regText = '\\B(?=(\\w{' + _size + '})+(?!\\w))';
+        //这里不用 \\B应该也是可以的
         var reg = new RegExp(regText,'g');
-        
         return str.replace(reg,_delimiter);
+    },
+
+        // (?=l)，表示 "l" 字符前面的位置，例如：
+        // var result = "hello".replace(/(?=l)/g, '#');
+        // console.log(result);
+        // // => "he#l#lo"
+        // (?!p) 就是 (?=p) 的反面意思，比如：
+        // var result = "hello".replace(/(?!l)/g, '#');
+        // console.log(result);
+        // // => "#h#ell#o#
+</div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="longestWord">
+            <header>找出最长单词</header>
+            <article>
+<div class="note">
+返回的是最长单词的字母数量
+//longestWord('Find the Longest word in a String')
+//result：7
+//longestWord('Find|the|Longest|word|in|a|String','|')
+//result：7
+</div>
+<h2>ES 5</h2>
+<div class="code">
+    longestWord:function(str,splitType){
+        var _splitType = splitType || /\s+/g,
+            _max = 0,
+            _item ='';
+        
+        var strArr = str.split(_splitType);
+        strArr.forEach(function(item){
+            if(_max < item.length){
+                _max = item.length;
+                _item = item;
+            }
+        })
+        return {word:_item,length:_max};
     }
 </div>
             </article>
@@ -628,8 +670,26 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
 
 
-        <section class="main-section" id="Reference">
-            <header>Reference</header>
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+    
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
             <article>
         
             </article>
@@ -638,16 +698,54 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
 
 
-        <section class="main-section" id="Reference">
-            <header>Reference</header>
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
             <article>
         
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
-    
-    
+
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
     
     
     
