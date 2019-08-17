@@ -103,6 +103,9 @@
             <a class="nav-link" href="#titleCaseUp" rel="internal">
                 <li>-- 句中单词首字母大写 - titleCaseUp()</li>
             </a>
+            <a class="nav-link nav-head" href="#" rel="internal">
+                <li>Array</li>
+            </a>
             <a class="nav-link" href="#replaceAll" rel="internal">
                 <li>-- 过滤字符串</li>
             </a>
@@ -698,19 +701,44 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
             <hr>
         </section>
     
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="removeRepeatArray">
+            <header>数组去重</header>
             <article>
-
+<h2>ES 5</h2>
+<div class="code">
+    removeRepeatArray:function(arr){
+        return arr.filter(function(item,index,self){
+            console.log(self);//传入的数组
+            console.log(item); // 数组中的每一个元素
+            console.log(index); // 每个元素的位置
+            return self.indexOf(item) === index;
+        })
+    }
+        //The filter() method creates a new array with all elements that pass the test implemented by the provided function.
+</div>
+<h2>ES 6</h2>
+    removeRepeatArray:function(arr){
+        return [...new Set(arr)];
+    }
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="upsetArr">
+            <header>数组顺序打乱</header>
             <article>
-        
+<h2>ES 5</h2>
+<div class="code">
+    upsetArr:function(arr){
+        return arr.sort(function(){
+            return Math.random()-0.1;
+        });
+    }
+
+    //The sort() method sorts the elements of an array in place and returns the sorted array. The default sort order is
+    built upon converting the elements into strings, then comparing their sequences of UTF-16 code units values.
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
