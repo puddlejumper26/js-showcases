@@ -97,11 +97,11 @@
             <a class="nav-link" href="#formatText" rel="internal">
                 <li>-- 格式化处理字符串 - formatText()</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#longestWord" rel="internal">
+                <li>-- 找出最长单词 - longestWord()</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#titleCaseUp" rel="internal">
+                <li>-- 句中单词首字母大写 - titleCaseUp()</li>
             </a>
             <a class="nav-link" href="#replaceAll" rel="internal">
                 <li>-- 过滤字符串</li>
@@ -673,8 +673,27 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         <section class="main-section" id="titleCaseUp">
             <header>句中单词首字母大写</header>
             <article>
+<div class="note">
+//titleCaseUp('this is a title')
+//"This Is A Title"
+</div>   
+<h2>ES 5</h2>
+<div class="code">
+    titleCaseUp:function(str,splitType){
+        var _splitType = splitType || /\s+/g;
+        var strArr = str.split(_splitType),
+            result = "",
+            _this = this;
         
-            </article>
+        strArr.forEach(function(item){
+            result += _this.changeCase(item,1)+' ';
+        })
+        
+        return this.trim(result,4);
+        //trim 4, 是去掉后空格
+    }
+</div>
+        </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
