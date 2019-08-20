@@ -118,8 +118,32 @@
             <a class="nav-link" href="#maxArr" rel="internal">
                 <li>-- 数组最大值最小值 - maxArr()/minArr()</li>
             </a>
-            <a class="nav-link" href="#replaceAll" rel="internal">
-                <li>-- 过滤字符串</li>
+            <a class="nav-link" href="#sumArr" rel="internal">
+                <li>-- 数组求和，平均值 - sumArr() / covArr()</li>
+            </a>
+            <a class="nav-link" href="#randomOne" rel="internal">
+                <li>-- 从数组中随机获取元素 - randomOne()</li>
+            </a>
+            <a class="nav-link" href="#getEleCount" rel="internal">
+                <li>-- 返回数组（字符串）一个元素出现的次数 - getEleCount()</li>
+            </a>
+            <a class="nav-link" href="#getCount" rel="internal">
+                <li>-- 返回数组（字符串）出现最多的几次元素和出现次数 - getCount()</li>
+            </a>
+            <a class="nav-link" href="#getArrayNum" rel="internal">
+                <li>-- 得到n1-n2下标的数组 - getArrayNum()</li>
+            </a>
+            <a class="nav-link" href="#removeArrayForValue" rel="internal">
+                <li>-- 筛选数组 - removeArrayForValue()</li>
+            </a>
+            <a class="nav-link" href="#getOptionArray" rel="internal">
+                <li>-- 获取对象数组某些项 - getOptionArray()</li>
+            </a>
+            <a class="nav-link" href="#filterOptionArray" rel="internal">
+                <li>-- 排除对象数组某些项 - filterOptionArray()</li>
+            </a>
+            <a class="nav-link" href="#arraySort" rel="internal">
+                <li>-- 对象数组排序 - arraySort()</li>
             </a>
             <a class="nav-link" href="#replaceAll" rel="internal">
                 <li>-- 过滤字符串</li>
@@ -1026,9 +1050,108 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
 <h2>ES 5</h2>
 <div class="code">
     filterOptionArray:function(arr,keys){
-        
+        var newArr=[];
+        var _keys=keys.split(",");
+        var newArrOne={};
+
+        for(var i=0;i < arr.length; i++){
+            newArrOne={};
+            for(var key in arr[i]){
+                //如果key不存在排除keys里面,添加数据
+                if(_keys.indexOf(key)===-1){
+                    newArrOne[key] = arr[i][key];
+                }
+            }
+            newArr.push(newArrOne);
+        }
+        return newArr;
     }
 </div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        
+        <section class="main-section" id="arraySort">
+            <header>对象数组排序</header>
+            <article>
+<div class="note">
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //arraySort(arr,'a,b')a是第一排序条件，b是第二排序条件
+    //result：[{"a":1,"b":2,"c":9},{"a":2,"b":3,"c":5},{"a":4,"b":2,"c":5},{"a":4,"b":5,"c":7},{"a":5,"b":9}]
+</div>
+<h2>Es 5</h2>
+<div class="code">
+    arraySort:function(arr,sortText){
+        if(!sortText){
+            return arr;
+        }
+
+        var _sortText = sortText.split(",").reverse();
+        var _arr = arr.slice(0);
+
+        for(var i=0;i< _sortText.length; i++){
+            _arr.sort(function(n1,n2){
+                //这里同样也是对象，所以可以通过n1[]来调用元素
+                return n1[_sortText[i]]-n2[_sortText[i]];
+            })
+        }
+        return _arr;
+    }
+</div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="steamroller">
+            <header>数组扁平化</header>
+            <article>
+<div class="note">
+    // steamroller([1,2, [4,5, [1,23]]])
+    //[1, 2, 4, 5, 1, 23]
+</div>
+<h2>ES 5</h2>
+<div class="code">
+    steamroller:function(arr){
+        var newArr=[];
+        var _this = this;
+
+        for(var i=0;i < arr.length;i++){
+            if(Array.isArray(arr[i])){
+                // 如果是数组，调用(递归)steamroller 将其扁平化
+                // 然后再 push 到 newArr 中
+                newArr.push.apply(newArr,_this.stramroller(arr[i]));
+            }else{
+                // 不是数组直接 push 到 newArr 中
+                newArr.push(arr[i]);
+            }
+        }
+        return newArr;
+    }
+    //push is intentionally generic. This method can be used with call() or apply() on objects resembling arrays.
+</div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        
+        <section class="main-section" id="hasClass">
+            <header>检测对象是否有哪个类名</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+    
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
@@ -1062,8 +1185,25 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
-    
-    
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
     
     </main>
 
