@@ -827,38 +827,142 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
 
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="getEleCount">
+            <header>返回数组（字符串）一个元素出现的次数</header>
             <article>
-        
+<div class="note">
+        //getEleCount('asd56+asdasdwqe','a')
+        //result：3
+        //getEleCount([1,2,3,4,5,66,77,22,55,22],22)
+        //result：2
+</div>     
+<h2>ES 5</h2>  
+<div class="code">
+    getEleCount: function(obj,ele){
+        var num = 0;
+        for(var i=0;i < obj.length;i++){
+            if(ele === obj[i]){
+                num ++;
+            }
+        }
+        return num;
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
     
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="getCount">
+            <header>返回数组（字符串）出现最多的几次元素和出现次数 ###</header>
             <article>
-        
+<div class="note">
+    //arr, rank->长度，默认为数组长度，ranktype，排序方式，默认降序
+    //返回值：el->元素，count->次数
+
+    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2])
+    //默认情况，返回所有元素出现的次数
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
+
+    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3)
+    //传参（rank=3），只返回出现次数排序前三的
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2}]
+
+    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],null,1)
+    //传参（ranktype=1,rank=null），升序返回所有元素出现次数
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1},{"el":"3","count":2},{"el":"1","count":4},{"el":"2","count":6}]
+
+    //getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)
+    //传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1}]
+</div>
+<h2>ES 5</h2>            
+<div class="code">
+    getCount: function(arr,rank,ranktype){
+        var obj={},
+            k,arr1 =[];
+       
+        //记录每一元素出现的次数
+        for(var i=0;i < arr.length;i++){
+            k = arr[i];
+            //注意这里的 obj 是一个对象，所以表达方式是 obj={"a":n1,"b":n2,...}
+            //所以这里obj[k]的值是obj 对象中的“k”所对应的值
+            if(obj[k]){
+                obj[k]++;
+            }else{
+                obj[k] = 1;
+            }
+        }
+        //上面这一步做完，就能够把所有的元素都添加到obj对象里，并且每个元素的总个数和元素本身都一一对应上了。
+
+        //保存结果{el-'元素'，count-出现次数}
+        for(var o in obj){
+            arr1.push({el:o,count:obj[o]});
+        }
+
+        //排序（降序）
+        arr1.sort(function(n1,n2){
+            return n2.count - n1.count;
+        });
+
+        //如果ranktype为1，则为升序，反转数组
+        if(ranktype === 1){
+            arr1 = arr1.revers();
+        }
+
+        var rank1 = rank || arr1.length;
+        //slice 是截取括号里开头结尾的数组元素，并组成一个新的数组
+        return arr1.slice(0,rank1);
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
         
         
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="getArrayNum">
+            <header>得到n1-n2下标的数组</header>
             <article>
-        
+<div class="note">
+    //就是 是用 slice 的功能
+
+    //getArrayNum([0,1,2,3,4,5,6,7,8,9],5,9)
+    //result：[5, 6, 7, 8, 9]
+    //getArrayNum([0,1,2,3,4,5,6,7,8,9],2) //不传第二个参数,默认返回从n1到数组结束的元素
+    //result：[2, 3, 4, 5, 6, 7, 8, 9]
+</div>    
+<h2>ES 5</h2>
+<div class="code">
+    getArrayNum:function(arr,n1,n2){
+        return arr.slice(n1,n2);
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="removeArrayForValue">
+            <header>筛选数组</header>
             <article>
-        
+<div class="note">
+        //删除值为'val'的数组元素
+        //removeArrayForValue(['test','test1','test2','test','aaa'],'test',1)
+        //result：["aaa"] 带有'test'的都删除
+        //removeArrayForValue(['test','test1','test2','test','aaa'],'test')
+        //result：["test1", "test2", "aaa"] //数组元素的值全等于'test'才被删除
+</div>
+<h2> ES 5</h2>
+<div class="code">
+    removeArrayForValue:function(arr,val,type){
+        return arr.filter(function(item){
+            console.log(item);//传入数组的每一个元素
+            return type?item.indexOf(val)===-1:item!=val;
+        })
+    }
+    //这里的type只要为true，就可以进行模糊筛选
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
