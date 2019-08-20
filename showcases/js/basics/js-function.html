@@ -969,19 +969,66 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
         
         
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="getOptionArray">
+            <header>获取对象数组某些项</header>
             <article>
-        
+<div class="note">
+    //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+    //getOptionArray(arr,'a,c')
+    //result：[{a:1,c:9},{a:2,c:5},{a:5,c:underfind},{a:4,c:5},{a:4,c:7}]
+    //getOptionArray(arr,'b')
+    //result：[2, 3, 9, 2, 5]
+</div>        
+<h2>
+    ES 5
+</h2>
+<div class="code">
+    getOptionArray:function(arr,keys){
+        var newArr=[];
+        if(!keys){
+            return arr;
+        }
+        var _keys=keys.split(",");
+        var newArrOne ={};
+    
+        //是否只是需要获取某一项的值
+        if(_keys.length === 1){
+            for(var i=0;i < arr.length;i++){
+                newArr.push(arr[i][keys]);
+            }
+            return newArr;
+        }
+        for(var i=0;i < arr.length;i++){
+            newArrOne={};
+            for(var j=0;j < keys.length;j++){
+                newArrOne[_keys[j]]=arr[i][_keys[j]];
+            }
+            newArr.push(newArrOne);
+        }
+        return newArr;
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
         </section>
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="filterOptionArray">
+            <header>排除对象数组某些项</header>
             <article>
+<div class="note">
+//var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+//filterOptionArray(arr,'a')
+//result：[{b:2,c:9},{b:3,c:5},{b:9},{b:2,c:5},{b:5,c:7}]
+//filterOptionArray(arr,'a,c')
+//result：[{b:2},{b:3},{b:9},{b:2},{b:5}]
+</div>     
+<h2>ES 5</h2>
+<div class="code">
+    filterOptionArray:function(arr,keys){
         
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
