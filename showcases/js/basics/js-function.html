@@ -145,6 +145,27 @@
             <a class="nav-link" href="#arraySort" rel="internal">
                 <li>-- 对象数组排序 - arraySort()</li>
             </a>
+            <a class="nav-link" href="#steamroller" rel="internal">
+                <li>-- 数组扁平化 - steamroller()</li>
+            </a>
+            <a class="nav-link nav-head" href="#" rel="internal">
+                <li>DOM</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
             <a class="nav-link" href="#replaceAll" rel="internal">
                 <li>-- 过滤字符串</li>
             </a>
@@ -1141,7 +1162,30 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         <section class="main-section" id="hasClass">
             <header>检测对象是否有哪个类名</header>
             <article>
+<div class="note">
+    //e.g. 
+    //< img id="b0" class="imgb2" > 
+    // < img id = "b1" class="imgb2" >
+    // < img id="b2" class="imgb2 haha oo"></>
+    //jsFuncEs5.hasClass(document.getElementById("b1"),'imgb2'); //true
+    //document.getElementById('b1').className; // "imgb2"
+    //jsFuncEs5.trim(document.getElementById('b2').className,1);// "imgb2hahaoo"
+</div>                
+<h2>ES 5</h2>
+<div class="code">
+    hasClass:function(obj,class){
+        if(obj.className && this.trim(obj.className,1)!===""){
+            //trim 1 是去掉所有空格
+            var arr = obj.className.split(/\s+/);
+            //这个正则表达式是因为class可以有多个,判断是否包含
+            //也可以imgb2.className.split(" ");通过空格来分割
+            return (arr.indexOf(classStr) === -1)?false:true;
+        }else{
+            return false;
+        }
         
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>
