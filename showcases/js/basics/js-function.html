@@ -1185,6 +1185,20 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         }
         
     }
+
+</div>
+
+<h2>ES 6</h2>
+<div class="code">
+    hasClass: function(obj,classStr){
+        return (" "+obj.className + " ").indexOf(" "+classStr+" ")> -1;
+    }
+
+    等价于
+    
+    hasClass:function(obj,classStr){
+        return obj.className.indexOf(classStr) > -1;
+    },
 </div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
@@ -1192,10 +1206,17 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
     
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
+        <section class="main-section" id="addClass">
+            <header>添加类名</header>
             <article>
-        
+<h2>ES 5</h2>
+<div class="code">
+    addClass:function(obj,classStr){
+        if(obj.length>=1){
+            for(var i=0; i < obj.length)
+        }
+    }
+</div>
             </article>
             <p class="nach-oben"><a href="#navbar">nach oben</a></p>
             <hr>

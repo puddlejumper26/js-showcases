@@ -657,7 +657,10 @@ var jsFuncEs5={
     //document.getElementById('b1').className; // "imgb2"
     //jsFuncEs5.trim(document.getElementById('b2').className,1);// "imgb2hahaoo"
 
-
+    //ES 6 
+    hasClass2:function(obj,classStr){
+        return obj.className.indexOf(classStr) > -1;
+    },
 
 //添加类名 
     addClass:function(obj,classStr){
