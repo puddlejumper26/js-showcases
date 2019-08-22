@@ -1213,8 +1213,63 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
 <div class="code">
     addClass:function(obj,classStr){
         if(obj.length>=1){
-            for(var i=0; i < obj.length)
+            for(var i=0; i < obj.length;i++){
+                if(!this.hasClass(obj[i],classStr)){
+                    obj[i].className += " " + classStr;
+                }
+            }
         }
+        else{
+            if(!this.hasClass(obj,classStr)){
+                obj.className += " " + classStr;
+            }
+        }
+    },
+
+    //if的条件是一个数组，else是单个的getElementById
+    //这里删除了源文件的(this.istype(obj,'array') || this.istype(obj,'element')) &&在 if的条件里面
+</div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        
+        <section class="main-section" id="removeClass">
+            <header>删除类名</header>
+            <article>
+<h2>ES 5</h2>
+<div class="code">
+    removeClass:function (obj,classStr){
+        if(obj.length > 1){
+            for(var i=0; i< obj.length; i++){
+                if(this.hasClass(obj[i],classStr)){
+                    var reg = new RegExp('(\\s|^)'+classStr+'(\\s|$)');
+                    obj[i].className = obj[i].className.replace(reg,'');
+                }
+            }
+        }
+        else{
+            if(this.hasClass(obj,classStr)){
+                var reg = new RegExp('(\\s|^)'+classStr+'(\\s|$)');
+                obj.className = obj.className.replace(reg,'');
+            }
+        }
+    }
+</div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="replaceClass">
+            <header>替换类名("被替换的类名","替换的类名")</header>
+            <article>
+<h2>ES 5</h2>        
+<div class="code">
+    replaceClass:function(obj,newName,oldName){
+        this.removeClass(obj,oldName);
+        this.addClass(obj,newName);
     }
 </div>
             </article>
@@ -1223,6 +1278,148 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
         
         
+        <section class="main-section" id="siblings">
+            <header>获取兄弟节点</header>
+            <article>
+<div class="note">
+    //siblings(obj,'#id')
+    // The Node.previousSibling read- only property returns the node immediately preceding the specified one in its parent's
+    childNodes list, or null if the specified node is the first in that list.
+    //node.type === 1 , An Element node like < p > or < div >.
+</div>
+<h2>ES 5</h2>        
+<div class="code">
+    siblings:function(obj,opt){
+        var a = [];//定义一个数组，用来存o的兄弟元素
+        
+        var p = obj.previousSibling;
+        
+        while (p){//先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling
+            if(p.nodeType === 1){
+                a.push(p);
+            }
+            p = p.previousSibling;//最后把上一个节点赋给p
+        }
+
+        a.reverse();//把顺序反转一下 这样元素的顺序就是按先后的了
+        
+        var n = obj.nextSibling; //再取o的弟弟
+
+        while(n){//判断有没有下一个弟弟结点 n是nextSibling的意思
+            if(n.nodeType === 1){
+                a.push(n);
+            }
+            n = n.nextSibling;
+        }
+        if(opt){
+            var _opt = opt.substr(1);
+            var b = [ ];//定义一个数组，用于储存过滤a的数组
+            if(opt[0] === ''){
+                b = a.filter(function(item){
+                    return item.className === _opt
+                });
+            }
+            else if (opt[0] === '#') {
+                b = a.filter(function (item) {
+                    return item.id === _opt
+                });
+            }
+            else {
+                b = a.filter(function (item) {
+                    return item.tagName.toLowerCase() === opt
+                });
+            }
+            return b;
+        }
+        return a;
+
+    }
+</div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="css">
+            <header>设置样式</header>
+            <article>
+<h2>ES 5</h2>
+<div class="code">
+    css:function(obj,json){
+        for(var attr in json){
+            obj.style[attr] = json[attr];
+        }
+    }
+</div>        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        
+        <section class="main-section" id="html">
+            <header>设置文本内容</header>
+            <article>
+<h2>ES 5</h2>        
+<div class="code">
+        html:function(obj){
+            if(arguments.length === 1){
+                return obj.innerHTML;
+            }else if(arguments.length === 2){
+                obj.innerHTML = arguments[1];
+            }
+        },
+
+        text:function(obj){
+            if (arguments.length === 1) {
+                return obj.innerHTML;
+            } else if (arguments.length === 2) {
+                obj.innerHTML = this.filterStr(arguments[1], 'html');
+            }
+        }
+</div>
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="show">
+            <header>显示隐藏</header>
+            <article>
+<h2>
+    ES 5
+</h2>   
+<div class="code">
+    show:function(obj){
+        var blockArr=['div', 'li', 'ul', 'ol', 'dl', 'table', 'article', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'hr', 'header', 'footer','details', 'summary', 'section', 'aside', ''];
+
+        if(blockArr.indexOf(obj.tagName.toLocaleLowerCase()) === -1){
+            obj.style.display = 'inline';
+        }
+        else {
+            obj.style.display = 'block';
+        }
+    },
+
+    hide:function(obj){
+        obj.style.display='none';
+    }
+</div>     
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        
         <section class="main-section" id="titleCaseUp">
             <header>句中单词首字母大写</header>
             <article>
@@ -1233,6 +1430,15 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
 
         <section class="main-section" id="titleCaseUp">
+            <header>获取兄弟节点</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        <section class="main-section" id="titleCaseUp">
             <header>句中单词首字母大写</header>
             <article>
         
@@ -1251,6 +1457,43 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
             <hr>
         </section>
 
+        <section class="main-section" id="titleCaseUp">
+            <header>获取兄弟节点</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
+        
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="titleCaseUp">
+            <header>获取兄弟节点</header>
+            <article>
+        
+            </article>
+            <p class="nach-oben"><a href="#navbar">nach oben</a></p>
+            <hr>
+        </section>
+        
         <section class="main-section" id="titleCaseUp">
             <header>句中单词首字母大写</header>
             <article>
