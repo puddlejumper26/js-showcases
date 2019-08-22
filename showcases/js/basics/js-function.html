@@ -151,6 +151,33 @@
             <a class="nav-link nav-head" href="#" rel="internal">
                 <li>DOM</li>
             </a>
+            <a class="nav-link" href="#hasClass" rel="internal">
+                <li>-- 检测对象是否有哪个类名 - hasClass()</li>
+            </a>
+            <a class="nav-link" href="#addClass" rel="internal">
+                <li>-- 添加类名 - addClass()</li>
+            </a>
+            <a class="nav-link" href="#removeClass" rel="internal">
+                <li>-- 删除类名 - removeClass()</li>
+            </a>
+            <a class="nav-link" href="#replaceClass" rel="internal">
+                <li>-- 替换类名 - replaceClass()</li>
+            </a>
+            <a class="nav-link" href="#siblings" rel="internal">
+                <li>-- 获取兄弟节点 - siblings()</li>
+            </a>
+            <a class="nav-link" href="#css" rel="internal">
+                <li>-- 设置样式 - css()</li>
+            </a>
+            <a class="nav-link" href="#html" rel="internal">
+                <li>-- 设置文本内容 - html() / text()</li>
+            </a>
+            <a class="nav-link" href="#show" rel="internal">
+                <li>-- 显示隐藏 - show()/hide()</li>
+            </a>
+            <a class="nav-link nav-head" href="#" rel="internal">
+                <li>Others</li>
+            </a>
             <a class="nav-link" href="#replaceAll" rel="internal">
                 <li>-- 过滤字符串</li>
             </a>
@@ -1391,7 +1418,7 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
 </h2>   
 <div class="code">
     show:function(obj){
-        
+
         var blockArr=['div', 'li', 'ul', 'ol', 'dl', 'table', 'article', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'hr', 'header', 'footer','details', 'summary', 'section', 'aside', ' ' ];
 
         if(blockArr.indexOf(obj.tagName.toLocaleLowerCase()) === -1){
