@@ -135,7 +135,7 @@ var jsFuncEs5={
         }
     },
     //这里的 $1, $2 是 replace方法里的自带属性，https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
-    
+
 
 //检测字符串
     //检测字符串
@@ -368,6 +368,20 @@ var jsFuncEs5={
         return this.trim(result,4)
         //trim 4, 是去掉后空格
     },
+
+
+//字符串变成数组数字
+    //stringToArray('123')
+    // result: [1,2,3]
+    stringToArray: function (str) {
+        var arr = str.split('');
+        return JSON.parse('[' + String(arr) + ']');
+    },
+
+
+//数字千位分隔符
+    //‘1234567’ -> '1,234,567'
+    //注意这里仍旧是字符串
 
 
 //****************************数组操作****************************/
