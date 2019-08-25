@@ -103,6 +103,21 @@
             <a class="nav-link" href="#titleCaseUp" rel="internal">
                 <li>-- 句中单词首字母大写 - titleCaseUp()</li>
             </a>
+            <a class="nav-link" href="#stringToArray" rel="internal">
+                <li>-- 字符串变成数组数字 - stringToArray()</li>
+            </a>
+            <a class="nav-link" href="#stringThousand" rel="internal">
+                <li>-- 数字千位分隔符 - stringThousand()</li>
+            </a>
+            <a class="nav-link" href="#multiStringThousand" rel="internal">
+                <li>-- 多个数字千位分隔 - multiStringThousand()</li>
+            </a>
+            <a class="nav-link nav-head" href="#removeRepeatArray" rel="internal">
+                <li>Number</li>
+            </a>
+            <a class="nav-link" href="#currencyFormat" rel="internal">
+                <li>-- 货币格式化 - currencyFormat()</li>
+            </a>
             <a class="nav-link nav-head" href="#removeRepeatArray" rel="internal">
                 <li>Array</li>
             </a>
@@ -873,33 +888,7 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
             <hr>
         </section>
 
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
-            <article>
-                <div class="note">
-                    //titleCaseUp('this is a title')
-                    //"This Is A Title"
-                </div>
-                <h2>ES 5</h2>
-                <div class="code">
-                    titleCaseUp:function(str,splitType){
-                    var _splitType = splitType || /\s+/g;
-                    var strArr = str.split(_splitType),
-                    result = "",
-                    _this = this;
-        
-                    strArr.forEach(function(item){
-                    result += _this.changeCase(item,1)+' ';
-                    })
-        
-                    return this.trim(result,4);
-                    //trim 4, 是去掉后空格
-                    }
-                </div>
-            </article>
-            <p class="nach-oben"><a href="#trim">nach oben</a></p>
-            <hr>
-        </section>
+ 
 
 
         <section class="main-section" id="removeRepeatArray">
