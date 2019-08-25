@@ -793,6 +793,86 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
         </section>
     
 
+        <section class="main-section" id="stringThousand">
+            <header>数字千位分隔符</header>
+            <article>
+                <div class="note">
+                    //‘1234567’ -> '1,234,567'
+                    //
+                    //注意这里仍旧是字符串
+                    //
+                    // 弄出最后一个逗号 (?=\d{3}$)
+                    // 弄出所有逗号 (?=(\d{3})+$)
+                    //var result = "12345678".replace(/(?=(\d{3})+$)/g, ',')
+                    // => "12,345,678" 但是这时候会出现问题，如果数字位数为3的倍数，那么所有的数字前会有一个逗号
+                    // 如: ",123,165,546"
+                </div>
+                <h2>ES 5</h2>
+                <div class="code">
+                    stringThousand:function(str){
+                        var regex = /(?!^)(?=(\d{3})+$)/g;
+                        return str.replace(regex,',');
+                    }
+
+                    //(?=l)，表示 "l" 字符前面的位置
+                    // var result = "hello".replace(/(?=l)/g, '#');
+                    // console.log(result); "he#l#lo"
+                    //(?!p) 就是 (?=p) 的反面意思
+                    //var result = "hello".replace(/(?!l)/g, '#');
+                    // console.log(result); "#h#ell#o#"
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#trim">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="multiStringThousand">
+            <header>多个数字千位分隔</header>
+            <article>
+                <div class="note">
+                    //"12345678 123456789"
+                    //"12,345,678 123,456,789"
+                </div>
+                <h2>ES 5</h2>
+                <div class="code">
+                    multiStringThousand:function(str){
+                        var regex = /(?!\b)(?=(\d{3})+\b)/g;
+                        return str.replace(regex,',');
+                    }
+
+                    //(?!\b) 要求当前是一个位置，但不是 \b 前面的位置,其实就是 \B
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#trim">nach oben</a></p>
+            <hr>
+        </section>
+
+        <section class="main-section" id="currencyFormat">
+            <header>货币格式化</header>
+            <article>
+                <div class="note">
+                    //currencyFormat(1888,'$') -> '$ 1,888.00'
+                    //currencyFormat(18880,'￥') -> '￥ 1,8880.00'
+                </div>
+                <h2>ES 5</h2>
+                <div class="code">
+                    currencyFormat:function(num,cur){
+                        if (cur === '$' || cur === '€'){
+                            return num.toFixed(2).replace(/\B(?=(\d{3})+\b)/g, ",").replace(/^/,cur+' ');
+                        } else if(cur === '￥'){
+                            return num.toFixed(2).replace(/\B(?=(\d{4})+\b)/g, ",").replace(/^/, cur + ' ');
+                        } else {
+                            return 'Please input the correct currency unit!'
+                        }
+
+                    }
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#trim">nach oben</a></p>
+            <hr>
+        </section>
+
         <section class="main-section" id="titleCaseUp">
             <header>句中单词首字母大写</header>
             <article>
@@ -820,37 +900,6 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
             <p class="nach-oben"><a href="#trim">nach oben</a></p>
             <hr>
         </section>
-
-
-        <section class="main-section" id="titleCaseUp">
-            <header>句中单词首字母大写</header>
-            <article>
-                <div class="note">
-                    //titleCaseUp('this is a title')
-                    //"This Is A Title"
-                </div>
-                <h2>ES 5</h2>
-                <div class="code">
-                    titleCaseUp:function(str,splitType){
-                    var _splitType = splitType || /\s+/g;
-                    var strArr = str.split(_splitType),
-                    result = "",
-                    _this = this;
-        
-                    strArr.forEach(function(item){
-                    result += _this.changeCase(item,1)+' ';
-                    })
-        
-                    return this.trim(result,4);
-                    //trim 4, 是去掉后空格
-                    }
-                </div>
-            </article>
-            <p class="nach-oben"><a href="#trim">nach oben</a></p>
-            <hr>
-        </section>
-
-
 
 
         <section class="main-section" id="removeRepeatArray">

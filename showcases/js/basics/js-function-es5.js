@@ -425,12 +425,11 @@ var jsFuncEs5={
     //currencyFormat(1888,'$') -> '$ 1,888.00'
     //currencyFormat(18880,'￥') -> '￥ 1,8880.00'
     currencyFormat:function(num,cur){
-        if(cur === '$'){
+        if (cur === '$' || cur === '€'){
             return num.toFixed(2).replace(/\B(?=(\d{3})+\b)/g, ",").replace(/^/,cur+' ');
-        }
-        if(cur === '￥'){
+        } else if(cur === '￥'){
             return num.toFixed(2).replace(/\B(?=(\d{4})+\b)/g, ",").replace(/^/, cur + ' ');
-        }
+        } else {return 'Please input the correct currency unit!'}
     },
 
 
