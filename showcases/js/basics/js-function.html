@@ -772,7 +772,87 @@ strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuad
             <p class="nach-oben"><a href="#trim">nach oben</a></p>
             <hr>
         </section>
+
+        <section class="main-section" id="stringToArray">
+            <header>字符串变成数组数字</header>
+            <article>
+                <div class="note">
+                    //stringToArray('123')
+                    // result: [1,2,3]
+                </div>
+                <h2>ES 5</h2>
+                <div class="code">
+                    stringToArray:function(str){
+                        var arr = str.split(',');
+                        return JSON.parse('['+ String(arr) +']');
+                    }
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#trim">nach oben</a></p>
+            <hr>
+        </section>
     
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+                <div class="note">
+                    //titleCaseUp('this is a title')
+                    //"This Is A Title"
+                </div>
+                <h2>ES 5</h2>
+                <div class="code">
+                    titleCaseUp:function(str,splitType){
+                    var _splitType = splitType || /\s+/g;
+                    var strArr = str.split(_splitType),
+                    result = "",
+                    _this = this;
+        
+                    strArr.forEach(function(item){
+                    result += _this.changeCase(item,1)+' ';
+                    })
+        
+                    return this.trim(result,4);
+                    //trim 4, 是去掉后空格
+                    }
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#trim">nach oben</a></p>
+            <hr>
+        </section>
+
+
+        <section class="main-section" id="titleCaseUp">
+            <header>句中单词首字母大写</header>
+            <article>
+                <div class="note">
+                    //titleCaseUp('this is a title')
+                    //"This Is A Title"
+                </div>
+                <h2>ES 5</h2>
+                <div class="code">
+                    titleCaseUp:function(str,splitType){
+                    var _splitType = splitType || /\s+/g;
+                    var strArr = str.split(_splitType),
+                    result = "",
+                    _this = this;
+        
+                    strArr.forEach(function(item){
+                    result += _this.changeCase(item,1)+' ';
+                    })
+        
+                    return this.trim(result,4);
+                    //trim 4, 是去掉后空格
+                    }
+                </div>
+            </article>
+            <p class="nach-oben"><a href="#trim">nach oben</a></p>
+            <hr>
+        </section>
+
+
+
+
         <section class="main-section" id="removeRepeatArray">
             <header>数组去重</header>
             <article>
