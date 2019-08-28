@@ -1,0 +1,969 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Leetcode | Algorithms</title>
+<link rel="stylesheet" href="styles/sass-basics.css">
+<script src="js-function-es5.js"></script>
+<style>
+/* template */
+    html,body{min-width:290px;color: #4d4e53;background-color: #ffffff;font-family: 'Open Sans',Arial,sans-serif;line-height: 1.5;}
+    #navbar{position:fixed;min-width:290px;top:0px;left:0px;width:300px;height:100%;border-right:solid;border-color:rgba(22, 15, 0, 0.4)}
+    header{color:black;font-size: 30px;margin:10px;text-align:center;font-size:1.8em;font-weight:thin;}
+    .nav-head{font-weight:900;font-size: 20px;}
+    .nav-subhead{font-weight:800}
+    #main-doc header{text-align:left;margin:0px;}
+    #navbar ul{height:88%;overflow-y:auto;overflow-x:hidden;}
+    #navbar li{color: #4d4e53;border:1px solid;border-bottom-width:0px;padding:8px;padding-left:45px;list-style: none;position:relative;left:-50px;width:100%;}
+    #navbar a{color: #4d4e53;text-decoration:none;cursor:pointer;} 
+
+    .note{display:block;text-align: left; white-space: pre;position: relative;word-break: normal;word-wrap: normal;line-height: 1;background-color:rgba(228, 214, 29, 0.8);padding:5px;margin:10px;border-left-style:solid;border-left-color: rgb(51, 182, 80);border-left-width: 5px;}
+
+    #main-doc{position: absolute;margin-left:310px;padding:20px;margin-bottom:110px;}
+    section article{color: #4d4e53;margin:15px;font-size:0.96em;}
+    section li {margin:15px 0px 0px 20px;}
+
+    .code{display:block;text-align: left; white-space: pre;position: relative;word-break: normal;word-wrap: normal;line-height: 1;background-color:rgb(208, 223, 208,0.8);padding:5px;margin:10px;border-radius:5px;}
+
+    @media only screen and (max-width: 815px) {
+        /* For mobile phones: */
+        #navbar ul{border:1px solid;height:207px;}
+        #navbar{background-color:white;position:absolute;top:0;padding:0;margin: 0;width:100%;max-height:275px;border:none;z-index:1;
+        border-bottom:2px solid;}
+        #main-doc{position: relative;margin-left:0px;margin-top:270px;}
+        #main-doc section {/*     padding-top: 240px; */  }
+        img{width:100%;}
+    }
+    @media only screen and (max-width: 400px) {
+        #main-doc{margin-left:-10px;}
+       .note .code{margin-left:-20px; text-align:left;width:100%;padding:5px;padding-left:10px;padding-right:45px;min-width:233px;word-wrap:break-word;position: relative;}
+       img{width:300px;}
+
+    }
+
+/* main section */
+
+
+    
+
+</style>
+
+</head>
+<body class="bodyss">
+    
+    <nav id="navbar">
+        <header><strong>LeetCode</strong></header>
+        <ul>
+ 
+            <a class="nav-link nav-head" href="#" rel="internal">
+                <li>Easy</li>
+            </a>
+            <!-- <a class="nav-link nav-subhead" href="#" rel="internal">
+                <li>- Function-Method</li>lo
+            </a> -->
+            <a class="nav-link" href="#palindrome_number" rel="internal">
+                <li>-- 回文数 - 9</li>
+            </a>
+            <a class="nav-link" href="#valid_parenthesis" rel="internal">
+                <li>-- 有效的括号 - 20 </li>
+            </a>
+            <a class="nav-link" href="#remove-duplicates-from-sorted-array" rel="internal">
+                <li>-- remove-duplicates-from-sorted-array 26</li>
+            </a>
+            <a class="nav-link" href="#merge-sorted-array" rel="internal">
+                <li>-- merge-sorted-array - 88</li>
+            </a>
+            <a class="nav-link" href="#maximum-depth-of-binary-tree" rel="internal">
+                <li>-- maximum-depth-of-binary-tree 104</li>
+            </a>
+            <a class="nav-link" href="#checkType" rel="internal">
+                <li>-- 检测字符串 - checkType()</li>
+            </a>
+            <a class="nav-link" href="#checkPwd" rel="internal">
+                <li>-- 检测密码强度 - checkPwd()</li>
+            </a>
+            <a class="nav-link" href="#randomWord" rel="internal">
+                <li>-- 随机码（toString详解）-randomWord()</li>
+            </a>
+            <a class="nav-link" href="#countStr" rel="internal">
+                <li>-- 查找字符串出现的次数 - countStr()</li>
+            </a>
+            <a class="nav-link" href="#filterStr" rel="internal">
+                <li>-- 过滤字符串 - filterStr()</li>
+            </a>
+            <a class="nav-link" href="#formatText" rel="internal">
+                <li>-- 格式化处理字符串 - formatText()</li>
+            </a>
+            <a class="nav-link" href="#longestWord" rel="internal">
+                <li>-- 找出最长单词 - longestWord()</li>
+            </a>
+            <a class="nav-link" href="#titleCaseUp" rel="internal">
+                <li>-- 句中单词首字母大写 - titleCaseUp()</li>
+            </a>
+            <a class="nav-link" href="#stringToArray" rel="internal">
+                <li>-- 字符串变成数组数字 - stringToArray()</li>
+            </a>
+            <a class="nav-link" href="#stringThousand" rel="internal">
+                <li>-- 数字千位分隔符 - stringThousand()</li>
+            </a>
+            <a class="nav-link" href="#multiStringThousand" rel="internal">
+                <li>-- 多个数字千位分隔 - multiStringThousand()</li>
+            </a>
+            <a class="nav-link nav-head" href="#removeRepeatArray" rel="internal">
+                <li>Number</li>
+            </a>
+            <a class="nav-link" href="#currencyFormat" rel="internal">
+                <li>-- 货币格式化 - currencyFormat()</li>
+            </a>
+            <a class="nav-link nav-head" href="#removeRepeatArray" rel="internal">
+                <li>Array</li>
+            </a>
+            <a class="nav-link" href="#removeRepeatArray" rel="internal">
+                <li>-- 数组去重 - removeRepeatArray()</li>
+            </a>
+            <a class="nav-link" href="#upsetArr" rel="internal">
+                <li>-- 数组顺序打乱 - upsetArr()</li>
+            </a>
+            <a class="nav-link" href="#downArr" rel="internal">
+                <li>-- 数组降/升序排列 - downArr()/upArr()</li>
+            </a>
+            <a class="nav-link" href="#maxArr" rel="internal">
+                <li>-- 数组最大值最小值 - maxArr()/minArr()</li>
+            </a>
+            <a class="nav-link" href="#sumArr" rel="internal">
+                <li>-- 数组求和，平均值 - sumArr() / covArr()</li>
+            </a>
+            <a class="nav-link" href="#randomOne" rel="internal">
+                <li>-- 从数组中随机获取元素 - randomOne()</li>
+            </a>
+            <a class="nav-link" href="#getEleCount" rel="internal">
+                <li>-- 返回数组（字符串）一个元素出现的次数 - getEleCount()</li>
+            </a>
+            <a class="nav-link" href="#getCount" rel="internal">
+                <li>-- 返回数组（字符串）出现最多的几次元素和出现次数 - getCount()</li>
+            </a>
+            <a class="nav-link" href="#getArrayNum" rel="internal">
+                <li>-- 得到n1-n2下标的数组 - getArrayNum()</li>
+            </a>
+            <a class="nav-link" href="#removeArrayForValue" rel="internal">
+                <li>-- 筛选数组 - removeArrayForValue()</li>
+            </a>
+            <a class="nav-link" href="#getOptionArray" rel="internal">
+                <li>-- 获取对象数组某些项 - getOptionArray()</li>
+            </a>
+            <a class="nav-link" href="#filterOptionArray" rel="internal">
+                <li>-- 排除对象数组某些项 - filterOptionArray()</li>
+            </a>
+            <a class="nav-link" href="#arraySort" rel="internal">
+                <li>-- 对象数组排序 - arraySort()</li>
+            </a>
+            <a class="nav-link" href="#steamroller" rel="internal">
+                <li>-- 数组扁平化 - steamroller()</li>
+            </a>
+            <a class="nav-link nav-head" href="#hasClass" rel="internal">
+                <li>DOM</li>
+            </a>
+            <a class="nav-link" href="#hasClass" rel="internal">
+                <li>-- 检测对象是否有哪个类名 - hasClass()</li>
+            </a>
+            <a class="nav-link" href="#addClass" rel="internal">
+                <li>-- 添加类名 - addClass()</li>
+            </a>
+            <a class="nav-link" href="#removeClass" rel="internal">
+                <li>-- 删除类名 - removeClass()</li>
+            </a>
+            <a class="nav-link" href="#replaceClass" rel="internal">
+                <li>-- 替换类名 - replaceClass()</li>
+            </a>
+            <a class="nav-link" href="#siblings" rel="internal">
+                <li>-- 获取兄弟节点 - siblings()</li>
+            </a>
+            <a class="nav-link" href="#css" rel="internal">
+                <li>-- 设置样式 - css()</li>
+            </a>
+            <a class="nav-link" href="#html" rel="internal">
+                <li>-- 设置文本内容 - html() / text()</li>
+            </a>
+            <a class="nav-link" href="#show" rel="internal">
+                <li>-- 显示隐藏 - show()/hide()</li>
+            </a>
+            <a class="nav-link nav-head" href="#" rel="internal">
+                <li>Others</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+            <a class="nav-link" href="#replaceAll" rel="internal">
+                <li>-- 过滤字符串</li>
+            </a>
+        </ul>
+    </nav>
+
+<main id="main-doc">
+ 
+<!-- 回文数 - 9 -->
+        <section class="main-section" id="palindrome_number">
+            <header>回文数- 9</header>
+        <h1>Question: 9 Palindrome Number</h1>
+<pre>
+    Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+    
+    Example 1:
+    
+    Input: 121
+    Output: true
+    Example 2:
+    
+    Input: -121
+    Output: false
+    Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+    Example 3:
+    
+    Input: 10
+    Output: false
+    Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+</pre>
+        
+        <h1>Resource:</h1>
+<pre>
+    <a href="https://github.com/MisterBooo/LeetCodeAnimation/blob/master/notes/LeetCode%E7%AC%AC9%E5%8F%B7%E9%97%AE%E9%A2%98%EF%BC%9A%E5%9B%9E%E6%96%87%E6%95%B0.md" target="_blank">Click!</a>   
+</pre>
+
+        <h1>Key Points</h1>
+        <ul>
+            <li>String, Number 都可以</li>
+        </ul>
+        
+        <h1>GIF</h1>
+        <img src="gif/9.gif" alt="">
+        
+        <br>
+        (gif：https://github.com/MisterBooo/LeetCodeAnimation)
+        
+        
+        <h1>Solution in JS</h1>
+        <pre class="code">
+        // through string and Array()
+    
+    function huiwen (word){
+        
+        word=word.toString();
+        
+        var arr= new Array();
+        
+        for( var i = 0 ; i < word.length ; i ++ ){ 
+            arr.push( word[i] ); 
+        } 
+        
+        var rword='' ; 
+        while( arr.length> 0 ){
+            rword += arr.pop();
+        }
+    
+        if( word == rword ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+                </pre>
+
+
+            <p class="nach-oben"><a href="#">nach oben</a></p>
+            <hr>
+        </section>
+
+<!-- 有效的括号 - 20 -->
+        <section class="main-section" id="valid_parenthesis">
+            <header>有效的括号 - 20</header>
+            <h1>Question: 20 Valid Parenthesis</h1>
+            <pre>
+    Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+    
+    An input string is valid if:
+    
+    Open brackets must be closed by the same type of brackets.
+    Open brackets must be closed in the correct order.
+    Note that an empty string is also considered valid.
+    
+    Example 1:
+    
+    Input: "()"
+    Output: true
+    Example 2:
+    
+    Input: "()[]{}"
+    Output: true
+    Example 3:
+    
+    Input: "(]"
+    Output: false
+    Example 4:
+    
+    Input: "([)]"
+    Output: false
+    Example 5:
+    
+    Input: "{[]}"
+    Output: true
+            </pre>
+            
+            <h1>Resource:</h1>
+            <pre>
+    <a href="https://github.com/azl397985856/leetcode/blob/master/problems/20.validParentheses.md" target="_blank">Click!</a>
+
+    solution in JAVA : <a href="https://github.com/MisterBooo/LeetCodeAnimation/blob/master/notes/LeetCode%E7%AC%AC20%E5%8F%B7%E9%97%AE%E9%A2%98%EF%BC%9A%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7.md" target="_blank">click</a>
+            </pre>
+            
+            <h1>Key Points</h1>
+            <pre>
+                1. Stack 
+                2. push(), pop()
+            </pre>
+            
+            <h1>GIF</h1>
+            <img src="gif/20.gif" alt="">
+            <br>(gif： https://github.com/MisterBooo/LeetCodeAnimation)
+            <h1>Solution in JS</h1>
+            <pre class="code">
+    var s;
+    
+    var isValidParenthesis = function (s){
+        // let valid = true;
+        const stack = [];
+        const mapper = {
+            "{" : "}",
+            "[" : "]",
+            "(" : ")"
+        }
+        
+        for (let i in s){
+            const v=s[i];
+            console.log("v--"+v);
+            if(['(','[','{'].indexOf(v) > -1){ 
+                //说明数组里面有v这个元素
+                stack.push(v);
+                console.log('stack[p]--'+stack);
+            }else{
+                const peak = stack.pop();
+                console.log('peak--'+peak);
+                console.log('stack[a]--' + stack);
+                console.log('mapper[peak]--'+mapper[peak])
+                if (v !== mapper[peak]){
+                    return false;
+                }
+            }
+        }
+        
+        if (stack.length > 0) return false;
+        
+        return true;
+    
+    }
+    
+    console.log(isValid('[())'))
+            </pre>
+
+            <p class="nach-oben"><a href="#trim">nach oben</a></p>
+            <hr>
+        </section>
+       
+<!-- remove-duplicates-from-sorted-array 26 -->
+        <section class="main-section" id="remove-duplicates-from-sorted-array">
+            <header>remove-duplicates-from-sorted-array 26</header>
+    <h1>Question: 26.remove-duplicates-from-sorted-array</h1>
+    <pre>
+Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new
+length.
+
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra
+memory.
+
+Example 1:
+
+Given nums = [1,1,2],
+
+Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
+
+It doesn't matter what you leave beyond the returned length. Example 2:
+
+Given nums = [0,0,1,1,1,2,2,3,3,4],
+
+Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4
+respectively.
+
+It doesn't matter what values are set beyond the returned length. Clarification:
+
+Confused why the returned value is an integer but your answer is an array?
+
+Note that the input array is passed in by reference, which means modification to the input array will be known to the
+caller as well.
+
+Internally you can think of this:
+         </pre>
+    <pre class="code">
+// nums is passed in by reference. (i.e., without making a copy)
+int len = removeDuplicates(nums);
+
+// any modification to nums in your function would be known by the caller.
+// using the length returned by your function, it prints the first len elements.
+for (int i = 0; i < len; i++) { print(nums[i]); }
+         </pre>
+    
+    <h1>Resources:</h1>
+<a href="https://github.com/azl397985856/leetcode/blob/master/problems/26.remove-duplicates-from-sorted-array.md" target="_blank">Click!</a>
+
+<br>
+solution in JAVA: <a href="https://github.com/MisterBooo/LeetCodeAnimation/blob/master/notes/LeetCode%E7%AC%AC26%E5%8F%B7%E9%97%AE%E9%A2%98%EF%BC%9A%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9.md" target="_blank">click</a>
+
+    
+    <h1>Key Points</h1>
+    <li>双指针</li>这道题如果不要求，O(n)的时间复杂度， O(1)的空间复杂度的话，会很简单。 但是这道题是要求的，这种题的思路一般都是采用双指针
+    <li>如果是数据是无序的，就不可以用这种方式了，从这里也可以看出排序在算法中的基础性和重要性。</li>
+    
+    <h1>GIF</h1>
+    <img src="gif/26.gif" alt="">
+    <br>(gif： https://github.com/MisterBooo/LeetCodeAnimation)
+    
+    <h1>Solution in JS</h1>
+    <pre class="code">
+            var removeDuplicates = function(nums) {
+                const size = nums.length;
+                let slowP = 0;
+                for (let fastP = 0; fastP < size; fastP++) {
+                    if (nums[fastP] !== nums[slowP]) {
+                        slowP++;
+                        nums[slowP] = nums[fastP]
+                    }   
+                }
+                return slowP + 1;
+            };
+        </pre>
+    
+    <pre class="code">
+            // Using Set (ES6)
+    
+            var removeDuplicates = function(nums) {
+                let set = new Set(nums);
+                let setArr = [...set];
+                return setArr;
+            };
+    
+        </pre>
+            <p class="nach-oben"><a href="#">nach oben</a></p>
+            <hr>
+        </section>
+
+<!-- maximum-sum-subarray-cn 55 -->
+        <section class="main-section" id="maximum-sum-subarray-cn">
+            <header>maximum-sum-subarray-cn 55</header>
+<h1>Question: 55.maximum-sum-subarray-cn</h1>
+
+    Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and
+    return its sum.
+    <br>
+    <h3>Example:</h3>
+    
+    Input: [-2,1,-3,4,-1,2,1,-5,4],<br>
+    Output: 6  <br>
+    Explanation: [4,-1,2,1] has the largest sum = 6. <br>
+    Follow up:
+    <br>
+    If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is
+    more subtle.
+
+
+<h1>Resources:</h1>
+<a href="https://github.com/azl397985856/leetcode/blob/master/problems/53.maximum-sum-subarray-cn.md" target="_blank">Click!</a>
+
+<h1>Key Points</h1>
+    <li>求解连续最大子序列和</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_VALUE" target="_blank">Number.MAX_VALUE</a></li>
+    <li>MAX_VALUE 属性值接近于 1.79E+308。大于 MAX_VALUE 的值代表 "Infinity"。</li>
+
+
+<h1>Solution in JS</h1>
+<pre class="code">
+<h2>解法二 - 前缀和 + 暴力</h2>
+var maximumSumSubarray = function(arr){
+    var arrLength = arr.length;
+    var max = -Number.MAX_VALUE;
+    var sum =0;
+    for(let i=0;i < arrLength;i++){ 
+        sum=0; 
+        for(let j=i;j < arrLength;j++){ 
+            sum +=arr[j]; 
+            if(sum > max){
+                max = sum;
+            }
+        }
+    }
+    return max
+}
+
+<h2>解法三 - 优化前缀和</h2>
+var maximumSumSubarray = function(arr) {
+  const len = arr.length;
+  let max = arr[0];
+  let min = 0;
+  let sum = 0;   
+  for (let i = 0; i < len; i++) {
+    sum += arr[i];
+    if (sum - min > max) max = sum - min;
+    if (sum < min) min = sum;
+  }
+  return max;
+}
+
+<h2></h2>
+var maximumSumSubarray = function(arr) {
+  const len = arr.length;
+  let max = arr[0];
+  for (let i = 1; i < len; i++) {
+      <!-- 注意这里的arr[i]在每次计算之后会保留到下一次计算中 -->
+    arr[i] = Math.max(0, arr[i - 1]) + arr[i];
+    if (arr[i] > max) max = arr[i];
+  }
+
+  return max;
+}
+</pre>
+
+            <p class="nach-oben"><a href="#">nach oben</a></p>
+            <hr>
+        </section>
+
+<!-- merge-sorted-array 88 -->
+        <section class="main-section" id="merge-sorted-array">
+            <header>merge-sorted-array 88</header>
+<h1>Question: 88 Merge_sorted_array</h1>
+
+Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.<br><br>
+
+Note:<br><br>
+
+The number of elements initialized in nums1 and nums2 are m and n respectively.<br>
+You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from
+nums2.
+<br><br>
+Example:
+<br><br>
+Input:<br>
+nums1 = [1,2,3,0,0,0], m = 3<br>
+nums2 = [2,5,6], n = 3<br>
+<br>
+Output: [1,2,2,3,5,6]
+
+<h1>Resources:</h1>
+https://github.com/azl397985856/leetcode/blob/master/problems/88.merge-sorted-array.md
+<!-- Solution in JAVA: <a href="">click</a> -->
+<h1>Key Points</h1>
+<li>符合直觉的做法是将nums2插到num1的末尾, 然后排序</li>
+<pre class="code">
+    // 这种解法连m都用不到
+    // 这显然不是出题人的意思
+    if (n === 0) return;
+    let current2 = 0;
+    for(let i = nums1.length - 1; i >= nums1.length - n ; i--) {
+        nums1[i] = nums2[current2++];
+    }
+    nums1.sort((a, b) => a - b); 
+    // 当然你可以自己写排序，这里懒得写了，
+    //因为已经偏离了题目本身
+</pre>
+
+我这里理解可以将 arr2 直接加到arr1 的后面，然后进行排序就可以了
+<pre class="code">
+    var arr1=[1,2,3];
+    var arr2=[3,4,5];
+    <mark>arr1.push.apply(arr1,arr2);</mark>
+    console.log(arr1.<mark>sort()</mark>);  // [1,2,3,3,4,5]
+</pre>
+这里没有考虑到0这个元素，和题目不符合，那么考虑到0，并且需要删除的话，需要进行遍历，这里只考虑arr1当中有0的情况
+<pre class="code">
+    var arr1=[1,2,3,0,0,0];
+    var arr2=[3,4,5];
+    arr1.push.apply(arr1,arr2);
+    arr1.sort();
+    console.log(arr1);
+    for(let i=0;i < arr1.length;i++){ 
+        if (arr1[0]===0){arr1.<mark>shift()</mark>;} 
+    } 
+    console.log(arr1);
+</pre>
+这里要求原地修改，其实我们能只要从后往前比较，并从后往前插入即可。<br>
+我们需要三个指针：<br><br>
+<ol>
+    <li>current 用于记录当前填补到那个位置了</li>
+
+    <li>m 用于记录 nums1 数组处理到哪个元素了</li>
+
+    <li>n 用于记录 nums2 数组处理到哪个元素了</li>
+</ol>
+如图所示：
+<ul>
+    <li>灰色代表 num2 数组已经处理过的元素</li>
+    <li>红色代表当前正在进行比较的元素</li>
+    <li>绿色代表已经就位的元素</li>
+    <br>下面的例子里m=3，n=3
+</ul>
+<img src="img/88.merge-sorted-array-1.png" alt="">
+<img src="img/88.merge-sorted-array-2.png" alt="">
+<img src="img/88.merge-sorted-array-3.png" alt="">
+
+<pre class="code">
+/**
+* @param {number[]} nums1
+* @param {number} m
+* @param {number[]} nums2
+* @param {number} n
+* @return {void} Do not return anything, modify nums1 in-place instead.
+*/
+
+var mergeSortedArray = function(nums1, m, nums2, n) {
+  
+    // 设置一个指针，指针初始化指向nums1的末尾
+  // 然后不断左移指针更新元素
+  
+  let current = nums1.length - 1;
+
+  while (current >= 0) {
+    
+    // n===0 没必要继续了
+    
+    if (n === 0) return;
+
+    // 为了方便大家理解，这里代码有点赘余
+    
+    if (m < 1) {
+      nums1[current--] = nums2[--n];
+      continue;
+    }
+    
+    // 后置型是包含的语句被求值后才执行的
+
+    if (n < 1) {
+      nums1[current--] = nums1[--m];
+      continue;
+    }
+    
+    // 取大的填充 nums1的末尾
+    // 然后更新 m 或者 n
+    
+    if (nums1[m - 1] > nums2[n - 1]) {
+      nums1[current--] = nums1[--m];
+    } else {
+      nums1[current--] = nums2[--n];
+    }
+  }
+};
+
+</pre>
+            <p class="nach-oben"><a href="#">nach oben</a></p>
+            <hr>
+        </section>
+    
+<!--maximum-depth-of-binary-tree 104  -->
+        <section class="main-section" id="maximum-depth-of-binary-tree">
+        <header>maximum-depth-of-binary-tree 104</header>
+<h1>Question 104: maximum-depth-of-binary-tree</h1>
+Given a binary tree, find its maximum depth.  <br>
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node. 
+<br><br>
+<h3>Note:</h3>
+A leaf is a node with no children.
+<h3>Example:</h3>
+Given binary tree [3,9,20,null,null,15,7],|| For [1, 2, 5, 6, -1, 8, 11] Index 0 = 1 Index 1 = 2 Index 2 = 5, <br><br>
+<pre>
+    3
+   / \
+  9  20
+    /  \
+   15   7
+
+    1  
+   /  \  
+  2    5  
+ / \  / \  
+6 -1 8  11  
+</pre>
+return its depth = 3.
+
+<h1>Resources:</h1>
+<a href="https://github.com/azl397985856/leetcode/blob/master/problems/104.maximum-depth-of-binary-tree.md" target="_blank">Click!</a>
+
+<h1>Key Points</h1>
+<li>于树是一种递归的数据结构，因此用递归去解决的时候往往非常容易</li>
+<li>队列中用 Null(一个特殊元素)来划分每层，或者在对每层进行迭代之前保存当前队列元素的个数（即当前层所含元素个数）</li>
+
+<h1>Solution in JS</h1>
+<pre class="code">
+/*
+ * @lc app=leetcode id=104 lang=javascript
+ *
+ * [104] Maximum Depth of Binary Tree
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxTreeDepth = function(root) {
+  if (!root) return 0;
+  if (!root.left && !root.right) return 1;
+
+  // 层次遍历 BFS
+  let cur = root;
+  const queue = [root, null];
+  let depth = 1;
+
+  while ((cur = queue.shift()) !== undefined) {
+    if (cur === null) {
+      // 注意⚠️： 不处理会无限循环，进而堆栈溢出
+      if (queue.length === 0) return depth;
+      depth++;
+      queue.push(null);
+      continue;
+    }
+    const l = cur.left;
+    const r = cur.right;
+
+    if (l) queue.push(l);
+    if (r) queue.push(r);
+  }
+
+  return depth;
+};
+</pre>
+
+        <p class="nach-oben"><a href="#">nach oben</a></p>
+        <hr>
+        </section>
+
+
+<!--  -->
+        <section class="main-section" id="changeCase">
+            <header>字母大小写切换</header>
+
+            <p class="nach-oben"><a href="#">nach oben</a></p>
+            <hr>
+        </section>
+
+<!--  -->
+        <section class="main-section" id="changeCase">
+            <header>字母大小写切换</header>
+
+            <p class="nach-oben"><a href="#">nach oben</a></p>
+            <hr>
+        </section>
+
+
+<!--  -->
+        <section class="main-section" id="changeCase">
+            <header>字母大小写切换</header>
+
+            <p class="nach-oben"><a href="#">nach oben</a></p>
+            <hr>
+        </section>
+
+
+
+
+
+
+</main>
+
+
+
+
+</body>
+<script>
+// 回文数 - 9 
+function huiwen(word) {
+
+            word = word.toString();
+
+            var arr = new Array();
+
+            for (var i = 0; i < word.length; i++) {
+                arr.push(word[i]);
+            }
+
+            var rword = '';
+            while (arr.length > 0) {
+                rword += arr.pop();
+            }
+
+            if (word == rword) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+// 有效的括号 - 20
+var isValidParenthesis = function (s) {
+        //  let valid = true;
+        const stack = [];
+        const mapper = {
+            "{": "}",
+            "[": "]",
+            "(": ")"
+        }
+
+        for (let i in s) {
+            const v = s[i];
+            console.log("v--" + v);
+            if (['(', '[', '{'].indexOf(v) > -1) { //说明数组里面有v这个元素
+                stack.push(v);
+                console.log('stack[p]--' + stack);
+            } else {
+                const peak = stack.pop();
+                console.log('peak--' + peak);
+                console.log('stack[a]--' + stack);
+                console.log('mapper[peak]--' + mapper[peak])
+                if (v !== mapper[peak]) {
+                    return false;
+                }
+            }
+        }
+
+        if (stack.length > 0) return false;
+
+        return true;
+
+    }
+
+//remove-duplicates-from-sorted-array -26
+var removeDuplicates = function (nums) {
+    let set = new Set(nums);
+    let setArr = [...set];
+    return setArr;
+};
+
+//maximum-sum-subarray-cn - 55
+var maximumSumSubarray = function(arr){
+    var arrLength = arr.length;
+    var max = -Number.MAX_VALUE;
+    var sum =0;
+    for(let i=0;i<arrLength;i++){
+        sum = 0;
+        for(let j=i;j<arrLength;j++){
+            sum += arr[j];
+            if(sum > max){
+                max = sum;
+            }
+        }
+    }
+    return max
+}
+
+// mergeSortedArray - 88
+var mergeSortedArray = function (nums1, m, nums2, n) {
+
+        // 设置一个指针，指针初始化指向nums1的末尾
+        // 然后不断左移指针更新元素
+
+        let current = nums1.length - 1;
+
+        while (current >= 0) {
+
+            // n===0 没必要继续了
+
+            if (n === 0) return;
+
+            // 为了方便大家理解，这里代码有点赘余
+
+            if (m < 1) {
+                nums1[current--] = nums2[--n];
+                continue;
+            }
+
+            // 后置型是包含的语句被求值后才执行的
+
+            if (n < 1) {
+                nums1[current--] = nums1[--m];
+                continue;
+            }
+
+            // 取大的填充 nums1的末尾
+            // 然后更新 m 或者 n
+
+            if (nums1[m - 1] > nums2[n - 1]) {
+                nums1[current--] = nums1[--m];
+            } else {
+                nums1[current--] = nums2[--n];
+            }
+        }
+    };
+
+//maxTreeDepth 104
+var maxTreeDepth = function (root) {
+        if (!root) return 0;
+        if (!root.left && !root.right) return 1;
+
+        // 层次遍历 BFS
+        let cur = root;
+        const queue = [root, null];
+        let depth = 1;
+
+        while ((cur = queue.shift()) !== undefined) {
+            if (cur === null) {
+                // 注意⚠️： 不处理会无限循环，进而堆栈溢出
+                if (queue.length === 0) return depth;
+                depth++;
+                queue.push(null);
+                continue;
+            }
+            const l = cur.left;
+            const r = cur.right;
+
+            if (l) queue.push(l);
+            if (r) queue.push(r);
+        }
+
+        return depth;
+    };
+   
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
