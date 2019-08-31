@@ -1,0 +1,14 @@
+{
+  "name": "5min",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc 5min.ts",
+    "test": "node 5min.js",
+    "start": "npm run build && npm run test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
