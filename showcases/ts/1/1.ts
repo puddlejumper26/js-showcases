@@ -33,8 +33,9 @@
 // let someLength:number = someValue.length;
 // console.log(someLength);
 
-
+//******************* */
 // variable declarations
+//******************* */
 
 // function f(shouldInitialize: boolean) {
 //     if (shouldInitialize) {
@@ -190,6 +191,8 @@
 // let analog=createClock(AnalogClock,7,23);
 
 // console.log(digital.tick());
+
+
 
 // interface Shape{
 //     color:string;
