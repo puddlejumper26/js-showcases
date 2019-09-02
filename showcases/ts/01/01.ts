@@ -21,6 +21,25 @@
 // ]
 // console.log(sumMatrix(newArray));
 
-for(let i=0;i<10;i++){
-    setTimeout(function(){console.log(i);},100*i)
-}
+// for(let i=0;i<10;i++){
+//     setTimeout(function(){console.log(i);},100*i)
+// }
+
+// function printLabel(labeledObj:{size:number,label:string}){
+//     console.log(labeledObj.size);
+// }
+// let myObj = {size:10,label:"size 10 object"};
+// printLabel(myObj);
+
+// interface SquareConfig{
+//     color?:string;
+//     width?:number;
+// }
+// function createSquare(config:SquareConfig):{color:string;area:number}{
+//     return 
+// }
+
+// let mySquare = createSquare({colour:"blue",width:10});
+
+
+
