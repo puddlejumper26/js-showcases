@@ -41,5 +41,4 @@
 
 // let mySquare = createSquare({colour:"blue",width:10});
 
-吧
-
+ sdfg
