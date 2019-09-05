@@ -8,7 +8,8 @@
 // let age1:number = 29;
 // let sentence1:string = `hello, my name is ${fullName1},and my age is ${age1+1} `;
 // console.log(sentence1);
-
+//asdfwfdas
+//asdfwfsa
 
 // let arr:any=[1,2,'a'];
 // let arr2:number[]=[1,2,3];
