@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01. Loading - Floating</title>
+
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #2980b9;
+        }
+
+        .loading {
+            color: white;
+            font-size: 3rem;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            text-transform: uppercase;
+            display: flex;
+            border-radius: 25px;
+        }
+
+        span {
+            background: #34495e;
+            padding: 20px 20px;
+            margin: 10px;
+            line-height: 50px;
+            box-shadow: 5px 5px 5px 25px;
+            animation: bulge 5s infinite;
+        }
+
+        @keyframes bulge {
+            50% {
+                /* 向上的提升高度 */
+                transform: translateY(-60px);
+                /* 下面的白色的高度 */
+                box-shadow: 0 20px 0 #eee;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading">Loading...</div>
+</body>
+<script>
+    let loading = document.querySelector(".loading");
+    let letters = loading.textContent.split("");
+    console.log(letters);
+    loading.textContent = "";
+    // arr.forEach(callback(currentValue [, index [, array]])[, thisArg]);
+    //currentValue
+    // The current element being processed in the array.
+    // index Optional
+    // The index of the current element being processed in the array.
+    letters.forEach((letter, i) => {
+        // 只有 span 才可以
+        console.log(i);
+        let span = document.createElement("span");
+        span.textContent = letter;
+        span.style.animationDelay = `${i / 5}s`;
+        loading.append(span);
+    });
+</script>
+
+</html>
